@@ -332,4 +332,7 @@ sql("ANALYZE TABLE taxi_db.taxi_trips_mat_view COMPUTE STATISTICS")
 // COMMAND ----------
 
 // MAGIC %sql
-// MAGIC select * from taxi_db.taxi_trips_mat_view where trip_year=2017
+// MAGIC select * from taxi_db.taxi_trips_mat_view where trip_year=2013
+
+// COMMAND ----------
+
