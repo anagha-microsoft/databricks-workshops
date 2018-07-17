@@ -32,23 +32,44 @@
 // COMMAND ----------
 
 import spark.sqlContext.implicits._
+import java.util.Date
+import java.text.SimpleDateFormat
+
+def epochToDateTime(epochTime: Long, formatType: String): String = {
+  var parsedDateString=""
+  
+  if(formatType.equals("DateTime"))
+  {
+    val dateFormat:SimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+    parsedDateString = dateFormat.format(epochTime * 1000L)
+  } 
+  else if(formatType.equals("Date"))
+  {
+    val dateFormat= new SimpleDateFormat("yyyy-MM-dd")
+    parsedDateString = dateFormat.format(epochTime * 1000L)
+  }
+  else
+  {
+    val dateFormat= new SimpleDateFormat("yyyy")
+    parsedDateString = dateFormat.format(epochTime * 1000L)
+  }
+  parsedDateString
+}    
 
 val ratingsDF = sc.textFile("/mnt/data/movielens/stagingDir/ratings.dat").map{ line =>
   val fields = line.split("::")
-  (fields(3).toLong, fields(0).toInt, fields(1).toInt, fields(2).toDouble)
-}.toDF("rating_epoch_ts","user_id","movie_id","rating")
+  (epochToDateTime(fields(3).toLong,"DateTime"),epochToDateTime(fields(3).toLong,"Date"), epochToDateTime(fields(3).toLong,"Year"), fields(0).toInt, fields(1).toInt, fields(2).toDouble)
+}.toDF("rating_ts","rating_date","rating_year","user_id","movie_id","rating")
 ratingsDF.show()
 
 // COMMAND ----------
 
 //Remove any prior existence of files
-val destinationDirRoot = "/mnt/data/movielens/rawDir/movies/"
+val destinationDirRoot = "/mnt/data/movielens/rawDir/ratings/"
 dbutils.fs.rm(destinationDirRoot,recurse=true)
 
-// COMMAND ----------
-
 //Persist to DBFS
-moviesDF.coalesce(1).write.csv(destinationDirRoot)
+ratingsDF.coalesce(1).write.csv(destinationDirRoot)
 
 //Delete flag files
 recursivelyDeleteSparkJobFlagFiles(destinationDirRoot)
@@ -69,22 +90,24 @@ display(dbutils.fs.ls(destinationDirRoot))
 // MAGIC %sql
 // MAGIC use movielens_db;
 // MAGIC 
-// MAGIC DROP TABLE IF EXISTS movies;
-// MAGIC CREATE EXTERNAL TABLE movies (
-// MAGIC   id INT,
-// MAGIC   name STRING,
-// MAGIC   year INT,
-// MAGIC   genre_list STRING)
+// MAGIC DROP TABLE IF EXISTS ratings;
+// MAGIC CREATE EXTERNAL TABLE ratings (
+// MAGIC   rating_ts STRING,
+// MAGIC   rating_date STRING,
+// MAGIC   rating_year INT,
+// MAGIC   user_id INT,
+// MAGIC   movie_id INT,
+// MAGIC   rating DOUBLE)
 // MAGIC ROW FORMAT DELIMITED
 // MAGIC FIELDS TERMINATED BY ','
-// MAGIC LOCATION '/mnt/data/movielens/rawDir/movies';
+// MAGIC LOCATION '/mnt/data/movielens/rawDir/ratings';
 // MAGIC   
 // MAGIC ANALYZE TABLE users COMPUTE STATISTICS;
 
 // COMMAND ----------
 
 // MAGIC %sql
-// MAGIC select * from movielens_db.movies;
+// MAGIC select * from movielens_db.ratings;
 
 // COMMAND ----------
 
@@ -94,7 +117,7 @@ display(dbutils.fs.ls(destinationDirRoot))
 
 // COMMAND ----------
 
-val df = sql("""select * from movielens_db.movies""").cache()
+val df = sql("""select * from movielens_db.ratings""").cache()
 
 // COMMAND ----------
 
@@ -107,4 +130,4 @@ df.describe().show()
 // COMMAND ----------
 
 // MAGIC %sql
-// MAGIC select * from movielens_db.movies where id=1
+// MAGIC select * from movielens_db.ratings where movie_id=1
