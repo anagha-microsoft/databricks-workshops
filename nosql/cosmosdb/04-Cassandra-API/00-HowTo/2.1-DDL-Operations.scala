@@ -129,6 +129,11 @@ cdbConnector.withSessionDo(session => session.execute("CREATE KEYSPACE books_ks 
 
 // COMMAND ----------
 
+//Validate
+cdbConnector.withSessionDo(session => session.execute("DESCRIBE keyspaces;"))
+
+// COMMAND ----------
+
 // MAGIC %md
 // MAGIC **Validate in cqlsh**<br>
 // MAGIC <code>DESCRIBE keyspaces;</code>
@@ -161,7 +166,11 @@ cdbConnector.withSessionDo(session => session.execute("CREATE KEYSPACE books_ks 
 // COMMAND ----------
 
 // Create keyspace
+//Instantiate cassandra connector
+/*
+val cdbConnector = CassandraConnector(sc)
 cdbConnector.withSessionDo(session => session.execute("DROP KEYSPACE books_ks"))
+*/
 
 // COMMAND ----------
 
@@ -217,7 +226,13 @@ cdbConnector.withSessionDo(session => session.execute("CREATE TABLE books_ks.boo
 
 // COMMAND ----------
 
-// MAGIC %md Not supported currently
+// MAGIC %md 
+// MAGIC (1) Alter table - add/change columns - on the roadmap<BR>
+// MAGIC (2) Alter provisioned throughput - supported
+
+// COMMAND ----------
+
+cdbConnector.withSessionDo(session => session.execute("ALTER TABLE books_ks.books WITH cosmosdb_provisioned_throughput=8000;"))
 
 // COMMAND ----------
 
