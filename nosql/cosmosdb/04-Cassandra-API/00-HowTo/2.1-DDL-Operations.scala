@@ -4,6 +4,8 @@
 // MAGIC Basics of how to work with CosmosDB from Databricks <B>in batch</B>.<BR>
 // MAGIC Section 01: Cassandra API connection<BR>
 // MAGIC Section 02: DDL operations for keyspace and table<BR>
+// MAGIC   
+// MAGIC **Roadmap:** describle table to show provisioned throughput<br>
 // MAGIC 
 // MAGIC **Reference:**<br> 
 // MAGIC https://github.com/datastax/spark-cassandra-connector/blob/master/doc/1_connecting.md
@@ -53,15 +55,6 @@ import com.datastax.spark.connector.cql.CassandraConnector
 //CosmosDB library for multiple retry
 import com.microsoft.azure.cosmosdb.cassandra
 
-// COMMAND ----------
-
-// MAGIC %md
-// MAGIC ##### 1.0.3. Add Cassandra conf to the spark session conf
-// MAGIC - TODO: Link to parallelism and throughput configs<br>
-// MAGIC Temporary link: https://github.com/Azure-Samples/azure-cosmos-db-cassandra-api-spark-connector-sample
-
-// COMMAND ----------
-
 // Specify connection factory for Cassandra
 spark.conf.set("spark.cassandra.connection.factory", "com.microsoft.azure.cosmosdb.cassandra.CosmosDbConnectionFactory")
 
@@ -73,11 +66,6 @@ spark.conf.set("spark.cassandra.concurrent.reads", "512")
 spark.conf.set("spark.cassandra.output.batch.grouping.buffer.size", "1000")
 spark.conf.set("spark.cassandra.connection.keep_alive_ms", "60000000") //Increase this number as needed
 spark.conf.set("spark.cassandra.output.ignoreNulls","true")
-
-// COMMAND ----------
-
-//Verify CosmosDB instance details are available as part of sc, since we are not providing it to the spark session - its supposed to be included from the  cluster spark conf
-sc.getConf.toDebugString
 
 // COMMAND ----------
 
@@ -95,7 +83,7 @@ sc.getConf.toDebugString
 // COMMAND ----------
 
 // MAGIC %md
-// MAGIC ##### 2.0.1.1. Create keyspace - from cqlsh
+// MAGIC ##### 2.0.1.1.a. Create keyspace - from cqlsh
 
 // COMMAND ----------
 
@@ -115,7 +103,7 @@ sc.getConf.toDebugString
 // COMMAND ----------
 
 // MAGIC %md
-// MAGIC ##### 2.0.1.2. Create keyspace - from Spark
+// MAGIC ##### 2.0.1.1.b. Create keyspace - from Spark
 
 // COMMAND ----------
 
@@ -129,11 +117,6 @@ cdbConnector.withSessionDo(session => session.execute("CREATE KEYSPACE books_ks 
 
 // COMMAND ----------
 
-//Validate
-cdbConnector.withSessionDo(session => session.execute("DESCRIBE keyspaces;"))
-
-// COMMAND ----------
-
 // MAGIC %md
 // MAGIC **Validate in cqlsh**<br>
 // MAGIC <code>DESCRIBE keyspaces;</code>
@@ -141,7 +124,7 @@ cdbConnector.withSessionDo(session => session.execute("DESCRIBE keyspaces;"))
 // COMMAND ----------
 
 // MAGIC %md
-// MAGIC ##### 2.0.1.3. Alter keyspace - from cqlsh or from spark
+// MAGIC ##### 2.0.1.2. Alter keyspace - from spark
 
 // COMMAND ----------
 
@@ -150,7 +133,7 @@ cdbConnector.withSessionDo(session => session.execute("DESCRIBE keyspaces;"))
 // COMMAND ----------
 
 // MAGIC %md
-// MAGIC ##### 2.0.1.4. Drop keyspace - from cqlsh
+// MAGIC ##### 2.0.1.3.a. Drop keyspace - from cqlsh
 
 // COMMAND ----------
 
@@ -161,16 +144,16 @@ cdbConnector.withSessionDo(session => session.execute("DESCRIBE keyspaces;"))
 // COMMAND ----------
 
 // MAGIC %md
-// MAGIC ##### 2.0.1.5. Drop keyspace - from Spark
+// MAGIC ##### 2.0.1.3.b. Drop keyspace - from Spark
 
 // COMMAND ----------
 
 // Create keyspace
 //Instantiate cassandra connector
-/*
+
 val cdbConnector = CassandraConnector(sc)
-cdbConnector.withSessionDo(session => session.execute("DROP KEYSPACE books_ks"))
-*/
+//cdbConnector.withSessionDo(session => session.execute("DROP KEYSPACE books_ks"))
+
 
 // COMMAND ----------
 
@@ -189,7 +172,7 @@ cdbConnector.withSessionDo(session => session.execute("DROP KEYSPACE books_ks"))
 // COMMAND ----------
 
 // MAGIC %md
-// MAGIC ##### 2.0.2.1. Create table - from cqlsh
+// MAGIC ##### 2.0.2.1.a. Create table - from cqlsh
 
 // COMMAND ----------
 
@@ -205,9 +188,11 @@ cdbConnector.withSessionDo(session => session.execute("DROP KEYSPACE books_ks"))
 // COMMAND ----------
 
 // MAGIC %md
-// MAGIC ##### 2.0.2.2. Create table from Spark
+// MAGIC ##### 2.0.2.1.b. Create table from Spark
 
 // COMMAND ----------
+
+val cdbConnector = CassandraConnector(sc)
 
 cdbConnector.withSessionDo(session => session.execute("CREATE TABLE books_ks.books(book_id TEXT PRIMARY KEY,book_author TEXT, book_name TEXT,book_pub_year INT,book_price FLOAT) WITH cosmosdb_provisioned_throughput=4000;"))
 
@@ -222,7 +207,7 @@ cdbConnector.withSessionDo(session => session.execute("CREATE TABLE books_ks.boo
 // COMMAND ----------
 
 // MAGIC %md
-// MAGIC ##### 2.0.2.3. Alter table from cqlsh or Spark
+// MAGIC ##### 2.0.2.2.a. Alter table from Spark
 
 // COMMAND ----------
 
@@ -232,17 +217,39 @@ cdbConnector.withSessionDo(session => session.execute("CREATE TABLE books_ks.boo
 
 // COMMAND ----------
 
+val cdbConnector = CassandraConnector(sc)
 cdbConnector.withSessionDo(session => session.execute("ALTER TABLE books_ks.books WITH cosmosdb_provisioned_throughput=8000;"))
 
 // COMMAND ----------
 
 // MAGIC %md
-// MAGIC ##### 2.0.2.4. Drop table from cqlsh
+// MAGIC ##### 2.0.2.2.b. Alter table from cqlsh
 
 // COMMAND ----------
 
 // MAGIC %md
-// MAGIC **Validate in cqlsh**<br>
+// MAGIC <code>USE books_ks;</code><br>
+// MAGIC <code>ALTER TABLE books_ks.books WITH cosmosdb_provisioned_throughput=8000;</code><br>
+// MAGIC <code>DESCRIBE books;</code>
+
+// COMMAND ----------
+
+// MAGIC %md
+// MAGIC ##### 2.0.2.3.a. Drop table from Spark
+
+// COMMAND ----------
+
+val cdbConnector = CassandraConnector(sc)
+cdbConnector.withSessionDo(session => session.execute("DROP TABLE books_ks.books;"))
+
+// COMMAND ----------
+
+// MAGIC %md
+// MAGIC ##### 2.0.2.3.b. Drop table from cqlsh
+
+// COMMAND ----------
+
+// MAGIC %md
 // MAGIC <code>USE books_ks;</code><br>
 // MAGIC <code>DROP TABLE IF EXISTS books;</code><br>
 // MAGIC <code>DESCRIBE tables;</code><br>
