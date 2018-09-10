@@ -58,12 +58,12 @@ spark.conf.set("spark.cassandra.connection.keep_alive_ms", "600000000") //Increa
 
 // Generate a simple dataset containing five values and
 val booksDF = Seq(
-   ("b00001", "Arthur Conan Doyle", "A study in scarlet", 1887),
-   ("b00023", "Arthur Conan Doyle", "A sign of four", 1890),
-   ("b01001", "Arthur Conan Doyle", "The adventures of Sherlock Holmes", 1892),
-   ("b00501", "Arthur Conan Doyle", "The memoirs of Sherlock Holmes", 1893),
-   ("b00300", "Arthur Conan Doyle", "The hounds of Baskerville", 1901)
-).toDF("book_id", "book_author", "book_name", "book_pub_year")
+   ("b00001", "Arthur Conan Doyle", "A study in scarlet", 1887,11.33),
+   ("b00023", "Arthur Conan Doyle", "A sign of four", 1890,22.45),
+   ("b01001", "Arthur Conan Doyle", "The adventures of Sherlock Holmes", 1892,19.83),
+   ("b00501", "Arthur Conan Doyle", "The memoirs of Sherlock Holmes", 1893,14.22),
+   ("b00300", "Arthur Conan Doyle", "The hounds of Baskerville", 1901,12.25)
+).toDF("book_id", "book_author", "book_name", "book_pub_year","book_price")
 
 booksDF.write
   .mode("append")
