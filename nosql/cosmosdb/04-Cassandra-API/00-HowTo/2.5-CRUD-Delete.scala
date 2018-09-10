@@ -81,7 +81,7 @@ booksDF.write
 
 //1) Create RDD with specific rows to delete
 val deleteBooksRDD = 
-    sc.cassandraTable("books_ks", "books").where("book_pub_year = ?", "1890")
+    sc.cassandraTable("books_ks", "books").where("book_id = ?", "b00001")
 
 //2) Review table data before execution
 println("==================")
@@ -156,8 +156,6 @@ val cdbConnector = CassandraConnector(sc)
 deleteBooksDF.foreachPartition(partition => {
   cdbConnector.withSessionDo(session =>
     partition.foreach{ book => 
-        deleteString = deleteString + "DELETE FROM books_ks.books where book_id='"+book.getString(0) +"';"
-      println(deleteString)
         val delete = s"DELETE FROM books_ks.books where book_id='"+book.getString(0) +"';"
         session.execute(delete)
     })
