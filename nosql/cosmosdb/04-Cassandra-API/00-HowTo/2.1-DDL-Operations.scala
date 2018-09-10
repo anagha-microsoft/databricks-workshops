@@ -94,7 +94,7 @@ spark.conf.set("spark.cassandra.output.ignoreNulls","true")
 // MAGIC <code>cqlsh.py YOUR_ACCOUNT_NAME.cassandra.cosmosdb.azure.com 10350 -u YOUR_ACCOUNT_NAME -p YOUR_ACCOUNT_PASSWORD --ssl</code><br>
 // MAGIC 
 // MAGIC **To create a keyspace:**<br>
-// MAGIC <code>CREATE KEYSPACE books_ks WITH REPLICATION = {'class': 'SimpleStrategy', 'replication_factor': 1 }; </code><br>
+// MAGIC <code>CREATE KEYSPACE IF NOT EXISTS books_ks WITH REPLICATION = {'class': 'SimpleStrategy', 'replication_factor': 1 }; </code><br>
 // MAGIC   
 // MAGIC **To validate keyspace creation:**<br>
 // MAGIC <code>DESCRIBE keyspaces;</code><br>
@@ -177,7 +177,7 @@ val cdbConnector = CassandraConnector(sc)
 // COMMAND ----------
 
 // MAGIC %md
-// MAGIC <code>CREATE TABLE books_ks.books(<br>
+// MAGIC <code>CREATE TABLE IF NOT EXISTS books_ks.books(<br>
 // MAGIC   book_id TEXT PRIMARY KEY,<br>
 // MAGIC   book_author TEXT, <br>
 // MAGIC   book_name TEXT,<br>
@@ -242,7 +242,7 @@ cdbConnector.withSessionDo(session => session.execute("ALTER TABLE books_ks.book
 // COMMAND ----------
 
 val cdbConnector = CassandraConnector(sc)
-cdbConnector.withSessionDo(session => session.execute("DROP TABLE books_ks.books;"))
+cdbConnector.withSessionDo(session => session.execute("DROP TABLE IF EXISTS books_ks.books;"))
 
 // COMMAND ----------
 
