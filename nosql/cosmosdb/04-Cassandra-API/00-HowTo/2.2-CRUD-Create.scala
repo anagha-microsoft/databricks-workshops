@@ -63,7 +63,7 @@ spark.conf.set("spark.cassandra.input.consistency.level","ALL")//Read consistenc
 
 // MAGIC %md
 // MAGIC #### 3.0.1. Dataframe API
-// MAGIC Covers per record TTL and consistency setting while creating
+// MAGIC Covers per record TTL, consistency setting, create ifNotExists while creating
 
 // COMMAND ----------
 
@@ -179,6 +179,32 @@ sqlContext
 // COMMAND ----------
 
 // MAGIC %md
+// MAGIC ##### 3.0.1.5. Ignore nulls
+
+// COMMAND ----------
+
+//Persist
+val booksDF = Seq(
+   ("b03999", "Arthur Conan Doyle", "The adventure of the speckled band", 1892)
+).toDF("book_id", "book_author", "book_name", "book_pub_year")
+
+booksDF.write
+  .mode("append")
+  .format("org.apache.spark.sql.cassandra")
+  .options(Map( "table" -> "books", "keyspace" -> "books_ks",  "spark.cassandra.output.ignoreNulls" -> "true"))
+  .save()
+
+//Validate
+sqlContext
+  .read
+  .format("org.apache.spark.sql.cassandra")
+  .options(Map( "table" -> "books", "keyspace" -> "books_ks"))
+  .load
+  .show
+
+// COMMAND ----------
+
+// MAGIC %md
 // MAGIC ### 3.0.2. RDD API
 // MAGIC Covers per record TTL and consistency setting while creating
 
@@ -194,7 +220,7 @@ sqlContext
 val cdbConnector = CassandraConnector(sc)
 
 //Delete from Spark
-cdbConnector.withSessionDo(session => session.execute("delete from books_ks.books where book_id in ('b00300','b00001','b00023','b00501','b09999','b01001');"))
+cdbConnector.withSessionDo(session => session.execute("delete from books_ks.books where book_id in ('b00300','b00001','b00023','b00501','b09999','b01001','b00999','b03999','b02999');"))
 
 // COMMAND ----------
 
@@ -258,7 +284,6 @@ booksRDD.saveAsCassandraTable("books_ks", "books_new", SomeColumns("book_id", "b
 
 // COMMAND ----------
 
-//Instantiate cassandra connector
 val cdbConnector = CassandraConnector(sc)
 cdbConnector.withSessionDo(
   session => session.execute("INSERT INTO books_ks.books(book_id, book_name) values('b000009','The Red-Headed League') WITH TTL 900000;"))
@@ -273,6 +298,3 @@ cdbConnector.withSessionDo(
 // MAGIC %md
 // MAGIC <code>**use** books_ks;</code><br>
 // MAGIC <code>**select** \* **from** books;</code>
-
-// COMMAND ----------
-
