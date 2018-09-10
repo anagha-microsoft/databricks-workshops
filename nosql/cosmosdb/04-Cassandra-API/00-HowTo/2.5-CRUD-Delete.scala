@@ -83,48 +83,8 @@ booksDF.write
 
 // COMMAND ----------
 
-//1) Create RDD with specific rows to delete
-val deleteBooksRDD = 
-    sc.cassandraTable("books_ks", "books").where("book_id = ?", "b00001").persist("MEMORY_ONLY")
-
-//2) Review table data before execution
-println("==================")
-println("1) Before")
-deleteBooksRDD.collect.foreach(println)
-println("==================")
-
-//3) Delete selected records in dataframe
-println("==================")
-println("2a) Starting delete")
-
-/* Option 1: 
-// Does not work as of Sep - throws error
-sc.cassandraTable("books_ks", "books")
-  .where("book_pub_year = 1891")
-  .deleteFromCassandra("books_ks", "books")
-*/
-
-//Option 2: CassandraConnector and CQL
-//Reuse connection for each partition
-val cdbConnector = CassandraConnector(sc)
-deleteBooksRDD.foreachPartition(partition => {
-    cdbConnector.withSessionDo(session =>
-    partition.foreach{book => 
-        val delete = s"DELETE FROM books_ks.books where book_id='"+ book.getString(0) +"';"
-        session.execute(delete)
-    }
-   )
-})
-
-println("Completed delete")
-println("==================")
-
-println("2b) Completed delete")
-println("==================")
-
-//5) Review table data after delete operation
-println("3) After")
-sc.cassandraTable("books_ks", "books").collect.foreach(println)
+// MAGIC %md
+// MAGIC Not supported until predicate pushdown is supported
 
 // COMMAND ----------
 
@@ -329,7 +289,6 @@ println("==================")
 println("==================")
 println("2a) Starting delete of book price")
 
-// Does not work as of Sep - throws error
 sc.cassandraTable("books_ks", "books")
   .deleteFromCassandra("books_ks", "books",SomeColumns("book_price"))
 
@@ -350,61 +309,107 @@ sc.cassandraTable("books_ks", "books").collect.foreach(println)
 
 // COMMAND ----------
 
-// Add a couple other authors
+// Generate a simple dataset containing five values including book_price
 val booksDF = Seq(
-   ("cd0001", "Charles Dickens", "Great Expectations", 1861),
-   ("cd2345", "Charles Dickens", "Oliver Twist", 1837),
-   ("b01001", "Arthur Conan Doyle", "The adventures of Sherlock Holmes", 1892),
-   ("b00501", "Arthur Conan Doyle", "The memoirs of Sherlock Holmes", 1893),
-   ("b00300", "Arthur Conan Doyle", "The hounds of Baskerville", 1901)
-).toDF("book_id", "book_author", "book_name", "book_pub_year")
+   ("b00001", "Arthur Conan Doyle", "A study in scarlet", 1887,23),
+   ("b00023", "Arthur Conan Doyle", "A sign of four", 1890,11),
+   ("b01001", "Arthur Conan Doyle", "The adventures of Sherlock Holmes", 1892,10),
+   ("b00501", "Arthur Conan Doyle", "The memoirs of Sherlock Holmes", 1893,5),
+   ("b00300", "Arthur Conan Doyle", "The hounds of Baskerville", 1901,20)
+).toDF("book_id", "book_author", "book_name", "book_pub_year","book_price")
 
 booksDF.write
   .mode("append")
   .format("org.apache.spark.sql.cassandra")
-  .options(Map( "table" -> "books", "keyspace" -> "books_ks", "output.consistency.level" -> "ALL", "ttl" -> "10000000"))
+  .options(Map( "table" -> "books", "keyspace" -> "books_ks", "output.consistency.level" -> "ALL"))
   .save()
 
 // COMMAND ----------
 
-//1) Create dataframe
-val deleteBooksDF = spark
-  .read
+// MAGIC %md
+// MAGIC **TODO**
+
+// COMMAND ----------
+
+// MAGIC %md
+// MAGIC ## 6.0.4. Delete rows older than a specific timestamp
+
+// COMMAND ----------
+
+val cdbConnector = CassandraConnector(sc)
+
+cdbConnector.withSessionDo(session => session.execute("CREATE TABLE IF NOT EXISTS books_ks.books_with_ts(book_id TEXT PRIMARY KEY,book_author TEXT, book_name TEXT,book_pub_year INT,book_price FLOAT,insert_date timestamp) WITH cosmosdb_provisioned_throughput=4000;"))
+
+// COMMAND ----------
+
+// Generate a simple dataset containing five values including book_price
+val booksDF = Seq(
+   ("b00001", "Arthur Conan Doyle", "A study in scarlet", 1887,23,"2017-09-10 23:12:18.045"),
+   ("b00023", "Arthur Conan Doyle", "A sign of four", 1890,11,"2017-09-10 23:12:18.045"),
+   ("b01001", "Arthur Conan Doyle", "The adventures of Sherlock Holmes", 1892,10,"2017-09-10 23:12:18.045"),
+   ("b00501", "Arthur Conan Doyle", "The memoirs of Sherlock Holmes", 1893,5,"2017-09-10 23:12:18.045"),
+   ("b00300", "Arthur Conan Doyle", "The hounds of Baskerville", 1901,20,"2018-09-10 23:12:18.045")
+).toDF("book_id", "book_author", "book_name", "book_pub_year","book_price","insert_date")
+
+booksDF.show()
+
+booksDF.write
+  .mode("append")
   .format("org.apache.spark.sql.cassandra")
-  .options(Map( "table" -> "books", "keyspace" -> "books_ks"))
-  .load
-  .select("book_price")
+  .options(Map( "table" -> "books_with_ts", "keyspace" -> "books_ks", "output.consistency.level" -> "ALL"))
+  .save()
 
-//2) Review execution plan
-deleteBooksDF.explain
+// COMMAND ----------
 
-//3) Review table data before execution
-println("==================")
-println("1) Before")
-deleteBooksDF.show
-println("==================")
+// MAGIC %md
+// MAGIC #The below is WIP
 
-//4) Delete selected records in dataframe
-println("==================")
-println("2a) Starting delete")
+// COMMAND ----------
 
-//Reuse connection for each partition
-deleteBooksDF.rdd.deleteFromCassandra("books_ks", "books")
+import com.datastax.spark.connector.writer._
+import java.sql.Date
+import java.util.Calendar
 
-println("2b) Completed delete")
-println("deleteString" +  deleteString)
-println("==================")
+//Read table
+val deleteBooksRDD = 
+    sc.cassandraTable("books_ks", "books_with_ts")
 
-//5) Review table data after delete operation
-println("3) After")
+//Delete timestamp
+val deleteTimestamp = "2018-09-09 23:12:18.045"
+
+//Delete operation
+deleteBooksRDD.deleteFromCassandra(
+  "books_ks",
+  "books",
+  writeConf = WriteConf(timestamp = (com.datastax.spark.connector.writer.TimestampOption)deleteTimestamp))
+
+//Validate
 spark
   .read
   .format("org.apache.spark.sql.cassandra")
-  .options(Map( "table" -> "books", "keyspace" -> "books_ks"))
+  .options(Map( "table" -> "books_with_ts", "keyspace" -> "books_ks"))
   .load
   .show
 
 // COMMAND ----------
 
+
+
+
+
+// COMMAND ----------
+
+sc.cassandraTable("books_ks", "books").collect().foreach(println)
+
+// COMMAND ----------
+
 // MAGIC %md
-// MAGIC ##### d) Expire rows in a table
+// MAGIC ## 6.0.5. Delete a range of keys
+
+// COMMAND ----------
+
+// MAGIC %md
+// MAGIC ## 6.0.6. Expire rows
+
+// COMMAND ----------
+
