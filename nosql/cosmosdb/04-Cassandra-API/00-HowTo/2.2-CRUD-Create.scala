@@ -101,22 +101,6 @@ booksDF.show
 
 // COMMAND ----------
 
-// MAGIC %md
-// MAGIC **Consistency level mapping (read and write) from Cassandra to CosmosDB Cassandra API:**<br>
-// MAGIC Any (Write Only)->Eventual<br>
-// MAGIC One->Eventual<br>
-// MAGIC Two->Strong<br>
-// MAGIC Three->Strong<br>
-// MAGIC Quorum->Strong<br>
-// MAGIC All->Strong<br>
-// MAGIC Local One->Strong<br>
-// MAGIC Local Quorum->Strong<br>
-// MAGIC Each Quorum (Write Only)->Strong<br>
-// MAGIC SERIAL->Strong<br>
-// MAGIC LOCAL_SERIAL->Strong<br>
-
-// COMMAND ----------
-
 //Set individual records to strong consistency
 //import com.datastax.spark.connector.writer._
 
