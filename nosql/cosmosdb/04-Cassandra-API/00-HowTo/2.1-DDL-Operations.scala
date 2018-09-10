@@ -113,7 +113,7 @@ val cdbConnector = CassandraConnector(sc)
 // COMMAND ----------
 
 // Create keyspace
-cdbConnector.withSessionDo(session => session.execute("CREATE KEYSPACE books_ks WITH REPLICATION = {'class': 'SimpleStrategy', 'replication_factor': 1 } "))
+cdbConnector.withSessionDo(session => session.execute("CREATE KEYSPACE IF NOT EXISTS books_ks WITH REPLICATION = {'class': 'SimpleStrategy', 'replication_factor': 1 } "))
 
 // COMMAND ----------
 
@@ -189,12 +189,13 @@ val cdbConnector = CassandraConnector(sc)
 
 // MAGIC %md
 // MAGIC ##### 2.0.2.1.b. Create table from Spark
+// MAGIC TTL in seconds; 630720000 = 20 years
 
 // COMMAND ----------
 
 val cdbConnector = CassandraConnector(sc)
 
-cdbConnector.withSessionDo(session => session.execute("CREATE TABLE books_ks.books(book_id TEXT PRIMARY KEY,book_author TEXT, book_name TEXT,book_pub_year INT,book_price FLOAT) WITH cosmosdb_provisioned_throughput=4000;"))
+cdbConnector.withSessionDo(session => session.execute("CREATE TABLE IF NOT EXISTS books_ks.books(book_id TEXT PRIMARY KEY,book_author TEXT, book_name TEXT,book_pub_year INT,book_price FLOAT) WITH cosmosdb_provisioned_throughput=4000 , WITH default_time_to_live=630720000;"))
 
 // COMMAND ----------
 
@@ -213,12 +214,13 @@ cdbConnector.withSessionDo(session => session.execute("CREATE TABLE books_ks.boo
 
 // MAGIC %md 
 // MAGIC (1) Alter table - add/change columns - on the roadmap<BR>
-// MAGIC (2) Alter provisioned throughput - supported
+// MAGIC (2) Alter provisioned throughput - supported<BR>
+// MAGIC (3) Alter table TTL - supported<BR>
 
 // COMMAND ----------
 
 val cdbConnector = CassandraConnector(sc)
-cdbConnector.withSessionDo(session => session.execute("ALTER TABLE books_ks.books WITH cosmosdb_provisioned_throughput=8000;"))
+cdbConnector.withSessionDo(session => session.execute("ALTER TABLE books_ks.books WITH cosmosdb_provisioned_throughput=8000, WITH default_time_to_live=0;"))
 
 // COMMAND ----------
 
