@@ -4,6 +4,10 @@
 // MAGIC Basics of how to work with CosmosDB from Databricks <B>in batch</B>.<BR>
 // MAGIC Section 06: Delete operation (cRud)<BR>
 // MAGIC 
+// MAGIC **NOTE:**<br>
+// MAGIC Server-de(Cassandra) filtering of non-partition key columns is not supported yet.<BR>
+// MAGIC You will see caching done at the Spark level as a workaround till we release server side filtering.<br> 
+// MAGIC 
 // MAGIC **Reference:**<br> 
 // MAGIC **TODO**
 
@@ -81,7 +85,7 @@ booksDF.write
 
 //1) Create RDD with specific rows to delete
 val deleteBooksRDD = 
-    sc.cassandraTable("books_ks", "books").where("book_id = ?", "b00001")
+    sc.cassandraTable("books_ks", "books").where("book_id = ?", "b00001").persist("MEMORY_ONLY")
 
 //2) Review table data before execution
 println("==================")
@@ -294,14 +298,14 @@ spark
 
 // COMMAND ----------
 
-// Add a couple other authors
+// Generate a simple dataset containing five values including book_price
 val booksDF = Seq(
-   ("cd0001", "Charles Dickens", "Great Expectations", 1861),
-   ("cd2345", "Charles Dickens", "Oliver Twist", 1837),
-   ("b01001", "Arthur Conan Doyle", "The adventures of Sherlock Holmes", 1892),
-   ("b00501", "Arthur Conan Doyle", "The memoirs of Sherlock Holmes", 1893),
-   ("b00300", "Arthur Conan Doyle", "The hounds of Baskerville", 1901)
-).toDF("book_id", "book_author", "book_name", "book_pub_year")
+   ("b00001", "Arthur Conan Doyle", "A study in scarlet", 1887,23),
+   ("b00023", "Arthur Conan Doyle", "A sign of four", 1890,11),
+   ("b01001", "Arthur Conan Doyle", "The adventures of Sherlock Holmes", 1892,10),
+   ("b00501", "Arthur Conan Doyle", "The memoirs of Sherlock Holmes", 1893,5),
+   ("b00300", "Arthur Conan Doyle", "The hounds of Baskerville", 1901,20)
+).toDF("book_id", "book_author", "book_name", "book_pub_year","book_price")
 
 booksDF.write
   .mode("append")
@@ -327,7 +331,6 @@ println("2a) Starting delete of book price")
 
 // Does not work as of Sep - throws error
 sc.cassandraTable("books_ks", "books")
-  .where("book_pub_year = 1891")
   .deleteFromCassandra("books_ks", "books",SomeColumns("book_price"))
 
 println("Completed delete")
