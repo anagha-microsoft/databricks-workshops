@@ -3,6 +3,12 @@
 // MAGIC # What's in this exercise
 // MAGIC Basics of how to work with CosmosDB from Databricks <B>in batch</B>.<BR>
 // MAGIC Section 07: Aggregation operations<BR>
+// MAGIC   
+// MAGIC **NOTE:**<br>
+// MAGIC 1) Server-side(Cassandra) filtering of non-partition key columns is not supported yet.<BR>
+// MAGIC You will see caching done at the Spark level as a workaround till we release server side filtering.<br> 
+// MAGIC 2) Aggregation operations on the server-side are not supported yet<BR>
+// MAGIC The samples below perform the same on the Spark-side<br>
 // MAGIC 
 // MAGIC **Reference:**<br> 
 // MAGIC **TODO**
@@ -43,6 +49,28 @@ spark.conf.set("spark.cassandra.connection.keep_alive_ms", "600000000") //Increa
 // COMMAND ----------
 
 // MAGIC %md
+// MAGIC ## Data generator
+
+// COMMAND ----------
+
+// Generate a simple dataset containing five values and
+val booksDF = Seq(
+   ("b00001", "Arthur Conan Doyle", "A study in scarlet", 1887,11.33),
+   ("b00023", "Arthur Conan Doyle", "A sign of four", 1890,22.45),
+   ("b01001", "Arthur Conan Doyle", "The adventures of Sherlock Holmes", 1892,19.83),
+   ("b00501", "Arthur Conan Doyle", "The memoirs of Sherlock Holmes", 1893,14.22),
+   ("b00300", "Arthur Conan Doyle", "The hounds of Baskerville", 1901,12.25)
+).toDF("book_id", "book_author", "book_name", "book_pub_year","book_price")
+
+booksDF.write
+  .mode("append")
+  .format("org.apache.spark.sql.cassandra")
+  .options(Map( "table" -> "books", "keyspace" -> "books_ks", "output.consistency.level" -> "ALL", "ttl" -> "10000000"))
+  .save()
+
+// COMMAND ----------
+
+// MAGIC %md
 // MAGIC ## 7.0. Aggregation operations
 
 // COMMAND ----------
@@ -62,7 +90,7 @@ sc.cassandraTable("books_ks", "books").count
 
 // COMMAND ----------
 
-//count on cassandra side - NOT IMPLEMENTED YET
+//count on cassandra side - NOT SUPPORTED YET
 //sc.cassandraTable("books_ks", "books").cassandraCount
 
 // COMMAND ----------
@@ -93,20 +121,6 @@ sc.cassandraTable("books_ks", "books").count
 
 // COMMAND ----------
 
-//Read from source
-val readBooksDF = spark
-  .read
-  .cassandraFormat("books", "books_ks", "")
-  .load()
-
-//Explain plan
-readBooksDF.explain
-
-//Does not work
-readBooksDF.count
-
-// COMMAND ----------
-
 //Workaround
 import org.apache.spark.storage.StorageLevel
 
@@ -124,6 +138,9 @@ readBooksDF.persist(StorageLevel.MEMORY_ONLY)
 
 //Subsequent execution against this DF hits the cache defined while materializing
 readBooksDF.count
+
+//Persist as temporary view
+readBooksDF.createOrReplaceTempView("books_vw")
 
 // COMMAND ----------
 
@@ -181,7 +198,7 @@ readBooksDF.count
 //======================
 //RDD
 //======================
-sc.cassandraTable("books_ks", "books").select("book_price").as((c: Float) => c).mean
+sc.cassandraTable("books_ks", "books").select("book_price").as((c: Double) => c).mean
 
 // COMMAND ----------
 
