@@ -1,4 +1,10 @@
 // Databricks notebook source
+// MAGIC %md
+// MAGIC 
+// MAGIC # WORK IN PROGRESS
+
+// COMMAND ----------
+
 // MAGIC %run ../00-HowTo/2-CassandraUtils
 
 // COMMAND ----------
