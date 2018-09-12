@@ -82,7 +82,7 @@ spark.conf.set("spark.cassandra.input.consistency.level","ALL")//Read consistenc
 
 // COMMAND ----------
 
-// Generate a simple dataset containing five values and
+// Generate a simple dataset containing five values
 val booksDF = Seq(
    ("b00001", "Arthur Conan Doyle", "A study in scarlet", 1887),
    ("b00023", "Arthur Conan Doyle", "A sign of four", 1890),
