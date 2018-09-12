@@ -138,7 +138,7 @@ cdbConnector.withSessionDo(session => session.execute("CREATE KEYSPACE IF NOT EX
 // COMMAND ----------
 
 // MAGIC %md
-// MAGIC <code>DROP keyspace books_kv;</code><br>
+// MAGIC <code>DROP keyspace books_ks;</code><br>
 // MAGIC <code>DESCRIBE keyspaces;</code>
 
 // COMMAND ----------
@@ -147,9 +147,6 @@ cdbConnector.withSessionDo(session => session.execute("CREATE KEYSPACE IF NOT EX
 // MAGIC ##### 2.0.1.3.b. Drop keyspace - from Spark
 
 // COMMAND ----------
-
-// Create keyspace
-//Instantiate cassandra connector
 
 val cdbConnector = CassandraConnector(sc)
 //cdbConnector.withSessionDo(session => session.execute("DROP KEYSPACE books_ks"))
