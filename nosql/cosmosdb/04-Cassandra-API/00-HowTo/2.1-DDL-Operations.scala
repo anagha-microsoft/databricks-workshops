@@ -186,7 +186,6 @@ val cdbConnector = CassandraConnector(sc)
 
 // MAGIC %md
 // MAGIC ##### 2.0.2.1.b. Create table from Spark
-// MAGIC TTL in seconds; 630720000 = 20 years
 
 // COMMAND ----------
 
