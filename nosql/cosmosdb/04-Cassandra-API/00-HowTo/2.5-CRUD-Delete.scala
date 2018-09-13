@@ -160,7 +160,7 @@ println("==================")
 println("2a) Starting delete")
 
 /* Option 1: 
-// Does not work as of Sep - throws error
+// deleteFromCassandra is not supported
 sc.cassandraTable("books_ks", "books")
   .where("book_pub_year = 1891")
   .deleteFromCassandra("books_ks", "books")
