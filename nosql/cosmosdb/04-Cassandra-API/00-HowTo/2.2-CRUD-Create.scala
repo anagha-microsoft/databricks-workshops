@@ -5,16 +5,8 @@
 // MAGIC Section 03: Create operation (Crud)<BR>
 // MAGIC   
 // MAGIC **TTL related roadmap**:<br>
-// MAGIC Currently, TTL is configurable at a table level and per entire row level<br>
+// MAGIC Currently, TTL is configurable per entire row level<br>
 // MAGIC On the roadmap: TTL for column<BR>
-// MAGIC 
-// MAGIC **Reference:**<br> 
-// MAGIC 
-// MAGIC   
-// MAGIC **TODO:**<br> 
-// MAGIC -Get ignoreNulls working<br>
-// MAGIC -Figure out how to set consistency via session/CQL<br>
-// MAGIC -Add links to reference section
 
 // COMMAND ----------
 
@@ -63,17 +55,7 @@ spark.conf.set("spark.cassandra.input.consistency.level","ALL")//Read consistenc
 
 // MAGIC %md
 // MAGIC #### 3.0.1. Dataframe API
-// MAGIC Covers per record TTL, consistency setting, create ifNotExists while creating
-
-// COMMAND ----------
-
-// MAGIC %md
-// MAGIC **REFERENCE:**<br>
-// MAGIC Different approaches to creating dataframes:<br>
-// MAGIC https://medium.com/@mrpowers/manually-creating-spark-dataframes-b14dae906393
-// MAGIC <br><br>
-// MAGIC CQL related:<br>
-// MAGIC https://www.datastax.com/dev/blog/a-deep-look-to-the-cql-where-clause
+// MAGIC Covers per record TTL, consistency setting
 
 // COMMAND ----------
 
@@ -162,32 +144,6 @@ sqlContext
 // COMMAND ----------
 
 // MAGIC %md
-// MAGIC ##### 3.0.1.5. Ignore nulls
-
-// COMMAND ----------
-
-//Persist
-val booksDF = Seq(
-   ("b03999", "Arthur Conan Doyle", "The adventure of the speckled band", 1892)
-).toDF("book_id", "book_author", "book_name", "book_pub_year")
-
-booksDF.write
-  .mode("append")
-  .format("org.apache.spark.sql.cassandra")
-  .options(Map( "table" -> "books", "keyspace" -> "books_ks",  "spark.cassandra.output.ignoreNulls" -> "true"))
-  .save()
-
-//Validate
-sqlContext
-  .read
-  .format("org.apache.spark.sql.cassandra")
-  .options(Map( "table" -> "books", "keyspace" -> "books_ks"))
-  .load
-  .show
-
-// COMMAND ----------
-
-// MAGIC %md
 // MAGIC ### 3.0.2. RDD API
 // MAGIC Covers per record TTL and consistency setting while creating
 
@@ -243,16 +199,7 @@ booksRDD.saveToCassandra("books_ks", "books", SomeColumns("book_id", "book_autho
 // MAGIC %md
 // MAGIC <code>**use** books_ks;</code><br>
 // MAGIC <code>**select** \* **from** books;</code><br>
-// MAGIC <code>**select** book_id,book_name,TTL(book_name) **from** books;</code>
-
-// COMMAND ----------
-
-// MAGIC %md
-// MAGIC #####3.0.2.3. Validate in cqlsh<br>
-
-// COMMAND ----------
-
-booksRDD.saveAsCassandraTable("books_ks", "books_new", SomeColumns("book_id", "book_author", "book_name", "book_pub_year"))
+// MAGIC <code>**select** book_id,book_name **from** books;</code>
 
 // COMMAND ----------
 
