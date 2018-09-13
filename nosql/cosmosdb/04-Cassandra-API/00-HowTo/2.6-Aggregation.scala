@@ -5,9 +5,9 @@
 // MAGIC Section 07: Aggregation operations<BR>
 // MAGIC   
 // MAGIC **NOTE:**<br>
-// MAGIC 1) Server-side(Cassandra) filtering of non-partition key columns is not supported yet.<BR>
-// MAGIC You will see caching done at the Spark level as a workaround till we release server side filtering.<br> 
-// MAGIC 2) Aggregation operations on the server-side are not supported yet<BR>
+// MAGIC 1) Server-side(Cassandra) filtering of non-partition key columns is not yet supported.<BR>
+// MAGIC You will see caching done at the Spark level as a workaround till we support server side filtering.<br> 
+// MAGIC 2) Aggregation operations on the server-side are not yet supported yet<BR>
 // MAGIC The samples below perform the same on the Spark-side<br>
 // MAGIC 
 // MAGIC **Reference:**<br> 
@@ -85,7 +85,6 @@ booksDF.write
 
 // COMMAND ----------
 
-//Count on the spark side
 sc.cassandraTable("books_ks", "books").count
 
 // COMMAND ----------
@@ -107,7 +106,7 @@ sc.cassandraTable("books_ks", "books").count
 // MAGIC (1) MEMORY_ONLY:	
 // MAGIC Store RDD as deserialized Java objects in the JVM. If the RDD does not fit in memory, some partitions will not be cached and will be recomputed on the fly each time they're needed. This is the default level.<br>
 // MAGIC (2) MEMORY_AND_DISK:	<br>
-// MAGIC Store RDD as deserialized Java objects in the JVM. If the RDD does not fit in memory, store the partitions that don't fit on disk, and read them from there when they're needed.
+// MAGIC Store RDD as deserialized Java objects in the JVM. If the RDD does not fit in memory, store the partitions that don't fit on disk, and read them from there when they're needed.<br>
 // MAGIC (3) MEMORY_ONLY_SER: Java/Scala<br>
 // MAGIC Store RDD as serialized Java objects (one byte array per partition). This is generally more space-efficient than deserialized objects, especially when using a fast serializer, but more CPU-intensive to read.<br>
 // MAGIC (4) MEMORY_AND_DISK_SER:  Java/Scala<br>
@@ -136,7 +135,7 @@ readBooksDF.explain
 //Materialize the dataframe
 readBooksDF.persist(StorageLevel.MEMORY_ONLY)
 
-//Subsequent execution against this DF hits the cache defined while materializing
+//Subsequent execution against this DF hits the cache 
 readBooksDF.count
 
 //Persist as temporary view
@@ -157,11 +156,6 @@ readBooksDF.createOrReplaceTempView("books_vw")
 
 // MAGIC %sql
 // MAGIC select count(book_id) from books_vw;
-
-// COMMAND ----------
-
-// MAGIC %sql 
-// MAGIC select count(*) from books_vw where book_pub_year > 1900;
 
 // COMMAND ----------
 
@@ -195,9 +189,6 @@ readBooksDF.createOrReplaceTempView("books_vw")
 
 // COMMAND ----------
 
-//======================
-//RDD
-//======================
 sc.cassandraTable("books_ks", "books").select("book_price").as((c: Double) => c).mean
 
 // COMMAND ----------
@@ -207,19 +198,13 @@ sc.cassandraTable("books_ks", "books").select("book_price").as((c: Double) => c)
 
 // COMMAND ----------
 
-//======================
-//DATAFRAME
-//======================
-val readBooksDF = spark
+spark
   .read
   .cassandraFormat("books", "books_ks", "")
   .load()
-
-//Explain plan
-readBooksDF.explain
-
-//Does not work
-readBooksDF.agg(avg("book_price")).show
+  .select("book_price")
+  .agg(avg("book_price"))
+  .show
 
 // COMMAND ----------
 
@@ -243,9 +228,6 @@ readBooksDF.agg(avg("book_price")).show
 
 // COMMAND ----------
 
-//======================
-//RDD
-//======================
 sc.cassandraTable("books_ks", "books").select("book_price").as((c: Float) => c).min
 
 // COMMAND ----------
@@ -255,19 +237,13 @@ sc.cassandraTable("books_ks", "books").select("book_price").as((c: Float) => c).
 
 // COMMAND ----------
 
-//======================
-//DATAFRAME
-//======================
-val readBooksDF = spark
+spark
   .read
   .cassandraFormat("books", "books_ks", "")
   .load()
-
-//Explain plan
-readBooksDF.explain
-
-//Does not work
-readBooksDF.agg(min("book_price")).show
+  .select("book_id","book_price")
+  .agg(min("book_price"))
+  .show
 
 // COMMAND ----------
 
@@ -291,9 +267,6 @@ readBooksDF.agg(min("book_price")).show
 
 // COMMAND ----------
 
-//======================
-//RDD
-//======================
 sc.cassandraTable("books_ks", "books").select("book_price").as((c: Float) => c).max
 
 // COMMAND ----------
@@ -303,19 +276,13 @@ sc.cassandraTable("books_ks", "books").select("book_price").as((c: Float) => c).
 
 // COMMAND ----------
 
-//======================
-//DATAFRAME
-//======================
-val readBooksDF = spark
+spark
   .read
   .cassandraFormat("books", "books_ks", "")
   .load()
-
-//Explain plan
-readBooksDF.explain
-
-//Does not work
-readBooksDF.agg(max("book_price")).show
+  .select("book_price")
+  .agg(max("book_price"))
+  .show
 
 // COMMAND ----------
 
@@ -330,8 +297,7 @@ readBooksDF.agg(max("book_price")).show
 // COMMAND ----------
 
 // MAGIC %sql
-// MAGIC --select sum(book_price) from books_vw;
-// MAGIC select * from books_vw;
+// MAGIC select sum(book_price) from books_vw;
 
 // COMMAND ----------
 
@@ -340,19 +306,13 @@ readBooksDF.agg(max("book_price")).show
 
 // COMMAND ----------
 
-//======================
-//DATAFRAME
-//======================
-val readBooksDF = spark
+spark
   .read
   .cassandraFormat("books", "books_ks", "")
   .load()
-
-//Explain plan
-readBooksDF.explain
-
-//Does not work
-readBooksDF.agg(sum("book_price")).show
+  .select("book_price")
+  .agg(sum("book_price"))
+  .show
 
 // COMMAND ----------
 
@@ -361,10 +321,7 @@ readBooksDF.agg(sum("book_price")).show
 
 // COMMAND ----------
 
-//======================
-//RDD
-//======================
-sc.cassandraTable("books_ks", "books").select("book_price").as((c: Int) => c).sum
+sc.cassandraTable("books_ks", "books").select("book_price").as((c: Float) => c).sum
 
 // COMMAND ----------
 
@@ -388,11 +345,9 @@ sc.cassandraTable("books_ks", "books").select("book_price").as((c: Int) => c).su
 
 // COMMAND ----------
 
-//======================
-//RDD
-//======================
 val readCalcTopRDD = sc.cassandraTable("books_ks", "books").select("book_name","book_price").sortBy(_.getFloat(1), false)
-readCalcTopRDD.zipWithIndex.filter(_._2 < 3).collect.foreach(println)//delivers the first top n items without collecting the rdd to the driver.
+readCalcTopRDD.zipWithIndex.filter(_._2 < 3).collect.foreach(println)
+//delivers the first top n items without collecting the rdd to the driver.
 
 // COMMAND ----------
 
@@ -401,9 +356,6 @@ readCalcTopRDD.zipWithIndex.filter(_._2 < 3).collect.foreach(println)//delivers 
 
 // COMMAND ----------
 
-//======================
-//DATAFRAME
-//======================
 import org.apache.spark.sql.functions._
 
 val readBooksDF = spark.read
@@ -417,5 +369,8 @@ val readBooksDF = spark.read
 //Explain plan
 readBooksDF.explain
 
-//Does not work
+//Top 3
 readBooksDF.show
+
+// COMMAND ----------
+
