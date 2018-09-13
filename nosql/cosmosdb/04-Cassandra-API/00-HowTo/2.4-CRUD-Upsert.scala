@@ -113,11 +113,11 @@ booksUpdateDF.write
 
 // COMMAND ----------
 
-//Prefer using Spark for distrbuting over the below - shared JFYI
+//Runs on driver, use wisely
 cdbConnector.withSessionDo(session => session.execute("update books_ks.books set book_price=99.33 where book_id ='b00300';"))
 
 // COMMAND ----------
 
 // MAGIC %md
 // MAGIC #### 5.0.2. RDD API
-// MAGIC No different from 3.0.2.2
+// MAGIC No different from create operation
