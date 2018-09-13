@@ -82,7 +82,7 @@ spark.conf.set("spark.cassandra.input.consistency.level","ALL")//Read consistenc
 
 // COMMAND ----------
 
-// Generate a simple dataset containing five values
+// Generate a datagrame with five records
 val booksDF = Seq(
    ("b00001", "Arthur Conan Doyle", "A study in scarlet", 1887),
    ("b00023", "Arthur Conan Doyle", "A sign of four", 1890),
@@ -101,9 +101,7 @@ booksDF.show
 
 // COMMAND ----------
 
-//Set individual records to strong consistency
-//import com.datastax.spark.connector.writer._
-
+//Set individual records to strong consistency and ttl to specific value
 booksDF.write
   .mode("append")
   .format("org.apache.spark.sql.cassandra")
@@ -125,6 +123,7 @@ booksDF.write
 
 // MAGIC %md
 // MAGIC ##### 3.0.1.4. Create if not exists
+// MAGIC Is not supported yet
 
 // COMMAND ----------
 
@@ -138,7 +137,7 @@ sqlContext
 
 // COMMAND ----------
 
-//sparkConf.set("spark.cassandra.output.ifNotExists", "true")
+//This is not supported yet
 val booksDF = Seq(
    ("b00001", "Arthur Conan Doyle", "A study in scarlet", 1891,23.00),
    ("b02999", "Arthur Conan Doyle", "A case of identity", 1891,15.00)
@@ -152,7 +151,7 @@ booksDF.write
 
 // COMMAND ----------
 
-//Quick looks at data prior
+//Quick looks at data after
 sqlContext
   .read
   .format("org.apache.spark.sql.cassandra")
