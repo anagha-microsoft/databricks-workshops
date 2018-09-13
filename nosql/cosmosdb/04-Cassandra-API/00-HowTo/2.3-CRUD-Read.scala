@@ -7,9 +7,6 @@
 // MAGIC 
 // MAGIC **Reference:**<br> 
 // MAGIC **TODO**
-// MAGIC   
-// MAGIC   implicit val readConf = ReadConf.fromSparkConf(sc.getConf).copy(
-// MAGIC     consistencyLevel = ConsistencyLevel.ALL)
 
 // COMMAND ----------
 
@@ -80,7 +77,6 @@ readBooksDF.show
 
 // COMMAND ----------
 
-//spark.read with read.cassandraFormat(...)
 val readBooksDF = spark
   .read
   .cassandraFormat("books", "books_ks", "")
@@ -89,12 +85,11 @@ val readBooksDF = spark
 // COMMAND ----------
 
 // MAGIC %md
-// MAGIC ##### 4.0.1.3. Projection and predicate pushdown
+// MAGIC ##### 4.0.1.3. Projection and predicate pushdowns
+// MAGIC Note: Predicate pushdown is not supported yet.  Any filtering is on the client-side(Spark)
 
 // COMMAND ----------
 
-
-//Projection and predicate pushdown
 val readBooksDF = spark
   .read
   .format("org.apache.spark.sql.cassandra")
@@ -107,7 +102,7 @@ val readBooksDF = spark
 //.filter("book_author='Arthur Conan Doyle' AND book_pub_year=1890")
 //.filter("book_pub_year=1903")  
 
-
+readBooksDF.printSchema
 readBooksDF.explain
 readBooksDF.show
 
@@ -123,19 +118,33 @@ readBooksDF.show
 
 // COMMAND ----------
 
-//Just an example - use collect wisely or not use at all
-val bookRDD = sc.cassandraTable("books_ks", "books").collect.foreach(println)
+val bookRDD = sc.cassandraTable("books_ks", "books")
+bookRDD.take(5).foreach(println)
+
+// COMMAND ----------
+
+//Limit - not supported
+//val bookRDD = sc.cassandraTable("books_ks", "books").limit(1).collect.foreach(println)
 
 // COMMAND ----------
 
 // MAGIC %md
-// MAGIC ##### 4.0.2.2. Projection and predicate pushdown
+// MAGIC ##### 4.0.2.2. Projection pushdown
 
 // COMMAND ----------
 
-//sc.cassandraTable("books_ks", "books").select("book_name","book_author","book_pub_year").where("book_pub_year > ?", 1891).collect.foreach(println)
-sc.cassandraTable("books_ks", "books").select("book_id","book_author").where("book_name = ?", "A sign of four").collect.foreach(println)
+val booksRDD = sc.cassandraTable("books_ks", "books").select("book_id","book_name").cache
+booksRDD.take(5).foreach(println)
 
+// COMMAND ----------
+
+// MAGIC %md
+// MAGIC ##### 4.0.2.3. Predicate pushdown
+// MAGIC Not supported yet
+
+// COMMAND ----------
+
+//val dummyRDD = sc.cassandraTable("books_ks", "books").select("book_id","book_name").where("book_name = ?", "A sign of four").take(2).foreach(println)
 
 // COMMAND ----------
 
