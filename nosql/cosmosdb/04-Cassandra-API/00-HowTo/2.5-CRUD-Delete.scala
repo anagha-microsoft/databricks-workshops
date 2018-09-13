@@ -4,10 +4,6 @@
 // MAGIC Basics of how to work with CosmosDB from Databricks <B>in batch</B>.<BR>
 // MAGIC Section 06: Delete operation (cRud)<BR>
 // MAGIC 
-// MAGIC **NOTE:**<br>
-// MAGIC Server-de(Cassandra) filtering of non-partition key columns is not supported yet.<BR>
-// MAGIC You will see caching done at the Spark level as a workaround till we release server side filtering.<br> 
-// MAGIC 
 // MAGIC **Reference:**<br> 
 // MAGIC **TODO**
 
