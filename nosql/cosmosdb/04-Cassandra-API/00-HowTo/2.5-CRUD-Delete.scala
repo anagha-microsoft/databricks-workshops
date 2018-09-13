@@ -122,7 +122,6 @@ deleteBooksDF.foreachPartition(partition => {
 })
 
 println("2b) Completed delete")
-println("deleteString" +  deleteString)
 println("==================")
 
 //5) Review table data after delete operation
