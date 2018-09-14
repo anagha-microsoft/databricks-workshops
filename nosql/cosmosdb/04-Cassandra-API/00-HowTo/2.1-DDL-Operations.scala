@@ -25,17 +25,7 @@
 // COMMAND ----------
 
 // MAGIC %md
-// MAGIC ##### 1.0.2. Instantiate the CosmosDB connection factory configured for multipe retry
-// MAGIC - Roadmap: This will be a library on maven
-
-// COMMAND ----------
-
-// MAGIC %run ../00-HowTo/2-CassandraUtils
-
-// COMMAND ----------
-
-// MAGIC %md
-// MAGIC ##### 1.0.3. Imports
+// MAGIC ##### 1.0.2. Imports
 
 // COMMAND ----------
 
