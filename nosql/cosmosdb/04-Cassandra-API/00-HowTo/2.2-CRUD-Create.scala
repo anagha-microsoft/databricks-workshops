@@ -15,10 +15,6 @@
 
 // COMMAND ----------
 
-// MAGIC %run ../00-HowTo/2-CassandraUtils
-
-// COMMAND ----------
-
 import org.apache.spark.rdd.RDD
 import org.apache.spark.{SparkConf, SparkContext}
 
