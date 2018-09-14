@@ -21,7 +21,7 @@
 // MAGIC %md
 // MAGIC ### 1.0. Provision CosmosDB Cassandra API instance
 // MAGIC Details can be found here-<br>
-// MAGIC **TODO:** Add a link that covers just provisioning.
+// MAGIC https://docs.microsoft.com/en-us/azure/cosmos-db/create-cassandra-dotnet#create-a-database-account
 
 // COMMAND ----------
 
@@ -52,7 +52,8 @@
 // MAGIC ### 4.0. Attaching CosmosDB-Cassandra API specific library to the cluster
 // MAGIC We need a custom connection factory as this is the only way to configure a retry policy on the connector.<br>
 // MAGIC As completed in 3.0., add the following maven coordinates to attach the jar to the cluster<br>
-// MAGIC TODO: Add link here
+// MAGIC Download: https://search.maven.org/artifact/com.microsoft.azure.cosmosdb/azure-cosmos-cassandra-spark-helper/1.0.0/jar<br>
+// MAGIC Coordinates: com.microsoft.azure.cosmosdb:azure-cosmos-cassandra-spark-helper:1.0.0<br>
 
 // COMMAND ----------
 
@@ -90,7 +91,6 @@
 // MAGIC ### 6.0. Important links
 // MAGIC 1) Link to Spark Cassandra tuning specs<br>
 // MAGIC https://github.com/Azure-Samples/azure-cosmos-db-cassandra-api-spark-connector-sample<br>
-// MAGIC 2) TODO: Replace link to #1
 
 // COMMAND ----------
 
