@@ -2,7 +2,7 @@
 // MAGIC %md
 // MAGIC # Azure Cosmos DB Cassandra API
 // MAGIC 
-// MAGIC The Cassandra API allows you to interact with Azure Cosmos DB using Cassandra constructs/codebase. Azure Cosmos DB is a managed service, therefore, not all functionality available in Cassandra is applicable.  E.g. Azure Cosmos DB has its own replication,indexing etc that is not overridable.<br>
+// MAGIC The Cassandra API allows you to interact with Azure Cosmos DB using Apache Cassandra constructs/codebase. Azure Cosmos DB is a managed service, therefore, not all functionality available in Cassandra is applicable.  E.g. Azure Cosmos DB has its own replication,indexing etc that is not overridable.<br>
 // MAGIC 
 // MAGIC This module covers:<br>
 // MAGIC 1) Provisioning Azure Cosmos DB - Cassandra API<br>
