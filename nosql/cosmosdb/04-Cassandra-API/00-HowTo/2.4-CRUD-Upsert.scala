@@ -1,7 +1,7 @@
 // Databricks notebook source
 // MAGIC %md
 // MAGIC # What's in this exercise
-// MAGIC Basics of how to work with CosmosDB from Databricks <B>in batch</B>.<BR>
+// MAGIC Basics of how to work with Azure Cosmos DB-Cassandra API from Databricks <B>in batch</B>.<BR>
 // MAGIC Section 05: Upsert operation (crUd)<BR>
 // MAGIC 
 // MAGIC **Reference:**<br> 
