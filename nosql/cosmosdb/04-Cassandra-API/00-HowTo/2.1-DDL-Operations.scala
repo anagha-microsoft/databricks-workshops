@@ -1,7 +1,7 @@
 // Databricks notebook source
 // MAGIC %md
 // MAGIC # What's in this exercise
-// MAGIC Basics of how to work with CosmosDB from Databricks <B>in batch</B>.<BR>
+// MAGIC Basics of how to work with Azure Cosmos DB Cassandra API from Databricks <B>in batch</B>.<BR>
 // MAGIC Section 01: Cassandra API connection<BR>
 // MAGIC Section 02: DDL operations for keyspace and table<BR>
 // MAGIC   
@@ -19,7 +19,7 @@
 
 // MAGIC %md
 // MAGIC ##### 1.0.1. Prerequisites
-// MAGIC - Add the 5 CosmosDB-Cassandra API specific configuration to the cluster configuation described in the ReadMe
+// MAGIC - Add the 5 Azure Cosmos DB-Cassandra API specific configuration to the cluster configuation described in the ReadMe
 // MAGIC - Attach the Databricks runtime compatible Datastax Cassandra connector library to the cluster
 
 // COMMAND ----------
