@@ -1,7 +1,7 @@
 // Databricks notebook source
 // MAGIC %md
 // MAGIC # What's in this exercise
-// MAGIC Basics of how to work with CosmosDB from Databricks <B>in batch</B>.<BR>
+// MAGIC Basics of how to work with Azure Cosmos DB - Cassandra API from Databricks <B>in batch</B>.<BR>
 // MAGIC Section 04: Read operation (cRud)<BR>
 // MAGIC   Aggregation operations covered separately<br>
 // MAGIC 
@@ -12,10 +12,6 @@
 
 // MAGIC %md
 // MAGIC ## 4.0. Read operation (C*R*UD)
-
-// COMMAND ----------
-
-// MAGIC %run ../00-HowTo/2-CassandraUtils
 
 // COMMAND ----------
 
