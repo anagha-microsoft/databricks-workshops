@@ -1,7 +1,8 @@
 // Databricks notebook source
 // MAGIC %md
 // MAGIC # What's in this exercise
-// MAGIC Basics of how to copy data from one table to another<B>in batch</B>.<BR>
+// MAGIC Basics of how to work with Azure Cosmos DB - Cassandra API from Databricks in batch.<br>
+// MAGIC 7.0. How to copy data from one table to another<BR>
 
 // COMMAND ----------
 
@@ -68,7 +69,7 @@ sqlContext
 // COMMAND ----------
 
 // MAGIC %md
-// MAGIC ## 8.0.2. Copy from source table to an non-existent destination table-create table and insert (CTAS like)
+// MAGIC ## 8.0.2. Copy from source table to a non-existent destination table
 
 // COMMAND ----------
 
