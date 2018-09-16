@@ -394,4 +394,4 @@ sql("ANALYZE TABLE taxi_db.green_taxi_trips COMPUTE STATISTICS")
 
 // COMMAND ----------
 
-//46 minutes ofr entire dataset
+//46 minutes of entire dataset
