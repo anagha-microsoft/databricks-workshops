@@ -1,7 +1,7 @@
 // Databricks notebook source
 // MAGIC %md
 // MAGIC # What's in this exercise
-// MAGIC Basics of how to work with CosmosDB from Databricks <B>in batch</B>.<BR>
+// MAGIC Basics of how to work with Azure Cosmos DB from Databricks <B>in batch</B>.<BR>
 // MAGIC Section 03: Create operation (Crud)<BR>
 // MAGIC   
 // MAGIC **TTL related roadmap**:<br>
@@ -30,7 +30,7 @@ import com.datastax.spark.connector.cql.CassandraConnector
 import com.datastax.driver.core.{ConsistencyLevel, DataType}
 import com.datastax.spark.connector.writer.WriteConf
 
-//CosmosDB library for multiple retry
+//Azure Cosmos DB library for multiple retry
 import com.microsoft.azure.cosmosdb.cassandra
 
 // Specify connection factory for Cassandra
@@ -56,11 +56,10 @@ spark.conf.set("spark.cassandra.input.consistency.level","ALL")//Read consistenc
 // COMMAND ----------
 
 // MAGIC %md
-// MAGIC ##### 3.0.1.1. Create a dataframe with 5 records
+// MAGIC ##### 3.0.1.1. Create a dataframe with 5 rows
 
 // COMMAND ----------
 
-// Generate a datagrame with five records
 val booksDF = Seq(
    ("b00001", "Arthur Conan Doyle", "A study in scarlet", 1887),
    ("b00023", "Arthur Conan Doyle", "A sign of four", 1890),
@@ -178,7 +177,7 @@ booksRDD.take(2).foreach(println)
 // COMMAND ----------
 
 // MAGIC %md
-// MAGIC ##### 3.0.2.2. Save RDD to CosmosDB-Cassandra API
+// MAGIC ##### 3.0.2.2. Persist to Azure Cosmos DB
 
 // COMMAND ----------
 
