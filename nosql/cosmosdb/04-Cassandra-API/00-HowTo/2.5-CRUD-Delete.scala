@@ -1,11 +1,8 @@
 // Databricks notebook source
 // MAGIC %md
 // MAGIC # What's in this exercise
-// MAGIC Basics of how to work with CosmosDB from Databricks <B>in batch</B>.<BR>
+// MAGIC Basics of how to work with Azure Cosmos DB - Cassandra API from Databricks <B>in batch</B>.<BR>
 // MAGIC Section 06: Delete operation (cRud)<BR>
-// MAGIC 
-// MAGIC **Reference:**<br> 
-// MAGIC **TODO**
 
 // COMMAND ----------
 
@@ -213,13 +210,10 @@ println("==================")
 println("2a) Starting delete")
 
 //Reuse connection for each partition
-var deleteString = ""
 val cdbConnector = CassandraConnector(sc)
 deleteBooksDF.foreachPartition(partition => {
   cdbConnector.withSessionDo(session =>
     partition.foreach{ book => 
-        deleteString = deleteString + "DELETE FROM books_ks.books where book_id='"+book.getString(0) +"';"
-      println(deleteString)
         val delete = s"DELETE FROM books_ks.books where book_id='"+book.getString(0) +"';"
         session.execute(delete)
     })
