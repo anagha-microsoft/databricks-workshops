@@ -1,13 +1,12 @@
 // Databricks notebook source
 // MAGIC %md
 // MAGIC # What's in this exercise
-// MAGIC Basics of how to work with CosmosDB from Databricks <B>in batch</B>.<BR>
+// MAGIC Basics of how to work with Azure Cosmos DB - Cassandra API from Databricks <B>in batch</B>.<BR>
 // MAGIC Section 07: Aggregation operations<BR>
 // MAGIC   
 // MAGIC **NOTE:**<br>
 // MAGIC 1) Server-side(Cassandra) filtering of non-partition key columns is not yet supported.<BR>
-// MAGIC You will see caching done at the Spark level as a workaround till we support server side filtering.<br> 
-// MAGIC 2) Aggregation operations on the server-side are not yet supported yet<BR>
+// MAGIC 2) Server-side(Cassandra) aggregation operations are not yet supported yet<BR>
 // MAGIC The samples below perform the same on the Spark-side<br>
 // MAGIC 
 // MAGIC **Reference:**<br> 
