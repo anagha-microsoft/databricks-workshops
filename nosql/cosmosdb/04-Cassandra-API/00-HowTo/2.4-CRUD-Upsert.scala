@@ -3,18 +3,11 @@
 // MAGIC # What's in this exercise
 // MAGIC Basics of how to work with Azure Cosmos DB-Cassandra API from Databricks <B>in batch</B>.<BR>
 // MAGIC Section 05: Upsert operation (crUd)<BR>
-// MAGIC 
-// MAGIC **Reference:**<br> 
-// MAGIC **TODO**
 
 // COMMAND ----------
 
 // MAGIC %md
 // MAGIC ## 5.0.1. Upsert/Update operation (CR*U*D)
-
-// COMMAND ----------
-
-// MAGIC %run ../00-HowTo/2-CassandraUtils
 
 // COMMAND ----------
 
@@ -99,7 +92,6 @@ val booksUpdateDF = Seq(
                         ).toDF("book_id", "book_price")
 booksUpdateDF.show()
 
-// Upsert is no different from create
 booksUpdateDF.write
   .mode("append")
   .format("org.apache.spark.sql.cassandra")
@@ -109,15 +101,15 @@ booksUpdateDF.write
 // COMMAND ----------
 
 // MAGIC %md
-// MAGIC ##### 5.0.1.3. Update using cql in Spark
+// MAGIC #### 5.0.2. RDD API
+// MAGIC No different from create operation
+
+// COMMAND ----------
+
+// MAGIC %md
+// MAGIC #### 5.0.3. Update using cql in Spark
 
 // COMMAND ----------
 
 //Runs on driver, use wisely
 cdbConnector.withSessionDo(session => session.execute("update books_ks.books set book_price=99.33 where book_id ='b00300';"))
-
-// COMMAND ----------
-
-// MAGIC %md
-// MAGIC #### 5.0.2. RDD API
-// MAGIC No different from create operation
