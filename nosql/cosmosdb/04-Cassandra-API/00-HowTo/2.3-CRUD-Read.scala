@@ -3,10 +3,6 @@
 // MAGIC # What's in this exercise
 // MAGIC Basics of how to work with Azure Cosmos DB - Cassandra API from Databricks <B>in batch</B>.<BR>
 // MAGIC Section 04: Read operation (cRud)<BR>
-// MAGIC   Aggregation operations covered separately<br>
-// MAGIC 
-// MAGIC **Reference:**<br> 
-// MAGIC **TODO**
 
 // COMMAND ----------
 
