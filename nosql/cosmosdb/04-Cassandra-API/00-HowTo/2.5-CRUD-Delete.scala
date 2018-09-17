@@ -45,7 +45,7 @@ spark.conf.set("spark.cassandra.connection.keep_alive_ms", "600000000") //Increa
 
 // COMMAND ----------
 
-// Generate a simple dataset containing five values and
+// Generate a few rows
 val booksDF = Seq(
    ("b00001", "Arthur Conan Doyle", "A study in scarlet", 1887,11.33),
    ("b00023", "Arthur Conan Doyle", "A sign of four", 1890,22.45),
@@ -104,7 +104,6 @@ println("==================")
 println("2a) Starting delete")
 
 //Reuse connection for each partition
-var deleteString = ""
 val cdbConnector = CassandraConnector(sc)
 deleteBooksDF.foreachPartition(partition => {
   cdbConnector.withSessionDo(session =>
