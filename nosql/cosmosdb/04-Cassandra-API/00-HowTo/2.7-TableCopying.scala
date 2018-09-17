@@ -32,8 +32,6 @@ spark.conf.set("spark.cassandra.output.concurrent.writes", "100")
 spark.conf.set("spark.cassandra.concurrent.reads", "512")
 spark.conf.set("spark.cassandra.output.batch.grouping.buffer.size", "1000")
 spark.conf.set("spark.cassandra.connection.keep_alive_ms", "60000000") //Increase this number as needed
-spark.conf.set("spark.cassandra.output.consistency.level","ALL")//Write consistency = Strong
-spark.conf.set("spark.cassandra.input.consistency.level","ALL")//Read consistency = Strong
 
 // COMMAND ----------
 
@@ -46,20 +44,23 @@ spark.conf.set("spark.cassandra.input.consistency.level","ALL")//Read consistenc
 val cdbConnector = CassandraConnector(sc)
 cdbConnector.withSessionDo(session => session.execute("CREATE TABLE IF NOT EXISTS books_ks.books_copy(book_id TEXT PRIMARY KEY,book_author TEXT, book_name TEXT,book_pub_year INT,book_price FLOAT) WITH cosmosdb_provisioned_throughput=4000;"))
 
-//2) Read from one table
-val readBooksDF = sqlContext
+//2) Delete data from potential prior runs
+cdbConnector.withSessionDo(session => session.execute("DELETE FROM books_ks.books_copy WHERE book_id IN ('b00300','b00001','b00023','b00501','b09999','b01001','b00999','b03999','b02999','b000009');"))
+
+//3) Read from source table
+val readBooksDF = spark
   .read
   .format("org.apache.spark.sql.cassandra")
   .options(Map( "table" -> "books", "keyspace" -> "books_ks"))
   .load
 
-//3) Save to destination table
+//4) Save to destination table
 readBooksDF.write
   .cassandraFormat("books_copy", "books_ks", "")
   .save()
 
-//4) Validate copy to destination table
-sqlContext
+//5) Validate copy to destination table
+spark
   .read
   .format("org.apache.spark.sql.cassandra")
   .options(Map( "table" -> "books_copy", "keyspace" -> "books_ks"))
@@ -75,14 +76,18 @@ sqlContext
 
 import com.datastax.spark.connector._
 
-//1) Read from source table
-val readBooksDF = sqlContext
+//1) Clean up from prior executions
+val cdbConnector = CassandraConnector(sc)
+cdbConnector.withSessionDo(session => session.execute("DROP TABLE IF EXISTS books_ks.books_new;"))
+
+//2) Read from source table
+val readBooksDF = spark
   .read
   .format("org.apache.spark.sql.cassandra")
   .options(Map( "table" -> "books", "keyspace" -> "books_ks"))
   .load
 
-//2) Creates an empty table in the keyspace based off of source table
+//3) Creates an empty table in the keyspace based off of source table
 val newBooksDF = readBooksDF
 newBooksDF.createCassandraTable(
     "books_ks", 
@@ -91,13 +96,13 @@ newBooksDF.createCassandraTable(
     //clusteringKeyColumns = Some(Seq("some column"))
     )
 
-//3) Saves the data from the source table into the newly created table
+//4) Saves the data from the source table into the newly created table
 newBooksDF.write
   .cassandraFormat("books_new", "books_ks","")
   .save()
 
-//4) Validate table creation and data load
-sqlContext
+//5) Validate table creation and data load
+spark
   .read
   .format("org.apache.spark.sql.cassandra")
   .options(Map( "table" -> "books_new", "keyspace" -> "books_ks"))
