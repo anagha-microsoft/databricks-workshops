@@ -44,8 +44,6 @@ spark.conf.set("spark.cassandra.concurrent.reads", "512")
 spark.conf.set("spark.cassandra.output.batch.grouping.buffer.size", "1000")
 spark.conf.set("spark.cassandra.connection.keep_alive_ms", "60000000") //Increase this number as needed
 spark.conf.set("spark.cassandra.output.ignoreNulls","true")
-spark.conf.set("spark.cassandra.output.consistency.level","ALL")//Write consistency = Strong
-spark.conf.set("spark.cassandra.input.consistency.level","ALL")//Read consistency = Strong
 
 // COMMAND ----------
 
@@ -200,7 +198,7 @@ booksRDD.saveToCassandra("books_ks", "books", SomeColumns("book_id", "book_autho
 
 // MAGIC %md
 // MAGIC ### 3.0.3. CQL
-// MAGIC This is just FYI.  Prefer the Dataframe/RDD API for scale, or use this in a foreachpartition
+// MAGIC This is just FYI.  Prefer the Dataframe/RDD API for scale.
 
 // COMMAND ----------
 
