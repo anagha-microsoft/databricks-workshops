@@ -52,8 +52,7 @@ spark.conf.set("spark.cassandra.input.consistency.level","ALL")//Read consistenc
 
 // COMMAND ----------
 
-//spark.read with format("org.apache.spark.sql.cassandra")
-val readBooksDF = sqlContext
+val readBooksDF = spark
   .read
   .format("org.apache.spark.sql.cassandra")
   .options(Map( "table" -> "books", "keyspace" -> "books_ks"))
@@ -136,7 +135,7 @@ booksRDD.take(5).foreach(println)
 
 // COMMAND ----------
 
-//val dummyRDD = sc.cassandraTable("books_ks", "books").select("book_id","book_name").where("book_name = ?", "A sign of four").take(2).foreach(println)
+//sc.cassandraTable("books_ks", "books").select("book_id","book_name").where("book_name = ?", "A sign of four").take(2).foreach(println)
 
 // COMMAND ----------
 
