@@ -8,9 +8,6 @@
 // MAGIC 1) Server-side(Cassandra) filtering of non-partition key columns is not yet supported.<BR>
 // MAGIC 2) Server-side(Cassandra) aggregation operations are not yet supported yet<BR>
 // MAGIC The samples below perform the same on the Spark-side<br>
-// MAGIC 
-// MAGIC **Reference:**<br> 
-// MAGIC **TODO**
 
 // COMMAND ----------
 
@@ -209,7 +206,7 @@ spark
 // COMMAND ----------
 
 // MAGIC %md
-// MAGIC ##### 7.0.3.a. CQL
+// MAGIC ##### 7.0.3.a. SQL
 
 // COMMAND ----------
 
