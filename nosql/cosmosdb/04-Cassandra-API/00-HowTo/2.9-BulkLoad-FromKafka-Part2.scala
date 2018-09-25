@@ -1,8 +1,18 @@
 // Databricks notebook source
 // MAGIC %md
 // MAGIC # What's in this exercise
-// MAGIC This is part 2 of 2 notebooks that demonstrate bulk load from Kafka into Azure Cosmos DB Cassandra API - of 1.5 GB of the Chicago crimes public dataset.<BR>
-// MAGIC In notebook 1, we published data to Kafka, in this notebook, we will read from it and sink to Azure Cosmos DB Cassandra API.<BR>
+// MAGIC This is part 2 of 3 notebooks that demonstrate bulk load from Kafka, in batch mode, of 6.7 million records/1.5 GB of the Chicago crimes public dataset.<BR>
+// MAGIC - In notebook 1, we published data to Kafka for purpose of the exercise<BR>
+// MAGIC - In this notebook, we will read from kafka and persist to Azure Cosmos DB Cassandra API<BR>
+// MAGIC - In notebook 3, we will read from Kafka and write to a Databricks Delta table<BR>
+// MAGIC   
+// MAGIC   
+// MAGIC With the three notebooks, we cover (publishing to Kafka) sinking to an OLTP store - the Azure Cosmos DB Cassandra table, and an alsytics store - the Databricks Delta table.
+
+// COMMAND ----------
+
+// MAGIC %md
+// MAGIC ### 1.0. Read from Kafka in batch
 
 // COMMAND ----------
 
@@ -25,6 +35,13 @@ val kafkaSourceDF = spark
 
 val formatedKafkaDF = kafkaSourceDF.selectExpr("CAST(key AS STRING) as case_id", "CAST(value AS STRING) as json_payload")
   .as[(String, String)]
+
+// COMMAND ----------
+
+// MAGIC %md
+// MAGIC ### 2.0. Parse events from kafka
+
+// COMMAND ----------
 
 val consumableDF = formatedKafkaDF.select(get_json_object($"json_payload", "$.case_id").cast(IntegerType).alias("case_id"),
                                           get_json_object($"json_payload", "$.case_nbr").alias("case_nbr"),
@@ -65,6 +82,11 @@ consumableDF.printSchema
 
 // COMMAND ----------
 
+// MAGIC %md
+// MAGIC ### 3.0. Sample to write to Databricks Delta
+
+// COMMAND ----------
+
 /*  TO WRITE TO DATARICKS DELTA
 //Took the author <3 minutes
 
@@ -95,6 +117,11 @@ select * from crimes_db.chicago_crimes_delta;
 
 // COMMAND ----------
 
+// MAGIC %md
+// MAGIC ### 3.0. Persist to Azure Cosmos DB Cassandra API
+
+// COMMAND ----------
+
  //datastax Spark connector
 import com.datastax.spark.connector._
 import com.datastax.spark.connector.cql.CassandraConnector
@@ -120,7 +147,7 @@ println("Start time=" + Calendar.getInstance().getTime())
 consumableDF.write
   .mode("append")
   .format("org.apache.spark.sql.cassandra")
-  .options(Map( "table" -> "crimes_chicago", "keyspace" -> "crimes_ks"))
+  .options(Map( "table" -> "crimes_chicago_batch", "keyspace" -> "crimes_ks"))
   .save()
 
 println("End time=" + Calendar.getInstance().getTime())
