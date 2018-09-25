@@ -3,7 +3,7 @@
 // MAGIC # What's in this exercise
 // MAGIC This is part 3 of 3 notebooks that demonstrate bulk load from Kafka, in batch mode, of 1.5 GB of the Chicago crimes public dataset.<BR>
 // MAGIC - In notebook 1, we published data to Kafka for purpose of the exercise<BR>
-// MAGIC - In notebook 2, we persisted to Azure Cosmos DB Cassandra API<BR>
+// MAGIC - In notebook 2, we read from Kafka and persisted to Azure Cosmos DB Cassandra API<BR>
 // MAGIC - In this notebook, we will read from Kafka and write to a Databricks Delta table<BR>
 // MAGIC   
 // MAGIC While the Azure Cosmos DB Cassandra table serves as a hot store for OLTP, the Delta table will serve as an analytics store.
@@ -86,6 +86,8 @@ consumableDF.printSchema
 
 // COMMAND ----------
 
+//Took the author 3 minutes
+
 //1) Destination directory for delta table
 val dbfsDestDirPath="/mnt/data/crimes/curatedDir/chicago-crimes-data-delta"
 
@@ -93,12 +95,12 @@ val dbfsDestDirPath="/mnt/data/crimes/curatedDir/chicago-crimes-data-delta"
 dbutils.fs.rm(dbfsDestDirPath, recurse=true)
 
 //3) Persist as delta format (Parquet) to curated zone to a delta table
-consumableDF.write.format("delta").save(dbfsDestDirPath)
+consumableDF.write.format("delta").mode("overwrite").save(dbfsDestDirPath)
 
 // COMMAND ----------
 
 // MAGIC %sql
-// MAGIC --Took the author 2.68 minutes for 1.5 GB of data/6.7 M rows
+// MAGIC --Took the author 2 minutes for 1.5 GB of data/6.7 M rows
 // MAGIC CREATE DATABASE IF NOT EXISTS crimes_db;
 // MAGIC 
 // MAGIC USE crimes_db;
