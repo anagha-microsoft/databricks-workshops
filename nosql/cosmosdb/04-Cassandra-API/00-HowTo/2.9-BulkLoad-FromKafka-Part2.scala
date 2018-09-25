@@ -7,7 +7,7 @@
 // MAGIC - In notebook 3, we will read from Kafka and write to a Databricks Delta table<BR>
 // MAGIC   
 // MAGIC   
-// MAGIC With the three notebooks, we cover (publishing to Kafka) sinking to an OLTP store - the Azure Cosmos DB Cassandra table, and an alsytics store - the Databricks Delta table.
+// MAGIC With the three notebooks, we cover (publishing to Kafka) sinking to an OLTP store - the Azure Cosmos DB Cassandra table, and an analytics store - the Databricks Delta table.
 
 // COMMAND ----------
 
