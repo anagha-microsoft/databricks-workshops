@@ -3,11 +3,10 @@
 // MAGIC # What's in this exercise
 // MAGIC This is part 2 of 3 notebooks that demonstrate bulk load from Kafka, in batch mode, of 6.7 million records/1.5 GB of the Chicago crimes public dataset.<BR>
 // MAGIC - In notebook 1, we published data to Kafka for purpose of the exercise<BR>
-// MAGIC - In this notebook, we will read from kafka and persist to Azure Cosmos DB Cassandra API<BR>
+// MAGIC - In this notebook, we will read from Kafka and persist to Azure Cosmos DB Cassandra API<BR>
 // MAGIC - In notebook 3, we will read from Kafka and write to a Databricks Delta table<BR>
 // MAGIC   
-// MAGIC   
-// MAGIC With the three notebooks, we cover (publishing to Kafka) sinking to an OLTP store - the Azure Cosmos DB Cassandra table, and an analytics store - the Databricks Delta table.
+// MAGIC With the three notebooks, we cover (publishing to Kafka and then), reading from Kafka in batch mode and sinking to an OLTP store - the Azure Cosmos DB Cassandra table, and an analytics store - the Databricks Delta table.<BR>
 
 // COMMAND ----------
 
