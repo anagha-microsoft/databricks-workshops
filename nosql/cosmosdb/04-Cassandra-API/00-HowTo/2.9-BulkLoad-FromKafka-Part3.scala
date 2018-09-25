@@ -1,8 +1,8 @@
 // Databricks notebook source
 // MAGIC %md
 // MAGIC # What's in this exercise
-// MAGIC This is part 3 of 3 notebooks that demonstrate bulk load from Kafka, in bach mode, of 1.5 GB of the Chicago crimes public dataset.<BR>
-// MAGIC - In notebook 1, we published data to Kafka<BR>
+// MAGIC This is part 3 of 3 notebooks that demonstrate bulk load from Kafka, in batch mode, of 1.5 GB of the Chicago crimes public dataset.<BR>
+// MAGIC - In notebook 1, we published data to Kafka for purpose of the exercise<BR>
 // MAGIC - In notebook 2, we persisted to Azure Cosmos DB Cassandra API<BR>
 // MAGIC - In this notebook, we will read from Kafka and write to a Databricks Delta table<BR>
 // MAGIC   
