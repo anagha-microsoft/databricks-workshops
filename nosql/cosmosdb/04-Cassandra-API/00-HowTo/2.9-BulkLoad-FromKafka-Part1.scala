@@ -1,15 +1,20 @@
 // Databricks notebook source
 // MAGIC %md
 // MAGIC # What's in this exercise
-// MAGIC This is part 1 of 2 notebooks that demonstrate bulk load from Kafka into Azure Cosmos DB Cassandra API - of 1.5 GB of the Chicago crimes public dataset.<BR>
 // MAGIC A pre-requisite for this module is to complete the first notebook for "Bulk load from blob" that covers downloading and curating the public dataset.<BR>
-// MAGIC 
-// MAGIC In this notebook, we will publish the curated crime data to a Kafka topic as part of a batch process.  This will set the stage for the next notebook that covers bulk loading from Kafka in batch into Azure Cosmos DB Cassandra API.
+// MAGIC   
+// MAGIC This is part 1 of 3 notebooks that demonstrate bulk load from Kafka, in batch mode, of 6.7 million records/1.5 GB of the Chicago crimes public dataset.<BR>
+// MAGIC - In this notebook, will download publish data to Kafka<BR>
+// MAGIC - In notebook 2, we will read from kafka and persist to Azure Cosmos DB Cassandra API<BR>
+// MAGIC - In notebook 3, we will read from Kafka and write to a Databricks Delta table<BR>
+// MAGIC   
+// MAGIC With the three notebooks, we cover (publishing to Kafka) sinking to an OLTP store - the Azure Cosmos DB Cassandra table, and an alsytics store - the Databricks Delta table.<BR>
+// MAGIC Section 1 covers provisioning and configuring HDInsight Kafka for the exercise, also Azure Cosmos DB Cassandra API.
 
 // COMMAND ----------
 
 // MAGIC %md
-// MAGIC ### 1.0. Pre-requisites
+// MAGIC ### 1.0. Pre-requisites (Kafka & Azure Cosmos DB Cassandra API)
 // MAGIC Provision a Kafka cluster and run through the process of creating a topic, setting up Vnet peering (Databricks Vnet and Kafka Vnet), Kafka IP advertising
 
 // COMMAND ----------
@@ -101,6 +106,55 @@
 // MAGIC ##### 1.0.8. Add the Spark Kafka library to the cluster
 // MAGIC Find the compatible version on Maven central.  For HDInsight 3.6, with Kafka 1.1/1.0/0.10.1, and Databricks Runtime 4.3, Spark 2.3.1, Scala 2.11, the author used-<br>
 // MAGIC org.apache.spark:spark-sql-kafka-0-10_2.11:2.3.1
+
+// COMMAND ----------
+
+// MAGIC %md
+// MAGIC #### 1.0.e. Specific to Azure Cosmos DB Cassandra API
+// MAGIC 
+// MAGIC ##### 1.0.9. Provision a Cassandra API instance from the portal
+// MAGIC https://docs.microsoft.com/en-us/azure/cosmos-db/create-cassandra-api-account-java#create-a-database-account
+// MAGIC 
+// MAGIC ##### 1.0.10. Create a keyspace from the portal - data explorer
+// MAGIC Name: crimes_ks<br>
+// MAGIC Throughput: 50,000<br>
+// MAGIC 
+// MAGIC ##### 1.0.11. Create a table from the portal - data explorer
+// MAGIC Name: crimes_chicago_batch<br>
+// MAGIC Keyspace: crimes_ks<br>
+// MAGIC Throughput: 50,000<br>
+// MAGIC Columns:<br>
+// MAGIC ```
+// MAGIC (
+// MAGIC case_id int primary key,
+// MAGIC case_nbr text,
+// MAGIC case_dt_tm text,
+// MAGIC block text,
+// MAGIC iucr text,
+// MAGIC primary_type text,
+// MAGIC description text,
+// MAGIC location_description text,
+// MAGIC arrest_made boolean,
+// MAGIC was_domestic boolean,
+// MAGIC beat int,
+// MAGIC district int,
+// MAGIC ward int,
+// MAGIC community_area int,
+// MAGIC fbi_code text,
+// MAGIC x_coordinate int,
+// MAGIC y_coordinate int,
+// MAGIC case_year int,
+// MAGIC updated_dt text,
+// MAGIC latitude double,
+// MAGIC longitude double,
+// MAGIC location_coords text,
+// MAGIC case_timestamp timestamp,
+// MAGIC case_month int,
+// MAGIC case_day_of_month int,
+// MAGIC case_hour int,
+// MAGIC case_day_of_week_nbr int,
+// MAGIC case_day_of_week_name text)
+// MAGIC ```
 
 // COMMAND ----------
 
