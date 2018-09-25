@@ -8,7 +8,7 @@
 // MAGIC - In notebook 2, we will read from kafka and persist to Azure Cosmos DB Cassandra API<BR>
 // MAGIC - In notebook 3, we will read from Kafka and write to a Databricks Delta table<BR>
 // MAGIC   
-// MAGIC With the three notebooks, we cover (publishing to Kafka) sinking to an OLTP store - the Azure Cosmos DB Cassandra table, and an alsytics store - the Databricks Delta table.<BR>
+// MAGIC With the three notebooks, we cover (publishing to Kafka) sinking to an OLTP store - the Azure Cosmos DB Cassandra table, and an analytics store - the Databricks Delta table.<BR>
 // MAGIC Section 1 covers provisioning and configuring HDInsight Kafka for the exercise, also Azure Cosmos DB Cassandra API.
 
 // COMMAND ----------
