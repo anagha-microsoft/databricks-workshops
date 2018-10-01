@@ -1,12 +1,20 @@
 // Databricks notebook source
 // MAGIC %md
 // MAGIC # What's in this exercise
-// MAGIC This is part 3 of 3 notebooks that demonstrate stream ingest from Kafka, of 1.5 GB of the Chicago crimes public dataset.<BR>
+// MAGIC This is part 2 of 4 notebooks that demonstrate stream ingest from Kafka, of 1.5 GB of the Chicago crimes public dataset.<BR>
 // MAGIC - In notebook 1, we published data to Kafka for purpose of the exercise<BR>
-// MAGIC - In this notebook, we will ingest from Kafka using structured stream processing and persist to an Azure Cosmos DB Cassandra table<BR>
-// MAGIC - In notebook 3, we will ingest from Kafka using structured stream processing and persist to a Databricks Delta table<BR>
+// MAGIC - In this notebook, we will (attemot to) ingest from Kafka using structured stream processing and persist to an Azure Cosmos DB Cassandra table<BR>
+// MAGIC - In notebook 3, we will ingest from Kafka using classic stream processing (DStream based) and persist to an Azure Cosmos DB Cassandra table<BR>
+// MAGIC - In notebook 4, we will ingest from Kafka using structured stream processing and persist to a Databricks Delta table<BR>
 // MAGIC   
 // MAGIC While the Azure Cosmos DB Cassandra table serves as a hot store for OLTP, the Delta table will serve as an analytics store.
+// MAGIC   
+// MAGIC ### Note:
+// MAGIC At the time of authoring this notebook (Oct 2018), **neither documented path to structured stream sink to Cassandra worked** (Spark 2.3.1, connector 2.11-2.3.2).<br>
+// MAGIC https://docs.datastax.com/en/dse/6.0/dse-dev/datastax_enterprise/spark/structuredStreaming.html<br>
+// MAGIC The published samples work only with connector and spark version 2.3.0, which does not work with Databricks runtime with Spark 2.3.0.<br>
+// MAGIC The connector author is working on forward compatibility tracked under [JIRA](https://www.google.com/url?q=https%3A%2F%2Fdatastax.jira.com%2Fbrowse%2FDSP-16635&sa=D&sntz=1&usg=AFQjCNED-nPzpF0jwURzMq7ibtNFQKfAXA)<br>
+// MAGIC Reference: [Structured streaming sink related thread](https://groups.google.com/a/lists.datastax.com/forum/#!msg/spark-connector-user/0aHJ4oskw7Q/xPKoqrtVAgAJ)<br>
 
 // COMMAND ----------
 
