@@ -3,7 +3,7 @@
 // MAGIC # What's in this exercise
 // MAGIC This is part 2 of 4 notebooks that demonstrate stream ingest from Kafka, of 1.5 GB of the Chicago crimes public dataset.<BR>
 // MAGIC - In notebook 1, we published data to Kafka for purpose of the exercise<BR>
-// MAGIC - In this notebook, we will (attemot to) ingest from Kafka using structured stream processing and persist to an Azure Cosmos DB Cassandra table<BR>
+// MAGIC - In **this notebook**, we will (attempt to) ingest from Kafka using structured stream processing and persist to an Azure Cosmos DB Cassandra table<BR>
 // MAGIC - In notebook 3, we will ingest from Kafka using classic stream processing (DStream based) and persist to an Azure Cosmos DB Cassandra table<BR>
 // MAGIC - In notebook 4, we will ingest from Kafka using structured stream processing and persist to a Databricks Delta table<BR>
 // MAGIC   
