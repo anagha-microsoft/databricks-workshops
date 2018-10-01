@@ -4,7 +4,7 @@
 // MAGIC A pre-requisite for this module is to complete the first notebook for "Bulk load from blob" that covers downloading and curating the public dataset.<BR>
 // MAGIC   
 // MAGIC This is part 1 of 3 notebooks that demonstrate bulk load from Kafka, in batch mode, of 6.7 million records/1.5 GB of the Chicago crimes public dataset.<BR>
-// MAGIC - In this notebook, will download publish data to Kafka<BR>
+// MAGIC - In this notebook, will publish data to Kafka<BR>
 // MAGIC - In notebook 2, we will read from kafka and persist to Azure Cosmos DB Cassandra API<BR>
 // MAGIC - In notebook 3, we will read from Kafka and write to a Databricks Delta table<BR>
 // MAGIC   
@@ -24,34 +24,32 @@
 // MAGIC 
 // MAGIC ##### 1.0.1. Get the zookeeper server list for the cluster
 // MAGIC 
-// MAGIC Run this on the terminal of the headnode of your Kafka cluster to get the zookeeper server list with port number-
+// MAGIC Run this on the terminal of the headnode of your Kafka cluster to get the zookeeper server list with port number.<br>
+// MAGIC This is required for creating a Kafka topic in your Kafka cluster from the CLI.
 // MAGIC ```Scala
 // MAGIC CLUSTERNAME="YOUR_CLUSTERNAME"
-// MAGIC PASSWORD="YOUR_CLUSTERPASSWORD"
-// MAGIC curl -u admin:$YOUR_CLUSTERPASSWORD -G "https://$YOUR_CLUSTERNAME.azurehdinsight.net/api/v1/clusters/$YOUR_CLUSTERNAME/services/ZOOKEEPER/components/ZOOKEEPER_SERVER" | jq -r '["\(.host_components[].HostRoles.host_name):2181"] | join(",")' | cut -d',' -f1,2
+// MAGIC ZOOKEEPER_HOSTS=`curl -u admin -G "https://$CLUSTERNAME.azurehdinsight.net/api/v1/clusters/$CLUSTERNAME/services/ZOOKEEPER/components/ZOOKEEPER_SERVER" | jq -r '["\(.host_components[].HostRoles.host_name):2181"] | join(",")' | cut -d',' -f1,2`
 // MAGIC ```
-// MAGIC 
+// MAGIC After the command completes, run this-
+// MAGIC ```Scala
+// MAGIC echo $ZOOKEEPER_HOSTS
+// MAGIC ```
 // MAGIC ##### 1.0.2. Get the broker list for the cluster
 // MAGIC 
-// MAGIC Run this on the terminal of the headnode of your Kafka cluster to get the broker list with port number-
+// MAGIC Run this on the terminal of the headnode of your Kafka cluster to get the broker list with port number.<br>
+// MAGIC This is required for smoke testing your Kafka cluster with the Kafka console producer and consumer, from the CLI of your Kafka cluster.
 // MAGIC ```Scala
-// MAGIC CLUSTERNAME="YOUR_CLUSTERNAME"
-// MAGIC export KAFKABROKERS=`curl -u admin -G "https://$YOUR_CLUSTERNAME.azurehdinsight.net/api/v1/clusters/$YOUR_CLUSTERNAME/services/KAFKA/components/KAFKA_BROKER" | jq -r '["\(.host_components[].HostRoles.host_name):9092"] | join(",")' | cut -d',' -f1,2`
+// MAGIC KAFKA_BROKERS=`curl -u admin -G "https://$CLUSTERNAME.azurehdinsight.net/api/v1/clusters/$CLUSTERNAME/services/KAFKA/components/KAFKA_BROKER" | jq -r '["\(.host_components[].HostRoles.host_name):9092"] | join(",")' | cut -d',' -f1,2`
 // MAGIC ```
-// MAGIC 
+// MAGIC After the command completes, run this-
+// MAGIC ```Scala
+// MAGIC echo $KAFKA_BROKERS
+// MAGIC ```
 // MAGIC ##### 1.0.3. Create a Kafka topic called crimes_chicago_topic
 // MAGIC Run this on the terminal of the headnode of your Kafka cluster - 
 // MAGIC ```
-// MAGIC ZOOKEEPER_HOSTS=YOUR_ZOOKEEPER_HOSTS_FROM_1.0.1
 // MAGIC /usr/hdp/current/kafka-broker/bin/kafka-topics.sh --create --replication-factor 3 --partitions 8 --topic crimes_chicago_topic --zookeeper $ZOOKEEPER_HOSTS
 // MAGIC ```
-// MAGIC For example:
-// MAGIC ```
-// MAGIC ZOOKEEPER_HOSTS="zk0-gaia-k.fy0cecrwzco...cx.internal.cloudapp.net:2181,zk1-gaia-k.fy0cecrwzcoe...cx.internal.cloudapp.net:2181,zk2-gaia-k.fy0cec...cx.internal.cloudapp.net"
-// MAGIC /usr/hdp/current/kafka-broker/bin/kafka-topics.sh --create --replication-factor 3 --partitions 8 --topic crimes_chicago_topic --zookeeper $ZOOKEEPER_HOSTS
-// MAGIC Created topic "crimes_chicago_topic".
-// MAGIC ```
-// MAGIC 
 // MAGIC ##### 1.0.4. Smoke test of your Kafka cluster using Kafka utilities - console producer and consumer
 // MAGIC 
 // MAGIC 1.  Create test topic
@@ -64,20 +62,26 @@
 // MAGIC ```
 // MAGIC 3.  Launch the Kafka console producer in one window & type into it
 // MAGIC ```
-// MAGIC /usr/hdp/current/kafka-broker/bin/kafka-console-producer.sh --broker-list $KAFKABROKERS --topic test_topic
+// MAGIC /usr/hdp/current/kafka-broker/bin/kafka-console-producer.sh --broker-list $KAFKA_BROKERS --topic test_topic
 // MAGIC ```
 // MAGIC Type anything as test messages after the > prompt appears.
 // MAGIC 
 // MAGIC 4.  Launch the Kafka console consumer in another terminal window to validate if you can see what you typed in 3.
-// MAGIC Run the command in 1.0.2 to initialize the Kafka broker list to the variable KAFKABROKERS.<BR>  
+// MAGIC Run the command in 1.0.2 to initialize the Kafka broker list to the variable KAFKA_BROKERS.<BR>  
 // MAGIC Then run the command below to launch the Kafka console consumer.
 // MAGIC ```
-// MAGIC /usr/hdp/current/kafka-broker/bin/kafka-console-consumer.sh --bootstrap-server $KAFKABROKERS --topic test_topic --from-beginning
+// MAGIC /usr/hdp/current/kafka-broker/bin/kafka-console-consumer.sh --bootstrap-server $KAFKA_BROKERS --topic test_topic --from-beginning
 // MAGIC ```
 // MAGIC 5.  Delete the test topic from 1.0.4, step 1 to close out the smoke test from any of the two terminals open on the HDInsight Kafka cluster
 // MAGIC ```
 // MAGIC /usr/hdp/current/kafka-broker/bin/kafka-topics.sh --zookeeper $ZOOKEEPER_HOSTS --delete  --topic test_topic
 // MAGIC ```
+// MAGIC 6.  Get the broker private IP list for use in Spark
+// MAGIC From databricks, you cannot use the broker names from the steps above, they will not resolve, instead you need the private IPs.<BR>
+// MAGIC Go to the Ambari hosts page and get the broker private IPs.  The broker names start with wn (for worker node).<br>
+// MAGIC For example, for the author, they were- 10.7.0.12,10.7.0.13, 10.7.0.14, 10.7.0.15<br>
+// MAGIC The port number is 9092; So the author's borker list for use in Spark was - "10.7.0.12:9092, 10.7.0.13:9092,10.7.0.14:9092,10.7.0.15:9092"
+// MAGIC   
 
 // COMMAND ----------
 
@@ -170,7 +174,7 @@
 // COMMAND ----------
 
 val kafkaTopic = "crimes_chicago_topic"
-val kafkaBrokerAndPortCSV = "10.7.0.4:9092, 10.7.0.5:9092,10.7.0.8:9092,10.7.0.12:9092"
+val kafkaBrokerAndPortCSV = "10.7.0.12:9092, 10.7.0.13:9092,10.7.0.14:9092,10.7.0.15:9092"
 
 // COMMAND ----------
 
