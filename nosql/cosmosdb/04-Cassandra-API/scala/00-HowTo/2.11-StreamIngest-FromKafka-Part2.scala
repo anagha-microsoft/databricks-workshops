@@ -19,7 +19,7 @@
 // COMMAND ----------
 
 // MAGIC %md
-// MAGIC ### 1.0. Read from Kafka with structured streaming
+// MAGIC ### 1.0. Read from Kafka with spark structured streaming
 
 // COMMAND ----------
 
