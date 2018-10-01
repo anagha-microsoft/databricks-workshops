@@ -4,10 +4,11 @@
 // MAGIC This is part 2 of 4 notebooks that demonstrate stream ingest from Kafka, of 1.5 GB of the Chicago crimes public dataset.<BR>
 // MAGIC - In notebook 1, we published data to Kafka for purpose of the exercise<BR>
 // MAGIC - In notebook 2, we attempted to ingest from Kafka using structured stream processing and persist to an Azure Cosmos DB Cassandra table<BR>
-// MAGIC - In notebook 3, we will ingest from Kafka using classic stream processing (DStream based) and persist to an Azure Cosmos DB Cassandra table<BR>
+// MAGIC - In **this notebook**, we will ingest from Kafka using classic stream processing (DStream based) and persist to an Azure Cosmos DB Cassandra table<BR>
 // MAGIC - In notebook 4, we will ingest from Kafka using structured stream processing and persist to a Databricks Delta table<BR>
 // MAGIC   
-// MAGIC While the Azure Cosmos DB Cassandra table serves as a hot store for OLTP, the Delta table will serve as an analytics store.
+// MAGIC While the Azure Cosmos DB Cassandra table serves as a hot store for OLTP, the Delta table will serve as an analytics store.<BR><BR>
+// MAGIC Reference: [Spark docs for spark streaming](https://spark.apache.org/docs/2.3.1/streaming-programming-guide.html)
 
 // COMMAND ----------
 
@@ -18,6 +19,15 @@
 
 val kafkaTopic = "crimes_chicago_topic"
 val kafkaBrokerAndPortCSV = "10.7.0.4:9092, 10.7.0.5:9092,10.7.0.8:9092,10.7.0.12:9092"
+
+// COMMAND ----------
+
+import org.apache.spark._
+import org.apache.spark.streaming._
+import org.apache.spark.sql._
+import org.apache.spark.sql.functions.get_json_object
+import org.json._
+
 
 // COMMAND ----------
 
@@ -101,6 +111,7 @@ dbutils.fs.rm(dbfsCheckpointDirPath, recurse=true)
 import com.datastax.spark.connector._
 import com.datastax.spark.connector.cql.CassandraConnector
 import org.apache.spark.sql.cassandra._
+import com.datastax.spark.connector.streaming._
 
 //CosmosDB library for multiple retry
 import com.microsoft.azure.cosmosdb.cassandra
@@ -108,7 +119,6 @@ import com.microsoft.azure.cosmosdb.cassandra
 //Specify connection factory for Cassandra
 spark.conf.set("spark.cassandra.connection.factory", "com.microsoft.azure.cosmosdb.cassandra.CosmosDbConnectionFactory")
 
-import org.apache.spark.sql.streaming.{OutputMode, Trigger}
 
 import java.util.Calendar
 
