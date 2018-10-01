@@ -76,7 +76,8 @@
 // MAGIC ```
 // MAGIC /usr/hdp/current/kafka-broker/bin/kafka-topics.sh --zookeeper $ZOOKEEPER_HOSTS --delete  --topic test_topic
 // MAGIC ```
-// MAGIC 6.  Get the broker private IP list for use in Spark
+// MAGIC 
+// MAGIC ##### 1.0.5.  Get the broker private IP list for use in Spark
 // MAGIC From databricks, you cannot use the broker names from the steps above, they will not resolve, instead you need the private IPs.<BR>
 // MAGIC Go to the Ambari hosts page and get the broker private IPs.  The broker names start with wn (for worker node).<br>
 // MAGIC For example, for the author, they were- 10.7.0.12,10.7.0.13, 10.7.0.14, 10.7.0.15<br>
