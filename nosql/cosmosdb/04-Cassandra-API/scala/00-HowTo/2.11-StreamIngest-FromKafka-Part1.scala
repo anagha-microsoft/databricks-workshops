@@ -16,7 +16,8 @@
 
 // MAGIC %md
 // MAGIC ### 1.0. Pre-requisites (Kafka & Azure Cosmos DB Cassandra API)
-// MAGIC Provision a Kafka cluster and run through the process of creating a topic, setting up Vnet peering (Databricks Vnet and Kafka Vnet), Kafka IP advertising
+// MAGIC - Provision a Kafka cluster, and run through the process of creating a topic, setting up Vnet peering (Databricks Vnet and Kafka Vnet), Kafka IP advertising
+// MAGIC - Provision an Azure Cosmos DB Cassandra instance
 
 // COMMAND ----------
 
