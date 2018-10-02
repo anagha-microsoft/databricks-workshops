@@ -17,7 +17,14 @@
 // MAGIC %md
 // MAGIC ### 1.0. Pre-requisites (Kafka & Azure Cosmos DB Cassandra API)
 // MAGIC - Provision a Kafka cluster, and run through the process of creating a topic, setting up Vnet peering (Databricks Vnet and Kafka Vnet), Kafka IP advertising
-// MAGIC - Provision an Azure Cosmos DB Cassandra instance
+// MAGIC - Provision a Cassandra API instance from the portal
+
+// COMMAND ----------
+
+// MAGIC %md
+// MAGIC #### Provisioning
+// MAGIC - HDInsight Kafka: https://docs.microsoft.com/en-us/azure/hdinsight/kafka/apache-kafka-get-started
+// MAGIC - Azure Cosmos DB Cassandra API: https://docs.microsoft.com/en-us/azure/cosmos-db/create-cassandra-api-account-java#create-a-database-account
 
 // COMMAND ----------
 
@@ -121,14 +128,11 @@
 // MAGIC %md
 // MAGIC #### 1.0.e. Specific to Azure Cosmos DB Cassandra API
 // MAGIC 
-// MAGIC ##### 1.0.9. Provision a Cassandra API instance from the portal
-// MAGIC https://docs.microsoft.com/en-us/azure/cosmos-db/create-cassandra-api-account-java#create-a-database-account
-// MAGIC 
-// MAGIC ##### 1.0.10. Create a keyspace from the portal - data explorer
+// MAGIC ##### 1.0.9. Create a keyspace from the portal - data explorer
 // MAGIC Name: crimes_ks<br>
 // MAGIC Throughput: 10,000<br>
 // MAGIC 
-// MAGIC ##### 1.0.11. Create a table from the portal - data explorer
+// MAGIC ##### 1.0.10. Create a table from the portal - data explorer
 // MAGIC Name: crimes_chicago_stream<br>
 // MAGIC Keyspace: crimes_ks<br>
 // MAGIC Throughput: 10,000<br>
@@ -168,7 +172,7 @@
 // COMMAND ----------
 
 // MAGIC %md
-// MAGIC ##### For the cqlsh savvy:
+// MAGIC ##### 1.0.11. For the cqlsh savvy:
 // MAGIC 
 // MAGIC **To connect to CosmosDB Cassandra API:**
 // MAGIC ```
