@@ -3,7 +3,7 @@
 // MAGIC # What's in this exercise
 // MAGIC A pre-requisite for this module is to complete the first notebook for "Bulk load from blob" that covers downloading and curating the public dataset.<BR>
 // MAGIC   
-// MAGIC This is part 1 of 4 notebooks that demonstrate stream from Kafka, with structured streaming & classic spark streaming, of 6.7 million records/1.5 GB of the Chicago crimes public dataset.<BR>
+// MAGIC This is part 1 of 4 notebooks that demonstrate stream ingest from Kafka, with structured streaming & classic/legacy spark streaming, of 6.7 million records/1.5 GB of the Chicago crimes public dataset.<BR>
 // MAGIC - In **this notebook**, we will publish curated Chicago crimes data to Kafka for purpose of the exercise<BR>
 // MAGIC - In notebook 2, we will (attempt to) ingest from Kafka using structured stream processing and persist to an Azure Cosmos DB Cassandra table<BR>
 // MAGIC - In notebook 3, we will ingest from Kafka using classic stream processing (DStream based) and persist to an Azure Cosmos DB Cassandra table<BR>
