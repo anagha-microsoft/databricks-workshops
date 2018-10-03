@@ -24,6 +24,8 @@ val dbfsCheckpointDirPath="/mnt/data/crimes/checkpointDir/chicago-crimes-stream-
 dbutils.fs.rm(dbfsCheckpointDirPath, recurse=true)
 
 // 2) AEH consumer related
+
+//Replace connection string with your instances'.
 val aehConsumerConnString = "Endpoint=sb://crimes-ns.servicebus.windows.net/;SharedAccessKeyName=aeh_common;SharedAccessKey=" 
 val aehConsumerParams =
   EventHubsConf(aehConsumerConnString)
