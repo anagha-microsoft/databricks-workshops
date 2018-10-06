@@ -4,7 +4,7 @@
 // MAGIC This is part 2 of 4 notebooks that demonstrate stream ingest from Kafka, of 1.5 GB of the Chicago crimes public dataset.<BR>
 // MAGIC - In notebook 1, we published data to Kafka for purpose of the exercise<BR>
 // MAGIC - In notebook 2, we attempted to ingest from Kafka using structured stream processing and persist to an Azure Cosmos DB Cassandra table<BR>
-// MAGIC - In **this notebook**, we will ingest from Kafka using classic stream processing (DStream based) and persist to an Azure Cosmos DB Cassandra table<BR>
+// MAGIC - In **this notebook**, we will ingest from Kafka using classic/legacy stream processing and persist to an Azure Cosmos DB Cassandra table<BR>
 // MAGIC - In notebook 4, we will ingest from Kafka using structured stream processing and persist to a Databricks Delta table<BR>
 // MAGIC   
 // MAGIC While the Azure Cosmos DB Cassandra table serves as a hot store for OLTP, the Delta table will serve as an analytics store.<BR><BR>
@@ -12,47 +12,107 @@
 
 // COMMAND ----------
 
-// MAGIC %md
-// MAGIC ### 1.0. Read from Kafka with structured streaming
+//Cassandra connector
+import com.datastax.spark.connector._
+import com.datastax.spark.connector.cql.CassandraConnector
+import org.apache.spark.sql.cassandra._
+import com.datastax.spark.connector.streaming._
 
-// COMMAND ----------
+//CosmosDB library for multiple retry to Cassandra
+import com.microsoft.azure.cosmosdb.cassandra
 
-val kafkaTopic = "crimes_chicago_topic"
-val kafkaBrokerAndPortCSV = "10.7.0.4:9092, 10.7.0.5:9092,10.7.0.8:9092,10.7.0.12:9092"
+//Kafka related
+import org.apache.kafka.clients.consumer.ConsumerRecord
+import org.apache.kafka.common.serialization.StringDeserializer
+import org.apache.spark.streaming.kafka010._
+import org.apache.spark.streaming.kafka010.LocationStrategies.PreferConsistent
+import org.apache.spark.streaming.kafka010.ConsumerStrategies.Subscribe
 
-// COMMAND ----------
-
+//Other
+import org.apache.spark.storage.StorageLevel
 import org.apache.spark._
+import org.apache.spark.storage._
 import org.apache.spark.streaming._
+import org.apache.spark.streaming.StreamingContext
+import org.apache.spark.streaming.receiver._
 import org.apache.spark.sql._
-import org.apache.spark.sql.functions.get_json_object
-import org.json._
-
-
-// COMMAND ----------
-
 import org.apache.spark.sql.functions._
 import org.apache.spark.sql.types._
+import org.apache.spark.sql.Row
+import spark.implicits._
+import java.util.UUID
 
-val kafkaSourceDF = spark
-  .readStream
-  .format("kafka")
-  .option("kafka.bootstrap.servers", kafkaBrokerAndPortCSV)
-  .option("subscribe", kafkaTopic)
-  .option("startingOffsets", "earliest")
-  .load()
+//Specify connection factory for Cassandra
+spark.conf.set("spark.cassandra.connection.factory", "com.microsoft.azure.cosmosdb.cassandra.CosmosDbConnectionFactory")
 
-val formatedKafkaDF = kafkaSourceDF.selectExpr("CAST(key AS STRING) as case_id", "CAST(value AS STRING) as json_payload")
-  .as[(String, String)]
-
-// COMMAND ----------
-
-// MAGIC %md
-// MAGIC ### 2.0. Parse events from kafka
+//Write tuning parameters
+spark.conf.set("spark.cassandra.output.batch.size.rows", "1")//Leave this as one for Cosmos DB
+spark.conf.set("spark.cassandra.connection.connections_per_executor_max", "2")//Maximum number of connections per Host set on each Executor JVM - default parallelism/executors for Spark Commands
+spark.conf.set("spark.cassandra.output.concurrent.writes", "2")//Maximum number of batches executed in parallel by a single Spark task
+spark.conf.set("spark.cassandra.output.batch.grouping.buffer.size", "300")//How many batches per single Spark task can be stored in memory before sending to Cassandra
+spark.conf.set("spark.cassandra.connection.keep_alive_ms", "5000") //Period of time to keep unused connections open
 
 // COMMAND ----------
 
-val consumableDF = formatedKafkaDF.select(get_json_object($"json_payload", "$.case_id").cast(IntegerType).alias("case_id"),
+val streamingBatchIntervalSeconds = 5
+val streamingMaxRateOfIngest = "1000" //Max rate of ingest from Kafka - needs to be a string
+val crimesKafkaTopicArray = Array("crimes_chicago")
+val crimesKafkaBrokerAndPortCSV = "10.7.0.12:9092,10.7.0.13:9092,10.7.0.14:9092,10.7.0.15:9092" //Replace with your broker instances
+val checkPointDirectory = "/mnt/data/crimes/checkpointDir/chicago-crimes-stream-kafka-consumer/"
+val startDateTime =  java.time.LocalDateTime.now //Current date and time
+
+// COMMAND ----------
+
+def createSparkStreamingContext(
+    checkpointDirectory: String,
+    batchIntervalSeconds: Int,
+    maxRateOfIngest: String,
+    applicationName: String,
+    sparkSession: SparkSession): StreamingContext = {
+
+    val ssc = new StreamingContext(sparkSession.sparkContext, Seconds(batchIntervalSeconds))
+    //ssc.checkpoint(checkpointDirectory)
+    ssc
+  }
+
+// COMMAND ----------
+
+//val ssc = new StreamingContext(sc, Seconds(streamingBatchIntervalSeconds))
+dbutils.fs.rm(checkPointDirectory, recurse=true) //In case you need to
+val ssc = StreamingContext.getOrCreate(checkPointDirectory,() => createSparkStreamingContext(checkPointDirectory,streamingBatchIntervalSeconds,
+        streamingMaxRateOfIngest, "CrimesIngestionFromKafkaSample", spark))
+
+val kafkaParams = Map[String, Object](
+  "bootstrap.servers" -> crimesKafkaBrokerAndPortCSV,
+  "key.deserializer" -> classOf[StringDeserializer],
+  "value.deserializer" -> classOf[StringDeserializer],
+  "auto.offset.reset" -> "latest",
+  "group.id" -> UUID.randomUUID().toString,
+  "enable.auto.commit" -> (false: java.lang.Boolean))
+
+val crimesRawDstream = KafkaUtils.createDirectStream[String, String](
+  ssc,
+  PreferConsistent,
+  Subscribe[String, String](crimesKafkaTopicArray, kafkaParams))
+
+val crimesDstream = crimesRawDstream.map(record =>  (record.value)) //Only payload
+
+//Accumulator for crime count
+val totalCrimeCount = ssc.sparkContext.longAccumulator("Number of crimes received")
+//Counter for elapsed time in seconds
+//var secondCounter: Long = streamingBatchIntervalSeconds
+
+// COMMAND ----------
+
+//Parse json and persist to Cosmos DB
+crimesDstream.foreachRDD { rdd =>
+      val rddCrimeCount = rdd.count()
+      totalCrimeCount.add(rddCrimeCount)
+      println(s"Total logs for the batch: $rddCrimeCount")
+  
+      if (!rdd.isEmpty()) {
+        //Parse the JSON into a DF
+        val consumableDF = rdd.toDF("json_payload").select(get_json_object($"json_payload", "$.case_id").cast(IntegerType).alias("case_id"),
                                           get_json_object($"json_payload", "$.case_nbr").alias("case_nbr"),
                                           get_json_object($"json_payload", "$.case_dt_tm").alias("case_dt_tm"),
                                           get_json_object($"json_payload", "$.block").alias("block"),
@@ -80,76 +140,19 @@ val consumableDF = formatedKafkaDF.select(get_json_object($"json_payload", "$.ca
                                           get_json_object($"json_payload", "$.case_day_of_week_nbr").cast(IntegerType).alias("case_day_of_week_nbr"),
                                           get_json_object($"json_payload", "$.case_day_of_week_name").alias("case_day_of_week_name")
                                           )
+        
+          
+          consumableDF.write.mode("append").format("org.apache.spark.sql.cassandra").options(Map( "table" -> "crimes_chicago_stream_kafka", "keyspace" -> "crimes_ks")).save()
+
+      }
+      println(s"TOTAL CRIMES FROM " + startDateTime + " TO " + java.time.LocalDateTime.now + " is: " + totalCrimeCount)
+      println("=================================================================================")
+}
+crimesDstream.print
+ssc.start()
+ssc.awaitTermination()
 
 // COMMAND ----------
 
-consumableDF.printSchema
-
-// COMMAND ----------
-
-// MAGIC %md
-// MAGIC ### 3.0. Persist the stream to Azure Cosmos DB Cassandra API
-
-// COMMAND ----------
-
-//1) Destination directory for checkpoints
-val dbfsCheckpointDirPath="/mnt/data/crimes/checkpointDir/chicago-crimes-stream-cassandra/"
-
-//2) Remove output from prior execution
-dbutils.fs.rm(dbfsCheckpointDirPath, recurse=true)
-
-// COMMAND ----------
-
-//Author's attempt: 
-//Provisioning specs - Databricks: Runtime 4.3, 8 DS3v2 workers with option to scale to 10 workers, 
-//Provisioning specs - Cosmos DB: Started the table with 10K RUs;  Altered table to 10,000 RUs per physical partition created
-//Connector conf - spark.cassandra.output.batch.size.rows=1; spark.cassandra.connection.connections_per_executor_max=2; spark.cassandra.output.concurrent.writes=2;spark.cassandra.output.batch.grouping.buffer.size=300
-//The above needs tuning for sure
-
-
-//datastax Spark connector
-import com.datastax.spark.connector._
-import com.datastax.spark.connector.cql.CassandraConnector
-import org.apache.spark.sql.cassandra._
-import com.datastax.spark.connector.streaming._
-
-//CosmosDB library for multiple retry
-import com.microsoft.azure.cosmosdb.cassandra
-
-//Specify connection factory for Cassandra
-spark.conf.set("spark.cassandra.connection.factory", "com.microsoft.azure.cosmosdb.cassandra.CosmosDbConnectionFactory")
-
-
-import java.util.Calendar
-
-//Write tuning parameters
-spark.conf.set("spark.cassandra.output.batch.size.rows", "1")//Leave this as one for Cosmos DB
-spark.conf.set("spark.cassandra.connection.connections_per_executor_max", "2")//Maximum number of connections per Host set on each Executor JVM - default parallelism/executors for Spark Commands
-spark.conf.set("spark.cassandra.output.concurrent.writes", "2")//Maximum number of batches executed in parallel by a single Spark task
-spark.conf.set("spark.cassandra.output.batch.grouping.buffer.size", "300")//How many batches per single Spark task can be stored in memory before sending to Cassandra
-spark.conf.set("spark.cassandra.connection.keep_alive_ms", "5000") //Period of time to keep unused connections open
-//cosmosdb_provisioned_throughput=500000
-
-/*
-//Option 1
-val query = consumableDF.writeStream
-  .option("checkpointLocation", dbfsCheckpointDirPath)
- .format("org.apache.spark.sql.cassandra")
-  .options(Map( "table" -> "crimes_chicago_stream", "keyspace" -> "crimes_ks"))
-  .outputMode(OutputMode.Update)
-  .start()
-  
-  //DOES NOT WORK; This probably only works with DSE;
-  //java.lang.UnsupportedOperationException: Data source org.apache.spark.sql.cassandra does not support streamed writing
-*/
-
-
-val query = consumableDF.writeStream
-  .cassandraFormat("crimes_chicago_stream", "crimes_ks")
-  .option("checkpointLocation", dbfsCheckpointDirPath)
-  .outputMode(OutputMode.Update)
-  .start()
-  
-
-// COMMAND ----------
-
+//Need this if I ever need to rerun after clearing state
+//ssc.stop()
