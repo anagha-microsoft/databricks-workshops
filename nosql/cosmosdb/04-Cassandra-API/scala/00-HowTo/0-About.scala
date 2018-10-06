@@ -1,9 +1,8 @@
 // Databricks notebook source
 // MAGIC %md
 // MAGIC # About
-// MAGIC This is a community effort to demystify working with Cosmos Db Cassandra API, and are samples.  **Contributions welcome!**<BR>
+// MAGIC This is a community effort to demystify working with Cosmos Db Cassandra API, through self-contained samples that leverage Azure PaaS services spanning Databricks, HDInsight Kafka & Azure Event Hub. <BR> **Contributions welcome!**<BR>
 // MAGIC 
-// MAGIC This notebook-set has samples to work with Azure Cosmos DB Cassandra API, that GA'd in September 2018.<BR>
 // MAGIC The following functionality is covered:<BR>
 // MAGIC   1.0.  About the Azure Cosmos DB Cassandra API, including provisioning and dependencies<BR>
 // MAGIC   2.1.  DDL operations - keyspace and table<BR>
@@ -21,5 +20,5 @@
 // MAGIC   2.13. Real-time changed data captured processing - read Cosmos DB change feed, process and persist<BR>
 // MAGIC   2.14. End to end Azure IoT processing - simulate device telemetry to Azure IoT hub, ingest with Spark structured stream processing, parse, format, persist to a Cassandra table with clustering keys<BR>
 // MAGIC   
-// MAGIC **For production** quality, due diligence is required.<BR>
+// MAGIC **For production quality**, due diligence is required - these are merely quick-start samples.<BR>
 // MAGIC   
