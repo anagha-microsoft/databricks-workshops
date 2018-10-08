@@ -37,7 +37,7 @@ CLUSTERNAME="CLUSTERNAME"
 ZOOKEEPER_HOSTS=`curl -u admin -G "https://$CLUSTERNAME.azurehdinsight.net/api/v1/clusters/$CLUSTERNAME/services/ZOOKEEPER/components/ZOOKEEPER_SERVER" | jq -r '["\(.host_components[].HostRoles.host_name):2181"] | join(",")' | cut -d',' -f1,2`
 ```
 
-##### 3.  Create a topic
+##### 2.  Create a topic
 ```
 /usr/hdp/current/kafka-broker/bin/kafka-topics.sh --create --replication-factor 3 --partitions 8 --topic iot_telemetry --zookeeper $ZOOKEEPER_HOSTS
 ```
