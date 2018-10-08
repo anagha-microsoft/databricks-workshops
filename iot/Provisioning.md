@@ -33,16 +33,20 @@ Once connected, run the below to create a topic.
 Run this on the terminal of the headnode of your Kafka cluster to get the zookeeper server list with port number.
 This is required for creating a Kafka topic in your Kafka cluster from the CLI.
 ```
-CLUSTERNAME="CLUSTERNAME"
+CLUSTERNAME="WHATEVER_YOUR_CLUSTERNAME_IS"
 ZOOKEEPER_HOSTS=`curl -u admin -G "https://$CLUSTERNAME.azurehdinsight.net/api/v1/clusters/$CLUSTERNAME/services/ZOOKEEPER/components/ZOOKEEPER_SERVER" | jq -r '["\(.host_components[].HostRoles.host_name):2181"] | join(",")' | cut -d',' -f1,2`
 ```
 
 ##### 2.  Create a topic
 ```
-/usr/hdp/current/kafka-broker/bin/kafka-topics.sh --create --replication-factor 3 --partitions 8 --topic iot_telemetry --zookeeper $ZOOKEEPER_HOSTS
+/usr/hdp/current/kafka-broker/bin/kafka-topics.sh --create --replication-factor 3 --partitions 10 --topic iot_telemetry --zookeeper $ZOOKEEPER_HOSTS
 ```
+### 4.0.4. Deploy an edge node to your existing Kafka cluster
+Follow the instructions at [this](https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-apps-use-edge-node#add-an-edge-node-to-an-existing-cluster) link to deploy an edge node that is automatically joined to the cluster.
 
-### 4.0.4. Install/configure KafkaConnect for Azure IoT Hub
+### 4.0.5. Install/configure KafkaConnect for Azure IoT Hub
+
+
 
 # 5.  Connect the dots - IoT Hub and Kafka, with KafkaConnect
 
