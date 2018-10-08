@@ -93,14 +93,15 @@ Validate:
 echo $KAFKAZKHOSTS
 ```
 
-4.5.0.7. Edit 3 peieces of configuration in the connect-standalone.properties file <br>
+4.5.0.7. Edit/add 4 pieces of configuration in the connect-standalone.properties file on the edge node<br>
 ```
 sudo vi /usr/hdp/current/kafka-broker/config/connect-standalone.properties
 ```
 1.  Replace ```localhost:9092``` in ```bootstrap.servers=``` conf to reflect broker-port list from step 4.5.0.5<br>
-2.  Replace the value to the right of ```key.converter=``` to read ``` key.converter=org.apache.kafka.connect.storage.StringConverter```
-value.converter=org.apache.kafka.connect.storage.StringConverter
-
+2.  Replace the ```key.converter=``` to read ``` key.converter=org.apache.kafka.connect.storage.StringConverter```
+3.  Replace the ```value.converter=``` to read ```value.converter=org.apache.kafka.connect.storage.StringConverter```
+4.  Add a line at the end of the file ```consumer.max.poll.records=100`` to prevent timeouts
+<br>
 
 # 5.  Connect the dots - IoT Hub and Kafka, with KafkaConnect
 
