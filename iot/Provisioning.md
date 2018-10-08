@@ -15,6 +15,9 @@ This will create an Azure IoT hub with Azure Cosmos DB as device registry.
 # 4. HDInsight Kafka
 ### 4.0.1. Provision a HDInsight Kafka cluster
 ### 4.0.2. Configure Kafka for IP adversting
+[Documentation](https://docs.microsoft.com/en-us/azure/hdinsight/kafka/apache-kafka-connect-vpn-gateway#configure-kafka-for-ip-advertising)
+
+
 ### 4.0.3. Create a Kafka topic
 ### 4.0.4. Install/configure KafkaConnect for Azure IoT Hub
 
