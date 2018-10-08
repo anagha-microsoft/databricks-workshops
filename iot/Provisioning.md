@@ -25,7 +25,7 @@ Capture the following:<br>
 2. Event Hub-compatible endpoint (starts with ```sb://```, ends with ```.servicebus.windows.net/```; e.g. ```sb://iothub-ns-bhoomi-tel-855096-4db209c4e3.servicebus.windows.net/```
 3. Partitions; E.g. ```4```
 4. Shared access key<br>
-On the portal, inside your IoT hub service, go to the left navigation panel and select "Shared Access Policies".  The click on the policy "service", and capture the primary key
+On the portal, inside your IoT hub service, go to the left navigation panel and select "Shared Access Policies".  Then click on the policy "service", and capture the primary key
 
 # 4. HDInsight Kafka
 ### 4.0.1. Provision a HDInsight Kafka cluster
