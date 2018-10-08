@@ -84,6 +84,16 @@ Validate:
 ```
 echo $KAFKABROKERS
 ```
+4.5.0.6.  Get zookeeper list into a variable<br>
+```
+export KAFKABROKERS=`curl -sS -u admin -G https://$CLUSTERNAME.azurehdinsight.net/api/v1/clusters/$CLUSTERNAME/services/KAFKA/components/KAFKA_BROKER | jq -r '["\(.host_components[].HostRoles.host_name):9092"] | join(",")' | cut -d',' -f1,2`
+```
+Validate:
+```
+echo $KAFKABROKERS
+```
+```
+```
 
 # 5.  Connect the dots - IoT Hub and Kafka, with KafkaConnect
 
