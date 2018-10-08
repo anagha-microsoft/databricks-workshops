@@ -24,9 +24,9 @@ By default, Zookeeper returns the domain name of the Kafka brokers to clients. T
 Refer step 7, in this [documentation](https://docs.microsoft.com/en-us/azure/hdinsight/kafka/apache-kafka-connect-vpn-gateway#configure-kafka-for-ip-advertising) configure Kafka listener to listen on all network interfaces.  You can now restart Kafka service.
 
 ### 4.0.3. Create a Kafka topic
-On the Azure portal, go to your resource group and click on the resource for Kafka.  In the left hand navigation panel, you should see "SSH + cluster login".  Click on it, then select the default entry in the hostname drop down and you should see the textbox directly below populated with SSH command.  Copy it, launch a bash terminal and connect to HDInsight Kafka. 
+On the Azure portal, go to your resource group and click on the resource for Kafka.  In the left hand navigation panel, you should see "SSH + cluster login".  Click on it, then select the default entry (headnode) in the hostname drop down and you should see the textbox directly below populated with SSH command.  Copy it, launch a bash terminal and connect to HDInsight Kafka. 
 E.g.
-ssh akhanolk@bhoomi-iot-ssh.azurehdinsight.net
+ssh <yourClusterUser>@<yourClusterName>-ssh.azurehdinsight.net
 
 Once connected, run the below to create a topic.
 ##### 1.  Get the Zookeeper server list
@@ -42,9 +42,29 @@ ZOOKEEPER_HOSTS=`curl -u admin -G "https://$CLUSTERNAME.azurehdinsight.net/api/v
 /usr/hdp/current/kafka-broker/bin/kafka-topics.sh --create --replication-factor 3 --partitions 10 --topic iot_telemetry --zookeeper $ZOOKEEPER_HOSTS
 ```
 ### 4.0.4. Deploy an edge node to your existing Kafka cluster
-Follow the instructions at [this](https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-apps-use-edge-node#add-an-edge-node-to-an-existing-cluster) link to deploy an edge node that is automatically joined to the cluster.
+Follow the instructions at [this](https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-apps-use-edge-node#add-an-edge-node-to-an-existing-cluster) link to deploy an edge node that is automatically joined to the cluster.<BR>
+  
+Once the deployment completes, in the Ambari, hosts page, you should see the edge node listed.
 
 ### 4.0.5. Install/configure KafkaConnect for Azure IoT Hub
+In the same terminal, where you have SSH'd into the head node of the Kafka cluster, SSH to the private IP of the edge node.  You can locate the private IP of the edge node from the Ambari - hosts page.<br>
+
+e.g. ssh akhanolk@10.1.0.8<br>
+<br>
+1.  Create a directory on the edge node to download the connector to:
+```
+mkdir -p opt/kafkaConnect
+cd opt/kafkaConnect
+```
+
+1.  Download the latest connector from here-<br>
+https://github.com/Azure/toketi-kafka-connect-iothub/releases/.
+
+At the time of authoring this lab..<br>
+```
+ wget "https://github.com/Azure/toketi-kafka-connect-iothub/releases/download/v0.6/kafka-connect-iothub-assembly_2.11-0.6.jar"
+
+```
 
 
 
