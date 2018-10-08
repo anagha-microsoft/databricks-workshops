@@ -157,10 +157,11 @@ Modify the properties as follows:<br>
 <br>
 Save and close file.<br>
 
-[Sample](https://github.com/Azure/toketi-kafka-connect-iothub/blob/master/README_Source.md)
+[Example of connect-iot-source.properties](https://github.com/Azure/toketi-kafka-connect-iothub/blob/master/README_Source.md)
 
 # 5.  Connect the dots - IoT Hub and Kafka, with KafkaConnect
 
-
-/usr/hdp/current/kafka-broker/bin/connect-standalone.sh /usr/hdp/current/kafka-broker/config/connect-standalone.properties /usr/hdp/current/kafka-broker/config/connect-iothub-source.properties
+### 5.0.1. Start the source connector
+On the same, HDInsight kafka edge node, on the Linux CLI, run the below.
+```/usr/hdp/current/kafka-broker/bin/connect-standalone.sh /usr/hdp/current/kafka-broker/config/connect-standalone.properties /usr/hdp/current/kafka-broker/config/connect-iothub-source.properties```
 
