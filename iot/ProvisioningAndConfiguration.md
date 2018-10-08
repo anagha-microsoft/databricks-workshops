@@ -40,6 +40,12 @@ By default, Zookeeper returns the domain name of the Kafka brokers to clients. T
 ##### 2. Configure Kafka listener to listen on all network interfaces
 Refer step 7, in this [documentation](https://docs.microsoft.com/en-us/azure/hdinsight/kafka/apache-kafka-connect-vpn-gateway#configure-kafka-for-ip-advertising) configure Kafka listener to listen on all network interfaces.  You can now restart Kafka service.
 
+##### 3. Get the private IPs of the Kafka brokers
+This will be useful for direct integration from Spark.<br>
+Go to Ambari->Hosts, and look for the listing of brokers.  The names will start with ```wn```.  Get the private IPs.
+The following is the author's broker list.<br>
+```10.1.0.5:9092,10.1.0.7:9092,10.1.0.10:9092,10.1.0.14:9092```
+
 ### 4.0.3. Create a Kafka topic
 On the Azure portal, go to your resource group and click on the resource for Kafka.  In the left hand navigation panel, you should see "SSH + cluster login".  Click on it, then select the default entry (headnode) in the hostname drop down and you should see the textbox directly below populated with SSH command.  Copy it, launch a bash terminal and connect to HDInsight Kafka. 
 E.g.
