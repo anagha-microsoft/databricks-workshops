@@ -129,6 +129,25 @@ iot_telemetry-in
 iot_telemetry-out
 ```
 
+4.0.4.9. Download the connect-iot-source.properties<br>
+
+```sudo wget -P /usr/hdp/current/kafka-broker/config/ https://raw.githubusercontent.com/Azure/toketi-kafka-connect-iothub/master/connect-iothub-source.properties```
+
+
+4.0.4.10. Edit the connect-iot-source.properties to reflect the IoT hub source<br>
+```
+sudo vi /usr/hdp/current/kafka-broker/config/connect-iothub-source.properties
+```
+1.  ```Kafka.Topic=PLACEHOLDER```: Replace ```PLACEHOLDER``` with ```iot_telemetry-in```. Messages received from IoT hub are placed in the iot_telemetry-in topic.<br>
+2.  ```IotHub.EventHubCompatibleName=PLACEHOLDER```: Replace ```PLACEHOLDER``` with the Event Hub-compatible name.<br>
+3.  ```IotHub.EventHubCompatibleEndpoint=PLACEHOLDER```: Replace ```PLACEHOLDER``` with the Event Hub-compatible endpoint.<br>
+4.  ```IotHub.Partitions=PLACEHOLDER```: Replace ```PLACEHOLDER``` with the number of partitions from the previous steps.<br>
+5.  ```IotHub.AccessKeyName=PLACEHOLDER```: Replace ```PLACEHOLDER``` with service.<br>
+6.  ```IotHub.AccessKeyValue=PLACEHOLDER```: Replace ```PLACEHOLDER``` with the primary key of the service policy.<br>
+```IotHub.StartType=PLACEHOLDER```: Replace ```PLACEHOLDER``` with a UTC date. This date is when the connector starts checking for messages. The date format is yyyy-mm-ddThh:mm:ssZ.<br>
+7.  ```BatchSize=100```: Replace 100 with 5. This change causes the connector to read messages into Kafka once there are five new messages in IoT hub.
+<br>
+
 # 5.  Connect the dots - IoT Hub and Kafka, with KafkaConnect
 
 
