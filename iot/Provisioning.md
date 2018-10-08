@@ -12,6 +12,17 @@
 ### 3.0.1. Provision the device telemetry generator 
 This will create an Azure IoT hub with Azure Cosmos DB as device registry.
 
+### 3.0.2. Create consumer groups
+1.  From the Azure portal, navigate to the IoT hub instance provisioned in 3.0.1.<BR>
+2.  Select Endpoints<BR>
+3.  From "Built-in endpoints", select "Events"<BR>
+4.  Create one consumer group called "kafkaConnect-cg"<BR>
+5.  Create one consumer group called "spark-cg"<BR>
+
+### 3.0.3. Capture key information needed for KafkaConnect and Spark integration
+Capture the following:<br>
+
+
 # 4. HDInsight Kafka
 ### 4.0.1. Provision a HDInsight Kafka cluster
 Follow the steps in the [documentation](https://docs.microsoft.com/en-us/azure/hdinsight/kafka/apache-kafka-get-started#create-a-kafka-cluster) to create a cluster from the Azure portal.
@@ -100,8 +111,18 @@ sudo vi /usr/hdp/current/kafka-broker/config/connect-standalone.properties
 1.  Replace ```localhost:9092``` in ```bootstrap.servers=``` conf to reflect broker-port list from step 4.5.0.5<br>
 2.  Replace the ```key.converter=``` to read ``` key.converter=org.apache.kafka.connect.storage.StringConverter```
 3.  Replace the ```value.converter=``` to read ```value.converter=org.apache.kafka.connect.storage.StringConverter```
-4.  Add a line at the end of the file ```consumer.max.poll.records=100`` to prevent timeouts
+4.  Add a line at the end of the file ```consumer.max.poll.records=100``` to prevent timeouts
 <br>
+
+4.0.4.8. List the topics created<br>
+```
+/usr/hdp/current/kafka-broker/bin/kafka-topics.sh --list --zookeeper $KAFKAZKHOSTS
+```
+You should see this..
+```
+iot_telemetry-in
+iot_telemetry-out
+```
 
 # 5.  Connect the dots - IoT Hub and Kafka, with KafkaConnect
 
