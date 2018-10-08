@@ -21,7 +21,11 @@ This will create an Azure IoT hub with Azure Cosmos DB as device registry.
 
 ### 3.0.3. Capture key information needed for KafkaConnect and Spark integration
 Capture the following:<br>
-
+1. Event Hub-compatible name; e.g. ```bhoomi-telemetry-simulator```
+2. Event Hub-compatible endpoint (starts with ```sb://```, ends with ```.servicebus.windows.net/```; e.g. ```sb://iothub-ns-bhoomi-tel-855096-4db209c4e3.servicebus.windows.net/```
+3. Partitions; E.g. ```4```
+4. Shared access key<br>
+On the portal, inside your IoT hub service, go to the left navigation panel and select "Shared Access Policies".  The click on the policy "service", and capture the primary key
 
 # 4. HDInsight Kafka
 ### 4.0.1. Provision a HDInsight Kafka cluster
@@ -50,7 +54,8 @@ ZOOKEEPER_HOSTS=`curl -u admin -G "https://$CLUSTERNAME.azurehdinsight.net/api/v
 
 ##### 2.  Create a topic
 ```
-/usr/hdp/current/kafka-broker/bin/kafka-topics.sh --create --replication-factor 3 --partitions 10 --topic iot_telemetry --zookeeper $ZOOKEEPER_HOSTS
+/usr/hdp/current/kafka-broker/bin/kafka-topics.sh --create --replication-factor 3 --partitions 8 --topic iot_telemetry-in --zookeeper $ZOOKEEPER_HOSTS
+/usr/hdp/current/kafka-broker/bin/kafka-topics.sh --create --replication-factor 3 --partitions 8 --topic iot_telemetry-out --zookeeper $ZOOKEEPER_HOSTS
 ```
 ### 4.0.4. Deploy an edge node to your existing Kafka cluster
 Follow the instructions at [this](https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-apps-use-edge-node#add-an-edge-node-to-an-existing-cluster) link to deploy an edge node that is automatically joined to the cluster.<BR>
