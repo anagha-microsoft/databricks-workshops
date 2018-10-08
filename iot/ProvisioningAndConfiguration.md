@@ -151,10 +151,12 @@ Modify the properties as follows:<br>
 4.  ```IotHub.Partitions=PLACEHOLDER```: Replace ```PLACEHOLDER``` with the number of partitions from the previous steps.<br>
 5.  ```IotHub.AccessKeyName=PLACEHOLDER```: Replace ```PLACEHOLDER``` with service.<br>
 6.  ```IotHub.AccessKeyValue=PLACEHOLDER```: Replace ```PLACEHOLDER``` with the primary key of the service policy.<br>
-```IotHub.StartType=PLACEHOLDER```: Replace ```PLACEHOLDER``` with a UTC date. This date is when the connector starts checking for messages. The date format is yyyy-mm-ddThh:mm:ssZ.<br>
-7.  ```BatchSize=100```: Replace 100 with 5. This change causes the connector to read messages into Kafka once there are five new messages in IoT hub.
+7.  ```IotHub.StartType=PLACEHOLDER```: Replace ```PLACEHOLDER``` with a UTC date. This date is when the connector starts checking for messages. The date format is yyyy-mm-ddThh:mm:ssZ.<br>
+8.  ```BatchSize=100```: Leave as is. This change causes the connector to read messages into Kafka once there are five new messages in IoT hub.<br>
+9. ```IotHub.ConsumerGroup=PLACEHOLDER```: Replace ```PLACEHOLDER``` with ```kafkaConnect-cg```. <br>
 <br>
-Save and close file.
+Save and close file.<br>
+[Sample](https://github.com/Azure/toketi-kafka-connect-iothub/blob/master/README_Source.md)
 
 # 5.  Connect the dots - IoT Hub and Kafka, with KafkaConnect
 
