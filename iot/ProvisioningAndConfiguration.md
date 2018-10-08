@@ -1,3 +1,5 @@
+This section covers provsioning and all necessary configuration required for each service.<BR><BR>
+
 # 1.  General Azure
 ### 1.0.1. Provision a resource group
 ### 1.0.2. Provision a virtual network
