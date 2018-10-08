@@ -51,6 +51,7 @@ In the same terminal, where you have SSH'd into the head node of the Kafka clust
 
 e.g. ssh akhanolk@10.1.0.8<br>
 <br>
+
 1.  Create a directory on the edge node to download the connector to:
 ```
 mkdir -p opt/kafkaConnect
@@ -64,10 +65,12 @@ At the time of authoring this lab..<br>
  wget "https://github.com/Azure/toketi-kafka-connect-iothub/releases/download/v0.6/kafka-connect-iothub-assembly_2.11-0.6.jar"
 ```
 3.  Configure by running below<br>
+
 3.1. Create and populate cluster name variable:<br>
 ```
 read -p "Enter the Kafka on HDInsight cluster name: " CLUSTERNAME
 ```
+
 3.2.  Install jq to process json easily<br>
 ```
 sudo apt -y install jq
