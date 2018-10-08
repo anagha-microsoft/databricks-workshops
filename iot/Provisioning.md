@@ -137,7 +137,7 @@ iot_telemetry
 sudo vi /usr/hdp/current/kafka-broker/config/connect-iothub-source.properties
 ```
 Modify the properties as follows:<br>
-1.  ```Kafka.Topic=PLACEHOLDER```: Replace ```PLACEHOLDER``` with ```iot_telemetry-in```. Messages received from IoT hub are placed in the iot_telemetry-in topic.<br>
+1.  ```Kafka.Topic=PLACEHOLDER```: Replace ```PLACEHOLDER``` with ```iot_telemetry```. Messages received from IoT hub are placed in the iot_telemetry-in topic.<br>
 2.  ```IotHub.EventHubCompatibleName=PLACEHOLDER```: Replace ```PLACEHOLDER``` with the Event Hub-compatible name.<br>
 3.  ```IotHub.EventHubCompatibleEndpoint=PLACEHOLDER```: Replace ```PLACEHOLDER``` with the Event Hub-compatible endpoint.<br>
 4.  ```IotHub.Partitions=PLACEHOLDER```: Replace ```PLACEHOLDER``` with the number of partitions from the previous steps.<br>
