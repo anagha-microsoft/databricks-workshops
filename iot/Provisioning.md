@@ -86,14 +86,19 @@ echo $KAFKABROKERS
 ```
 4.5.0.6.  Get zookeeper list into a variable<br>
 ```
-export KAFKABROKERS=`curl -sS -u admin -G https://$CLUSTERNAME.azurehdinsight.net/api/v1/clusters/$CLUSTERNAME/services/KAFKA/components/KAFKA_BROKER | jq -r '["\(.host_components[].HostRoles.host_name):9092"] | join(",")' | cut -d',' -f1,2`
+export KAFKAZKHOSTS=`curl -sS -u admin -G https://$CLUSTERNAME.azurehdinsight.net/api/v1/clusters/$CLUSTERNAME/services/ZOOKEEPER/components/ZOOKEEPER_SERVER | jq -r '["\(.host_components[].HostRoles.host_name):2181"] | join(",")' | cut -d',' -f1,2`
 ```
 Validate:
 ```
-echo $KAFKABROKERS
+echo $KAFKAZKHOSTS
 ```
+
+4.5.0.7. Edit 3 peieces of configuration in the connect-standalone.properties file <br>
 ```
+sudo vi /usr/hdp/current/kafka-broker/config/connect-standalone.properties
 ```
+1.  Replace ```localhost:9092``` in ```bootstrap.servers=``` conf to reflect broker-port list from step 4.5.0.5
+
 
 # 5.  Connect the dots - IoT Hub and Kafka, with KafkaConnect
 
