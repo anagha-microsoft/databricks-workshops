@@ -5,3 +5,5 @@ This is a workshop showcasing an end to end Azure IoT usecase and covers multipl
 - Azure Databricks (Spark PaaS) - for distributed processing <BR>
 - Azure SQL Database (SQL Server PaaS) - for reporting serve layer <BR>
 - Power BI (BI SaaS) <BR>
+  
+  To get started, go to provisioning.
