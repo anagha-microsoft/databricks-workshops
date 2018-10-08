@@ -47,9 +47,11 @@ Follow the instructions at [this](https://docs.microsoft.com/en-us/azure/hdinsig
 Once the deployment completes, in the Ambari, hosts page, you should see the edge node listed.
 
 ### 4.0.5. Install/configure KafkaConnect for Azure IoT Hub
-In the same terminal, where you have SSH'd into the head node of the Kafka cluster, SSH to the private IP of the edge node.  You can locate the private IP of the edge node from the Ambari - hosts page.<br>
+In the same terminal, where you have SSH'd into the head node of the Kafka cluster, while SSH'd into head node, SSH to the private IP of the edge node.  You can locate the private IP of the edge node from the Ambari - hosts page.<br>
 
-e.g. ssh akhanolk@10.1.0.8<br>
+e.g. 
+```ssh akhanolk@10.1.0.8
+```
 <br>
 
 4.5.0.1.  Create a directory on the edge node to download the connector to:
