@@ -156,6 +156,7 @@ Modify the properties as follows:<br>
 9. ```IotHub.ConsumerGroup=PLACEHOLDER```: Replace ```PLACEHOLDER``` with ```kafkaConnect-cg```. <br>
 <br>
 Save and close file.<br>
+
 [Sample](https://github.com/Azure/toketi-kafka-connect-iothub/blob/master/README_Source.md)
 
 # 5.  Connect the dots - IoT Hub and Kafka, with KafkaConnect
