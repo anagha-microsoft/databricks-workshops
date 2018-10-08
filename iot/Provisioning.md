@@ -52,30 +52,35 @@ In the same terminal, where you have SSH'd into the head node of the Kafka clust
 e.g. ssh akhanolk@10.1.0.8<br>
 <br>
 
-1.  Create a directory on the edge node to download the connector to:
+4.5.0.1.  Create a directory on the edge node to download the connector to:
 ```
 mkdir -p opt/kafkaConnect
 cd opt/kafkaConnect
 ```
-2.  Download the latest connector from here-<br>
+4.5.0.2.  Download the latest connector from here-<br>
 https://github.com/Azure/toketi-kafka-connect-iothub/releases/.
 
 At the time of authoring this lab..<br>
 ```
  wget "https://github.com/Azure/toketi-kafka-connect-iothub/releases/download/v0.6/kafka-connect-iothub-assembly_2.11-0.6.jar"
 ```
-3.  Configure by running below<br>
-
-3.1. Create and populate cluster name variable:<br>
+4.5.0.3.  Create and populate cluster name into a variable:<br>
 ```
 read -p "Enter the Kafka on HDInsight cluster name: " CLUSTERNAME
 ```
 
-3.2.  Install jq to process json easily<br>
+4.5.0.4.  Install jq to process json easily<br>
 ```
 sudo apt -y install jq
 ```
-
+4.5.0.5.  Get broker list into a variable<br>
+```
+export KAFKABROKERS=`curl -sS -u admin -G https://$CLUSTERNAME.azurehdinsight.net/api/v1/clusters/$CLUSTERNAME/services/KAFKA/components/KAFKA_BROKER | jq -r '["\(.host_components[].HostRoles.host_name):9092"] | join(",")' | cut -d',' -f1,2`
+```
+Validate:
+```
+echo $KAFKABROKERS
+```
 
 # 5.  Connect the dots - IoT Hub and Kafka, with KafkaConnect
 
