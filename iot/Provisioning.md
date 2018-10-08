@@ -97,7 +97,9 @@ echo $KAFKAZKHOSTS
 ```
 sudo vi /usr/hdp/current/kafka-broker/config/connect-standalone.properties
 ```
-1.  Replace ```localhost:9092``` in ```bootstrap.servers=``` conf to reflect broker-port list from step 4.5.0.5
+1.  Replace ```localhost:9092``` in ```bootstrap.servers=``` conf to reflect broker-port list from step 4.5.0.5<br>
+2.  Replace the value to the right of ```key.converter=``` to read ``` key.converter=org.apache.kafka.connect.storage.StringConverter```
+value.converter=org.apache.kafka.connect.storage.StringConverter
 
 
 # 5.  Connect the dots - IoT Hub and Kafka, with KafkaConnect
