@@ -50,7 +50,8 @@ Once the deployment completes, in the Ambari, hosts page, you should see the edg
 In the same terminal, where you have SSH'd into the head node of the Kafka cluster, while SSH'd into head node, SSH to the private IP of the edge node.  You can locate the private IP of the edge node from the Ambari - hosts page.<br>
 
 e.g. 
-```ssh akhanolk@10.1.0.8
+```
+ssh akhanolk@10.1.0.8
 ```
 <br>
 
