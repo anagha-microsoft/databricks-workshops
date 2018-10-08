@@ -16,15 +16,17 @@ This will create an Azure IoT hub with Azure Cosmos DB as device registry.
 ### 4.0.1. Provision a HDInsight Kafka cluster
 ### 4.0.2. Configure Kafka 
 ##### 1.  Configure Kafka for IP advertising<br>
-By default, Zookeeper returns the domain name of the Kafka brokers to clients. This configuration does not work for DNS name resolution with Vnet peering. The documentation at the link wil detail configuring Kafka to advertise IP addresses instead of domain names.  Make the change but do not restart Kafka yet, till you complete the next step.
+By default, Zookeeper returns the domain name of the Kafka brokers to clients. This configuration does not work for DNS name resolution with Vnet peering. The documentation steps 1-5, at the link below, will detail configuring Kafka to advertise IP addresses instead of domain names.  Make the change but do not restart Kafka yet, till you complete the next step.
 [Documentation](https://docs.microsoft.com/en-us/azure/hdinsight/kafka/apache-kafka-connect-vpn-gateway#configure-kafka-for-ip-advertising)
 ##### 2. Configure Kafka listener to listen on all network interfaces
-Refer step 7, to [documentation](https://docs.microsoft.com/en-us/azure/hdinsight/kafka/apache-kafka-connect-vpn-gateway#configure-kafka-for-ip-advertising) configure Kafka listener to listen on all network interfaces.
+Refer step 7, in this [documentation](https://docs.microsoft.com/en-us/azure/hdinsight/kafka/apache-kafka-connect-vpn-gateway#configure-kafka-for-ip-advertising) configure Kafka listener to listen on all network interfaces.
 
 ### 4.0.3. Create a Kafka topic
+
+
 ### 4.0.4. Install/configure KafkaConnect for Azure IoT Hub
 
-# 5.  Connect the dots - IoT Hub and Kafka
+# 5.  Connect the dots - IoT Hub and Kafka, with KafkaConnect
 
 
 
