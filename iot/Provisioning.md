@@ -54,8 +54,7 @@ ZOOKEEPER_HOSTS=`curl -u admin -G "https://$CLUSTERNAME.azurehdinsight.net/api/v
 
 ##### 2.  Create a topic
 ```
-/usr/hdp/current/kafka-broker/bin/kafka-topics.sh --create --replication-factor 3 --partitions 8 --topic iot_telemetry-in --zookeeper $ZOOKEEPER_HOSTS
-/usr/hdp/current/kafka-broker/bin/kafka-topics.sh --create --replication-factor 3 --partitions 8 --topic iot_telemetry-out --zookeeper $ZOOKEEPER_HOSTS
+/usr/hdp/current/kafka-broker/bin/kafka-topics.sh --create --replication-factor 3 --partitions 8 --topic iot_telemetry --zookeeper $ZOOKEEPER_HOSTS
 ```
 ### 4.0.4. Deploy an edge node to your existing Kafka cluster
 Follow the instructions at [this](https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-apps-use-edge-node#add-an-edge-node-to-an-existing-cluster) link to deploy an edge node that is automatically joined to the cluster.<BR>
@@ -125,8 +124,7 @@ sudo vi /usr/hdp/current/kafka-broker/config/connect-standalone.properties
 ```
 You should see this..
 ```
-iot_telemetry-in
-iot_telemetry-out
+iot_telemetry
 ```
 
 4.0.4.9. Download the connect-iot-source.properties<br>
@@ -138,6 +136,7 @@ iot_telemetry-out
 ```
 sudo vi /usr/hdp/current/kafka-broker/config/connect-iothub-source.properties
 ```
+Modify the properties as follows:<br>
 1.  ```Kafka.Topic=PLACEHOLDER```: Replace ```PLACEHOLDER``` with ```iot_telemetry-in```. Messages received from IoT hub are placed in the iot_telemetry-in topic.<br>
 2.  ```IotHub.EventHubCompatibleName=PLACEHOLDER```: Replace ```PLACEHOLDER``` with the Event Hub-compatible name.<br>
 3.  ```IotHub.EventHubCompatibleEndpoint=PLACEHOLDER```: Replace ```PLACEHOLDER``` with the Event Hub-compatible endpoint.<br>
@@ -147,8 +146,10 @@ sudo vi /usr/hdp/current/kafka-broker/config/connect-iothub-source.properties
 ```IotHub.StartType=PLACEHOLDER```: Replace ```PLACEHOLDER``` with a UTC date. This date is when the connector starts checking for messages. The date format is yyyy-mm-ddThh:mm:ssZ.<br>
 7.  ```BatchSize=100```: Replace 100 with 5. This change causes the connector to read messages into Kafka once there are five new messages in IoT hub.
 <br>
+Save and close file.
 
 # 5.  Connect the dots - IoT Hub and Kafka, with KafkaConnect
 
 
+/usr/hdp/current/kafka-broker/bin/connect-standalone.sh /usr/hdp/current/kafka-broker/config/connect-standalone.properties /usr/hdp/current/kafka-broker/config/connect-iothub-source.properties
 
