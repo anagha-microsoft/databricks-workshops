@@ -2,12 +2,25 @@ This section covers provsioning and all necessary configuration required for eac
 
 # 1.  General Azure
 ### 1.0.1. Provision a resource group
+Provision a resource group with the suffix telemetry-processor
+
 ### 1.0.2. Provision a virtual network
+Provision a virtual network within the resource group - telemetry-processor
 
 # 2. Azure Databricks
 ### 2.0.1. Provision a storage account
+1.  Create a general purpose storage account (version 1) in the resource group - telemetry-processor<br>
+Within this storage account, provision 3 containers with private (no anonymous access) configuration<br>
+2.  Create a container called raw<br>
+3.  Create a container called curated<br>
+4.  Create a container called consumption<br>
+
 ### 2.0.2. Provision an Azure Databricks workspace
+Provision an Azure Databricks workspace in the resource group - telemetry-processor
+
 ### 2.0.3. Provision an Azure Databricks cluster in the workspace
+Provision an Azure Databricks cluster with 3 workers with default SKU, with ability to autoscale to 5 workers.
+
 ### 2.0.4. Set up Vnet peering between Databricks and #1.0.2., for Kafka
 
 # 3. Azure IoT Hub
@@ -177,3 +190,5 @@ In a separate terminal window, connect to Kafla cluster headnode and launch the 
 ```
 If you see activity, you are good to proceed with the rest of the lab.
 
+# 6.  Provision Azure Cosmos DB - SQL API
+Go to the Azure portal and provision an Azure Cosmos DB SQL API instance.
