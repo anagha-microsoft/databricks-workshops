@@ -51,7 +51,7 @@ Capture the following:<br>
 On the portal, inside your IoT hub service, go to the left navigation panel and select "Shared Access Policies".  Then click on the policy "service", and capture the primary key
 
 ### 3.0.4. Launch the simulator
-Launch the simulator, against the provisioned Azure IoT instance, to run every 10 seconds with 200 devices, to run for an hour.
+Launch the simulator from 3.0.1, against the provisioned Azure IoT instance, to run every 10 seconds with 200 devices, to run for an hour.
 
 # 4. HDInsight Kafka
 ### 4.0.1. Provision a HDInsight Kafka cluster
