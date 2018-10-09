@@ -202,11 +202,18 @@ In a separate terminal window, connect to Kafla cluster headnode and launch the 
 If you see activity, you are good to proceed with the rest of the lab.
 
 # 6.  Provision Azure Cosmos DB - SQL API
-Go to the Azure portal and provision an Azure Cosmos DB SQL API instance in the resource group - telemetry-processor.<br>
+1.  Go to the Azure portal and provision an Azure Cosmos DB SQL API instance in the resource group - telemetry-processor.<br>
 - Account name suffix: -iot-store<br>
 - API: SQL<br>
 - Location: The same as where you deployed your resource group - telemetry-processor.<br>
 - Disable geo-redundancy and multi-region writes.<br>
 <br>
 Skip other steps/leave default and create.<br>
+2.  From the portal, within the Cosmos DB instance page, provision a collection-<br>
+- Database: From above
+- CollectionL iot-coll
+- Throughput: 10,000
+- Storage: Default/Unlimited
+- ParttionKey: /deviceId
+- Unique key: /deviceId, /deviceTelemetryTs
 
