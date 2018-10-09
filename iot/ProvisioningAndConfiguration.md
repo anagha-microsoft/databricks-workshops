@@ -203,8 +203,8 @@ If you see activity, you are good to proceed with the rest of the lab.
 
 # 6.  Provision Azure Cosmos DB - SQL API
 Go to the Azure portal and provision an Azure Cosmos DB SQL API instance in the resource group - telemetry-processor.<br>
-Account name suffix: -iot-store<br>
-API: SQL<br>
-Location: The same as where you deployed your resource group - telemetry-processor.<br>
-Disable geo-redundancy and multi-region writes.<br>
+- Account name suffix: -iot-store<br>
+- API: SQL<br>
+- Location: The same as where you deployed your resource group - telemetry-processor.<br>
+- Disable geo-redundancy and multi-region writes.<br>
 
