@@ -15,6 +15,8 @@ Within this storage account, provision 3 containers with private (no anonymous a
 3.  Create a container called curated<br>
 4.  Create a container called consumption<br>
 
+[Documentation](https://docs.microsoft.com/en-us/azure/storage/common/storage-quickstart-create-account?tabs=portal)
+
 ### 2.0.2. Provision an Azure Databricks workspace
 Provision an Azure Databricks workspace in the resource group - telemetry-processor
 
