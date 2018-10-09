@@ -30,8 +30,8 @@ Provision an Azure Databricks cluster with 3 workers with default SKU, with abil
 Set up peering from the Databricks vnet to the Kafka vnet and vice-versa.<br>
 [Documentation on Vnet peering](https://docs.azuredatabricks.net/administration-guide/cloud-configurations/azure/vnet-peering.html#vnet-peering)
 
-### 2.0.5. Add the Kafka dependencies to the cluster
-1.  Add the Spark Kafka library to the cluster<br>
+### 2.0.5. Add the Spark - Kafka dependencies to the cluster
+Add the Spark Kafka library to the cluster<br>
 Find the compatible version on Maven central.  For HDInsight 3.6, with Kafka 1.1/1.0/0.10.1, and Databricks Runtime 4.3, Spark 2.3.1, Scala 2.11, the author used-<br>
 org.apache.spark:spark-sql-kafka-0-10_2.11:2.3.1
 
