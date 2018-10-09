@@ -168,6 +168,8 @@ Save and close file.<br>
 ### 5.0.1. Start the source connector
 On the same, HDInsight kafka edge node, on the Linux CLI, run the below.<br>
 ```/usr/hdp/current/kafka-broker/bin/connect-standalone.sh /usr/hdp/current/kafka-broker/config/connect-standalone.properties /usr/hdp/current/kafka-broker/config/connect-iothub-source.properties```
+Do not shut dow this terminal, unless you have launched the process with nohup as a background process.
 
-### 5.0.2. Start the source connector
+### 5.0.2. Launch console consumer to quickly test
+
 
