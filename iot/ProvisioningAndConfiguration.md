@@ -218,5 +218,10 @@ From the portal, within the Cosmos DB instance page, provision a collection-<br>
 - ParttionKey: /deviceId
 - Unique key: /deviceId, /deviceTelemetryTs
 ### 6.0.3. Capture details needed for Spark integration
+Go to the instance in the portal, click on keys in the left navigation panel.  You will need the following:<br>
+- URI
+E.g. https://bhoomi-iot-store.documents.azure.com:443/
+- Primary key:
+E.g. u2TmMXrorpVq2mr...
 
 
