@@ -69,7 +69,7 @@ Follow the instructions at [this](https://docs.microsoft.com/en-us/azure/hdinsig
   
 Once the deployment completes, in the Ambari, hosts page, you should see the edge node listed.
 
-### 4.0.5. Install/configure KafkaConnect for Azure IoT Hub
+### 4.0.5. Install/configure **standalone** KafkaConnect for Azure IoT Hub
 In the same terminal, where you have SSH'd into the head node of the Kafka cluster, while SSH'd into head node, SSH to the private IP of the edge node.  You can locate the private IP of the edge node from the Ambari - hosts page.<br>
 
 e.g. 
@@ -161,6 +161,7 @@ Modify the properties as follows:<br>
 Save and close file.<br>
 
 [Example of connect-iot-source.properties](https://github.com/Azure/toketi-kafka-connect-iothub/blob/master/README_Source.md)
+[Full documenation](https://docs.microsoft.com/en-us/azure/hdinsight/kafka/apache-kafka-connector-iot-hub)
 
 # 5.  Connect the dots - IoT Hub and Kafka, with KafkaConnect
 
