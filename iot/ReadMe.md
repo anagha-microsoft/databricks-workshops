@@ -1,4 +1,4 @@
-# About
+# 1.0. About
 This is a workshop showcasing an end to end Azure IoT solution including:<br> 
 1.  device telemetry publishing simulation to Azure IoT hub, 
 2.  device telemetry from #1, sourced to Kafka on HDInsight through KafkaConnect running on the Kafka cluster<BR> 
@@ -17,6 +17,8 @@ Th workshop solution leverages multiple Azure services - <BR>
   
 For device telemetry simulation, the workshop leverages, the "Telemetry Simulation" accelerator available at https://www.azureiotsolutions.com/Accelerators#dashboard
   
-# Get started
-### Provision Azure resources
+# 2.0. Get started
+### 2.0.1. Provision Azure resources
 [How and what to provision](ProvisioningAndConfiguration.md)
+
+### 2.0.1. Provision Azure resources
