@@ -1,11 +1,12 @@
-This section covers provsioning and all necessary configuration required for each service.<BR><BR>
+This section covers provsioning and all necessary configuration required for each service.  Ensure you select the same datacenter and resouce group for all deployments<BR><BR>
 
 # 1.  General Azure
 ### 1.0.1. Provision a resource group
 Provision a resource group with the suffix telemetry-processor
 
-### 1.0.2. Provision a virtual network
-Provision a virtual network within the resource group - telemetry-processor
+### 1.0.2. Provision a virtual network(vnet)
+Provision a vnet within the resource group - telemetry-processor.  We will provision Kafka into this vnet.
+[Documentation](https://docs.microsoft.com/en-us/azure/virtual-network/quick-create-portal)
 
 # 2. Azure Databricks
 ### 2.0.1. Provision a storage account
