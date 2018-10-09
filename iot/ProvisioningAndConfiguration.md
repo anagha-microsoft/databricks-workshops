@@ -88,7 +88,9 @@ https://github.com/Azure/toketi-kafka-connect-iothub/releases/.
 
 At the time of authoring this lab..<br>
 ```
- wget "https://github.com/Azure/toketi-kafka-connect-iothub/releases/download/v0.6/kafka-connect-iothub-assembly_2.11-0.6.jar"
+cd ~/opt/kafkaConnect
+wget "https://github.com/Azure/toketi-kafka-connect-iothub/releases/download/v0.6/kafka-connect-iothub-assembly_2.11-0.6.jar"
+sudo cp kafka-connect-iothub-assembly_2.11-0.6.jar /usr/hdp/current/kafka-broker/libs/
 ```
 4.5.0.3.  Create and populate cluster name into a variable:<br>
 ```
@@ -154,6 +156,7 @@ Modify the properties as follows:<br>
 7.  ```IotHub.StartType=PLACEHOLDER```: Replace ```PLACEHOLDER``` with a UTC date. This date is when the connector starts checking for messages. The date format is yyyy-mm-ddThh:mm:ssZ.<br>
 8.  ```BatchSize=100```: Leave as is. This change causes the connector to read messages into Kafka once there are five new messages in IoT hub.<br>
 9. ```IotHub.ConsumerGroup=PLACEHOLDER```: Replace ```PLACEHOLDER``` with ```kafkaConnect-cg```. <br>
+10.  Modify the ```connector.class=...``` entry to be ```connector.class=com.microsoft.azure.iot.kafka.connect.IotHubSourceConnector```
 <br>
 Save and close file.<br>
 
