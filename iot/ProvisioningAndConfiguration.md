@@ -215,7 +215,7 @@ From the portal, within the Cosmos DB instance page, provision a collection-<br>
 - CollectionL iot-coll
 - Throughput: 10,000
 - Storage: Default/Unlimited
-- ParttionKey: /deviceId
+- PartitionKey: /deviceId
 - Unique key: /deviceId, /deviceTelemetryTs
 ### 6.0.3. Capture details needed for Spark integration
 Go to the instance in the portal, click on keys in the left navigation panel.  You will need the following:<br>
