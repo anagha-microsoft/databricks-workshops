@@ -207,4 +207,6 @@ Go to the Azure portal and provision an Azure Cosmos DB SQL API instance in the 
 - API: SQL<br>
 - Location: The same as where you deployed your resource group - telemetry-processor.<br>
 - Disable geo-redundancy and multi-region writes.<br>
+<br>
+Skip other steps/leave default and create.<br>
 
