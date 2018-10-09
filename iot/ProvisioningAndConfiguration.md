@@ -5,7 +5,7 @@ This section covers provsioning and all necessary configuration required for eac
 Provision a resource group with the suffix telemetry-processor
 
 ### 1.0.2. Provision a virtual network(vnet)
-Provision a vnet within the resource group - telemetry-processor.  We will provision Kafka into this vnet.
+Provision a vnet within the resource group - telemetry-processor.  We will provision Kafka into this vnet.<br>
 [Documentation](https://docs.microsoft.com/en-us/azure/virtual-network/quick-create-portal)
 
 # 2. Azure Databricks
@@ -19,11 +19,11 @@ Within this storage account, provision 3 containers with private (no anonymous a
 [Documentation](https://docs.microsoft.com/en-us/azure/storage/common/storage-quickstart-create-account?tabs=portal)
 
 ### 2.0.2. Provision an Azure Databricks workspace
-Provision an Azure Databricks workspace in the resource group - telemetry-processor
+Provision an Azure Databricks workspace in the resource group - telemetry-processor<br>
 [Documentation](https://docs.microsoft.com/en-us/azure/azure-databricks/quickstart-create-databricks-workspace-portal)
 
 ### 2.0.3. Provision an Azure Databricks cluster in the workspace
-Provision an Azure Databricks cluster with 3 workers with default SKU, with ability to autoscale to 5 workers.
+Provision an Azure Databricks cluster with 3 workers with default SKU, with ability to autoscale to 5 workers.<br>
 [Documentation](https://docs.microsoft.com/en-us/azure/azure-databricks/quickstart-create-databricks-workspace-portal#create-a-spark-cluster-in-databricks)
 
 ### 2.0.4. Set up Vnet peering between Databricks and #1.0.2., for Kafka
@@ -32,7 +32,8 @@ Set up peering from the Databricks vnet to the Kafka vnet and vice-versa.<br>
 
 # 3. Azure IoT Hub
 ### 3.0.1. Provision the device telemetry generator 
-This will create an Azure IoT hub with Azure Cosmos DB as device registry.
+Go to https://www.azureiotsolutions.com/Accelerators and provision the "Device Simulation" accelerator.
+Give it a meaningful name.  This will create an Azure IoT hub with Azure Cosmos DB as device registry a VM and such.
 
 ### 3.0.2. Create consumer groups
 1.  From the Azure portal, navigate to the IoT hub instance provisioned in 3.0.1.<BR>
@@ -48,6 +49,9 @@ Capture the following:<br>
 3. Partitions; E.g. ```4```
 4. Shared access key<br>
 On the portal, inside your IoT hub service, go to the left navigation panel and select "Shared Access Policies".  Then click on the policy "service", and capture the primary key
+
+### 3.0.4. Launch the simulator
+Launch the simulator, against the provisioned Azure IoT instance, to run every 10 seconds with 200 devices, to run for an hour.
 
 # 4. HDInsight Kafka
 ### 4.0.1. Provision a HDInsight Kafka cluster
