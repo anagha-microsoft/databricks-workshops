@@ -171,5 +171,9 @@ On the same, HDInsight kafka edge node, on the Linux CLI, run the below.<br>
 Do not shut dow this terminal, unless you have launched the process with nohup as a background process.
 
 ### 5.0.2. Launch console consumer to quickly test
-
+In a separate terminal window, connect to Kafla cluster headnode and launch the Kafka console consumer to see if the messages are making it.
+```
+/usr/hdp/current/kafka-broker/bin/kafka-console-consumer.sh --bootstrap-server $KAFKABROKERS --topic "iot_telemetry" --from-beginning
+```
+If you see activity, you are good to proceed with the rest of the lab.
 
