@@ -1,5 +1,13 @@
 # About
-This is a workshop showcasing an end to end Azure IoT usecase and covers multiple Azure services - <BR>
+This is a workshop showcasing an end to end Azure IoT solution including:<br> 
+1.  device telemetry publishing simulation to Azure IoT hub, 
+2.  device telemetry from #1, sourced to Kafka on HDInsight through KafkaConnect running on the Kafka cluster<BR> 
+3.  telemetry ingestion via Spark structured streaming on Azure Databricks<BR>
+4.  telemetry persistence into Azure Cosmos DB<br>
+5.  reports generated in Azure Databricks, persisted to an RDBMS<br>
+6.  Live device stats dashboard<br>
+  
+It covers multiple Azure services - <BR>
   - Azure IoT Hub (Scalable IoT PaaS) <BR>
   - Azure HDInsight Kafka (Scalable streaming pub-sub) - Hortonworks Kafka PaaS <BR>
   - Azure Cosmos DB (NoSQL PaaS)  - for device registry and streaming device telemetry persistent store <BR>
