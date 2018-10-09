@@ -19,11 +19,15 @@ Within this storage account, provision 3 containers with private (no anonymous a
 
 ### 2.0.2. Provision an Azure Databricks workspace
 Provision an Azure Databricks workspace in the resource group - telemetry-processor
+[Documentation](https://docs.microsoft.com/en-us/azure/azure-databricks/quickstart-create-databricks-workspace-portal)
 
 ### 2.0.3. Provision an Azure Databricks cluster in the workspace
 Provision an Azure Databricks cluster with 3 workers with default SKU, with ability to autoscale to 5 workers.
+[Documentation](https://docs.microsoft.com/en-us/azure/azure-databricks/quickstart-create-databricks-workspace-portal#create-a-spark-cluster-in-databricks)
 
 ### 2.0.4. Set up Vnet peering between Databricks and #1.0.2., for Kafka
+Set up peering from the Databricks vnet to the Kafka vnet and vice-versa.<br>
+[Documentation on Vnet peering](https://docs.azuredatabricks.net/administration-guide/cloud-configurations/azure/vnet-peering.html#vnet-peering)
 
 # 3. Azure IoT Hub
 ### 3.0.1. Provision the device telemetry generator 
