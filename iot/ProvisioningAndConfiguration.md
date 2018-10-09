@@ -30,6 +30,11 @@ Provision an Azure Databricks cluster with 3 workers with default SKU, with abil
 Set up peering from the Databricks vnet to the Kafka vnet and vice-versa.<br>
 [Documentation on Vnet peering](https://docs.azuredatabricks.net/administration-guide/cloud-configurations/azure/vnet-peering.html#vnet-peering)
 
+### 2.0.5. Add the Kafka dependencies to the cluster
+1.  Add the Spark Kafka library to the cluster<br>
+Find the compatible version on Maven central.  For HDInsight 3.6, with Kafka 1.1/1.0/0.10.1, and Databricks Runtime 4.3, Spark 2.3.1, Scala 2.11, the author used-<br>
+org.apache.spark:spark-sql-kafka-0-10_2.11:2.3.1
+
 # 3. Azure IoT Hub
 ### 3.0.1. Provision the device telemetry generator 
 Go to https://www.azureiotsolutions.com/Accelerators and provision the "Device Simulation" accelerator.
@@ -219,9 +224,9 @@ From the portal, within the Cosmos DB instance page, provision a collection-<br>
 - Unique key: /deviceId, /deviceTelemetryTs
 ### 6.0.3. Capture details needed for Spark integration
 Go to the instance in the portal, click on keys in the left navigation panel.  You will need the following:<br>
-- URI
+- URI:<BR>
 E.g. https://bhoomi-iot-store.documents.azure.com:443/
-- Primary key:
+- Primary key:<BR>
 E.g. u2TmMXrorpVq2mr...
 
 
