@@ -2,11 +2,9 @@
 // MAGIC %md
 // MAGIC # What's in this exercise
 // MAGIC This is part 2 of 3 notebooks that demonstrate stream ingest from Kafka, of live telemetry from Azure IoT hub.<BR>
-// MAGIC - In the notebook, 1, we ingested from Kafka into Azure Cosmos DB SQL API<BR>
-// MAGIC - In **this notebook**, 2, we will ingest from Kafka using structured stream processing and persist to a Databricks Delta table<BR>
+// MAGIC - In the notebook, 1, we ingested from Kafka into Azure Cosmos DB SQL API (OLTP store)<BR>
+// MAGIC - In **this notebook**, 2, we will ingest from Kafka using structured stream processing and persist to a Databricks Delta table (analytics store)<BR>
 // MAGIC - In the next notebook, 3, we will run queries against the Delta table<BR>
-// MAGIC   
-// MAGIC While Azure Cosmos DB serves as a hot store for OLTP, the Delta table will serve as an analytics store.
 
 // COMMAND ----------
 
