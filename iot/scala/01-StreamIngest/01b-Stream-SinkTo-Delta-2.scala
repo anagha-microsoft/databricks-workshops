@@ -1,4 +1,11 @@
 // Databricks notebook source
+This is part 3 of 3 notebooks that demonstrate stream ingest from Kafka, of live telemetry from Azure IoT hub.<BR>
+- In notebook 1, we ingested from Kafka into Azure Cosmos DB SQL API (OLTP store)<BR>
+- In notebook 2, we ingested from Kafka using structured stream processing and persisted to a Databricks Delta table (analytics store)<BR>
+- In **this notebook**, we will run queries against the Delta table<BR>
+
+// COMMAND ----------
+
 // MAGIC %md
 // MAGIC ### 4. Create the Databricks delta table
 // MAGIC This is a one-time activity that can only be run after a dataset has landed in the Delta table designated location.
