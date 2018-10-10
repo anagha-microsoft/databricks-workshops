@@ -35,6 +35,11 @@ Add the Spark Kafka library to the cluster<br>
 Find the compatible version on Maven central.  For HDInsight 3.6, with Kafka 1.1/1.0/0.10.1, and Databricks Runtime 4.3, Spark 2.3.1, Scala 2.11, the author used-<br>
 org.apache.spark:spark-sql-kafka-0-10_2.11:2.3.1
 
+### 2.0.6. Add the Azure Cosmos DB SQL API dependencies to the cluster
+Add the Azure Cosmos DB SQL API, Spark connector library to the cluster<br>
+Find the compatible version on Maven central.  For Databricks Runtime 4.3, Spark 2.3.1, Scala 2.11, the author used-<br>
+com.microsoft.azure:azure-cosmosdb-spark_2.3.0_2.11:1.2.7
+
 # 3. Azure IoT Hub
 ### 3.0.1. Provision the device telemetry generator 
 Go to https://www.azureiotsolutions.com/Accelerators and provision the "Device Simulation" accelerator.
