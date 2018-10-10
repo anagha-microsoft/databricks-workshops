@@ -14,7 +14,7 @@
 // COMMAND ----------
 
 val kafkaTopic = "iot_telemetry-in"
-val kafkaBrokerAndPortCSV = "10.1.0.5:9092, 10.1.0.5:9092,10.1.0.10:9092,10.1.0.14:9092"
+val kafkaBrokerAndPortCSV = "10.1.0.5:9092, 10.1.0.7:9092,10.1.0.10:9092,10.1.0.14:9092"
 
 // COMMAND ----------
 
