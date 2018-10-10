@@ -1,5 +1,5 @@
-This is a workshop showcasing an end to end Azure IoT usecase and covers multiple Azure services - <BR>
-- Azure IoT Hub (Scalable IoT PaaS) <BR>
+This is a workshop showcasing an end to end Azure IoT solution and covers multiple Azure services - <BR>
+- Azure IoT Hub (Scalable IoT PaaS) 
 - Azure HDInsight Kafka (Scalable streaming pub-sub) - Hortonworks Kafka PaaS <BR>
 - Azure Cosmos DB (NoSQL PaaS)  - for device registry and streaming device telemetry persistent store <BR>
 - Azure Databricks (Spark PaaS) - for distributed processing <BR>
