@@ -29,6 +29,7 @@ Provision an Azure Databricks cluster with 3 workers with default SKU, with abil
 ### 2.0.4. Set up Vnet peering between Databricks and #1.0.2., for Kafka
 Set up peering from the Databricks vnet to the Kafka vnet and vice-versa.<br>
 [Documentation on Vnet peering](https://docs.azuredatabricks.net/administration-guide/cloud-configurations/azure/vnet-peering.html#vnet-peering)
+Enable forwarding...
 
 ### 2.0.5. Add the Spark - Kafka dependencies to the cluster
 Add the Spark Kafka library to the cluster<br>
