@@ -1,4 +1,6 @@
 This section covers provsioning and all necessary configuration required for each service.  Ensure you select the same datacenter and resouce group for all deployments<BR><BR>
+  
+  EAST US dependency
 
 # 1.  General Azure
 ### 1.0.1. Provision a resource group
@@ -31,15 +33,21 @@ Set up peering from the Databricks vnet to the Kafka vnet and vice-versa.<br>
 [Documentation on Vnet peering](https://docs.azuredatabricks.net/administration-guide/cloud-configurations/azure/vnet-peering.html#vnet-peering)
 Enable forwarding...
 
+#### Attach the dbc
+
 ### 2.0.5. Add the Spark - Kafka dependencies to the cluster
 Add the Spark Kafka library to the cluster<br>
 Find the compatible version on Maven central.  For HDInsight 3.6, with Kafka 1.1/1.0/0.10.1, and Databricks Runtime 4.3, Spark 2.3.1, Scala 2.11, the author used-<br>
 org.apache.spark:spark-sql-kafka-0-10_2.11:2.3.1
 
+LINK TO DOCS
+
 ### 2.0.6. Add the Azure Cosmos DB SQL API dependencies to the cluster
 Add the Azure Cosmos DB SQL API, Spark connector library to the cluster<br>
 Find the compatible version on Maven central.  For Databricks Runtime 4.3, Spark 2.3.1, Scala 2.11, the author used-<br>
 com.microsoft.azure:azure-cosmosdb-spark_2.3.0_2.11:1.2.7
+
+LINK TO DOCS
 
 #### 2.0.7. STORAGE ACCT
 
