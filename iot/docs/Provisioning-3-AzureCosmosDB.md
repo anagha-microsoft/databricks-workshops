@@ -1,7 +1,7 @@
 
-This section covers provisioning of Azure Databricks.
+This section covers provisioning of Azure Cosmos DB.
 
-# 5. Azure Databricks
+# 5. Azure Cosmos DB
 From the portal navigate to the resource group you created - "Telemetry-Processor".
 
 ## 5.0.1.  Provision a storage account for Databricks 
