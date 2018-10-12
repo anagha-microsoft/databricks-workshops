@@ -32,15 +32,18 @@ Note the option to delete when you are done with this workshop.
 <br>
 
 ### 1.0.2. Configure Azure IoT Hub, capture key information
-1.  From the Azure portal, navigate to the IoT hub instance provisioned in 1.0.1.<BR>
+From the Azure portal, navigate to the IoT hub instance provisioned in 1.0.1.<BR>
 ![Step1](../images/IoTConf1.png)
-<br>
+
 ![Step2](../images/IoTConf2.png)
-Capture the following:<br>
-1. Event Hub-compatible name<br>
-2. Event Hub-compatible endpoint (starts with ```sb://```, ends with ```.servicebus.windows.net/```<br>
-3. Partitions<br>
+
+<br>1.  Capture the following:<br>
+1a. Event Hub-compatible name<br>
+1b. Event Hub-compatible endpoint (starts with ```sb://```, ends with ```.servicebus.windows.net/```<br>
+1c. Partitions<br>
+
 ![Steps1-2-3](../images/IoTConf3a.png)
+
 <br>4. Shared access key<br>
 On the portal, inside your IoT hub service, go to the left navigation panel and select "Shared Access Policies".  Then click on the policy "service", and capture the primary key
 ![Steps4](../images/IoTConf4.png)
