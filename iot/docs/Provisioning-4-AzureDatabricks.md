@@ -53,7 +53,7 @@ Provision an Azure Databricks workspace in the resource group - Telemetry-Proces
 Enter your workspace name and other details; Be sure to pick the same region as your device telemetry simulator.<br>
 ![CDB-3](../images/CreateDatabricks-3.png)
 <br><br><br>
-You should see the resource in your respource group. <br>
+You should see the resource in your resource group. <br>
 ![CDB-5](../images/CreateDatabricks-5.png)
 <br><br>
 
@@ -74,7 +74,22 @@ Provision an Azure Databricks cluster with 3 workers with default SKU, with abil
 ## 6.0.4. Set up Vnet peering between Databricks and virtual network in the resource group (for Kafka)
 Set up peering from the Databricks vnet to the Kafka vnet and vice-versa.<br>
 [Documentation on Vnet peering](https://docs.azuredatabricks.net/administration-guide/cloud-configurations/azure/vnet-peering.html#vnet-peering)
-
+![CDB-6](../images/CreateDatabricks-6.png)
+<br><br><br>
+![CDB-7](../images/CreateDatabricks-7.png)
+<br><br><br>
+![CDB-8](../images/CreateDatabricks-8.png)
+<br><br><br>
+![CDB-8a](../images/CreateDatabricks-8a.png)
+<br><br><br>
+![CDB-8b](../images/CreateDatabricks-8b.png)
+<br><br><br>
+![CDB-8c](../images/CreateDatabricks-8c.png)
+<br><br><br>
+![CDB-8d](../images/CreateDatabricks-8d.png)
+<br><br><br>
+![CDB-8e](../images/CreateDatabricks-8e.png)
+<br><br><br>
 
 ## 6.0.5. Add the Spark - Kafka dependencies to the cluster
 Add the Spark Kafka library to the cluster<br>
