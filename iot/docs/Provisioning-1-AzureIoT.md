@@ -33,26 +33,32 @@ Note the option to delete when you are done with this workshop.
 
 ## 1.0.2. Configure Azure IoT Hub, capture key information
 ### 1.0.2.1. From the Azure portal, navigate to the IoT hub instance provisioned in 1.0.1.<BR>
-![Step1](../images/IoTConf1.png)
+![Step1021](../images/IoTConf1.png)
   
 ### 1.0.2.2. Familiarize yourself with scaling settings
-![Step2](../images/IoTConf2.png)
+![Step1022](../images/IoTConf2.png)
 
 ### 1.0.2.3. Capture the Event Hub endpoint details
 1a. Event Hub-compatible name<br>
 1b. Event Hub-compatible endpoint (starts with ```sb://```, ends with ```.servicebus.windows.net/```<br>
 1c. Partitions<br>
 
-![Steps1-2-3](../images/IoTConf3a.png)
+![Steps1023](../images/IoTConf3a.png)
 
 ### 1.0.2.4. Capture the IoT hub shared access key
 On the portal, inside your IoT hub service, go to the left navigation panel and select "Shared Access Policies".  Then click on the policy "service", and capture the primary key
-![Steps4](../images/IoTConf4.png)
+![Steps1024](../images/IoTConf4.png)
 
 ### 1.0.2.5. Create a consumer group for KafkaConnect in your Azure IoT Hub
 Select "Built-in endpoints", select "Events" and create one consumer group called "kafkaconnect-cg".
-![Step3b](../images/IoTConf3b.png)
+![Step1025](../images/IoTConf3b.png)
   
 
-### 1.0.3. Launch the simulator
-Launch the simulator from 3.0.1, against the provisioned Azure IoT instance, to run every 10 seconds with 200 devices, to run for an hour.
+## 1.0.3. Launch the simulator
+Launch the simulator from 1.0.1, against the provisioned Azure IoT instance, to run every 10 seconds with 200 devices, to run for an hour as shown below, but do not start the simulation, till all provisioning and set up is complete.<br><br>
+
+![Step1031](../images/SimulatorLaunch1.png)
+
+![Step1032](../images/SimulatorLaunch2.png)
+
+![Step1033](../images/SimulatorLaunch3.png)
