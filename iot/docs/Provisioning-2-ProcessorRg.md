@@ -4,6 +4,7 @@ This section covers provisioning of resource group and VNet for the IoT telemetr
 # 2. Azure Resource Group
 From the portal create a resource group called Telemetry-Processor in the same Azure region/datacenter you provisioned the device telemetry simulation.<br>
 ![Go to the solution acccelerator page](../images/CreateRG.png)
+
 ![Go to the solution acccelerator page](../images/CreateRG1.png)
 
 # 3. Azure Virtual Network
