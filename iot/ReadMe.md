@@ -1,5 +1,5 @@
 # 1.0. About
-This is a workshop showcasing an end to end Azure IoT solution as referenced here.<br>
+This is a workshop showcasing an end to end Azure IoT solution as referenced [here](ReferenceArchitecture.pdf).<br>
 
 It covers:<br> 
 1.  simulated device telemetry publishing to Azure IoT hub, 
