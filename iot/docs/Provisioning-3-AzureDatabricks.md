@@ -32,10 +32,13 @@ Within this storage account, provision 3 containers with private (no anonymous a
 ![SA-11](../images/CreateStorageAcct-11.png)
 
 ### 4.0.1.3. Capture the storage account credentials
-
-
-
-### 2.0.2. Provision an Azure Databricks workspace
+This is needed for accessing the storage account from the Databricks cluster.
+![SA-5](../images/CreateStorageAcct-5.png)
+<br>
+![SA-6](../images/CreateStorageAcct-6.png)
+<br><br>
+### 2.0.2. Provision 
+an Azure Databricks workspace
 Provision an Azure Databricks workspace in the resource group - telemetry-processor<br>
 [Documentation](https://docs.microsoft.com/en-us/azure/azure-databricks/quickstart-create-databricks-workspace-portal)
 
