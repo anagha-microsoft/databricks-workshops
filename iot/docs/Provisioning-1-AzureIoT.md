@@ -5,9 +5,8 @@ We will launch an Azure IoT solution accelerator for device simulation.  With a 
 
 ### 1.0.1. Provision the device telemetry generator 
 Go to https://www.azureiotsolutions.com/Accelerators and provision the "Device Simulation" accelerator.
-Give it a meaningful name.  This will create an Azure IoT hub with Azure Cosmos DB as device registry a VM and such.
-
 ![Go to the solution acccelerator page](../images/Simulator1.png)
+Provision the simulator.
 ![Provision the simulator](../images/Simulator2.png)
 ![Select your subscription](../images/Simulator3.png)
 ![Provision the simulator](../images/Simulator4.png)
