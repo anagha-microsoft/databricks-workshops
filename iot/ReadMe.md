@@ -1,5 +1,7 @@
 # 1.0. About
-This is a workshop showcasing an end to end Azure IoT solution including:<br> 
+This is a workshop showcasing an end to end Azure IoT solution as referenced here.<br>
+
+It covers:<br> 
 1.  simulated device telemetry publishing to Azure IoT hub, 
 2.  device telemetry from #1, sourced to Kafka on HDInsight through KafkaConnect<BR> 
 3.  telemetry ingestion via Spark structured streaming on Azure Databricks<BR>
