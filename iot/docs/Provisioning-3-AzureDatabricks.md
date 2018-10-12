@@ -7,27 +7,26 @@ From the portal navigate to the resource group you created - "Telemetry-Processo
 ## 4.0.1.  Provision a storage account for Databricks 
 ### 4.0.1.1.  Create storage account
 Create a general purpose storage account (version 1) in the resource group - Telemetry-Processor.<br>
-![SA-1](../../images/CreateStorageAcct-1)
-
+![SA-1](../images/CreateStorageAcct-1.png)
 <br>
-![SA-2](../images/CreateStorageAcct-2)
+![SA-2](../images/CreateStorageAcct-2.png)
 <br>
-![SA-3](../images/CreateStorageAcct-3)
+![SA-3](../images/CreateStorageAcct-3.png)
 <br>
-![SA-4](../images/CreateStorageAcct-4)
+![SA-4](../images/CreateStorageAcct-4.png)
 <br><br>
 
 ### 4.0.1.2.  Create storage account containers
 Within this storage account, provision 3 containers with private (no anonymous access) configuration<br>
-![SA-7](../images/CreateStorageAcct-7)
+![SA-7](../images/CreateStorageAcct-7.png)
 <br>1.  Create a container called raw<br>
-![SA-8](../images/CreateStorageAcct-8)
+![SA-8](../images/CreateStorageAcct-8.png)
 <br>2.  Create a container called curated<br>
-![SA-9](../images/CreateStorageAcct-9)
+![SA-9](../images/CreateStorageAcct-9.png)
 <br>3.  Create a container called consumption<br>
-![SA-10](../images/CreateStorageAcct-10)
+![SA-10](../images/CreateStorageAcct-10.png)
 <br><br>
-![SA-11](../images/CreateStorageAcct-11)
+![SA-11](../images/CreateStorageAcct-11.png)
 
 ### 4.0.1.3. Capture the storage account credentials
 
