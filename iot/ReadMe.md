@@ -10,7 +10,7 @@ It covers:<br>
 5.  reports generated in Azure Databricks, persisted to an RDBMS<br>
 6.  Live device stats dashboard<br>
   
-Th workshop solution leverages multiple Azure services - <BR>
+The workshop solution leverages multiple Azure PaaS services - <BR>
   - Azure IoT Hub (Scalable IoT PaaS) <BR>
   - Azure HDInsight Kafka (Scalable streaming pub-sub) - Hortonworks Kafka PaaS <BR>
   - Azure Cosmos DB (NoSQL PaaS)  - for device registry and streaming device telemetry persistent store <BR>
