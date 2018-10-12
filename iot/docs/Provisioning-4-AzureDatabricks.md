@@ -91,6 +91,9 @@ Set up peering from the Databricks vnet to the Kafka vnet and vice-versa.<br>
 ![CDB-8e](../images/CreateDatabricks-8e.png)
 <br><br><br>
 
+## 6.0.5. Attach the Databricks notebooks (DBC) to the cluster
+The URL for the DBC is 
+
 ## 6.0.5. Add the Spark - Kafka dependencies to the cluster
 Add the Spark Kafka library to the cluster<br>
 Find the compatible version on Maven central.  For HDInsight 3.6, with Kafka 1.1/1.0/0.10.1, and Databricks Runtime 4.3, Spark 2.3.1, Scala 2.11, the author used-<br>
