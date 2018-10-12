@@ -8,6 +8,13 @@ Go to https://www.azureiotsolutions.com/Accelerators and provision the "Device S
 Give it a meaningful name.  This will create an Azure IoT hub with Azure Cosmos DB as device registry a VM and such.
 
 ![Go to the solution acccelerator page](../images/Simulator1.png)
+![Provision the simulator](../images/Simulator2.png)
+![Select your subscription](../images/Simulator3.png)
+![Provision the simulator](../images/Simulator4.png)
+![Provision the simulator](../images/Simulator5.png)
+![Provision the simulator](../images/Simulator6.png)
+![Provision the simulator](../images/Simulator7.png)
+![Provision the simulator](../images/Simulator8.png)
 
 ### 1.0.2. Create consumer groups
 1.  From the Azure portal, navigate to the IoT hub instance provisioned in 3.0.1.<BR>
