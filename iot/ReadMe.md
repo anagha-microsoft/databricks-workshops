@@ -1,5 +1,5 @@
 # 1.0. About
-This is a workshop showcasing an end to end Azure IoT solution as referenced [here](decks/ReferenceArchitecture.pdf).<br>
+This is a workshop showcasing most aspects of an end to end Azure IoT solution as referenced [here](decks/ReferenceArchitecture.pdf).<br>
 ![ReferenceArchitecture](images/ReferenceArchitecture.png)
 
 It covers:<br> 
