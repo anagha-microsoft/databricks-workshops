@@ -10,11 +10,11 @@ From the portal create a resource group called Telemetry-Processor in the same A
 # 3. Azure Virtual Network
 From the portal, from within your resource group from #2, create a virtual network.
 ![Go to the solution acccelerator page](../images/CreateVnet.png)
-<br>
+<br><br>
 ![Go to the solution acccelerator page](../images/CreateVnet2.png)
-<br>
+<br><br>
 ![Go to the solution acccelerator page](../images/CreateVnet3.png)
-<br>
+<br><br>
 ![Go to the solution acccelerator page](../images/CreateVnet4.png)
 
 ## 1.0.1. Provision the device telemetry generator 
