@@ -1,5 +1,28 @@
 This section covers provsioning and all necessary configuration required for each service.  Ensure you select the same datacenter and resouce group for all deployments<BR><BR>
   
+# 1. Azure IoT Hub
+### 1.0.1. Provision the device telemetry generator 
+Go to https://www.azureiotsolutions.com/Accelerators and provision the "Device Simulation" accelerator.
+Give it a meaningful name.  This will create an Azure IoT hub with Azure Cosmos DB as device registry a VM and such.
+
+### 1.0.2. Create consumer groups
+1.  From the Azure portal, navigate to the IoT hub instance provisioned in 3.0.1.<BR>
+2.  Select Endpoints<BR>
+3.  From "Built-in endpoints", select "Events"<BR>
+4.  Create one consumer group called "kafkaConnect-cg"<BR>
+5.  Create one consumer group called "spark-cg"<BR>
+
+### 1.0.3. Capture key information needed for KafkaConnect and Spark integration
+Capture the following:<br>
+1. Event Hub-compatible name; e.g. ```bhoomi-telemetry-simulator```
+2. Event Hub-compatible endpoint (starts with ```sb://```, ends with ```.servicebus.windows.net/```; e.g. ```sb://iothub-ns-bhoomi-tel-8....servicebus.windows.net/```
+3. Partitions; E.g. ```4```
+4. Shared access key<br>
+On the portal, inside your IoT hub service, go to the left navigation panel and select "Shared Access Policies".  Then click on the policy "service", and capture the primary key
+
+### 1.0.4. Launch the simulator
+Launch the simulator from 3.0.1, against the provisioned Azure IoT instance, to run every 10 seconds with 200 devices, to run for an hour.
+  
   EAST US dependency
 
 # 1.  General Azure
@@ -53,28 +76,7 @@ LINK TO DOCS
 
 ### spark.databricks.delta.preview.enabled true
 
-# 3. Azure IoT Hub
-### 3.0.1. Provision the device telemetry generator 
-Go to https://www.azureiotsolutions.com/Accelerators and provision the "Device Simulation" accelerator.
-Give it a meaningful name.  This will create an Azure IoT hub with Azure Cosmos DB as device registry a VM and such.
 
-### 3.0.2. Create consumer groups
-1.  From the Azure portal, navigate to the IoT hub instance provisioned in 3.0.1.<BR>
-2.  Select Endpoints<BR>
-3.  From "Built-in endpoints", select "Events"<BR>
-4.  Create one consumer group called "kafkaConnect-cg"<BR>
-5.  Create one consumer group called "spark-cg"<BR>
-
-### 3.0.3. Capture key information needed for KafkaConnect and Spark integration
-Capture the following:<br>
-1. Event Hub-compatible name; e.g. ```bhoomi-telemetry-simulator```
-2. Event Hub-compatible endpoint (starts with ```sb://```, ends with ```.servicebus.windows.net/```; e.g. ```sb://iothub-ns-bhoomi-tel-855096-4db209c4e3.servicebus.windows.net/```
-3. Partitions; E.g. ```4```
-4. Shared access key<br>
-On the portal, inside your IoT hub service, go to the left navigation panel and select "Shared Access Policies".  Then click on the policy "service", and capture the primary key
-
-### 3.0.4. Launch the simulator
-Launch the simulator from 3.0.1, against the provisioned Azure IoT instance, to run every 10 seconds with 200 devices, to run for an hour.
 
 # 4. HDInsight Kafka
 ### 4.0.1. Provision a HDInsight Kafka cluster
