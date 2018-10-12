@@ -92,7 +92,14 @@ Set up peering from the Databricks vnet to the Kafka vnet and vice-versa.<br>
 <br><br><br>
 
 ## 6.0.5. Attach the Databricks notebooks (DBC) to the cluster
-The URL for the DBC is 
+The URL for the DBC is https://github.com/anagha-microsoft/databricks-workshops/blob/master/iot/dbc/iot-workshop.dbc.<br>
+The following are steps for importing the DBC into the cluster.<br>
+![DBC-1](../images/CreateDatabricks-dbc-1.png)
+<br><br><br>
+![DBC-2](../images/CreateDatabricks-dbc-2.png)
+<br><br><br>
+![DBC-3](../images/CreateDatabricks-dbc-3.png)
+<br><br><br>
 
 ## 6.0.5. Add the Spark - Kafka dependencies to the cluster
 Add the Spark Kafka library to the cluster<br>
