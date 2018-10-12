@@ -8,7 +8,7 @@ It covers:<br>
 3.  telemetry ingestion via Spark structured streaming on Azure Databricks<BR>
 4.  telemetry persistence into Azure Cosmos DB<br>
 5.  reports generated in Azure Databricks, persisted to an RDBMS<br>
-6.  Live device stats dashboard<br>
+6.  live device stats dashboard<br>
   
 The workshop solution leverages multiple Azure PaaS services - <BR>
   - Azure IoT Hub (Scalable IoT PaaS) <BR>
@@ -21,6 +21,6 @@ The workshop solution leverages multiple Azure PaaS services - <BR>
   
 # 2.0. Get started
 ### 2.0.1. Provision Azure resources
-[AzureIoT](docs/Provisioning-1-AzureIoT.md)
+[Device Telemetry Simulator & Azure IoT Hub](docs/Provisioning-1-AzureIoT.md)
 
 
