@@ -6,8 +6,8 @@ We will launch an Azure IoT solution accelerator for device simulation.  With a 
 ### 1.0.1. Provision the device telemetry generator 
 1.  Go to https://www.azureiotsolutions.com/Accelerators and select the "Device Simulation" accelerator.<br>
 ![Go to the solution acccelerator page](../images/Simulator1.png)
-<br>
-2.  Deploy<br>
+
+<br>2.  Deploy<br>
 ![Provision the simulator](../images/Simulator2.png)
 3.  Name it "Telemetry-Simulator", select your Azure subscription and pick the closest Azure datacenter.<br>
 The datacenter you selected will need to be used across the board for the rest of the solution.  make a note of the same.
