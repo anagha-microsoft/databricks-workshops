@@ -1,5 +1,5 @@
 
-This section covers provisioning of Azure Databricks.
+This section covers provisioning of Azure Databricks and configuration required.
 
 # 6. Azure Databricks
 From the portal navigate to the resource group you created - "Telemetry-Processor".
@@ -115,8 +115,27 @@ The following are the steps to add Kafka depenency to the cluster.<br>
 ![LIB-4](../images/lib-4.png)
 <br><br><br>
 
-
 ## 6.0.6. Add the Spark - Azure Cosmos DB dependencies to the cluster
+Download the Azure Cosmos DB jar for SQL API.  At the time of authoring, the jar was available at:<br>
+https://search.maven.org/search?q=a:azure-cosmosdb-spark_2.3.0_2.11
+
+![CDB-LIB-1](../images/cdb-lib-1.png)
+<br><br><br>
+![CDB-LIB-2](../images/cdb-lib-2.png)
+<br><br><br>
+![CDB-LIB-3](../images/cdb-lib-3.png)
+<br><br><br>
+![CDB-LIB-4](../images/cdb-lib-4.png)
+<br><br><br>
+![CDB-LIB-5](../images/cdb-lib-5.png)
+<br><br><br>
+![CDB-LIB-6](../images/cdb-lib-6.png)
+<br><br><br>
+![CDB-LIB-7](../images/cdb-lib-7.png)
+<br><br><br>
+![CDB-LIB-8](../images/cdb-lib-8.png)
+<br><br><br>
+
 
 ## 6.0.7. Add the storage account credentials and Cosmos DB credentials to the cluster configuration
 ### 6.0.7.1. Add the storage account credentials
