@@ -34,7 +34,7 @@ Note the option to delete when you are done with this workshop.
 ### 1.0.2. Configure Azure IoT Hub, capture key information
 From the Azure portal, navigate to the IoT hub instance provisioned in 1.0.1.<BR>
 ![Step1](../images/IoTConf1.png)
-
+<br>
 ![Step2](../images/IoTConf2.png)
 
 <br>1.  Capture the following:<br>
