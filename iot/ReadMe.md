@@ -19,23 +19,6 @@ For device telemetry simulation, the workshop leverages, the "Telemetry Simulati
   
 # 2.0. Get started
 ### 2.0.1. Provision Azure resources
-[How and what to provision](ProvisioningAndConfiguration.md)
-
-### 2.0.2. Import the workshop dbc
+[AzureIoT](docs/Provisioning-1-AzureIoT.md)
 
 
-### 2.0.3. Start the device telemetry simulator
-
-
-### 2.0.4. Start the KafkaConnect instance for Azure IoT Hub
-
-
-### 2.0.5. Mount blob storage
-
-### 2.0.6. Stream ingest from Kafka to Cosmos DB - OLTP store
-
-### 2.0.7. Stream ingest from Kafka to Databricks Delta - Analytics store
-
-### 2.0.8. Run reports on telemetry, persist to Azure SQL Database
-
-### 2.0.9. Visualize in PowerBI
