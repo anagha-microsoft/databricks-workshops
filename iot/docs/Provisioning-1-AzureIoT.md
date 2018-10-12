@@ -7,7 +7,7 @@ We will launch an Azure IoT solution accelerator for device simulation.  With a 
 Go to https://www.azureiotsolutions.com/Accelerators and provision the "Device Simulation" accelerator.
 Give it a meaningful name.  This will create an Azure IoT hub with Azure Cosmos DB as device registry a VM and such.
 
-![Go to the solution acccelerator page](images/Simulator1.png)
+![Go to the solution acccelerator page](../images/Simulator1.png)
 
 ### 1.0.2. Create consumer groups
 1.  From the Azure portal, navigate to the IoT hub instance provisioned in 3.0.1.<BR>
