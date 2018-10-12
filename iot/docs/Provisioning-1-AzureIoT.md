@@ -3,7 +3,7 @@ This section covers provisioning and all necessary configuration required for Az
 # 1. Azure IoT Hub
 We will launch an Azure IoT solution accelerator for device simulation.  With a few clicks, this will provision an Azure IoT hub and provide a web page to select number of simulated devices, type of telemetry (e.g. chiller), and simulate telemetry at periodic intervals for a specific period of time or indefinitely.
 
-### 1.0.1. Provision the device telemetry generator 
+## 1.0.1. Provision the device telemetry generator 
 1.  Go to https://www.azureiotsolutions.com/Accelerators and select the "Device Simulation" accelerator.<br>
 ![Go to the solution acccelerator page](../images/Simulator1.png)
 
@@ -31,25 +31,25 @@ Note the option to delete when you are done with this workshop.
 ![Provision the simulator](../images/Simulator8.png)
 <br>
 
-### 1.0.2. Configure Azure IoT Hub, capture key information
-##### 1.0.2.1. From the Azure portal, navigate to the IoT hub instance provisioned in 1.0.1.<BR>
+## 1.0.2. Configure Azure IoT Hub, capture key information
+### 1.0.2.1. From the Azure portal, navigate to the IoT hub instance provisioned in 1.0.1.<BR>
 ![Step1](../images/IoTConf1.png)
   
-##### 1.0.2.2. Familiarize yourself with scaling settings
+### 1.0.2.2. Familiarize yourself with scaling settings
 ![Step2](../images/IoTConf2.png)
 
-##### 1.0.2.3. Capture the Event Hub endpoint details
+### 1.0.2.3. Capture the Event Hub endpoint details
 1a. Event Hub-compatible name<br>
 1b. Event Hub-compatible endpoint (starts with ```sb://```, ends with ```.servicebus.windows.net/```<br>
 1c. Partitions<br>
 
 ![Steps1-2-3](../images/IoTConf3a.png)
 
-##### 1.0.2.4. Capture the IoT hub shared access key
+### 1.0.2.4. Capture the IoT hub shared access key
 On the portal, inside your IoT hub service, go to the left navigation panel and select "Shared Access Policies".  Then click on the policy "service", and capture the primary key
 ![Steps4](../images/IoTConf4.png)
 
-##### 1.0.2.5. Create a consumer group for KafkaConnect in your Azure IoT Hub
+### 1.0.2.5. Create a consumer group for KafkaConnect in your Azure IoT Hub
 Select "Built-in endpoints", select "Events" and create one consumer group called "kafkaconnect-cg".
 ![Step3b](../images/IoTConf3b.png)
   
