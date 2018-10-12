@@ -41,6 +41,14 @@ Storage account credentials is needed for accessing the storage account from the
 ## 5.0.2. Provision an Azure Databricks workspace
 Provision an Azure Databricks workspace in the resource group - Telemetry-Processor<br>
 [Documentation](https://docs.microsoft.com/en-us/azure/azure-databricks/quickstart-create-databricks-workspace-portal)
+![CDB-1](../images/CreateDatabricks-1.png)
+<br><br>
+![CDB-2](../images/CreateDatabricks-2.png)
+<br><br>
+![CDB-3](../images/CreateDatabricks-3.png)
+<br><br>
+![CDB-5](../images/CreateDatabricks-5.png)
+<br><br>
 
 ## 5.0.3. Provision an Azure Databricks cluster in the workspace
 Provision an Azure Databricks cluster with 3 workers with default SKU, with ability to autoscale to 5 workers.<br>
@@ -49,7 +57,7 @@ Provision an Azure Databricks cluster with 3 workers with default SKU, with abil
 ## 5.0.4. Set up Vnet peering between Databricks and virtual network in the resource group (for Kafka)
 Set up peering from the Databricks vnet to the Kafka vnet and vice-versa.<br>
 [Documentation on Vnet peering](https://docs.azuredatabricks.net/administration-guide/cloud-configurations/azure/vnet-peering.html#vnet-peering)
-Enable forwarding...
+
 
 ## 5.0.5. Add the Spark - Kafka dependencies to the cluster
 Add the Spark Kafka library to the cluster<br>
