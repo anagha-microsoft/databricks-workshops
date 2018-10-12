@@ -5,23 +5,30 @@ We will launch an Azure IoT solution accelerator for device simulation.  With a 
 
 ### 1.0.1. Provision the device telemetry generator 
 1.  Go to https://www.azureiotsolutions.com/Accelerators and select the "Device Simulation" accelerator.<br>
-![Go to the solution acccelerator page](../images/Simulator1.png)<br>
+![Go to the solution acccelerator page](../images/Simulator1.png)
+<br>
 2.  Deploy<br>
 ![Provision the simulator](../images/Simulator2.png)
 3.  Name it "Telemetry-Simulator", select your Azure subscription and pick the closest Azure datacenter.<br>
 The datacenter you selected will need to be used across the board for the rest of the solution.  make a note of the same.
-![Select your subscription](../images/Simulator3.png)<br>
+![Select your subscription](../images/Simulator3.png)
+<br>
 4.  Create the simulator<br>
-![Create the simulator](../images/Simulator4.png)<br>
+![Create the simulator](../images/Simulator4.png)
+<br>
 5.  You should see an entry like this<br>
-![WorkInProgress](../images/Simulator5.png)<br>
+![WorkInProgress](../images/Simulator5.png)
+<br>
 6.  Give it about ten minutes, you should see this.<br>
 Note the option to delete when you are done with this workshop.
-![DeployedSimulator](../images/Simulator6.png)<br>
+![DeployedSimulator](../images/Simulator6.png)
+<br>
 7.  This resource group gets created in your subscription<br>
-![Provision the simulator](../images/Simulator7.png)<br>
+![Provision the simulator](../images/Simulator7.png)
+<br>
 8.  With these resources in it<br>
-![Provision the simulator](../images/Simulator8.png)<br>
+![Provision the simulator](../images/Simulator8.png)
+<br>
 
 ### 1.0.2. Create consumer groups
 1.  From the Azure portal, navigate to the IoT hub instance provisioned in 3.0.1.<BR>
