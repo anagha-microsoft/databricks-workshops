@@ -44,13 +44,16 @@ Storage account credentials is needed for accessing the storage account from the
 
 ## 6.0.2. Provision an Azure Databricks workspace
 Provision an Azure Databricks workspace in the resource group - Telemetry-Processor<br>
-[Documentation](https://docs.microsoft.com/en-us/azure/azure-databricks/quickstart-create-databricks-workspace-portal)
+[Documentation](https://docs.microsoft.com/en-us/azure/azure-databricks/quickstart-create-databricks-workspace-portal)<br>
+
 ![CDB-1](../images/CreateDatabricks-1.png)
 <br><br><br>
 ![CDB-2](../images/CreateDatabricks-2.png)
 <br><br><br>
+Enter your workspace name and other details; Be sure to pick the same region as your device telemetry simulator.<br>
 ![CDB-3](../images/CreateDatabricks-3.png)
 <br><br><br>
+You should see the resource in your respource group. <br>
 ![CDB-5](../images/CreateDatabricks-5.png)
 <br><br>
 
