@@ -31,22 +31,25 @@ Note the option to delete when you are done with this workshop.
 ![Provision the simulator](../images/Simulator8.png)
 <br>
 
-### 1.0.2. Create a consumer group for KafkaConnect in your Azure IoT Hub
+### 1.0.2. Configure Azure IoT Hub, capture key information
 1.  From the Azure portal, navigate to the IoT hub instance provisioned in 1.0.1.<BR>
 ![Step1](../images/IoTConf1.png)
 <br>
 ![Step2](../images/IoTConf2.png)
-<br>2a.  Select "Built-in endpoints", select "Events" and create one consumer group called "kafkaconnect-cg".
-![Step3](../images/IoTConf3.png)
-  
-
-### 1.0.3. Capture key information needed for KafkaConnect and Spark integration
 Capture the following:<br>
-1. Event Hub-compatible name; e.g. ```bhoomi-telemetry-simulator```
-2. Event Hub-compatible endpoint (starts with ```sb://```, ends with ```.servicebus.windows.net/```; e.g. ```sb://iothub-ns-bhoomi-tel-8....servicebus.windows.net/```
-3. Partitions; E.g. ```4```
-4. Shared access key<br>
+1. Event Hub-compatible name<br>
+2. Event Hub-compatible endpoint (starts with ```sb://```, ends with ```.servicebus.windows.net/```<br>
+3. Partitions<br>
+![Steps1-2-3](../images/IoTConf3a.png)
+<br>4. Shared access key<br>
 On the portal, inside your IoT hub service, go to the left navigation panel and select "Shared Access Policies".  Then click on the policy "service", and capture the primary key
+![Steps4](../images/IoTConf4.png)
+
+### 1.0.3. Create a consumer group for KafkaConnect in your Azure IoT Hub
+
+<br>2a.  Select "Built-in endpoints", select "Events" and create one consumer group called "kafkaconnect-cg".
+![Step3b](../images/IoTConf3b.png)
+  
 
 ### 1.0.4. Launch the simulator
 Launch the simulator from 3.0.1, against the provisioned Azure IoT instance, to run every 10 seconds with 200 devices, to run for an hour.
