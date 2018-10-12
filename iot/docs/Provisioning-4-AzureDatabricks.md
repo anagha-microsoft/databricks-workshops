@@ -121,6 +121,7 @@ https://search.maven.org/search?q=a:azure-cosmosdb-spark_2.3.0_2.11
 
 ![CDB-LIB-1](../images/cdb-lib-1.png)
 <br><br><br>
+Attach to the cluster:<BR>
 ![CDB-LIB-2](../images/cdb-lib-2.png)
 <br><br><br>
 ![CDB-LIB-3](../images/cdb-lib-3.png)
@@ -129,6 +130,8 @@ https://search.maven.org/search?q=a:azure-cosmosdb-spark_2.3.0_2.11
 <br><br><br>
 ![CDB-LIB-5](../images/cdb-lib-5.png)
 <br><br><br>
+  
+Validate if the cluster has the two dependencies attached:<br>  
 ![CDB-LIB-6](../images/cdb-lib-6.png)
 <br><br><br>
 ![CDB-LIB-7](../images/cdb-lib-7.png)
