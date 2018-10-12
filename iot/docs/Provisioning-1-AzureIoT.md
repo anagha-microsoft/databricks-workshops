@@ -10,7 +10,7 @@ We will launch an Azure IoT solution accelerator for device simulation.  With a 
 <br>2.  Deploy<br>
 ![Provision the simulator](../images/Simulator2.png)
 
-<br>3.  Name it "Telemetry-Simulator", select your Azure subscription and pick the closest Azure datacenter.<br>
+<br>3.  Name it "Telemetry-Simulator-<yourinitials>", select your Azure subscription and pick the closest Azure datacenter.<br>
 The datacenter you selected will need to be used across the board for the rest of the solution.  make a note of the same.
 ![Select your subscription](../images/Simulator3.png)
 

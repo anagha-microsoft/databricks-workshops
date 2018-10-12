@@ -1,6 +1,6 @@
 # 1.0. About
-This is a workshop showcasing an end to end Azure IoT solution as referenced [here](decks/ReferenceArchitecture.pdf).<br>
-
+This is a workshop showcasing most aspects of an end to end Azure IoT solution as referenced [below](decks/ReferenceArchitecture.pptx).<br>
+![ReferenceArchitecture](images/ReferenceArchitecture.png)
 
 It covers:<br> 
 1.  simulated device telemetry publishing to Azure IoT hub, 
@@ -8,9 +8,9 @@ It covers:<br>
 3.  telemetry ingestion via Spark structured streaming on Azure Databricks<BR>
 4.  telemetry persistence into Azure Cosmos DB<br>
 5.  reports generated in Azure Databricks, persisted to an RDBMS<br>
-6.  Live device stats dashboard<br>
+6.  live device stats dashboard<br>
   
-Th workshop solution leverages multiple Azure services - <BR>
+The workshop solution leverages multiple Azure PaaS services - <BR>
   - Azure IoT Hub (Scalable IoT PaaS) <BR>
   - Azure HDInsight Kafka (Scalable streaming pub-sub) - Hortonworks Kafka PaaS <BR>
   - Azure Cosmos DB (NoSQL PaaS)  - for device registry and streaming device telemetry persistent store <BR>
@@ -21,6 +21,6 @@ Th workshop solution leverages multiple Azure services - <BR>
   
 # 2.0. Get started
 ### 2.0.1. Provision Azure resources
-[AzureIoT](docs/Provisioning-1-AzureIoT.md)
+[Device Telemetry Simulator & Azure IoT Hub](docs/Provisioning-1-AzureIoT.md)
 
 
