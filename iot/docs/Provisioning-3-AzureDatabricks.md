@@ -8,6 +8,7 @@ From the portal navigate to the resource group you created - "Telemetry-Processo
 ### 4.0.1.1.  Create storage account
 Create a general purpose storage account (version 1) in the resource group - Telemetry-Processor.<br>
 ![SA-1](../images/CreateStorageAcct-1)
+
 <br>
 ![SA-2](../images/CreateStorageAcct-2)
 <br>
