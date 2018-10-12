@@ -5,6 +5,10 @@ This section covers provisioning of Azure Databricks.
 From the portal navigate to the resource group you created - "Telemetry-Processor".
 
 ## 6.0.1.  Provision a storage account for Databricks 
+Databricks leverages Azure object storage as its distributed file system - Databricks File System (DBFS).<br>
+In this section, we will create a storage account with containers for use with Databricks.<br>
+Each container will be used to model the data flow across storage/file system paritions as part of information management - "raw" for data exactly as it comes in, "curated" for cleansed, transformed, joined etc data and "consumption" for reports and such.  Each of these layers, typically, has a retention period and access control.
+
 ### 6.0.1.1.  Create storage account
 Create a general purpose storage account (version 1) in the resource group - Telemetry-Processor.<br>
 ![SA-1](../images/CreateStorageAcct-1.png)
