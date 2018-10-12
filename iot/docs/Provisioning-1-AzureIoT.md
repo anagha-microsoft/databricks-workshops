@@ -34,10 +34,11 @@ Note the option to delete when you are done with this workshop.
 ### 1.0.2. Create a consumer group for KafkaConnect in your Azure IoT Hub
 1.  From the Azure portal, navigate to the IoT hub instance provisioned in 1.0.1.<BR>
 ![Step1](../images/IoTConf1.png)
-2.  Select Endpoints<BR>
-3.  From "Built-in endpoints", select "Events"<BR>
-4.  Create one consumer group called "kafkaConnect-cg"<BR>
+<br>
 ![Step2](../images/IoTConf2.png)
+<br>2a.  Select "Built-in endpoints", select "Events" and create one consumer group called "kafkaconnect-cg".
+![Step3](../images/IoTConf3.png)
+  
 
 ### 1.0.3. Capture key information needed for KafkaConnect and Spark integration
 Capture the following:<br>
