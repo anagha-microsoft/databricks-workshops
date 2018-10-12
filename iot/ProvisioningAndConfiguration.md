@@ -67,9 +67,8 @@ LINK TO DOCS
 
 ### 2.0.6. Add the Azure Cosmos DB SQL API dependencies to the cluster
 Add the Azure Cosmos DB SQL API, Spark connector library to the cluster<br>
-Find the compatible version on Maven central.  For Databricks Runtime 4.3, Spark 2.3.1, Scala 2.11, the author used-<br>
-com.microsoft.azure:azure-cosmosdb-spark_2.3.0_2.11:1.2.7
-
+Find the compatible version on Maven central.
+For Databricks Runtime 4.3, Spark 2.3.1, Scala 2.11, the author used the uber jar at https://search.maven.org/search?q=a:azure-cosmosdb-spark_2.3.0_2.11.  Download the uber jar and attach to the cluster.
 LINK TO DOCS
 
 #### 2.0.7. STORAGE ACCT
