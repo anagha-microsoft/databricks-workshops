@@ -23,7 +23,7 @@ Follow the instuctions to create a database and collection:<br>
 ![DB-6](../images/db-6.png)
 <br><br><br>
 
-## 5.0.3.  Capture credential for use with Spark integration
+## 5.0.3.  Capture credentials for Spark integration
 Capture the credentials circled in red:<br>
 ![DB-7](../images/db-7.png)
 <br><br><br>
