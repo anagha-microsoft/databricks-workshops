@@ -4,9 +4,9 @@ This section covers provisioning and all necessary configuration required for Az
 We will launch an Azure IoT solution accelerator for device simulation.  With a few clicks, this will provision an Azure IoT hub and provide a web page to select number of simulated devices, type of telemetry (e.g. chiller), and simulate telemetry at periodic intervals for a specific period of time or indefinitely.
 
 ### 1.0.1. Provision the device telemetry generator 
-Go to https://www.azureiotsolutions.com/Accelerators and provision the "Device Simulation" accelerator.
+Go to https://www.azureiotsolutions.com/Accelerators and provision the "Device Simulation" accelerator.<br>
 ![Go to the solution acccelerator page](../images/Simulator1.png)
-Provision the simulator.
+Provision the simulator.<br>
 ![Provision the simulator](../images/Simulator2.png)
 ![Select your subscription](../images/Simulator3.png)
 ![Provision the simulator](../images/Simulator4.png)
