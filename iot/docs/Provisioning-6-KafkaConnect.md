@@ -23,9 +23,10 @@ Capture the IP address.
 ![ssh-2](../images/ssh-2.png)
 <br><br><br>
 3.  Select the head node and capture the ssh command to the clipboard
-4.  Launch a linux terminal and ssh to the head node by pasting command/keying into putty or your favorite ssh tool
 ![ssh-3](../images/ssh-3.png)
 <br><br><br>
+4.  Launch a linux terminal and ssh to the head node by pasting command/keying into putty or your favorite ssh tool
+<br>
 5.  From the head node, ssh to the edge node, you should have captured the IP address in #7.0.1.
 ![ssh-4](../images/ssh-4.png)
 <br><br><br>
@@ -36,11 +37,14 @@ Capture the IP address.
 ```
 read -p "Enter the Kafka on HDInsight cluster name: " CLUSTERNAME
 ```
-
+![kc-3](../images/kc-3.png)
+<br><br><br>
 #### 7.0.3.2. Install jq to process json easily
 ```
 sudo apt -y install jq
 ```
+![kc-4](../images/kc-4.png)
+<br><br><br>
 #### 7.0.3.3. Get broker list into a variable
 ```
 export KAFKABROKERS=`curl -sS -u admin -G https://$CLUSTERNAME.azurehdinsight.net/api/v1/clusters/$CLUSTERNAME/services/KAFKA/components/KAFKA_BROKER | jq -r '["\(.host_components[].HostRoles.host_name):9092"] | join(",")' | cut -d',' -f1,2`
@@ -49,6 +53,8 @@ Validate:
 ```
 echo $KAFKABROKERS
 ```
+![kc-5](../images/kc-5.png)
+<br><br><br>
 #### 7.0.3.4. Get zookeeper list into a variable
 ```
 export KAFKAZKHOSTS=`curl -sS -u admin -G https://$CLUSTERNAME.azurehdinsight.net/api/v1/clusters/$CLUSTERNAME/services/ZOOKEEPER/components/ZOOKEEPER_SERVER | jq -r '["\(.host_components[].HostRoles.host_name):2181"] | join(",")' | cut -d',' -f1,2`
@@ -66,7 +72,8 @@ You should see this..
 ```
 iot_telemetry_in
 ```
-
+![kc-6](../images/kc-6.png)
+<br><br><br>
 #### 7.0.3.6. List the topic created<br>
 ```
 /usr/hdp/current/kafka-broker/bin/kafka-topics.sh --list --zookeeper $KAFKAZKHOSTS
@@ -75,7 +82,8 @@ You should see this..
 ```
 iot_telemetry_in
 ```
-
+![kc-7](../images/kc-7.png)
+<br><br><br>
 ## 7.0.4. Download KafkaConnect for Azure IoT
 
 7.0.4.1. Create a directory on the edge node to download the connector to:
@@ -83,6 +91,9 @@ iot_telemetry_in
 mkdir -p opt/kafkaConnect
 cd opt/kafkaConnect
 ```
+![kc-1](../images/kc-1.png)
+<br><br><br>
+
 7.0.4.2. Download the latest connector from here-<br>
 https://github.com/Azure/toketi-kafka-connect-iothub/releases/.
 
@@ -92,7 +103,8 @@ cd ~/opt/kafkaConnect
 wget "https://github.com/Azure/toketi-kafka-connect-iothub/releases/download/v0.6/kafka-connect-iothub-assembly_2.11-0.6.jar"
 sudo cp kafka-connect-iothub-assembly_2.11-0.6.jar /usr/hdp/current/kafka-broker/libs/
 ```
-
+![kc-2](../images/kc-2.png)
+<br><br><br>
 ## 7.0.5. Configure a standalone source KafkaConnect instance for Azure IoT (source=Azure IoT Hub, sink=Kafka)
 
 #### 7.0.5.1. Edit/add 4 pieces of configuration in the connect-standalone.properties file on the edge node<br>
