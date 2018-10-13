@@ -121,6 +121,7 @@ E.g.  In the author's case - 10.1.0.7:9092,10.1.0.9:9092,10.1.0.10:9092,10.1.0.1
 <br>
 4.  Add a line at the end of the file to prevent timeouts<br>
 ```# Number of records to poll per partition per batch```
+<br>
 ```consumer.max.poll.records=200``` 
 <br>
 5.  Save the changes and close the file
