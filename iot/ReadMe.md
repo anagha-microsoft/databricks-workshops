@@ -1,4 +1,4 @@
-# 1.0. About
+## 1.0. About
 This is a workshop showcasing most aspects of an end to end Azure IoT solution as referenced [below](decks/ReferenceArchitecture.pptx).<br>
 ![ReferenceArchitecture](images/ReferenceArchitecture.png)
 
@@ -19,7 +19,7 @@ The workshop solution leverages multiple Azure PaaS services - <BR>
   - Power BI (BI SaaS) <BR>
   
   
-# 2.0. Get started
+## 2.0. Get started
 ### 2.0.1. Provision Azure resources
 1.  [Device Telemetry Simulator & Azure IoT Hub](docs/Provisioning-1-AzureIoT.md)
 2.  [Azure resource group and virtual network](docs/Provisioning-2-Common.md)
@@ -28,13 +28,13 @@ The workshop solution leverages multiple Azure PaaS services - <BR>
 5.  [HDInsight Kafka](Provisioning-5-Kafka.md)
 6.  [KafkaConnect Azure IoT Hub Source Connector](Provisioning-6-KafkaConnect.md)
 
-# 3.0. Start the services provisioned
+## 3.0. Start the services provisioned
 1.  [Start the components](docs/Provisioning-7-StartTheComponents.md)
 
-# 4.0. Workshop
-## 4.0.1. Setup
-### 4.0.1.1. Mount blob storage
+## 4.0. Workshop
+### 4.0.1. Setup
+##### 4.0.1.1. Mount blob storage
 
-## 4.0.2. Stuctured streaming from Kafka to Azure Cosmos DB telemetry state store (OLTP store)
+### 4.0.2. Stuctured streaming from Kafka to Azure Cosmos DB telemetry state store (OLTP store)
 
-## 4.0.3. Stuctured streaming from Kafka to Databricks Delta (analytics store)
+### 4.0.3. Stuctured streaming from Kafka to Databricks Delta (analytics store)
