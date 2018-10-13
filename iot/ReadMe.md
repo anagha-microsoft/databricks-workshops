@@ -22,11 +22,11 @@ The workshop solution leverages multiple Azure PaaS services - <BR>
 # 2.0. Get started
 ### 2.0.1. Provision Azure resources
 1.  [Device Telemetry Simulator & Azure IoT Hub](docs/Provisioning-1-AzureIoT.md)
-2.
-3.
-4.
-5.
-6.
+2.  [Azure resource group and virtual network](docs/Provisioning-2-Common.md)
+3.  [Azure Cosmos DB](docs/Provisioning-3-AzureCosmosDB.md)
+4.  [Azure Databricks](docs/Provisioning-4-AzureDatabricks.md)
+5.  [HDInsight Kafka](Provisioning-5-Kafka.md)
+6.  [KafkaConnect Azure IoT Hub Source Connector](Provisioning-6-KafkaConnect.md)
 
 # 3.0. Start the services provisioned
 1.  [Start the components](docs/Provisioning-7-StartTheComponents.md)
