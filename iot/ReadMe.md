@@ -21,6 +21,20 @@ The workshop solution leverages multiple Azure PaaS services - <BR>
   
 # 2.0. Get started
 ### 2.0.1. Provision Azure resources
-[Device Telemetry Simulator & Azure IoT Hub](docs/Provisioning-1-AzureIoT.md)
+1.  [Device Telemetry Simulator & Azure IoT Hub](docs/Provisioning-1-AzureIoT.md)
+2.
+3.
+4.
+5.
+6.
 
+# 3.0. Start the services provisioned
+1.  [Start the components](docs/Provisioning-7-StartTheComponents.md)
 
+# 4.0. Workshop
+## 4.0.1. Setup
+### 4.0.1.1. Mount blob storage
+
+## 4.0.2. Stuctured streaming from Kafka to Azure Cosmos DB telemetry state store (OLTP store)
+
+## 4.0.3. Stuctured streaming from Kafka to Databricks Delta (analytics store)
