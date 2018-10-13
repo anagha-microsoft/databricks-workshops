@@ -63,7 +63,7 @@ Validate:
 ```
 echo $KAFKAZKHOSTS
 ```
-
+<br><br><br>
 #### 7.0.3.5. Create a topic
 ```
 /usr/hdp/current/kafka-broker/bin/kafka-topics.sh --create --replication-factor 3 --partitions 8 --topic iot_telemetry_in --zookeeper $KAFKAZKHOSTS
