@@ -17,7 +17,7 @@ Once the deployment completes, in the Ambari, hosts page, you should see the edg
 ## 7.0.2.  SSH to the edge node
 
 
-## 7.0.3. Configure a standalone source KafkaConnect instance for Azure IoT (source=Azure IoT Hub, sink=Kafka)
+## 7.0.3. Create a Kafka topic
 
 #### 7.0.3.1. Create and populate cluster name into a variable
 ```
@@ -63,16 +63,14 @@ You should see this..
 iot_telemetry_in
 ```
 
+## 7.0.4. Download KafkaConnect for Azure IoT
 
-
-## 7.0.3. Download KafkaConnect for Azure IoT
-
-7.0.3.1. Create a directory on the edge node to download the connector to:
+7.0.4.1. Create a directory on the edge node to download the connector to:
 ```
 mkdir -p opt/kafkaConnect
 cd opt/kafkaConnect
 ```
-7.0.3.2. Download the latest connector from here-<br>
+7.0.4.2. Download the latest connector from here-<br>
 https://github.com/Azure/toketi-kafka-connect-iothub/releases/.
 
 At the time of authoring this lab..<br>
@@ -82,9 +80,10 @@ wget "https://github.com/Azure/toketi-kafka-connect-iothub/releases/download/v0.
 sudo cp kafka-connect-iothub-assembly_2.11-0.6.jar /usr/hdp/current/kafka-broker/libs/
 ```
 
+## 7.0.5. Configure a standalone source KafkaConnect instance for Azure IoT (source=Azure IoT Hub, sink=Kafka)
 
 
-#### 7.0.4.5. Edit/add 4 pieces of configuration in the connect-standalone.properties file on the edge node<br>
+#### 7.0.5.1. Edit/add 4 pieces of configuration in the connect-standalone.properties file on the edge node<br>
 ```
 sudo vi /usr/hdp/current/kafka-broker/config/connect-standalone.properties
 ```
