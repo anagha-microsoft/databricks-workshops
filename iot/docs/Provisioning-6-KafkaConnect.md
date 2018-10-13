@@ -132,6 +132,8 @@ consumer.max.poll.records=200
 1. Download the connect-iot-source.properties<br>
 
 ```sudo wget -P /usr/hdp/current/kafka-broker/config/ https://raw.githubusercontent.com/Azure/toketi-kafka-connect-iothub/master/connect-iothub-source.properties```
+![kc-8](../images/kc-8.png)
+<br><br><br>
 
 2. Edit the connect-iot-source.properties to reflect the IoT hub source<br>
 ```
@@ -152,5 +154,9 @@ Modify the properties as follows:<br>
 <br>
 Save and close file.<br>
 
-[Example of connect-iot-source.properties](https://github.com/Azure/toketi-kafka-connect-iothub/blob/master/README_Source.md)
+![kc-9](../images/kc-9.png)
+<br><br><br>
+![kc-10](../images/kc-10.png)
+<br><br><br>
+
 [Full documenation](https://docs.microsoft.com/en-us/azure/hdinsight/kafka/apache-kafka-connector-iot-hub)
