@@ -145,12 +145,12 @@ Navigate to the cluser configuration UI as shown below.<br>
 
 ### 5.0.7.1. Add the storage account credentials
 Add the storage account credentials as key value pair separated by a space as show.<br>
-spark.hadoop.fs.azure.account.key.<YOUR_STORAGE_ACCOUNT_NAME>.blob.core.windows.net <YOUR_STORAGE_ACCOUNT_KEY>
+```spark.hadoop.fs.azure.account.key.<YOUR_STORAGE_ACCOUNT_NAME>.blob.core.windows.net <YOUR_STORAGE_ACCOUNT_KEY>```
 
 ### 5.0.7.2. Add the Cosmos DB credentials
 Add the Cosmos DB credentials - URI and key as space separate key-value pairs.<br>
-cdbEndpoint https://<YOUR_COSMOSDB_ACCOUNT>.documents.azure.com:443/
-cdbAccessKey <YOUR_COSMOSDB_ACCOUNT_KEY>
+```cdbEndpoint https://<YOUR_COSMOSDB_ACCOUNT>.documents.azure.com:443/```
+```cdbAccessKey <YOUR_COSMOSDB_ACCOUNT_KEY>```
 
 ### 5.0.7.3. Ensure Databricks Delta is enabled
 Add the following to a new line if it does not exist:<br>
@@ -158,6 +158,7 @@ Add the following to a new line if it does not exist:<br>
 
 <BR>
 Step by step instructions:<br>
+
 ![DBD-8](../images/db-8.png)
 <br><br><br>
 ![DBD-9](../images/db-9.png)
