@@ -8,7 +8,7 @@ On the HDInsight kafka edge node, on the Linux CLI, run the below.<br>
 ```/usr/hdp/current/kafka-broker/bin/connect-standalone.sh /usr/hdp/current/kafka-broker/config/connect-standalone.properties /usr/hdp/current/kafka-broker/config/connect-iothub-source.properties```
 Do not shut down this terminal, unless you have launched the process with nohup as a background process.<br><br>
 You should something like this...<br>
-![kc-11](../images/kc-11.png)
+![kc-12](../images/kc-12.png)
 
 
 # 9. Start the Databricks cluster
@@ -28,3 +28,4 @@ On the Kafka edge node, launch the console consumer.
 /usr/hdp/current/kafka-broker/bin/kafka-console-consumer.sh --bootstrap-server $KAFKABROKERS --topic "iot_telemetry" --from-beginning
 ```
 If you see activity, you are good to proceed with the rest of the lab.  You can shut down the console consumer.
+![kc-11](../images/kc-11.png)
