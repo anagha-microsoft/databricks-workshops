@@ -82,7 +82,6 @@ sudo cp kafka-connect-iothub-assembly_2.11-0.6.jar /usr/hdp/current/kafka-broker
 
 ## 7.0.5. Configure a standalone source KafkaConnect instance for Azure IoT (source=Azure IoT Hub, sink=Kafka)
 
-
 #### 7.0.5.1. Edit/add 4 pieces of configuration in the connect-standalone.properties file on the edge node<br>
 ```
 sudo vi /usr/hdp/current/kafka-broker/config/connect-standalone.properties
@@ -90,12 +89,17 @@ sudo vi /usr/hdp/current/kafka-broker/config/connect-standalone.properties
 1.  Replace ```localhost:9092``` in ```bootstrap.servers=``` conf to reflect broker-port list from [here](https://github.com/anagha-microsoft/databricks-workshops/blob/master/iot/docs/Provisioning-5-Kafka.md#605--capture-the-ip-addresses-of-the-brokers)<br>
 E.g.  In the author's case - 10.1.0.7:9092,10.1.0.9:9092,10.1.0.10:9092,10.1.0.14:9092<br>
 
-2.  Replace the ```key.converter=``` to read ``` key.converter=org.apache.kafka.connect.storage.StringConverter```
+2.  Replace the ```key.converter=``` to read ```key.converter=org.apache.kafka.connect.storage.StringConverter```
 <br>
 3.  Replace the ```value.converter=``` to read ```value.converter=org.apache.kafka.connect.storage.StringConverter```
 <br>
-4.  Add a line at the end of the file ```consumer.max.poll.records=200``` to prevent timeouts
+4.  Add a line at the end of the file to prevent timeouts
+```
+# Number of records to poll per partition per batch
+consumer.max.poll.records=200
+``` 
 <br>
+5.  Save the changes and close the file
 <br>
 
 ### 7.0.5.2. Configure a connect-iot-source.properties
@@ -104,22 +108,22 @@ E.g.  In the author's case - 10.1.0.7:9092,10.1.0.9:9092,10.1.0.10:9092,10.1.0.1
 
 ```sudo wget -P /usr/hdp/current/kafka-broker/config/ https://raw.githubusercontent.com/Azure/toketi-kafka-connect-iothub/master/connect-iothub-source.properties```
 
-
 2. Edit the connect-iot-source.properties to reflect the IoT hub source<br>
 ```
 sudo vi /usr/hdp/current/kafka-broker/config/connect-iothub-source.properties
 ```
 Modify the properties as follows:<br>
-1.  ```Kafka.Topic=PLACEHOLDER```: Replace ```PLACEHOLDER``` with ```iot_telemetry```. Messages received from IoT hub are placed in the iot_telemetry-in topic.<br>
+1.  Modify the ```connector.class=...``` entry to be ```connector.class=com.microsoft.azure.iot.kafka.connect.IotHubSourceConnector```
+2.  ```Kafka.Topic=PLACEHOLDER```: Replace ```PLACEHOLDER``` with ```iot_telemetry_in```. Messages received from IoT hub are placed in the iot_telemetry-in topic.<br>
 2.  ```IotHub.EventHubCompatibleName=PLACEHOLDER```: Replace ```PLACEHOLDER``` with the Event Hub-compatible name.<br>
-3.  ```IotHub.EventHubCompatibleEndpoint=PLACEHOLDER```: Replace ```PLACEHOLDER``` with the Event Hub-compatible endpoint.<br>
+3.  ```IotHub.EventHubCompatibleEndpoint=PLACEHOLDER```: Replace ```PLACEHOLDER``` with the Event Hub-compatible endpoint (starts with ```sb:``` and ends with ```.servicebus.windows.net/```.<br>
 4.  ```IotHub.Partitions=PLACEHOLDER```: Replace ```PLACEHOLDER``` with the number of partitions from the previous steps.<br>
-5.  ```IotHub.AccessKeyName=PLACEHOLDER```: Replace ```PLACEHOLDER``` with service.<br>
+5.  ```IotHub.AccessKeyName=PLACEHOLDER```: Replace ```PLACEHOLDER``` with ```service```.<br>
 6.  ```IotHub.AccessKeyValue=PLACEHOLDER```: Replace ```PLACEHOLDER``` with the primary key of the service policy.<br>
 7.  ```IotHub.StartType=PLACEHOLDER```: Replace ```PLACEHOLDER``` with a UTC date. This date is when the connector starts checking for messages. The date format is yyyy-mm-ddThh:mm:ssZ.<br>
-8.  ```BatchSize=100```: Leave as is. This change causes the connector to read messages into Kafka once there are five new messages in IoT hub.<br>
-9. ```IotHub.ConsumerGroup=PLACEHOLDER```: Replace ```PLACEHOLDER``` with ```kafkaConnect-cg```. <br>
-10.  Modify the ```connector.class=...``` entry to be ```connector.class=com.microsoft.azure.iot.kafka.connect.IotHubSourceConnector```
+8.  ```BatchSize=100```: Leave as is. This change causes the connector to read messages into Kafka once there are 100 new messages in IoT hub.<br>
+9. ```IotHub.ConsumerGroup=PLACEHOLDER```: Replace ```PLACEHOLDER``` with ```kafkaconnect-cg```. <br>
+
 <br>
 Save and close file.<br>
 
