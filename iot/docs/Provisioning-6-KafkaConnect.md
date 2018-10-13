@@ -23,11 +23,11 @@ Capture the IP address.
 ![ssh-2](../images/ssh-2.png)
 <br><br><br>
 3.  Select the head node and capture the ssh command to the clipboard
+4.  Launch a linux terminal and ssh to the head node by pasting command/keying into putty or your favorite ssh tool
 ![ssh-3](../images/ssh-3.png)
 <br><br><br>
-4.  Launch a linux terminal and ssh to the head node by pasting command/keying into putty or your favorite ssh tool
-<br>
 5.  From the head node, ssh to the edge node, you should have captured the IP address in #7.0.1.
+
 ![ssh-4](../images/ssh-4.png)
 <br><br><br>
 
