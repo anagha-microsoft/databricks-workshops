@@ -158,11 +158,11 @@ Add the following to a new line if it does not exist:<br>
 
 <BR>
 Step by step instructions:<br>
-![DB-8](../images/db-8.png)
+![DBD-8](../images/db-8.png)
 <br><br><br>
-![DB-9](../images/db-9.png)
+![DBD-9](../images/db-9.png)
 <br><br><br>
-![DB-10](../images/db-10.png)
+![DBD-10](../images/db-10.png)
 <br><br><br>
 
 Now restart the cluster.<br>
