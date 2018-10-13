@@ -65,7 +65,9 @@ By default, Zookeeper returns the domain name of the Kafka brokers to clients - 
 <br><br><br>
 ![kafka-9](../images/kafka-9.png)
 <br><br><br>
+
+
+## 6.0.5.  Capture the IP addresses of the brokers
+The brokers have names starting with wn*.  Capture their private IP addresses.<br>
 ![kafka-10](../images/kafka-10.png)
 <br><br><br>
-
-
