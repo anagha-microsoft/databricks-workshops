@@ -87,20 +87,25 @@ sudo cp kafka-connect-iothub-assembly_2.11-0.6.jar /usr/hdp/current/kafka-broker
 ```
 sudo vi /usr/hdp/current/kafka-broker/config/connect-standalone.properties
 ```
-1.  Replace ```localhost:9092``` in ```bootstrap.servers=``` conf to reflect broker-port list from step 4.5.0.5<br>
+1.  Replace ```localhost:9092``` in ```bootstrap.servers=``` conf to reflect broker-port list from [here](https://github.com/anagha-microsoft/databricks-workshops/blob/master/iot/docs/Provisioning-5-Kafka.md#605--capture-the-ip-addresses-of-the-brokers)<br>
+E.g.  In the author's case - 10.1.0.7:9092,10.1.0.9:9092,10.1.0.10:9092,10.1.0.14:9092<br>
+
 2.  Replace the ```key.converter=``` to read ``` key.converter=org.apache.kafka.connect.storage.StringConverter```
-3.  Replace the ```value.converter=``` to read ```value.converter=org.apache.kafka.connect.storage.StringConverter```
-4.  Add a line at the end of the file ```consumer.max.poll.records=100``` to prevent timeouts
 <br>
-## 7.0.4. Configure a standalone source KafkaConnect instance for Azure IoT (source=Azure IoT Hub, sink=Kafka)
+3.  Replace the ```value.converter=``` to read ```value.converter=org.apache.kafka.connect.storage.StringConverter```
+<br>
+4.  Add a line at the end of the file ```consumer.max.poll.records=200``` to prevent timeouts
+<br>
+<br>
 
+### 7.0.5.2. Configure a connect-iot-source.properties
 
-4.0.4.9. Download the connect-iot-source.properties<br>
+1. Download the connect-iot-source.properties<br>
 
 ```sudo wget -P /usr/hdp/current/kafka-broker/config/ https://raw.githubusercontent.com/Azure/toketi-kafka-connect-iothub/master/connect-iothub-source.properties```
 
 
-4.0.4.10. Edit the connect-iot-source.properties to reflect the IoT hub source<br>
+2. Edit the connect-iot-source.properties to reflect the IoT hub source<br>
 ```
 sudo vi /usr/hdp/current/kafka-broker/config/connect-iothub-source.properties
 ```
