@@ -116,6 +116,7 @@ E.g.  In the author's case - 10.1.0.7:9092,10.1.0.9:9092,10.1.0.10:9092,10.1.0.1
 
 2.  Replace the ```key.converter=``` to read ```key.converter=org.apache.kafka.connect.storage.StringConverter```
 <br>
+
 3.  Replace the ```value.converter=``` to read ```value.converter=org.apache.kafka.connect.storage.StringConverter```
 <br>
 4.  Add a line at the end of the file to prevent timeouts
