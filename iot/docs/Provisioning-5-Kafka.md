@@ -29,3 +29,43 @@ Follow the instructions below to provision Kafka.<br>
 
 ![HDI-8](../images/CreateHDI-8.png)
 <br><br><br>
+
+
+## 6.0.2.  Configure Kafka for IP advertising
+By default, Zookeeper returns the FQDN of the Kafka brokers to clients - not resolvable by entities outside the cluster.  Follow the steps below to configure IP advertising/to broadcast IP addresses - from Ambari.<br><br>
+
+![kafka-1](../images/kafka-1.png)
+<br><br><br>
+![kafka-2](../images/kafka-2.png)
+<br><br><br>
+![kafka-3](../images/kafka-3.png)
+<br><br><br>
+![kafka-4](../images/kafka-4.png)
+<br><br><br>
+Paste this at the bottom of the kafka-env comfiguration<br>
+```
+# Configure Kafka to advertise IP addresses instead of FQDN
+IP_ADDRESS=$(hostname -i)
+echo advertised.listeners=$IP_ADDRESS
+sed -i.bak -e '/advertised/{/advertised@/!d;}' /usr/hdp/current/kafka-broker/conf/server.properties
+echo "advertised.listeners=PLAINTEXT://$IP_ADDRESS:9092" >> /usr/hdp/current/kafka-broker/conf/server.properties
+```
+![kafka-5](../images/kafka-5.png)
+<br><br><br>
+
+## 6.0.3.  Configure Kafka to listen on all network interfaces
+By default, Zookeeper returns the domain name of the Kafka brokers to clients - not resolvable by entities outside the cluster.  Follow the steps below to configure IP advertising.<br><br>
+![kafka-6](../images/kafka-6.png)
+<br><br><br>
+
+## 6.0.4.  Restart the Kafka service from Ambari
+![kafka-7](../images/kafka-7.png)
+<br><br><br>
+![kafka-8](../images/kafka-8.png)
+<br><br><br>
+![kafka-9](../images/kafka-9.png)
+<br><br><br>
+![kafka-10](../images/kafka-10.png)
+<br><br><br>
+
+
