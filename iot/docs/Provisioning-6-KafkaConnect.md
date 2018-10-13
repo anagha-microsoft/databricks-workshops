@@ -11,11 +11,24 @@ Follow the instructions at [this](https://docs.microsoft.com/en-us/azure/hdinsig
 ![ke-2](../images/kafka-edge-2.png)
 <br><br><br>
 Once the deployment completes, in the Ambari, hosts page, you should see the edge node listed.
+Capture the IP address.
 ![ke-3](../images/kafka-edge-3.png)
 <br><br><br>
 
 ## 7.0.2.  SSH to the edge node
-
+1.  Go to the portal and navigate to the Kafka cluster icon in the resource group and click on it.
+![ssh-1](../images/ssh-1.png)
+<br><br><br>
+2.  Click on SSH+cluster login
+![ssh-2](../images/ssh-2.png)
+<br><br><br>
+3.  Select the head node and capture the ssh command to the clipboard
+4.  Launch a linux terminal and ssh to the head node by pasting command/keying into putty or your favorite ssh tool
+![ssh-3](../images/ssh-3.png)
+<br><br><br>
+5.  From the head node, ssh to the edge node, you should have captured the IP address in #7.0.1.
+![ssh-4](../images/ssh-4.png)
+<br><br><br>
 
 ## 7.0.3. Create a Kafka topic
 
