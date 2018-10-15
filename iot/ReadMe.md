@@ -32,9 +32,5 @@ The workshop solution leverages multiple Azure PaaS services - <BR>
 1.  [Start the components](docs/Provisioning-7-StartTheComponents.md)
 
 ## 4.0. Workshop
-### 4.0.1. Setup
-##### 4.0.1.1. Mount blob storage
+[Workshop guide](docs/WorkshopReadMe.md)
 
-### 4.0.2. Stuctured streaming from Kafka to Azure Cosmos DB telemetry current state store (OLTP store)
-
-### 4.0.3. Stuctured streaming from Kafka to Databricks Delta (analytics store)
