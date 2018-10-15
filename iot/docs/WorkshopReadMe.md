@@ -10,7 +10,7 @@ In this section you need to complete the setup section of the Databricks noteboo
 
 We will mount blob storage as a Databricks file system, as a one-time activity so we can seamlessly access it as a file system , and without having to provide credentials each time we access it.
 
-Execute the notebook 00-Setup/1-MountBlobStorage.scala in your Databricks cluster.<br>
+**Execute the notebook 00-Setup/1-MountBlobStorage.scala** in your Databricks cluster.<br>
 Be sure to replace the name of the storage account at the beginning of the notebook with your storage account name.<br><br>
 
 Typically, we organize data in big data solutions, into multiple directories based on purpose, retention policies, and need for security.<br>
