@@ -26,9 +26,12 @@ We will create only a part of these in the workshop.
 ## Module 3. Structured Stream Processing - Device current state capture
 ![CurrentStateStore](../images/CurrentState.png)
 
-In this module, we will run the notebook, **01-StreamIngest/01a-Stream-SinkTo-CosmosDB.scala**, to execute the flow described in the diagram above.  We will read events streaming into Kafka from devices, routed through Azure IoT Hub, and persist to Azure Cosmos DB.  We will persist in upsert mode, only the latest telemetry - to capture, just the current state.  In a separate notebook, we will cover persisting all telemetry.
+In this module, we will run the notebook, **01-StreamIngest/01a-Stream-SinkTo-CosmosDB.scala**, to execute the flow described in the diagram above.  We will read events streaming into Kafka from devices, routed through Azure IoT Hub, and persist to Azure Cosmos DB.  We will persist in upsert mode, only the latest telemetry - to capture, just the current state.  In a separate notebook, we will cover persisting all telemetry.<br><br>
 
-In production, you would run this notebook, in a separate cluster, ensuring all services in the pipeline have adequate resources.
+In production, you would run this notebook, in a separate Databricks cluster, ensuring all services in the pipeline have adequate resources.<br><br>
+
+While the pipeline is running, you can try some queries with the Azure Cosmos DB Query explorer utility on the Azure portal.<br>
+
 
 ## Module 4. Structured Stream Processing - Device telemetry history capture
 
