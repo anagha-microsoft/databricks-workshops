@@ -55,6 +55,7 @@ echo "advertised.listeners=PLAINTEXT://$IP_ADDRESS:9092" >> /usr/hdp/current/kaf
 
 ## 6.0.3.  Configure Kafka to listen on all network interfaces
 By default, Zookeeper returns the domain name of the Kafka brokers to clients - not resolvable by entities outside the cluster.  Follow the steps below to configure IP advertising.<br><br>
+```PLAINTEXT://0.0.0.0:9092```
 ![kafka-6](../images/kafka-6.png)
 <br><br><br>
 
