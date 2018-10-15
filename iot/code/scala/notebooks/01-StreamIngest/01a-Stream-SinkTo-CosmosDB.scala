@@ -1,8 +1,8 @@
 // Databricks notebook source
 // MAGIC %md
 // MAGIC This is part 1 of 3 notebooks that demonstrate stream ingest from Kafka, of live telemetry from Azure IoT hub.<BR>
-// MAGIC - In **this notebook**, we will ingest from Kafka into Azure Cosmos DB SQL API (OLTP store)<BR>
-// MAGIC - In notebook 2, we ingested from Kafka using structured stream processing and persisted to a Databricks Delta table (analytics store)<BR>
+// MAGIC - In **this notebook**, we will ingest from Kafka into Azure Cosmos DB - SQL API (OLTP document-oriented nosql store), the latest telemetry received<BR>
+// MAGIC - In notebook 2, we will ingest from Kafka using structured stream processing and persist every event to a Databricks Delta table (analytics store)<BR>
 // MAGIC - In notebook 3, we will run queries against the Delta table<BR>
 // MAGIC   
 // MAGIC Reference: [Taking Structured Streaming to Production](https://databricks.com/blog/2017/05/18/taking-apache-sparks-structured-structured-streaming-to-production.html) | [Cosmos DB configuration for Spark](https://github.com/Azure/azure-cosmosdb-spark/wiki/Configuration-references)
@@ -17,8 +17,9 @@
 import org.apache.spark.sql.functions._
 import org.apache.spark.sql.types._
 
-val kafkaTopic = "iot_telemetry-in"
-val kafkaBrokerAndPortCSV = "10.1.0.5:9092, 10.1.0.7:9092,10.1.0.10:9092,10.1.0.14:9092"
+val kafkaTopic = "iot_telemetry_in"
+//Replace with your Kafka cluster broker IPs
+val kafkaBrokerAndPortCSV = "10.1.0.7:9092, 10.1.0.9:9092,10.1.0.10:9092,10.1.0.14:9092"
 
 val kafkaSourceDF = spark
   .readStream
@@ -37,24 +38,7 @@ val rawDF = kafkaSourceDF.selectExpr("CAST(value AS STRING) as iot_payload").as[
 
 // COMMAND ----------
 
-case class TelemetryRow(device_id: String, 
-                        telemetry_ts: String, 
-                        temperature: Double, 
-                        temperature_unit: String, 
-                        humidity: Double, 
-                        humidity_unit: String, 
-                        pressure: Double, 
-                        pressure_unit: String,
-                        telemetry_year: String,
-                        telemetry_month:String,
-                        telemetry_day:String,
-                        telemetry_hour: String,
-                        telemetry_minute: String
-                       )
-
-// COMMAND ----------
-
-def parseDeviceTelemetry(payloadString: String): (String,String,String,String,String,String,String,String) = {
+def parseDeviceTelemetry(payloadString: String): (String,String,String,String,String,String,String,String,String) = {
   val device_id=payloadString.substring(payloadString.indexOf("=")+1,payloadString.indexOf(","))
   val telemetry_ts=payloadString.substring(payloadString.indexOf("enqueuedTime=")+13,payloadString.indexOf(",sequenceNumber="))
   val telemetry_json=payloadString.substring(payloadString.indexOf(",content=")+9,payloadString.indexOf(",systemProperties="))
@@ -68,13 +52,14 @@ def parseDeviceTelemetry(payloadString: String): (String,String,String,String,St
      telemetry_ts.substring(8,10),//telemetry_day
      telemetry_ts.substring(11,13),//telemetry_hour
      telemetry_ts.substring(14,16)//telemetry_minute
+     ,device_id //id
   )
 }
 
 // COMMAND ----------
 
-val parsedDF=rawDF.map(x => parseDeviceTelemetry(x)).toDF("device_id","telemetry_ts","telemetry_json","telemetry_year","telemetry_month","telemetry_day","telemetry_hour","telemetry_minute")
-val telemetryDS = parsedDF.select($"device_id", 
+val parsedDF=rawDF.map(x => parseDeviceTelemetry(x)).toDF("device_id","telemetry_ts","telemetry_json","telemetry_year","telemetry_month","telemetry_day","telemetry_hour","telemetry_minute","id")
+val telemetryDF = parsedDF.select($"device_id", 
                                   $"telemetry_ts", 
                                   get_json_object($"telemetry_json", "$.temperature").cast(DoubleType).alias("temperature"),
                                   get_json_object($"telemetry_json", "$.temperature_unit").alias("temperature_unit"),
@@ -86,7 +71,8 @@ val telemetryDS = parsedDF.select($"device_id",
                                   $"telemetry_month",
                                   $"telemetry_day",
                                   $"telemetry_hour",
-                                  $"telemetry_minute").as[TelemetryRow]
+                                  $"telemetry_minute",
+                                  $"id")
 
 // COMMAND ----------
 
@@ -103,24 +89,25 @@ import org.codehaus.jackson.map.ObjectMapper
 import com.microsoft.azure.cosmosdb.spark.streaming._
 import org.apache.spark.sql.streaming.Trigger
 
-//CosmosDB conf
+//Cosmos DB conf
 val cosmosDbWriteConfigMap = Map(
   "Endpoint" -> spark.conf.get("cdbEndpoint"),
   "Masterkey" -> spark.conf.get("cdbAccessKey"),
-  "Database" -> "bhoomi-iot-db",
-  "Collection" -> "bhoomi-iot-coll",
+  "Database" -> "telemetry_db",
+  "Collection" -> "telemetry_curr_state_store",
   "Upsert" -> "true")
-  //"WritingBatchSize" -> 1000)
+//,"WritingBatchSize" -> 1000)//Not working currently - contact Cosmos DB ninja team for support
+
 
 //Checkpoint directory
 val dbfsCheckpointDirPath="/mnt/data/iot/checkpointDir/telemetry-cosmosdb/"
-//dbutils.fs.rm(dbfsCheckpointDirPath, recurse=true)
+dbutils.fs.rm(dbfsCheckpointDirPath, recurse=true)
 
-val query = telemetryDS
+val query = telemetryDF
   .writeStream
   .queryName("IoT-Telemetry-Persistence")
-  .outputMode("update")
+  .outputMode("append")
   .format(classOf[CosmosDBSinkProvider].getName).options(cosmosDbWriteConfigMap)
   .option("checkpointLocation",dbfsCheckpointDirPath)
-  .trigger(Trigger.ProcessingTime(1000 * 3)) // every 3 seconds  
+  .trigger(Trigger.ProcessingTime(1000 * 5)) 
   .start()

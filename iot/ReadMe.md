@@ -25,16 +25,12 @@ The workshop solution leverages multiple Azure PaaS services - <BR>
 2.  [Azure resource group and virtual network](docs/Provisioning-2-Common.md)
 3.  [Azure Cosmos DB](docs/Provisioning-3-AzureCosmosDB.md)
 4.  [Azure Databricks](docs/Provisioning-4-AzureDatabricks.md)
-5.  [HDInsight Kafka](Provisioning-5-Kafka.md)
-6.  [KafkaConnect Azure IoT Hub Source Connector](Provisioning-6-KafkaConnect.md)
+5.  [HDInsight Kafka](docs/Provisioning-5-Kafka.md)
+6.  [KafkaConnect Azure IoT Hub Source Connector](docs/Provisioning-6-KafkaConnect.md)
 
 ## 3.0. Start the services provisioned
 1.  [Start the components](docs/Provisioning-7-StartTheComponents.md)
 
 ## 4.0. Workshop
-### 4.0.1. Setup
-##### 4.0.1.1. Mount blob storage
+[Workshop guide](docs/WorkshopReadMe.md)
 
-### 4.0.2. Stuctured streaming from Kafka to Azure Cosmos DB telemetry state store (OLTP store)
-
-### 4.0.3. Stuctured streaming from Kafka to Databricks Delta (analytics store)
