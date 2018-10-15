@@ -66,8 +66,6 @@ Provision an Azure Databricks cluster with 3 workers with default SKU, with abil
 <br><br><br>
 ![CDB-11](../images/CreateDatabricks-11.png)
 <br><br><br>
-![CDB-11](../images/CreateDatabricks-11.png)
-<br><br><br>
 ![CDB-12](../images/CreateDatabricks-12.png)
 <br><br><br>
 
