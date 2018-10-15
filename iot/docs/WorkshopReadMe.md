@@ -54,7 +54,13 @@ Run this multiple times over 10 second intervals to see the state change.
 Run this to get a count of the devices.  The result should be the exact same as the devices in the simulator.
 ![QE-4](../images/cosmosdb-query-4.png)
 <br><br>
+
 ## Module 4. Structured Stream Processing - Device telemetry history capture
+Databricks Delta is fit for purpose solution for streaming workloads. 
+
+In this module, in notebook **01-StreamIngest/01b-Stream-SinkTo-Delta-1.scala**, - <br>
+1.  We ingest from Kafka with Structred Streaming and<br>
+2.  Sink to Databrick Delta<br><br>
 
 
 
