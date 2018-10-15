@@ -19,7 +19,9 @@ Typically, we organize data in big data solutions, into multiple directories bas
 - **Staging** - landing zone for data to be processed, transient data with short retention<br>
 - **Raw** - raw data from source, stored permanently, and in full fidelity exactly as received from source, may or may not be optimized for storage and query processing.  Typically not accessible for querying other than by the application ID processing the data in an automated fashion.<br>
 - **Curated** - Curated data may be all or a subset of raw data, with a specific business purpose.  It is cleansed, deduplicated, transformed, merged, augmented (with reference and master data), stored, potentially indefinitely or with a specific retention policy and access policy.  Due diligence applied when it comes to physical storage partitioning scheme for query performance, persistence format for storage and query performance optimization - e.g. Parquet for analytical/all workloads, avro for row-level.  Compression for storage optimization. This layer may be exposed for exploratory aalytics to data product designers.<br>
-- **Consumption** - Materialized views, reports optimized for querying and purpose-built for specific consumers.<br>
+- **Consumption** - Materialized views, reports optimized for querying and purpose-built for specific consumers.<br><br><br>
+
+We will create a part of these in the workshop.
 
 
 
