@@ -58,10 +58,10 @@ Run this to get a count of the devices.  The result should be the exact same as 
 ## Module 4. Structured Stream Processing - Device telemetry history capture into Databricks Delta
 Databricks Delta is fit for purpose solution for streaming workloads.<br><br>
 
-**Do we really need Databricks Delta if we have a Nosql database?**
+**Do we really need Databricks Delta if we have a Nosql database?**<br>
 NoSQL databases like Azure Cosmos DB, HBase are fit for purpose of scalable OLTP - for point look ups and small scans/range queries.  They can prove costly and not as efficient for analytics workloads and reporting workloads requiring large sequential scans.  Therefore, always complement your nosql with a storage solution optimized for analytics - like HDFS, DBFS and such distributed storage systems.<br><br>
 
-**Value proposition of Delta**
+**Value proposition of Delta**<br>
 - Delta automatically indexes, compacts and caches data helping achieve up to 100x improved performance over Apache Spark. <br>
 - Delta delivers performance optimizations by automatically capturing statistics and applying various techniques to data for efficient querying.<br>
 - Delta provide full ACID-compliant transactions and enforce schema on write, giving data teams controls to ensure data reliability. <br>
