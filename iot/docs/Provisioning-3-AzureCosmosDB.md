@@ -17,7 +17,7 @@ Follow the instructions below to create a Cosmos DB account:<br>
 <br><br><br>
 
 ## 4.0.2.  Create a Cosmos DB database, and collection
-Follow the instuctions to create a database and collection:<br>
+Follow the instuctions to create a database and collection with collection throughput of 10,000 RUs:<br>
 ![DB-5](../images/db-5.png)
 <br><br><br>
 ![DB-6](../images/db-6.png)
@@ -27,3 +27,6 @@ Follow the instuctions to create a database and collection:<br>
 Capture the credentials circled in red:<br>
 ![DB-7](../images/db-7.png)
 <br><br><br>
+
+## 4.0.4.  Scale the Cosmos DB collection throughput
+Increase the collection throughout of 10,000 RUs to 50,000 RUs for 200 devices.
