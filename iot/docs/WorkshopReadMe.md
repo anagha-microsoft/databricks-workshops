@@ -1,4 +1,4 @@
-# Working through the workshop content
+# Working through the workshop modules
 
 ## Module 1. Provisioning 
 You will first need to provision all the required Azure resources upfront and complete all the specified configuration.
