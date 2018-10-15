@@ -29,7 +29,7 @@ The workshop solution leverages multiple Azure PaaS services - <BR>
 6.  [KafkaConnect Azure IoT Hub Source Connector](docs/Provisioning-6-KafkaConnect.md)
 
 ## 3.0. Start the services provisioned
-1.  [Start the components](docs/Provisioning-7-StartTheComponents.md)
+[Start the components](docs/Provisioning-7-StartTheComponents.md)
 
 ## 4.0. Workshop
 [Workshop guide](docs/WorkshopReadMe.md)
