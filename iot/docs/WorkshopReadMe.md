@@ -23,7 +23,7 @@ Typically, we organize data in big data solutions, into multiple directories bas
 
 We will create only a part of these in the workshop.
 
-## Module 3. Structured Stream Processing - Device current state capture
+## Module 3. Structured Stream Processing - Device current state capture into Azure Cosmos DB (nosql)
 ![CurrentStateStore](../images/CurrentState.png)
 
 ### 3.1. Spark - Databricks notebook
@@ -55,13 +55,23 @@ Run this to get a count of the devices.  The result should be the exact same as 
 ![QE-4](../images/cosmosdb-query-4.png)
 <br><br>
 
-## Module 4. Structured Stream Processing - Device telemetry history capture
-Databricks Delta is fit for purpose solution for streaming workloads. 
+## Module 4. Structured Stream Processing - Device telemetry history capture into Databricks Delta
+Databricks Delta is fit for purpose solution for streaming workloads.<br>
+**Value proposition of Delta**
+- Delta automatically indexes, compacts and caches data helping achieve up to 100x improved performance over Apache Spark. <br>
+- Delta delivers performance optimizations by automatically capturing statistics and applying various techniques to data for efficient querying.<br>
+- Delta provide full ACID-compliant transactions and enforce schema on write, giving data teams controls to ensure data reliability. <br>
+- Deltaʼs upsert capability provides a simple way to clean data and apply new business logic without reprocessing data.<br>
+- Delta dramatically simplifies data pipelines by providing a common API to transactionally store large historical and streaming datasets in cloud blob stores and making these massive datasets available for high-performance analytics.<br>
+- Databricks Delta, a key component of Databricks Runtime, enables data scientists to explore and visualize data and combine this data with various ML frameworks (Tensorflow, Keras, Scikit-Learn etc) seamlessly to build models. As a result, Delta can be used to run not only SQL queries but also for Machine Learning using Databricks Workspace on large amounts of streaming data.<br><br>
 
 In this module, in notebook **01-StreamIngest/01b-Stream-SinkTo-Delta-1.scala**, - <br>
-1.  We ingest from Kafka with Structred Streaming and<br>
+1.  We will ingest from Kafka with Structred Streaming <br>
+and<br>
 2.  Sink to Databrick Delta<br><br>
 
+In notebook **01-StreamIngest/01b-Stream-SinkTo-Delta-2.scala**, - <br>
+We will create an external table against Databricks Delta, and run queries against it.
 
 
 
