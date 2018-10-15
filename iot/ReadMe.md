@@ -35,6 +35,6 @@ The workshop solution leverages multiple Azure PaaS services - <BR>
 ### 4.0.1. Setup
 ##### 4.0.1.1. Mount blob storage
 
-### 4.0.2. Stuctured streaming from Kafka to Azure Cosmos DB telemetry state store (OLTP store)
+### 4.0.2. Stuctured streaming from Kafka to Azure Cosmos DB telemetry current state store (OLTP store)
 
 ### 4.0.3. Stuctured streaming from Kafka to Databricks Delta (analytics store)
