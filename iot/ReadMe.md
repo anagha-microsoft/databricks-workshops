@@ -32,5 +32,9 @@ The workshop solution leverages multiple Azure PaaS services - <BR>
 [Start the components](docs/Provisioning-7-StartTheComponents.md)
 
 ## 4.0. Workshop
+### 4.0.1. Step by step instructions
 [Workshop guide](docs/WorkshopReadMe.md)
+
+### 4.0.2. Modules available so far
+![WIP](images/WorkInProgress.png)
 
