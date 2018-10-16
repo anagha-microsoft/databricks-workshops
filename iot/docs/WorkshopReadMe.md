@@ -1,4 +1,4 @@
-# IoT workshop
+# Instructions
 Execute each of the modules below sequentially.
 
 ## Module 1. Provision services, configure and start services
