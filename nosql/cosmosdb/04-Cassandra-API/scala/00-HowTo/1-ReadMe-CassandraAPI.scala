@@ -67,10 +67,13 @@
 // MAGIC https://docs.databricks.com/user-guide/clusters/spark-config.html
 // MAGIC <br>
 // MAGIC E.g.<br>
-// MAGIC <code>spark.cassandra.connection.ssl.enabled true<br>
-// MAGIC spark.cassandra.auth.username gaia<br>
+// MAGIC ```
+// MAGIC spark.cassandra.connection.ssl.enabled true
+// MAGIC spark.cassandra.auth.username YOUR_COSMOSDB_ACCOUNT_NAME
+// MAGIC spark.cassandra.auth.password YOUR_COSMOSDB_KEY
 // MAGIC spark.cassandra.connection.port 10350
-// MAGIC </code>
+// MAGIC spark.cassandra.connection.host YOUR_COSMOSDB_ACCOUNT_NAME.cassandra.cosmosdb.azure.com
+// MAGIC ```
 // MAGIC ....<br>
 // MAGIC Pros: Easy to setup<br>
 // MAGIC Cons: Credentials exposed in clear text<br>
@@ -109,12 +112,13 @@
 // MAGIC <code>bin/cqlsh</code>
 // MAGIC 
 // MAGIC <br>
-// MAGIC **2) Launching cqlsh against Azure Cosmos DB Cassandra API:**<bin>
-// MAGIC <code>
+// MAGIC **2) Launching cqlsh against Azure Cosmos DB Cassandra API:**
+// MAGIC ```
 // MAGIC cd bin<br>
 // MAGIC export SSL_VERSION=TLSv1_2<br>
 // MAGIC export SSL_VALIDATE=false<br>
-// MAGIC python cqlsh.py YOUR-COSMOSDB-ACCOUNT-NAME.cassandra.cosmosdb.windows-ppe.net  10350 -u YOUR-COSMOSDB-ACCOUNT-NAME -p YOUR-COSMOSDB-ACCOUNT-KEY --ssl</code>
+// MAGIC python cqlsh.py YOUR-COSMOSDB-ACCOUNT-NAME.cassandra.cosmosdb.windows-ppe.net  10350 -u YOUR-COSMOSDB-ACCOUNT-NAME -p YOUR-COSMOSDB-ACCOUNT-KEY --ssl
+// MAGIC ```
 
 // COMMAND ----------
 
