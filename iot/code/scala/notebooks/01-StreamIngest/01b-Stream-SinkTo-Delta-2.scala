@@ -1,8 +1,10 @@
 // Databricks notebook source
-This is part 3 of 3 notebooks that demonstrate stream ingest from Kafka, of live telemetry from Azure IoT hub.<BR>
-- In notebook 1, we ingested from Kafka into Azure Cosmos DB SQL API (OLTP store)<BR>
-- In notebook 2, we ingested from Kafka using structured stream processing and persisted to a Databricks Delta table (analytics store)<BR>
-- In **this notebook**, we will run queries against the Delta table<BR>
+// MAGIC %md
+// MAGIC # What's in this exercise
+// MAGIC This is part 3 of 3 notebooks that demonstrate stream ingest from Kafka, of live telemetry from Azure IoT hub.<BR>
+// MAGIC - In notebook 1, we ingested from Kafka into Azure Cosmos DB SQL API (OLTP store)<BR>
+// MAGIC - In notebook 2, we ingested from Kafka using structured stream processing and persisted to a Databricks Delta table (analytics store)<BR>
+// MAGIC - In **this notebook**, we will run queries against the Delta table<BR>
 
 // COMMAND ----------
 
@@ -39,8 +41,10 @@ This is part 3 of 3 notebooks that demonstrate stream ingest from Kafka, of live
 
 // MAGIC %sql
 // MAGIC 
-// MAGIC OPTIMIZE telemetry_delta_stream;
-// MAGIC select * from telemetry_db.telemetry_delta_stream;
+// MAGIC OPTIMIZE telemetry_db.telemetry_delta_stream;
+// MAGIC select max(temperature), max(humidity), max(pressure) from telemetry_db.telemetry_delta_stream;
+// MAGIC --MIN: 71, 66, 135
+// MAGIC --MAX: 79, 73, 164
 
 // COMMAND ----------
 
@@ -53,3 +57,9 @@ This is part 3 of 3 notebooks that demonstrate stream ingest from Kafka, of live
 
 // MAGIC %sql
 // MAGIC select device_id,avg(temperature) from telemetry_db.telemetry_delta_stream group by device_id;
+
+// COMMAND ----------
+
+// MAGIC %sql
+// MAGIC OPTIMIZE telemetry_db.telemetry_delta_stream;
+// MAGIC select max(temperature) from telemetry_db.telemetry_delta_stream where device_id='chiller-01.168'
