@@ -37,8 +37,6 @@ spark.conf.set("spark.cassandra.output.concurrent.writes", "100")
 spark.conf.set("spark.cassandra.concurrent.reads", "512")
 spark.conf.set("spark.cassandra.output.batch.grouping.buffer.size", "1000")
 spark.conf.set("spark.cassandra.connection.keep_alive_ms", "60000000") //Increase this number as needed
-spark.conf.set("spark.cassandra.output.consistency.level","ALL")//Write consistency = Strong
-spark.conf.set("spark.cassandra.input.consistency.level","ALL")//Read consistency = Strong
 
 // COMMAND ----------
 
@@ -71,7 +69,7 @@ readBooksDF.show
 val readBooksDF = spark
   .read
   .cassandraFormat("books", "books_ks", "")
-  .load()
+  .load().show()
 
 // COMMAND ----------
 
@@ -114,8 +112,8 @@ bookRDD.take(5).foreach(println)
 
 // COMMAND ----------
 
-//Limit - not supported
-//val bookRDD = sc.cassandraTable("books_ks", "books").limit(1).collect.foreach(println)
+//Limit results
+val bookRDD = sc.cassandraTable("books_ks", "books").limit(1).collect.foreach(println)
 
 // COMMAND ----------
 
