@@ -78,12 +78,12 @@ We will create an external table against Databricks Delta, and run queries again
 Databricks Delta is fit for purpose common solution for batch and streaming workloads.<br><br>
 
 **Do we really need Databricks Delta if we have a Nosql database in our IoT solution?**<br>
-NoSQL databases like Azure Cosmos DB, HBase are fit for purpose of scalable OLTP - optimized for point look ups and small scans/range queries.  They can prove costly and not efficient for analytics and reporting workloads requiring large sequential scans.  Therefore, always complement your nosql with a storage solution optimized for analytics - like HDFS, DBFS and such distributed storage systems.  Databricks Delta leverages Azure object storage for its persistence layer (Blob/ADLS).<br><br>
+NoSQL databases like Azure Cosmos DB, HBase, Cassandra are ideal for scalable OLTP, and are optimized for point look ups,  small scans/range queries, and random CRUD operations.  They can prove costly and not efficient/performant for analytics and reporting workloads requiring large sequential scans.  Therefore, always complement your nosql with a storage solution optimized for analytics (HDFS, ADLS, Blob storage).  Databricks Delta leverages Azure object storage for its persistence layer (Blob/ADLS).<br><br>
 
 **Value proposition of Delta**<br>
 - Delta automatically indexes, compacts and caches data helping achieve up to 100x improved performance over Apache Spark. <br>
 - Delta delivers performance optimizations by automatically capturing statistics and applying various techniques to data for efficient querying.<br>
-- Delta provide full ACID-compliant transactions and enforce schema on write, giving data teams controls to ensure data reliability. <br>
+- Delta provides full ACID-compliant transactions and enforces schema on write, giving data teams control to ensure data reliability. <br>
 - Deltaʼs upsert capability provides a simple way to clean data and apply new business logic without reprocessing data.<br>
 - Delta dramatically simplifies data pipelines by providing a common API to transactionally store large historical and streaming datasets in cloud blob stores and making these massive datasets available for high-performance analytics.<br>
 - Databricks Delta, a key component of Databricks Runtime, enables data scientists to explore and visualize data and combine this data with various ML frameworks (Tensorflow, Keras, Scikit-Learn etc) seamlessly to build models. As a result, Delta can be used to run not only SQL queries but also for Machine Learning using Databricks Workspace on large amounts of streaming data.<br><br>
