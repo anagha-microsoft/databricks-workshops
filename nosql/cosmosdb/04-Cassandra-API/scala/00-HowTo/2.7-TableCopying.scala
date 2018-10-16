@@ -80,6 +80,9 @@ import com.datastax.spark.connector._
 val cdbConnector = CassandraConnector(sc)
 cdbConnector.withSessionDo(session => session.execute("DROP TABLE IF EXISTS books_ks.books_new;"))
 
+
+// COMMAND ----------
+
 //2) Read from source table
 val readBooksDF = spark
   .read
