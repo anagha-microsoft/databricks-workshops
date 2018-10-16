@@ -38,13 +38,18 @@ dbutils.fs.mkdirs(localDirPath)
 // COMMAND ----------
 
 //2) Download to driver local file system
-//Download of 1.58 GB of data - took the author ~14 minutes
+//Download of 1.58 GB of data - took the author ~10 minutes
 import sys.process._
 import scala.sys.process.ProcessLogger
 
 val wgetToExec = "wget -P " + localDirPath + " https://data.cityofchicago.org/api/views/ijzp-q8t2/rows.csv?accessType=DOWNLOAD"
 println(wgetToExec)
 wgetToExec !!
+
+// COMMAND ----------
+
+// MAGIC %fs
+// MAGIC ls file:/tmp/downloads/chicago-crimes-data/
 
 // COMMAND ----------
 
@@ -260,6 +265,12 @@ display(dbutils.fs.ls(dbfsDestDirPath))
 // MAGIC USE crimes_db;
 // MAGIC SELECT * FROM CHICAGO_CRIMES_CURATED;
 // MAGIC --SELECT count(*) FROM CHICAGO_CRIMES_CURATED;--6,701,049
+
+// COMMAND ----------
+
+// MAGIC %sql
+// MAGIC USE crimes_db;
+// MAGIC DESCRIBE CHICAGO_CRIMES_CURATED;
 
 // COMMAND ----------
 
