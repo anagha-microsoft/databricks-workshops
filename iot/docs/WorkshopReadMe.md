@@ -67,7 +67,7 @@ and<br>
 In notebook **01-StreamIngest/01b-Stream-SinkTo-Delta-2.scala**, - <br>
 We will create an external table against Databricks Delta, and run queries against it.<br><br>
 
-Databricks Delta is fit for purpose solution for streaming workloads.<br><br>
+Databricks Delta is fit for purpose common solution for batch and streaming workloads.<br><br>
 
 **Do we really need Databricks Delta if we have a Nosql database in our IoT solution?**<br>
 NoSQL databases like Azure Cosmos DB, HBase are fit for purpose of scalable OLTP - optimized for point look ups and small scans/range queries.  They can prove costly and not efficient/performant for analytics and reporting workloads requiring large sequential scans.  Therefore, always complement your nosql with a storage solution optimized for analytics - like HDFS, DBFS and such distributed storage systems.<br><br>
