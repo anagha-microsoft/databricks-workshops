@@ -54,10 +54,10 @@
 // MAGIC ```Scala
 // MAGIC echo $KAFKA_BROKERS
 // MAGIC ```
-// MAGIC ##### 1.0.3. Create a Kafka topic called crimes_chicago_topic
+// MAGIC ##### 1.0.3. Create a Kafka topic called crimes_chicago
 // MAGIC Run this on the terminal of the headnode of your Kafka cluster - 
 // MAGIC ```
-// MAGIC /usr/hdp/current/kafka-broker/bin/kafka-topics.sh --create --replication-factor 3 --partitions 8 --topic crimes_chicago_topic --zookeeper $ZOOKEEPER_HOSTS
+// MAGIC /usr/hdp/current/kafka-broker/bin/kafka-topics.sh --create --replication-factor 3 --partitions 8 --topic crimes_chicago --zookeeper $ZOOKEEPER_HOSTS
 // MAGIC ```
 // MAGIC ##### 1.0.4. Smoke test of your Kafka cluster using Kafka utilities - console producer and consumer
 // MAGIC 
@@ -128,12 +128,11 @@
 // MAGIC %md
 // MAGIC #### 1.0.e. Specific to Azure Cosmos DB Cassandra API
 // MAGIC 
-// MAGIC ##### 1.0.9. Create a keyspace from the portal - data explorer
+// MAGIC ##### 1.0.9. Create a keyspace from the data explorer on the portal 
 // MAGIC Name: crimes_ks<br>
-// MAGIC Throughput: 10,000<br>
 // MAGIC 
-// MAGIC ##### 1.0.10. Create a table from the portal - data explorer
-// MAGIC Name: crimes_chicago_stream<br>
+// MAGIC ##### 1.0.10a. Create a table from the data explorer on the portal
+// MAGIC Name: crimes_chicago_stream_kafka<br>
 // MAGIC Keyspace: crimes_ks<br>
 // MAGIC Throughput: 10,000<br>
 // MAGIC Columns:<br>
@@ -168,6 +167,10 @@
 // MAGIC case_day_of_week_nbr int,
 // MAGIC case_day_of_week_name text)
 // MAGIC ```
+// MAGIC 
+// MAGIC 
+// MAGIC ##### 1.0.10b. Scale the throughput of the table to 50,000 RUs from the data explorer on the portal
+// MAGIC This needs to be a separate process and cannot be rolled into the previous step.
 
 // COMMAND ----------
 
@@ -231,7 +234,7 @@
 // MAGIC USE crimes_ks;
 // MAGIC DESCRIBE tables;
 // MAGIC ```
-// MAGIC You should see the keyspace you created.
+// MAGIC You should see the keyspace you created. Dont forget to scale the throughput.
 
 // COMMAND ----------
 
@@ -246,8 +249,8 @@
 
 // COMMAND ----------
 
-val kafkaTopic = "crimes_chicago_topic"
-val kafkaBrokerAndPortCSV = "10.7.0.12:9092, 10.7.0.13:9092,10.7.0.14:9092,10.7.0.15:9092"
+val kafkaTopic = "crimes_chicago"
+val kafkaBrokerAndPortCSV = "10.7.0.12:9092,10.7.0.13:9092,10.7.0.14:9092,10.7.0.15:9092"
 
 // COMMAND ----------
 
@@ -256,7 +259,7 @@ val kafkaBrokerAndPortCSV = "10.7.0.12:9092, 10.7.0.13:9092,10.7.0.14:9092,10.7.
 
 // COMMAND ----------
 
-val sourceDF = spark.sql("SELECT * FROM crimes_db.chicago_crimes_curated")
+val sourceDF = spark.sql("SELECT * FROM crimes_db.chicago_crimes_curated where district = '007'")
 sourceDF.printSchema
 sourceDF.show
 
@@ -293,3 +296,6 @@ producerDF.selectExpr("CAST(key AS STRING)", "CAST(value AS STRING)")
   .option("kafka.bootstrap.servers", kafkaBrokerAndPortCSV)
   .option("topic", kafkaTopic)
   .save
+
+// COMMAND ----------
+
