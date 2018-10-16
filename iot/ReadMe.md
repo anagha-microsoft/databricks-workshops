@@ -18,23 +18,17 @@ The workshop solution leverages multiple Azure PaaS services - <BR>
   - Azure SQL Database (SQL Server PaaS) - for reporting serve layer <BR>
   - Power BI (BI SaaS) <BR>
   
-  
-## 2.0. Get started
-### 2.0.1. Provision Azure resources
-1.  [Device Telemetry Simulator & Azure IoT Hub](docs/Provisioning-1-AzureIoT.md)
-2.  [Azure resource group and virtual network](docs/Provisioning-2-Common.md)
-3.  [Azure Cosmos DB](docs/Provisioning-3-AzureCosmosDB.md)
-4.  [Azure Databricks](docs/Provisioning-4-AzureDatabricks.md)
-5.  [HDInsight Kafka](docs/Provisioning-5-Kafka.md)
-6.  [KafkaConnect Azure IoT Hub Source Connector](docs/Provisioning-6-KafkaConnect.md)
+## 2.0. Workshop
+### 2.0.1. Modules 
+Module 1: Provision services, configure and start services
+Module 2: One time setup in Databricks - mount blob storage
+Module 3: Structured Stream Processing - device current state capture into Azure Cosmos DB (nosql/OLTP store)
+Module 4: Structured Stream Processing - device telemetry history capture into Databricks Delta (analytics store)
+Module 5: Stateful Structured Stream Processing - moving averges capture into Azure Cosmos DB (nosql/OLTP store)
+Module 6: Batch Processing - reports persisted to Azure SQL Database (reporting mart)
+Module 7a: BI and visualization - sourced from SQL Database, and over Spark against blob storage
+Module 7b: Real time dashboard - Power BI + 2 ISVs
+Module 8: 
 
-## 3.0. Start the services provisioned
-[Start the components](docs/Provisioning-7-StartTheComponents.md)
-
-## 4.0. Workshop
-### 4.0.1. Step by step instructions
-[Workshop guide](docs/WorkshopReadMe.md)
-
-### 4.0.2. Modules available so far
 ![WIP](images/WorkInProgress.png)
 
