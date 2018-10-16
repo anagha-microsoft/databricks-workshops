@@ -363,6 +363,3 @@ readBooksDF.explain
 
 //Top 3
 readBooksDF.show
-
-// COMMAND ----------
-
