@@ -112,4 +112,5 @@ booksUpdateDF.write
 // COMMAND ----------
 
 //Runs on driver, use wisely
+val cdbConnector = CassandraConnector(sc)
 cdbConnector.withSessionDo(session => session.execute("update books_ks.books set book_price=99.33 where book_id ='b00300';"))
