@@ -2,7 +2,7 @@
 // MAGIC %md
 // MAGIC # What's in this exercise
 // MAGIC Basics of how to work with Azure Cosmos DB - Cassandra API from Databricks <B>in batch</B>.<BR>
-// MAGIC Section 06: Delete operation (cRud)<BR>
+// MAGIC Section 06: Delete operation (cruD)<BR>
 
 // COMMAND ----------
 
