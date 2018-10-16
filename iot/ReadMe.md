@@ -20,7 +20,7 @@ The workshop solution leverages multiple Azure PaaS services - <BR>
   
 ## 2.0. Workshop
 ### 2.0.1. Modules 
-Module 1: Provision services, configure and start services<BR>
+[Module 1: Provision services, configure and start services](docs/WorkshopReadMe.md#module-1-provision-services-configure-and-start-services)<BR>
 Module 2: One time setup in Databricks - mount blob storage<BR>
 Module 3: Structured Stream Processing - device current state capture into Azure Cosmos DB (nosql/OLTP store)<BR>
 Module 4: Structured Stream Processing - device telemetry history capture into Databricks Delta (analytics store)<BR>
