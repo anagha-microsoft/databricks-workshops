@@ -21,6 +21,13 @@
 // COMMAND ----------
 
 // MAGIC %md
+// MAGIC #### Provisioning
+// MAGIC - HDInsight Kafka: https://docs.microsoft.com/en-us/azure/hdinsight/kafka/apache-kafka-get-started
+// MAGIC - Azure Cosmos DB Cassandra API: https://docs.microsoft.com/en-us/azure/cosmos-db/create-cassandra-api-account-java#create-a-database-account
+
+// COMMAND ----------
+
+// MAGIC %md
 // MAGIC #### 1.0.a. Specific to HDInsight Kafka - to be run on the Kafka cluster, Linux CLI
 // MAGIC 
 // MAGIC ##### 1.0.1. Get the zookeeper server list for the cluster
@@ -119,17 +126,13 @@
 // MAGIC %md
 // MAGIC #### 1.0.e. Specific to Azure Cosmos DB Cassandra API - to be run on the Azure portal
 // MAGIC 
-// MAGIC ##### 1.0.9. Provision a Cassandra API instance from the portal
-// MAGIC https://docs.microsoft.com/en-us/azure/cosmos-db/create-cassandra-api-account-java#create-a-database-account
-// MAGIC 
-// MAGIC ##### 1.0.10. Create a keyspace from the portal - data explorer
+// MAGIC ##### 1.0.9. Create a keyspace from the portal if it does not already exist via data explorer
 // MAGIC Name: crimes_ks<br>
-// MAGIC Throughput: 50,000<br>
 // MAGIC 
-// MAGIC ##### 1.0.11. Create a table from the portal - data explorer
+// MAGIC ##### 1.0.10a. Create a table from the portal via data explorer
 // MAGIC Name: crimes_chicago_batch<br>
 // MAGIC Keyspace: crimes_ks<br>
-// MAGIC Throughput: 50,000<br>
+// MAGIC Throughput: 10,000<br>
 // MAGIC Columns:<br>
 // MAGIC ```
 // MAGIC (
@@ -162,6 +165,8 @@
 // MAGIC case_day_of_week_nbr int,
 // MAGIC case_day_of_week_name text)
 // MAGIC ```
+// MAGIC 
+// MAGIC ##### 1.0.10b. After the table is created scale the throughput to 50000 RUs via data explorer
 
 // COMMAND ----------
 
@@ -177,7 +182,7 @@
 // COMMAND ----------
 
 val kafkaTopic = "crimes_chicago_topic"
-val kafkaBrokerAndPortCSV = "10.7.0.12:9092, 10.7.0.13:9092,10.7.0.14:9092,10.7.0.15:9092"
+val kafkaBrokerAndPortCSV = "10.1.0.11:9092, 10.1.0.12:9092,10.1.0.13:9092,10.1.0.14:9092"
 
 // COMMAND ----------
 
@@ -186,7 +191,7 @@ val kafkaBrokerAndPortCSV = "10.7.0.12:9092, 10.7.0.13:9092,10.7.0.14:9092,10.7.
 
 // COMMAND ----------
 
-val sourceDF = spark.sql("SELECT * FROM crimes_db.chicago_crimes_curated")
+val sourceDF = spark.sql("SELECT * FROM crimes_db.chicago_crimes_curated where district = '007'")
 sourceDF.printSchema
 sourceDF.show
 
