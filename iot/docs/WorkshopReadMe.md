@@ -1,7 +1,7 @@
 # Working through the workshop modules
 
 ## Module 1. Provision services, configure and start services
-You will first need to provision all the required Azure resources upfront and complete all the specified configuration.
+You will first need to provision all the required Azure resources upfront and complete all the specified configuration.  Follow the links below to complete provisioning, configuring and starting the services.
 1.  [Device Telemetry Simulator & Azure IoT Hub](docs/Provisioning-1-AzureIoT.md)
 2.  [Azure resource group and virtual network](docs/Provisioning-2-Common.md)
 3.  [Azure Cosmos DB](docs/Provisioning-3-AzureCosmosDB.md)
