@@ -14,7 +14,8 @@
 // COMMAND ----------
 
 val kafkaTopic = "iot_telemetry_in"
-val kafkaBrokerAndPortCSV = "10.1.0.5:9092, 10.1.0.7:9092,10.1.0.10:9092,10.1.0.14:9092"
+//Replace with your Kafka broker IPs
+val kafkaBrokerAndPortCSV = "10.1.0.11:9092, 10.1.0.12:9092,10.1.0.13:9092,10.1.0.14:9092"
 
 // COMMAND ----------
 
