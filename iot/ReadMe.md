@@ -26,7 +26,7 @@ The workshop solution leverages multiple Azure PaaS services - <BR>
 [Module 4: Structured Stream Processing - device telemetry history capture into Databricks Delta (analytics store)](docs/WorkshopReadMe.md#module-4-structured-stream-processing---device-telemetry-history-capture-into-databricks-delta)<BR>
 Module 5: Stateful Structured Stream Processing - moving averges capture into Azure Cosmos DB (nosql/OLTP store)<BR>
 Module 6: Batch Processing - reports persisted to Azure SQL Database (reporting mart)<BR>
-Module 7: Batch Processing - time series modeling and persisting to Azure SQL Database and Databricks Delta<BR>
+Module 7: Batch Processing - time series modeling and persisting to Azure Cosmos DB and Databricks Delta<BR>
 Module 8: BI and visualization - sourced from SQL Database, and over Spark against blob storage<BR>
 Module 9: Real time dashboard<BR>
 Module 10: Anomaly detection and alerting<BR>
