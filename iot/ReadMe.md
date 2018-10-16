@@ -30,6 +30,8 @@ Module 7: Batch Processing - time series modeling and persisting to Azure SQL Da
 Module 8: BI and visualization - sourced from SQL Database, and over Spark against blob storage<BR>
 Module 9: Real time dashboard<BR>
 Module 10: Anomaly detection and alerting<BR>
-Module 11: Adanced analytics- AI in IoT<BR>
-
+Module 11: Advanced analytics- AI in IoT<BR>
+<br><br>
+Coming soon...<br>
+ Modules 5 and 7
 ![WIP](images/WorkInProgress.png)
