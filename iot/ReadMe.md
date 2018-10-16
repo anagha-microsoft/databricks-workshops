@@ -26,9 +26,10 @@ Module 3: Structured Stream Processing - device current state capture into Azure
 Module 4: Structured Stream Processing - device telemetry history capture into Databricks Delta (analytics store)
 Module 5: Stateful Structured Stream Processing - moving averges capture into Azure Cosmos DB (nosql/OLTP store)
 Module 6: Batch Processing - reports persisted to Azure SQL Database (reporting mart)
-Module 7a: BI and visualization - sourced from SQL Database, and over Spark against blob storage
-Module 7b: Real time dashboard - Power BI + 2 ISVs
-Module 8: 
+Module 7: Batch Processing - time series modeling and persisting to Azure SQL Database and Databricks Delta
+Module 8: BI and visualization - sourced from SQL Database, and over Spark against blob storage
+Module 9: Real time dashboard 
+Module 10: Anomaly detection and alerting
+Module 11: Adanced analytics- AI in IoT
 
 ![WIP](images/WorkInProgress.png)
-
