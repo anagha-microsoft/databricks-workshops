@@ -16,7 +16,7 @@
 // COMMAND ----------
 
 val kafkaTopic = "crimes_chicago_topic"
-val kafkaBrokerAndPortCSV = "10.7.0.4:9092, 10.7.0.5:9092,10.7.0.8:9092,10.7.0.12:9092"
+val kafkaBrokerAndPortCSV = "10.1.0.11:9092, 10.1.0.12:9092,10.1.0.13:9092,10.1.0.14:9092"
 
 // COMMAND ----------
 
