@@ -4,10 +4,8 @@
 // MAGIC Basics of how to work with Azure Cosmos DB Cassandra API from Databricks <B>in batch</B>.<BR>
 // MAGIC Section 01: Cassandra API connection<BR>
 // MAGIC Section 02: DDL operations for keyspace and table<BR>
-// MAGIC   
-// MAGIC **Roadmap:** describle table to show provisioned throughput<br>
 // MAGIC 
-// MAGIC **Reference:**<br> 
+// MAGIC   **Reference:**<br> 
 // MAGIC https://github.com/datastax/spark-cassandra-connector/blob/master/doc/1_connecting.md
 
 // COMMAND ----------
@@ -21,6 +19,7 @@
 // MAGIC ##### 1.0.1. Prerequisites
 // MAGIC - Add the 5 Azure Cosmos DB-Cassandra API specific configuration to the cluster configuation described in the ReadMe
 // MAGIC - Attach the Databricks runtime compatible Datastax Cassandra connector library to the cluster
+// MAGIC - Attach the Azure Cosmos DB Cassandra helper librray to the cluster
 
 // COMMAND ----------
 
@@ -35,20 +34,21 @@ import org.apache.spark.{SparkConf, SparkContext}
 import spark.implicits._
 import org.apache.spark.sql.functions._
 import org.apache.spark.sql.Column
+
 import org.apache.spark.sql.types.{StructType, StructField, StringType, IntegerType,LongType,FloatType,DoubleType, TimestampType}
 import org.apache.spark.sql.cassandra._
 
-//datastax Spark connector
+//Datastax Spark connector
 import com.datastax.spark.connector._
 import com.datastax.spark.connector.cql.CassandraConnector
 
 //CosmosDB library for multiple retry
 import com.microsoft.azure.cosmosdb.cassandra
 
-// Specify connection factory for Cassandra
+//Specify connection factory for Cassandra
 spark.conf.set("spark.cassandra.connection.factory", "com.microsoft.azure.cosmosdb.cassandra.CosmosDbConnectionFactory")
 
-// Parallelism and throughput configs
+//Parallelism and throughput configs
 spark.conf.set("spark.cassandra.output.batch.size.rows", "1")
 spark.conf.set("spark.cassandra.connection.connections_per_executor_max", "10")
 spark.conf.set("spark.cassandra.output.concurrent.writes", "100")
@@ -99,9 +99,6 @@ spark.conf.set("spark.cassandra.output.ignoreNulls","true")
 
 //Instantiate cassandra connector
 val cdbConnector = CassandraConnector(sc)
-
-// COMMAND ----------
-
 // Create keyspace
 cdbConnector.withSessionDo(session => session.execute("CREATE KEYSPACE IF NOT EXISTS books_ks WITH REPLICATION = {'class': 'SimpleStrategy', 'replication_factor': 1 } "))
 
@@ -141,7 +138,6 @@ cdbConnector.withSessionDo(session => session.execute("CREATE KEYSPACE IF NOT EX
 val cdbConnector = CassandraConnector(sc)
 //cdbConnector.withSessionDo(session => session.execute("DROP KEYSPACE books_ks"))
 
-
 // COMMAND ----------
 
 // MAGIC %md
@@ -180,7 +176,6 @@ val cdbConnector = CassandraConnector(sc)
 // COMMAND ----------
 
 val cdbConnector = CassandraConnector(sc)
-
 cdbConnector.withSessionDo(session => session.execute("CREATE TABLE IF NOT EXISTS books_ks.books(book_id TEXT PRIMARY KEY,book_author TEXT, book_name TEXT,book_pub_year INT,book_price FLOAT) WITH cosmosdb_provisioned_throughput=4000 , WITH default_time_to_live=630720000;"))
 
 // COMMAND ----------
@@ -206,7 +201,7 @@ cdbConnector.withSessionDo(session => session.execute("CREATE TABLE IF NOT EXIST
 // COMMAND ----------
 
 val cdbConnector = CassandraConnector(sc)
-cdbConnector.withSessionDo(session => session.execute("ALTER TABLE books_ks.books WITH cosmosdb_provisioned_throughput=8000, WITH default_time_to_live=0;"))
+cdbConnector.withSessionDo(session => session.execute("ALTER TABLE books_ks.books WITH cosmosdb_provisioned_throughput=8000,WITH default_time_to_live=0;"))
 
 // COMMAND ----------
 
@@ -228,7 +223,7 @@ cdbConnector.withSessionDo(session => session.execute("ALTER TABLE books_ks.book
 // COMMAND ----------
 
 val cdbConnector = CassandraConnector(sc)
-cdbConnector.withSessionDo(session => session.execute("DROP TABLE IF EXISTS books_ks.books;"))
+//cdbConnector.withSessionDo(session => session.execute("DROP TABLE IF EXISTS books_ks.books;"))
 
 // COMMAND ----------
 
