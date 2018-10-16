@@ -19,7 +19,7 @@ import org.apache.spark.sql.types._
 
 val kafkaTopic = "iot_telemetry_in"
 //Replace with your Kafka cluster broker IPs
-val kafkaBrokerAndPortCSV = "10.1.0.7:9092, 10.1.0.9:9092,10.1.0.10:9092,10.1.0.14:9092"
+val kafkaBrokerAndPortCSV = "10.1.0.11:9092, 10.1.0.12:9092,10.1.0.13:9092,10.1.0.14:9092"
 
 val kafkaSourceDF = spark
   .readStream
