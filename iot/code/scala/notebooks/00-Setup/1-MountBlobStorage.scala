@@ -25,7 +25,7 @@
 
 // COMMAND ----------
 
-val storageAccount = "telemetryprocessordbsa"
+val storageAccount = "telemetryadbsa"
 val storageAccountKey= spark.conf.get("spark.hadoop.fs.azure.account.key." + storageAccount + ".blob.core.windows.net")
 
 // COMMAND ----------
