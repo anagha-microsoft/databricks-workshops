@@ -148,6 +148,3 @@ val query = consumableDF.writeStream
   .outputMode(OutputMode.Update)
   .start()
   
-
-// COMMAND ----------
-
