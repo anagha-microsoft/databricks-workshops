@@ -76,11 +76,11 @@ booksDF.show
 
 // COMMAND ----------
 
-//Set individual records to strong consistency and ttl to specific value
+//Set individual record ttl to specific value
 booksDF.write
   .mode("append")
   .format("org.apache.spark.sql.cassandra")
-  .options(Map( "table" -> "books", "keyspace" -> "books_ks", "output.consistency.level" -> "ALL", "ttl" -> "10000000"))
+  .options(Map( "table" -> "books", "keyspace" -> "books_ks", "ttl" -> "10000000"))
   .save()
 
 // COMMAND ----------
@@ -102,7 +102,7 @@ booksDF.write
 
 // COMMAND ----------
 
-//Quick looks at data prior
+//Quick look at data prior
 sqlContext
   .read
   .format("org.apache.spark.sql.cassandra")
@@ -126,7 +126,7 @@ booksDF.write
 
 // COMMAND ----------
 
-//Quick looks at data after
+//Quick look at data after
 sqlContext
   .read
   .format("org.apache.spark.sql.cassandra")
@@ -209,7 +209,7 @@ booksRDD.saveToCassandra("books_ks", "books", SomeColumns("book_id", "book_autho
 
 val cdbConnector = CassandraConnector(sc)
 cdbConnector.withSessionDo(
-  session => session.execute("INSERT INTO books_ks.books(book_id, book_name) values('b000009','The Red-Headed League') WITH TTL 900000;"))
+  session => session.execute("INSERT INTO books_ks.books(book_id, book_name) values('b000009','The Red-Headed League') ;"))
 
 // COMMAND ----------
 
