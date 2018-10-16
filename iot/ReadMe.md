@@ -31,8 +31,10 @@ Module 8: BI and visualization - sourced from SQL Database, and over Spark again
 Module 9: Real time dashboard<BR>
 Module 10: Anomaly detection and alerting<BR>
 Module 11: Advanced analytics- AI in IoT<BR>
-<br><br>
-
+<br>
+  
 ### 2.0.2. Coming soon
 Modules 5 and 7
 ![WIP](images/WorkInProgress.png)
+
+ 
