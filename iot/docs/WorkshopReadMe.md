@@ -1,4 +1,5 @@
-# Working through the workshop modules
+# Workshop
+Execute each of the modules below sequentially.
 
 ## Module 1. Provision services, configure and start services
 You will first need to provision all the required Azure resources upfront and complete all the specified configuration.  Follow the links below to complete provisioning, configuring and starting the services.
