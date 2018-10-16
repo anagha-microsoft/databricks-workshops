@@ -1,7 +1,14 @@
 # Working through the workshop modules
 
-## Module 1. Provisioning 
+## Module 1. Provision services, configure and start services
 You will first need to provision all the required Azure resources upfront and complete all the specified configuration.
+1.  [Device Telemetry Simulator & Azure IoT Hub](docs/Provisioning-1-AzureIoT.md)
+2.  [Azure resource group and virtual network](docs/Provisioning-2-Common.md)
+3.  [Azure Cosmos DB](docs/Provisioning-3-AzureCosmosDB.md)
+4.  [Azure Databricks](docs/Provisioning-4-AzureDatabricks.md)
+5.  [HDInsight Kafka](docs/Provisioning-5-Kafka.md)
+6.  [KafkaConnect Azure IoT Hub Source Connector](docs/Provisioning-6-KafkaConnect.md)
+7.  [Start the components](docs/Provisioning-7-StartTheComponents.md)
 
 ## Module 2. Setup 
 In this section you need to complete the setup section of the Databricks notebooks.<br>
