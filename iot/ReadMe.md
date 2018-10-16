@@ -20,16 +20,16 @@ The workshop solution leverages multiple Azure PaaS services - <BR>
   
 ## 2.0. Workshop
 ### 2.0.1. Modules 
-Module 1: Provision services, configure and start services
-Module 2: One time setup in Databricks - mount blob storage
-Module 3: Structured Stream Processing - device current state capture into Azure Cosmos DB (nosql/OLTP store)
-Module 4: Structured Stream Processing - device telemetry history capture into Databricks Delta (analytics store)
-Module 5: Stateful Structured Stream Processing - moving averges capture into Azure Cosmos DB (nosql/OLTP store)
-Module 6: Batch Processing - reports persisted to Azure SQL Database (reporting mart)
-Module 7: Batch Processing - time series modeling and persisting to Azure SQL Database and Databricks Delta
-Module 8: BI and visualization - sourced from SQL Database, and over Spark against blob storage
-Module 9: Real time dashboard 
-Module 10: Anomaly detection and alerting
-Module 11: Adanced analytics- AI in IoT
+Module 1: Provision services, configure and start services<BR>
+Module 2: One time setup in Databricks - mount blob storage<BR>
+Module 3: Structured Stream Processing - device current state capture into Azure Cosmos DB (nosql/OLTP store)<BR>
+Module 4: Structured Stream Processing - device telemetry history capture into Databricks Delta (analytics store)<BR>
+Module 5: Stateful Structured Stream Processing - moving averges capture into Azure Cosmos DB (nosql/OLTP store)<BR>
+Module 6: Batch Processing - reports persisted to Azure SQL Database (reporting mart)<BR>
+Module 7: Batch Processing - time series modeling and persisting to Azure SQL Database and Databricks Delta<BR>
+Module 8: BI and visualization - sourced from SQL Database, and over Spark against blob storage<BR>
+Module 9: Real time dashboard<BR>
+Module 10: Anomaly detection and alerting<BR>
+Module 11: Adanced analytics- AI in IoT<BR>
 
 ![WIP](images/WorkInProgress.png)
