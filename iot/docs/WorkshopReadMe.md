@@ -1,7 +1,14 @@
 # Working through the workshop modules
 
-## Module 1. Provisioning 
-You will first need to provision all the required Azure resources upfront and complete all the specified configuration.
+## Module 1. Provision services, configure and start services
+You will first need to provision all the required Azure resources upfront and complete all the specified configuration.  Follow the links below to complete provisioning, configuring and starting the services.
+1.  [Device Telemetry Simulator & Azure IoT Hub](docs/Provisioning-1-AzureIoT.md)
+2.  [Azure resource group and virtual network](docs/Provisioning-2-Common.md)
+3.  [Azure Cosmos DB](docs/Provisioning-3-AzureCosmosDB.md)
+4.  [Azure Databricks](docs/Provisioning-4-AzureDatabricks.md)
+5.  [HDInsight Kafka](docs/Provisioning-5-Kafka.md)
+6.  [KafkaConnect Azure IoT Hub Source Connector](docs/Provisioning-6-KafkaConnect.md)
+7.  [Start the components](docs/Provisioning-7-StartTheComponents.md)
 
 ## Module 2. Setup 
 In this section you need to complete the setup section of the Databricks notebooks.<br>
@@ -67,10 +74,10 @@ and<br>
 In notebook **01-StreamIngest/01b-Stream-SinkTo-Delta-2.scala**, - <br>
 We will create an external table against Databricks Delta, and run queries against it.<br><br>
 
-Databricks Delta is fit for purpose solution for streaming workloads.<br><br>
+Databricks Delta is fit for purpose common solution for batch and streaming workloads.<br><br>
 
 **Do we really need Databricks Delta if we have a Nosql database in our IoT solution?**<br>
-NoSQL databases like Azure Cosmos DB, HBase are fit for purpose of scalable OLTP - for point look ups and small scans/range queries.  They can prove costly and not as efficient for analytics workloads and reporting workloads requiring large sequential scans.  Therefore, always complement your nosql with a storage solution optimized for analytics - like HDFS, DBFS and such distributed storage systems.<br><br>
+NoSQL databases like Azure Cosmos DB, HBase are fit for purpose of scalable OLTP - optimized for point look ups and small scans/range queries.  They can prove costly and not efficient/performant for analytics and reporting workloads requiring large sequential scans.  Therefore, always complement your nosql with a storage solution optimized for analytics - like HDFS, DBFS and such distributed storage systems.<br><br>
 
 **Value proposition of Delta**<br>
 - Delta automatically indexes, compacts and caches data helping achieve up to 100x improved performance over Apache Spark. <br>

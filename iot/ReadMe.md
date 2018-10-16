@@ -18,23 +18,18 @@ The workshop solution leverages multiple Azure PaaS services - <BR>
   - Azure SQL Database (SQL Server PaaS) - for reporting serve layer <BR>
   - Power BI (BI SaaS) <BR>
   
-  
-## 2.0. Get started
-### 2.0.1. Provision Azure resources
-1.  [Device Telemetry Simulator & Azure IoT Hub](docs/Provisioning-1-AzureIoT.md)
-2.  [Azure resource group and virtual network](docs/Provisioning-2-Common.md)
-3.  [Azure Cosmos DB](docs/Provisioning-3-AzureCosmosDB.md)
-4.  [Azure Databricks](docs/Provisioning-4-AzureDatabricks.md)
-5.  [HDInsight Kafka](docs/Provisioning-5-Kafka.md)
-6.  [KafkaConnect Azure IoT Hub Source Connector](docs/Provisioning-6-KafkaConnect.md)
+## 2.0. Workshop
+### 2.0.1. Modules 
+[Module 1: Provision services, configure and start services](docs/WorkshopReadMe.md#module-1-provision-services-configure-and-start-services)<BR>
+[Module 2: One time setup in Databricks - mount blob storage](docs/WorkshopReadMe.md#module-2-setup)<BR>
+[Module 3: Structured Stream Processing - device current state capture into Azure Cosmos DB (nosql/OLTP store)](docs/WorkshopReadMe.md#module-3-structured-stream-processing---device-current-state-capture-into-azure-cosmos-db-nosql)<BR>
+[Module 4: Structured Stream Processing - device telemetry history capture into Databricks Delta (analytics store)](docs/WorkshopReadMe.md#module-4-structured-stream-processing---device-telemetry-history-capture-into-databricks-delta)<BR>
+Module 5: Stateful Structured Stream Processing - moving averges capture into Azure Cosmos DB (nosql/OLTP store)<BR>
+Module 6: Batch Processing - reports persisted to Azure SQL Database (reporting mart)<BR>
+Module 7: Batch Processing - time series modeling and persisting to Azure SQL Database and Databricks Delta<BR>
+Module 8: BI and visualization - sourced from SQL Database, and over Spark against blob storage<BR>
+Module 9: Real time dashboard<BR>
+Module 10: Anomaly detection and alerting<BR>
+Module 11: Adanced analytics- AI in IoT<BR>
 
-## 3.0. Start the services provisioned
-[Start the components](docs/Provisioning-7-StartTheComponents.md)
-
-## 4.0. Workshop
-### 4.0.1. Step by step instructions
-[Workshop guide](docs/WorkshopReadMe.md)
-
-### 4.0.2. Modules available so far
 ![WIP](images/WorkInProgress.png)
-
