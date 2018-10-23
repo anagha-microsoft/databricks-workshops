@@ -25,7 +25,7 @@ Go to https://www.azureiotsolutions.com/Accelerators, to your previously provisi
 
 On the Kafka edge node, launch the console consumer.
 ```
-/usr/hdp/current/kafka-broker/bin/kafka-console-consumer.sh --bootstrap-server $KAFKABROKERS --topic "iot_telemetry" --from-beginning
+/usr/hdp/current/kafka-broker/bin/kafka-console-consumer.sh --bootstrap-server $KAFKABROKERS --topic "iot_telemetry_in" --from-beginning
 ```
 If you see activity, you are good to proceed with the rest of the lab.  You can shut down the console consumer.
 ![kc-11](../images/kc-11.png)
