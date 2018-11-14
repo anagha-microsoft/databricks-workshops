@@ -14,6 +14,11 @@
 // MAGIC Website: https://data.cityofchicago.org/Public-Safety/Crimes-2001-to-present/ijzp-q8t2<br>
 // MAGIC Dataset: https://data.cityofchicago.org/api/views/ijzp-q8t2/rows.csv?accessType=DOWNLOAD<br>
 // MAGIC Metadata: https://cosmosdbworkshops.blob.core.windows.net/metadata/ChicagoCrimesMetadata.pdf<br>
+// MAGIC   
+// MAGIC Referenes for Databricks:<br>
+// MAGIC Working with blob storage: https://docs.azuredatabricks.net/spark/latest/data-sources/azure/azure-storage.html <br>
+// MAGIC Visualization: https://docs.databricks.com/user-guide/visualizations/charts-and-graphs-scala.html
+// MAGIC   
 
 // COMMAND ----------
 
@@ -157,7 +162,7 @@ display(dbutils.fs.ls(dbfsDestDirPath))
 // COMMAND ----------
 
 // MAGIC  %md
-// MAGIC  ### 6. Curate
+// MAGIC  ### 6. Curate the dataset
 // MAGIC  In this section, we will just parse the date and time for the purpose of analytics.
 
 // COMMAND ----------
@@ -227,7 +232,7 @@ display(dbutils.fs.ls(dbfsDestDirPath))
 // COMMAND ----------
 
 // MAGIC  %md
-// MAGIC  ### 7. Visualize
+// MAGIC  ### 7. Report on the dataset/visualize
 // MAGIC  In this section, we will explore data and visualize
 
 // COMMAND ----------
