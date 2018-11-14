@@ -1,14 +1,14 @@
 // Databricks notebook source
 // MAGIC %md
-// MAGIC # DBFS - read/write primer for parquet and delta
+// MAGIC # DBFS - read/write primer
 // MAGIC In this exercise, we will:<br>
-// MAGIC 1.  Download and curate Chicago crimes public dataset  - 1.5 GB of the Chicago crimes public dataset - has 6.7 million records.<BR>
-// MAGIC 2.  Upload the dataset to the staging directory in DBFS<BR>
-// MAGIC 3.  Read the CSV, persist as parquet to the raw directory<BR>
-// MAGIC 4.  Read the CSV, persist as delta to the raw directory<BR>
-// MAGIC 5.  Create external tables on top of the two datasets in the raw directory<BR>
-// MAGIC 6.  Compare query performance between Parquet and Parquet on Delta<BR>
-// MAGIC 7.  Understand value proposition of Databricks Delta
+// MAGIC 1.  **Download** and curate Chicago crimes public dataset  - 1.5 GB of the Chicago crimes public dataset - has 6.7 million records.<BR>
+// MAGIC 2.  **Upload the dataset to DBFS**, to the staging directory in DBFS<BR>
+// MAGIC 3.  Read the CSV into a dataframe, **persist as parquet** to the raw directory<BR>
+// MAGIC 4.  **Create an external table** on top of the dataset in the raw directory<BR>
+// MAGIC 5.  **Explore with SQL construct**<BR>
+// MAGIC 6.  **Curate** the dataset (dedupe, add additional dervived attributes of value etc) for subsequent labs<BR>
+// MAGIC 7.  Do some basic **visualization**<BR>
 // MAGIC   
 // MAGIC Chicago crimes dataset:<br>
 // MAGIC Website: https://data.cityofchicago.org/Public-Safety/Crimes-2001-to-present/ijzp-q8t2<br>
@@ -17,7 +17,7 @@
 
 // COMMAND ----------
 
-import org.apache.spark.rdd.RDD
+
 import org.apache.spark.{SparkConf, SparkContext}
 
 import spark.implicits._
@@ -121,6 +121,11 @@ display(dbutils.fs.ls(dbfsDestDirPath))
 
 // COMMAND ----------
 
+// MAGIC %md
+// MAGIC ### 4. Define external table
+
+// COMMAND ----------
+
 // MAGIC %sql
 // MAGIC 
 // MAGIC CREATE DATABASE IF NOT EXISTS CRIMES_DB;
@@ -130,31 +135,40 @@ display(dbutils.fs.ls(dbfsDestDirPath))
 // MAGIC DROP TABLE IF EXISTS CHICAGO_CRIMES_RAW;
 // MAGIC CREATE TABLE IF NOT EXISTS CHICAGO_CRIMES_RAW
 // MAGIC USING parquet
-// MAGIC OPTIONS (path "/mnt/data/crimes/rawDir/chicago-crimes-data");
+// MAGIC OPTIONS (path "/mnt/data/rawDir/crimes/chicago-crimes-data");
 // MAGIC --USING org.apache.spark.sql.parquet
 // MAGIC 
 // MAGIC ANALYZE TABLE CHICAGO_CRIMES_RAW COMPUTE STATISTICS;
 
 // COMMAND ----------
 
+// MAGIC %md
+// MAGIC ### 5. Explore the raw dataset
+
+// COMMAND ----------
+
 // MAGIC %sql
 // MAGIC USE crimes_db;
-// MAGIC SELECT * FROM chicago_crimes_raw;
-// MAGIC --SELECT count(*) FROM chicago_crimes_raw;--6,701,049
+// MAGIC --SELECT * FROM chicago_crimes_raw;
+// MAGIC SELECT count(*) FROM chicago_crimes_raw;
+// MAGIC 
+// MAGIC --6,701,049
 
 // COMMAND ----------
 
 // MAGIC  %md
-// MAGIC  ### 1.0.2. Curate
+// MAGIC  ### 6. Curate
 // MAGIC  In this section, we will just parse the date and time for the purpose of analytics.
 
 // COMMAND ----------
 
 // 1) Read and curate
+// Lets add some temporal attributes that can help us analyze trends over time
 
 import org.apache.spark.sql.functions.to_timestamp
 
 val to_timestamp_func = to_timestamp($"case_dt_tm", "MM/dd/yyyy hh:mm:ss")
+
 val rawDF = spark.sql("select * from crimes_db.chicago_crimes_raw")
 val curatedDF = rawDF.withColumn("case_timestamp",to_timestamp_func)
                       .withColumn("case_month", month(col("case_timestamp")))
@@ -175,7 +189,11 @@ curatedDF.show
 
 // COMMAND ----------
 
-//2) Persist as parquet to raw zone
+curatedDF.show()
+
+// COMMAND ----------
+
+//2) Persist as parquet to curated storage zone
 val dbfsDestDirPath="/mnt/data/crimes/curatedDir/chicago-crimes-data"
 dbutils.fs.rm(dbfsDestDirPath, recurse=true)
 curatedDF.coalesce(1).write.parquet(dbfsDestDirPath)
@@ -200,8 +218,50 @@ display(dbutils.fs.ls(dbfsDestDirPath))
 // MAGIC DROP TABLE IF EXISTS CHICAGO_CRIMES_CURATED;
 // MAGIC CREATE TABLE CHICAGO_CRIMES_CURATED
 // MAGIC USING parquet
-// MAGIC OPTIONS (path "/mnt/data/curatedDir/crimes/chicago-crimes-data");
+// MAGIC OPTIONS (path "/mnt/data/crimes/curatedDir/chicago-crimes-data");
 // MAGIC --USING org.apache.spark.sql.parquet
 // MAGIC 
 // MAGIC REFRESH TABLE CHICAGO_CRIMES_CURATED;
 // MAGIC ANALYZE TABLE CHICAGO_CRIMES_CURATED COMPUTE STATISTICS;
+
+// COMMAND ----------
+
+// MAGIC  %md
+// MAGIC  ### 7. Visualize
+// MAGIC  In this section, we will explore data and visualize
+
+// COMMAND ----------
+
+// MAGIC %sql
+// MAGIC select * from CRIMES_DB.CHICAGO_CRIMES_CURATED;
+
+// COMMAND ----------
+
+// MAGIC %sql
+// MAGIC SELECT case_year, count(*) AS crime_count FROM CRIMES_DB.CHICAGO_CRIMES_CURATED 
+// MAGIC GROUP BY case_year ORDER BY case_year;
+
+// COMMAND ----------
+
+// MAGIC %sql
+// MAGIC SELECT CAST(case_year AS DATE) AS case_year, primary_type as case_type, count(*) AS crime_count 
+// MAGIC FROM CRIMES_DB.CHICAGO_CRIMES_CURATED 
+// MAGIC where primary_type in ('BATTERY','ASSAULT','CRIMINAL SEXUAL ASSAULT')
+// MAGIC GROUP BY case_year,case_type ORDER BY case_year;
+
+// COMMAND ----------
+
+// MAGIC %sql
+// MAGIC select case_year,primary_type as case_type, count(*) as crimes_count 
+// MAGIC from crimes_db.chicago_crimes_curated 
+// MAGIC where (primary_type LIKE '%ASSAULT%' OR primary_type LIKE '%CHILD%') 
+// MAGIC GROUP BY case_year, case_type 
+// MAGIC ORDER BY case_year,case_type desc; 
+
+// COMMAND ----------
+
+// MAGIC %sql
+// MAGIC select primary_type as case_type, count(*) as crimes_count 
+// MAGIC from crimes_db.chicago_crimes_curated 
+// MAGIC where (primary_type LIKE '%ASSAULT%' OR primary_type LIKE '%CHILD%') OR (primary_type='KIDNAPPING') 
+// MAGIC GROUP BY case_type; 
