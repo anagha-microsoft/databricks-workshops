@@ -12,7 +12,7 @@
 
 // COMMAND ----------
 
-val storageAccountName = "fs.azure.account.key.generalworkshopsa.blob.core.windows.net"
+val storageAccountName = "generalworkshopsa"
 val storageAccountAccessKey = dbutils.secrets.get(scope = "bhoomi-storage", key = "storage-acct-key")
 
 // COMMAND ----------
@@ -27,17 +27,47 @@ val storageAccountAccessKey = dbutils.secrets.get(scope = "bhoomi-storage", key 
 
 // COMMAND ----------
 
-dbutils.fs.mount(
-  source = "wasbs://staging@generalworkshopsa.blob.core.windows.net/",
-  mountPoint = "/mnt/data/workshop/stagingDir",
-  extraConfigs = Map(storageAccountName -> storageAccountAccessKey))
-
-// COMMAND ----------
-
+/*
 dbutils.fs.mount(
   source = "wasbs://scratch@generalworkshopsa.blob.core.windows.net/",
   mountPoint = "/mnt/data/workshop/scratchDir",
   extraConfigs = Map(storageAccountName -> storageAccountAccessKey))
+  */
+
+// COMMAND ----------
+
+//This is a function to mount a storage container
+def mountStorageContainer(storageAccount: String, storageAccountKey: String, storageContainer: String, blobMountPoint: String)
+{
+   try {
+     
+     println(s"Mounting ${storageContainer} to ${blobMountPoint}:")
+    // Unmount the storage container if already mounted
+    dbutils.fs.unmount(blobMountPoint)
+
+  } catch { 
+    //If this errors, the container is not mounted
+    case e: Throwable => println(s"....Container is not mounted; Attempting mounting now..")
+
+  } finally {
+    // Mount the storage container
+    val mountStatus = dbutils.fs.mount(
+    source = "wasbs://" + storageContainer + "@" + storageAccount + ".blob.core.windows.net/",
+    mountPoint = blobMountPoint,
+    extraConfigs = Map("fs.azure.account.key." + storageAccount + ".blob.core.windows.net" -> storageAccountKey))
+  
+    println("...Status of mount is: " + mountStatus)
+  }
+}
+
+// COMMAND ----------
+
+mountStorageContainer(storageAccountName,storageAccountAccessKey,"demo","/mnt/data/workshop/demoDir")
+mountStorageContainer(storageAccountName,storageAccountAccessKey,"scratch","/mnt/data/workshop/scratchDir")
+mountStorageContainer(storageAccountName,storageAccountAccessKey,"staging","/mnt/data/workshop/stagingDir")
+mountStorageContainer(storageAccountName,storageAccountAccessKey,"raw","/mnt/data/workshop/rawDir")
+mountStorageContainer(storageAccountName,storageAccountAccessKey,"curated","/mnt/data/workshop/curatedDir")
+mountStorageContainer(storageAccountName,storageAccountAccessKey,"consumption","/mnt/data/workshop/consumptionDir")
 
 // COMMAND ----------
 
