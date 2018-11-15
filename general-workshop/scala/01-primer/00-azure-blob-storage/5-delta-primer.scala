@@ -431,3 +431,18 @@ booksPartitionedDF.write
 
 // 5) Is it really partitioned?
 display(dbutils.fs.ls("/mnt/data/workshop/curatedDir/delta/books-part"))
+
+// COMMAND ----------
+
+// MAGIC %md
+// MAGIC Go to the portal and take a look at 
+
+// COMMAND ----------
+
+// MAGIC %md
+// MAGIC ## 8.0. History
+
+// COMMAND ----------
+
+// MAGIC %sql
+// MAGIC DESCRIBE HISTORY books_db.books;
