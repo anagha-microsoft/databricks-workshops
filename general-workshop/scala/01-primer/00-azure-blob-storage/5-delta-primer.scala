@@ -1,6 +1,6 @@
 // Databricks notebook source
 // MAGIC %md
-// MAGIC # Databricks Delta - primer
+// MAGIC # Databricks Delta - primer for batch mode
 // MAGIC In this exercise, we will test the following in batch (streaming covered in the event hub primer):<br>
 // MAGIC 1.  Create a dataset, persist in Delta format, create a Delta table on top of the dataset<br>
 // MAGIC 2.  Update one or two random records<br>
