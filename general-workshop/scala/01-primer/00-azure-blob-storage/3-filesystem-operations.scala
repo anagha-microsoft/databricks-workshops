@@ -1,8 +1,10 @@
 // Databricks notebook source
 // MAGIC %md
-// MAGIC # What's in this exercise?
+// MAGIC # File System Operations
 // MAGIC 
-// MAGIC 1.  101 on working with databricks file system - Azure blob storage
+// MAGIC ### What's in this exercise?
+// MAGIC 
+// MAGIC 101 on working with databricks file system (DBFS) backed by Azure blob storage
 
 // COMMAND ----------
 
@@ -27,8 +29,7 @@
 
 // COMMAND ----------
 
-// MAGIC %fs
-// MAGIC mkdirs /mnt/data/workshop/scratchDir
+//dbutils.fs.mkdirs("/mnt/data/workshop/scratchDir")
 
 // COMMAND ----------
 
