@@ -13,7 +13,7 @@
 // COMMAND ----------
 
 val storageAccountName = "generalworkshopsa"
-val storageAccountAccessKey = dbutils.secrets.get(scope = "bhoomi-storage", key = "storage-acct-key")
+val storageAccountAccessKey = dbutils.secrets.get(scope = "ws-blob-storage", key = "storage-acct-key")
 
 // COMMAND ----------
 
