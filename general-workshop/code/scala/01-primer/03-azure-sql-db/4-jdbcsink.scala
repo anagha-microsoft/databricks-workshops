@@ -1,4 +1,11 @@
 // Databricks notebook source
+// MAGIC %md
+// MAGIC # JDBC Sink for Structured Streaming
+// MAGIC Structued streaming does not feature a JDBC sink currently.<br>
+// MAGIC The following is a custom sink we will use in the lab.
+
+// COMMAND ----------
+
 import java.sql._
 import org.apache.spark.sql.ForeachWriter
 
