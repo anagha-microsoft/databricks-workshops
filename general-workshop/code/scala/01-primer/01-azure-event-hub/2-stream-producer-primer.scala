@@ -67,13 +67,17 @@ val crimesSchema = StructType(Array(
 
 // COMMAND ----------
 
-// 3) Using structured streaming, read from storage into a dataframe
+// 3a) Lets check out source to ensure we have the data we need
+val sourceDF = spark.read.schema(crimesSchema).load("/mnt/data/workshop/curatedDir/crimes/chicago-crimes-data")
+
+// 3b) Materialize
+sourceDF.show
+
+// COMMAND ----------
+
+// 4) Using structured streaming, read from storage into a dataframe
 // Get the location of the curated crimes data from the storage lab - we will need to load from there
-
 val sourceDF = spark.readStream.schema(crimesSchema).load("/mnt/data/workshop/curatedDir/crimes/chicago-crimes-data")
-
-// 4) Review schema
-sourceDF.printSchema
 
 // COMMAND ----------
 
@@ -111,17 +115,18 @@ import org.apache.spark.sql.types._
 import org.apache.spark.sql.functions._
 
 // 8) Create a checkpoint directory 
-val dbfsCheckpointDirPath="/mnt/data/crimes/checkpointDir/chicago-crimes-stream-aeh-pub/"
+val dbfsCheckpointDirPath="/mnt/data/workshop/scratchDir/checkpoints-crimes-aeh-pub/"
 dbutils.fs.rm(dbfsCheckpointDirPath, recurse=true)
 
 // COMMAND ----------
 
 // 9) For testing - stream to console
-//producerDF.writeStream.outputMode("append").format("console").trigger(ProcessingTime("5 seconds")).start().awaitTermination()
+//producerDF.writeStream.outputMode("append").format("console").trigger(ProcessingTime("2 seconds")).start().awaitTermination()
 
 // COMMAND ----------
 
 // 10) Stream write to event hub
+
 val query = producerDF
     .writeStream
     .format("eventhubs")
