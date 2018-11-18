@@ -1,6 +1,6 @@
 // Databricks notebook source
 // MAGIC %md
-// MAGIC # HDInsight Kafka: Consumer primer
+// MAGIC # HDInsight Kafka: Batch consumer - primer
 // MAGIC 
 // MAGIC ### What's in this exercise?
 // MAGIC We will ingest crime data from a Kafka topic, in batch, and persist to DBFS, to Delta.<br>
@@ -93,7 +93,7 @@ consumableDF.printSchema
 
 // COMMAND ----------
 
-//Took the author 3 minutes
+//Took the author 7.5 minutes
 
 //1) Destination directory for delta table
 val dbfsDestDirPath="/mnt/data/workshop/curatedDir/chicago-crimes-data-delta-kafka-batch"
@@ -129,9 +129,12 @@ consumableDF.write.format("delta").mode("overwrite").save(dbfsDestDirPath)
 
 // COMMAND ----------
 
-// MAGIC %sql OPTIMIZE chicago_crimes_delta;
+// MAGIC %sql OPTIMIZE crimes_db.chicago_crimes_delta_kafka_batch;
 
 // COMMAND ----------
 
 // MAGIC %sql
 // MAGIC select * from crimes_db.chicago_crimes_delta_kafka_batch;
+
+// COMMAND ----------
+
