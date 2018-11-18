@@ -29,32 +29,22 @@
 // COMMAND ----------
 
 // MAGIC %md
-// MAGIC ### 3. Set up your Azure SQL database username within the scope
-
-// COMMAND ----------
-
-// MAGIC %md
-// MAGIC ```databricks secrets put --scope ws-sql-dw --key username```
-
-// COMMAND ----------
-
-// MAGIC %md
 // MAGIC This will open a file for you to enter in your username.  Save and close the file and your secret is saved.
 
 // COMMAND ----------
 
 // MAGIC %md
-// MAGIC ### 4. Set up your Azure SQL datawarehouse password within the scope
+// MAGIC ### 3. Set up your Azure SQL Datawarehouse connection string within the scope
 
 // COMMAND ----------
 
 // MAGIC %md
-// MAGIC ```databricks secrets put --scope ws-sql-dw --key password```
+// MAGIC ```databricks secrets put --scope ws-sql-dw --key conexion-string```
 
 // COMMAND ----------
 
 // MAGIC %md
-// MAGIC This will open a file for you to enter in your password.  Save and close the file and your secret is saved.
+// MAGIC This will open a file for you to enter in your connection string.  Save and close the file and your secret is saved.
 
 // COMMAND ----------
 
