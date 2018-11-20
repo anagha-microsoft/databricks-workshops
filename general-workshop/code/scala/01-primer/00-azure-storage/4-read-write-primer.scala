@@ -68,7 +68,7 @@ display(dbutils.fs.ls(localFile))
 // COMMAND ----------
 
 //1) Create destination directory
-val dbfsDirPath="/mnt/workshop/staging/crimes/chicago-crimes-data"
+val dbfsDirPath="/mnt/workshop/staging/crimes/chicago-crimes"
 dbutils.fs.rm(dbfsDirPath, recurse=true)
 dbutils.fs.mkdirs(dbfsDirPath)
 
@@ -91,10 +91,10 @@ display(dbutils.fs.ls(dbfsDirPath))
 // COMMAND ----------
 
 //1) Source directory
-val dbfsSrcDirPath="/mnt/workshop/staging/crimes/chicago-crimes-data"
+val dbfsSrcDirPath="/mnt/workshop/staging/crimes/chicago-crimes"
 
 //2) Destination directory
-val dbfsDestDirPath="/mnt/workshop/raw/crimes/chicago-crimes-data"
+val dbfsDestDirPath="/mnt/workshop/raw/crimes/chicago-crimes"
 
 // COMMAND ----------
 
@@ -137,13 +137,13 @@ display(dbutils.fs.ls(dbfsDestDirPath))
 // MAGIC 
 // MAGIC USE CRIMES_DB;
 // MAGIC 
-// MAGIC DROP TABLE IF EXISTS CHICAGO_CRIMES_RAW;
-// MAGIC CREATE TABLE IF NOT EXISTS CHICAGO_CRIMES_RAW
+// MAGIC DROP TABLE IF EXISTS chicago_crimes_raw;
+// MAGIC CREATE TABLE IF NOT EXISTS chicago_crimes_raw
 // MAGIC USING parquet
-// MAGIC OPTIONS (path "/mnt/workshop/raw/crimes/chicago-crimes-data");
+// MAGIC OPTIONS (path "/mnt/workshop/raw/crimes/chicago-crimes");
 // MAGIC --USING org.apache.spark.sql.parquet
 // MAGIC 
-// MAGIC ANALYZE TABLE CHICAGO_CRIMES_RAW COMPUTE STATISTICS;
+// MAGIC ANALYZE TABLE chicago_crimes_raw COMPUTE STATISTICS;
 
 // COMMAND ----------
 
@@ -199,7 +199,7 @@ curatedDF.show()
 // COMMAND ----------
 
 //2) Persist as parquet to curated storage zone
-val dbfsDestDirPath="/mnt/workshop/curated/crimes/chicago-crimes-data"
+val dbfsDestDirPath="/mnt/workshop/curated/crimes/chicago-crimes"
 dbutils.fs.rm(dbfsDestDirPath, recurse=true)
 curatedDF.coalesce(2).write.parquet(dbfsDestDirPath)
 
@@ -220,25 +220,25 @@ display(dbutils.fs.ls(dbfsDestDirPath))
 // MAGIC 
 // MAGIC USE CRIMES_DB;
 // MAGIC 
-// MAGIC DROP TABLE IF EXISTS CHICAGO_CRIMES_CURATED;
-// MAGIC CREATE TABLE CHICAGO_CRIMES_CURATED
+// MAGIC DROP TABLE IF EXISTS chicago_crimes_curated;
+// MAGIC CREATE TABLE chicago_crimes_curated
 // MAGIC USING parquet
-// MAGIC OPTIONS (path "/mnt/workshop/curated/crimes/chicago-crimes-data");
+// MAGIC OPTIONS (path "/mnt/workshop/curated/crimes/chicago-crimes");
 // MAGIC --USING org.apache.spark.sql.parquet
 // MAGIC 
-// MAGIC REFRESH TABLE CHICAGO_CRIMES_CURATED;
-// MAGIC ANALYZE TABLE CHICAGO_CRIMES_CURATED COMPUTE STATISTICS;
+// MAGIC REFRESH TABLE chicago_crimes_curated;
+// MAGIC ANALYZE TABLE chicago_crimes_curated COMPUTE STATISTICS;
 
 // COMMAND ----------
 
 // MAGIC %sql
-// MAGIC describe formatted crimes_db.CHICAGO_CRIMES_CURATED;
+// MAGIC describe formatted crimes_db.chicago_crimes_curated;
 
 // COMMAND ----------
 
 // MAGIC %sql
-// MAGIC --select * from crimes_db.CHICAGO_CRIMES_CURATED;
-// MAGIC select count(*) from crimes_db.CHICAGO_CRIMES_CURATED where primARY_type='THEFT';
+// MAGIC --select * from crimes_db.chicago_crimes_curated;
+// MAGIC select count(*) from crimes_db.chicago_crimes_curated where primary_type='THEFT';
 
 // COMMAND ----------
 
@@ -249,19 +249,19 @@ display(dbutils.fs.ls(dbfsDestDirPath))
 // COMMAND ----------
 
 // MAGIC %sql
-// MAGIC select * from CRIMES_DB.CHICAGO_CRIMES_CURATED;
+// MAGIC select * from crimes_db.chicago_crimes_curated;
 
 // COMMAND ----------
 
 // MAGIC %sql
-// MAGIC SELECT case_year, count(*) AS crime_count FROM CRIMES_DB.CHICAGO_CRIMES_CURATED 
+// MAGIC SELECT case_year, count(*) AS crime_count FROM crimes_db.chicago_crimes_curated 
 // MAGIC GROUP BY case_year ORDER BY case_year;
 
 // COMMAND ----------
 
 // MAGIC %sql
 // MAGIC SELECT CAST(case_year AS DATE) AS case_year, primary_type as case_type, count(*) AS crime_count 
-// MAGIC FROM CRIMES_DB.CHICAGO_CRIMES_CURATED 
+// MAGIC FROM crimes_db.chicago_crimes_curated 
 // MAGIC where primary_type in ('BATTERY','ASSAULT','CRIMINAL SEXUAL ASSAULT')
 // MAGIC GROUP BY case_year,case_type ORDER BY case_year;
 
