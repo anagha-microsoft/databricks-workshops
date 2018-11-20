@@ -29,10 +29,6 @@
 
 // COMMAND ----------
 
-//dbutils.fs.mkdirs("/mnt/workshop/scratch")
-
-// COMMAND ----------
-
 // MAGIC %md
 // MAGIC We got this errror because the directory already exists
 
