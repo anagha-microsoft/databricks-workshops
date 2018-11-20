@@ -11,7 +11,7 @@
 // MAGIC %md
 // MAGIC # 1.0. Azure Blob Storage
 // MAGIC 
-// MAGIC In the previous section, we mounted blob storage, we will use the scratchDir directory to learn with Databricks file system backed by Azure Blob Storage.
+// MAGIC In the previous section, we mounted blob storage, we will use the scratch directory for this exercise.
 // MAGIC The following are covered-
 // MAGIC 1.  Create a directory
 // MAGIC 2.  Download a file to local file system
@@ -29,7 +29,7 @@
 
 // COMMAND ----------
 
-//dbutils.fs.mkdirs("/mnt/data/workshop/scratchDir")
+//dbutils.fs.mkdirs("/mnt/workshop/scratch")
 
 // COMMAND ----------
 
@@ -38,7 +38,7 @@
 
 // COMMAND ----------
 
-display(dbutils.fs.ls("/mnt/data/workshop/scratchDir"))
+display(dbutils.fs.ls("/mnt/workshop/scratch"))
 
 // COMMAND ----------
 
@@ -72,7 +72,7 @@ display(dbutils.fs.ls("/mnt/data/workshop/scratchDir"))
 
 // COMMAND ----------
 
-dbutils.fs.cp("file:/tmp/If-By-Kipling.txt","/mnt/data/workshop/scratchDir/testDir/If-By-Kipling.txt")
+dbutils.fs.cp("file:/tmp/If-By-Kipling.txt","/mnt/workshop/scratch/test/If-By-Kipling.txt")
 
 
 // COMMAND ----------
@@ -82,7 +82,7 @@ dbutils.fs.cp("file:/tmp/If-By-Kipling.txt","/mnt/data/workshop/scratchDir/testD
 
 // COMMAND ----------
 
-display(dbutils.fs.ls("/mnt/data/workshop/scratchDir/testDir"))
+display(dbutils.fs.ls("/mnt/workshop/scratch/test"))
 
 // COMMAND ----------
 
@@ -104,16 +104,16 @@ dbutils.fs.rm("file:/tmp/If-By-Kipling.txt")
 
 // COMMAND ----------
 
-dbutils.fs.cp("/mnt/data/workshop/scratchDir/testDir/If-By-Kipling.txt","/mnt/data/workshop/scratchDir/testDir/If-By-Kipling-2.txt")
-dbutils.fs.cp("/mnt/data/workshop/scratchDir/testDir/If-By-Kipling.txt","/mnt/data/workshop/scratchDir/testDir/If-By-Kipling-3.txt")
-dbutils.fs.cp("/mnt/data/workshop/scratchDir/testDir/If-By-Kipling.txt","/mnt/data/workshop/scratchDir/testDir/If-By-Kipling-4.txt")
-dbutils.fs.cp("/mnt/data/workshop/scratchDir/testDir/If-By-Kipling.txt","/mnt/data/workshop/scratchDir/testDir/If-By-Kipling-5.txt")
-dbutils.fs.cp("/mnt/data/workshop/scratchDir/testDir/If-By-Kipling.txt","/mnt/data/workshop/scratchDir/testDir/If-By-Kipling-6.txt")
+dbutils.fs.cp("/mnt/workshop/scratch/test/If-By-Kipling.txt","/mnt/workshop/scratch/test/If-By-Kipling-2.txt")
+dbutils.fs.cp("/mnt/workshop/scratch/test/If-By-Kipling.txt","/mnt/workshop/scratch/test/If-By-Kipling-3.txt")
+dbutils.fs.cp("/mnt/workshop/scratch/test/If-By-Kipling.txt","/mnt/workshop/scratch/test/If-By-Kipling-4.txt")
+dbutils.fs.cp("/mnt/workshop/scratch/test/If-By-Kipling.txt","/mnt/workshop/scratch/test/If-By-Kipling-5.txt")
+dbutils.fs.cp("/mnt/workshop/scratch/test/If-By-Kipling.txt","/mnt/workshop/scratch/test/If-By-Kipling-6.txt")
 
 // COMMAND ----------
 
 // MAGIC %fs
-// MAGIC ls /mnt/data/workshop/scratchDir/testDir/
+// MAGIC ls /mnt/workshop/scratch/test/
 
 // COMMAND ----------
 
@@ -122,11 +122,11 @@ dbutils.fs.cp("/mnt/data/workshop/scratchDir/testDir/If-By-Kipling.txt","/mnt/da
 
 // COMMAND ----------
 
-dbutils.fs.rm("/mnt/data/workshop/scratchDir/testDir/If-By-Kipling-6.txt")
+dbutils.fs.rm("/mnt/workshop/scratch/test/If-By-Kipling-6.txt")
 
 // COMMAND ----------
 
-display(dbutils.fs.ls("/mnt/data/workshop/scratchDir/testDir/"))
+display(dbutils.fs.ls("/mnt/workshop/scratch/test/"))
 
 // COMMAND ----------
 
@@ -135,8 +135,8 @@ display(dbutils.fs.ls("/mnt/data/workshop/scratchDir/testDir/"))
 
 // COMMAND ----------
 
-dbutils.fs.rm("/mnt/data/workshop/scratchDir/testDir/",recurse=true)
+dbutils.fs.rm("/mnt/workshop/scratch/test/",recurse=true)
 
 // COMMAND ----------
 
-display(dbutils.fs.ls("/mnt/data/workshop/scratchDir/"))
+display(dbutils.fs.ls("/mnt/workshop/scratch/"))
