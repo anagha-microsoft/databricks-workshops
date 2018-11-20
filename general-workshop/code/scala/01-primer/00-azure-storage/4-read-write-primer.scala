@@ -114,7 +114,7 @@ sourceDF.show
 
 //5) Persist as parquet to raw zone
 dbutils.fs.rm(dbfsDestDirPath, recurse=true)
-sourceDF.coalesce(1).write.parquet(dbfsDestDirPath)
+sourceDF.coalesce(2).write.parquet(dbfsDestDirPath)
 
 //6) Delete residual files from job operation (_SUCCESS, _start*, _committed*)
 import com.databricks.backend.daemon.dbutils.FileInfo
@@ -201,7 +201,7 @@ curatedDF.show()
 //2) Persist as parquet to curated storage zone
 val dbfsDestDirPath="/mnt/workshop/curated/crimes/chicago-crimes-data"
 dbutils.fs.rm(dbfsDestDirPath, recurse=true)
-curatedDF.coalesce(1).write.parquet(dbfsDestDirPath)
+curatedDF.coalesce(2).write.parquet(dbfsDestDirPath)
 
 //3) Delete residual files from job operation (_SUCCESS, _start*, _committed*)
 import com.databricks.backend.daemon.dbutils.FileInfo
