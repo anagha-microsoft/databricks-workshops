@@ -1,6 +1,6 @@
 // Databricks notebook source
 // MAGIC %md
-// MAGIC # Azure Event Hub: Consumer primer
+// MAGIC # Azure Event Hub: Stream consumer primer
 // MAGIC 
 // MAGIC ### What's in this exercise?
 // MAGIC We will leverage structured streaming to ingest crime data from Azure Event Hub and persist to DBFS, to Delta.<br>
@@ -104,10 +104,10 @@ consumableDF.printSchema
 // COMMAND ----------
 
 // 4) Destination directory for delta table, and for checkpoints
-val dbfsDestDirPath="/mnt/data/workshop/curatedDir/crimes/chicago-crimes-stream-delta-aeh/"
+val dbfsDestDirPath="/mnt/workshop/curated/crimes/chicago-crimes-stream-delta-aeh/"
 
 // 5) AEH checkpoint related
-val dbfsCheckpointDirPath="/mnt/data/workshop/scratchDir/checkpoints-crimes-aeh-sub/"
+val dbfsCheckpointDirPath="/mnt/workshop/scratch/checkpoints-crimes-aeh-sub/"
 
 
 // 6) Remove output from prior execution
