@@ -75,7 +75,7 @@ mountStorageContainer(storageAccountName,storageAccountAccessKey,"consumption","
 // COMMAND ----------
 
 //Display directories
-display(dbutils.fs.ls("/mnt/data/workshop"))
+display(dbutils.fs.ls("/mnt/workshop"))
 
 // COMMAND ----------
 
