@@ -101,7 +101,7 @@ val dbfsDestDirPath="/mnt/workshop/curated/crimes/chicago-crimes-batch-delta-kaf
 //2) Remove output from prior execution
 dbutils.fs.rm(dbfsDestDirPath, recurse=true)
 
-//3) Persist as delta format (Parquet) to curated zone to a delta table
+//3) Persist as delta format (Parquet) to the curated zone 
 consumableDF.write.format("delta").mode("overwrite").save(dbfsDestDirPath)
 
 // COMMAND ----------
@@ -112,12 +112,12 @@ consumableDF.write.format("delta").mode("overwrite").save(dbfsDestDirPath)
 // COMMAND ----------
 
 // MAGIC %sql
-// MAGIC CREATE DATABASE IF NOT EXISTS crimes_db;
+// MAGIC CREATE DATABASE IF NOT EXISTS crimes_delta_db;
 // MAGIC 
-// MAGIC USE crimes_db;
+// MAGIC USE crimes_delta_db;
 // MAGIC 
-// MAGIC DROP TABLE IF EXISTS chicago_crimes_delta_kafka_batch;
-// MAGIC CREATE TABLE chicago_crimes_delta_kafka_batch
+// MAGIC DROP TABLE IF EXISTS chicago_crimes_batch_kafka;
+// MAGIC CREATE TABLE chicago_crimes_batch_kafka
 // MAGIC USING DELTA
 // MAGIC LOCATION '/mnt/workshop/curated/crimes/chicago-crimes-batch-delta-kafka/';
 
@@ -130,9 +130,9 @@ consumableDF.write.format("delta").mode("overwrite").save(dbfsDestDirPath)
 
 // MAGIC %sql 
 // MAGIC --Took the author 2 minutes for 1.5 GB of data/6.7 M rows
-// MAGIC OPTIMIZE crimes_db.chicago_crimes_delta_kafka_batch;
+// MAGIC OPTIMIZE crimes_delta_db.chicago_crimes_batch_kafka;
 
 // COMMAND ----------
 
 // MAGIC %sql
-// MAGIC select * from crimes_db.chicago_crimes_delta_kafka_batch;
+// MAGIC select * from crimes_delta_db.chicago_crimes_batch_kafka;
