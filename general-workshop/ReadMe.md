@@ -35,4 +35,4 @@ This is a *batch focused* module and covers-<br>
 7.  Create a batch job to automate report generation in Spark and and integration with reporting datamart for BI<br>
 
 ## Next
-Provisioning guide
+[Provisioning guide](docs/ProvisioningGuide.md)
