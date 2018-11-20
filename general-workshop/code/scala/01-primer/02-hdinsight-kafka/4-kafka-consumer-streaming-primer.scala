@@ -99,10 +99,10 @@ consumableDF.printSchema
 // COMMAND ----------
 
 //1) Destination directory for delta table, and for checkpoints
-val dbfsDestDirPath="/mnt/data/workshop/curatedDir/chicago-crimes-data-delta-kafka-streaming"
-val dbfsCheckpointDirPath="/mnt/data/workshop/scratchDir/checkpoints-crimes-kafka-sub/"
+val dbfsDestDirPath="/mnt/workshop/curated/crimes/chicago-crimes-stream-delta-kafka/"
+val dbfsCheckpointDirPath="/mnt/workshop/scratch/checkpoints-crimes-kafka-sub/"
 
-//2) Remove output from prior execution
+//2) Remove output from prior execution as required
 dbutils.fs.rm(dbfsDestDirPath, recurse=true)
 dbutils.fs.rm(dbfsCheckpointDirPath, recurse=true)
 
