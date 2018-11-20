@@ -29,7 +29,7 @@ This is a *batch focused* module and covers-<br>
 (i) Organizing data in the file system (ADLS gen2) - best practices, directory layout, mount storage etc<br>
 (ii) Load transaction data, reference data - persist to Parquet format, create external tables for the RAW zone<br>
 (iii) Transform data - cleanse, de-duplicate, apply business logic and derive/transform and persist to Parquet; Map disparate schemas to a canonical data model; Create external tables in the CURATED zone<br>
-(iv) Create denormalized, materialized views (tables) in Delta/Parquet and persist to CONSUMPTION zone of storage; The layer will give the best performance from a storage and query perspective.  Create external tables on the datasets.<br>  
+(iv) Create denormalized, materialized views (tables) in Delta/Parquet and persist to CONSUMPTION zone of storage; The layer will give the best performance from a storage and query perspective.  Create external tables on the datasets
 (v) Generate canned reports & visualization, and persist to Parquet to the DISTRIBUTION zone of storage<br>
 (vi) Integrate reports generated to a reporting datamart RDBMS<br>
 (vii) Create a batch job to automate report generation in Spark and and integration with reporting datamart for BI<br>
