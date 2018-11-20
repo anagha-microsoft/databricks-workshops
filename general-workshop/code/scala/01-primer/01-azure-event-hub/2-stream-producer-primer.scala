@@ -32,6 +32,10 @@ val eventHubsConfWrite = EventHubsConf(connectionString)
 
 // COMMAND ----------
 
+val sourceDataDir = "/mnt/workshop/curated/crimes/chicago-crimes-data"
+
+// COMMAND ----------
+
 // 2) Define schema for the crime data
 import org.apache.spark.sql.types.{StructType, StructField, StringType, IntegerType,LongType,FloatType,DoubleType, TimestampType,BooleanType}
 
@@ -68,7 +72,7 @@ val crimesSchema = StructType(Array(
 // COMMAND ----------
 
 // 3a) Lets check out source to ensure we have the data we need
-val sourceDF = spark.read.schema(crimesSchema).load("/mnt/data/workshop/curatedDir/crimes/chicago-crimes-data")
+val sourceDF = spark.read.schema(crimesSchema).load(sourceDataDir)
 
 // 3b) Materialize
 sourceDF.show
@@ -77,7 +81,7 @@ sourceDF.show
 
 // 4) Using structured streaming, read from storage into a dataframe
 // Get the location of the curated crimes data from the storage lab - we will need to load from there
-val sourceDF = spark.readStream.schema(crimesSchema).load("/mnt/data/workshop/curatedDir/crimes/chicago-crimes-data")
+val sourceDF = spark.readStream.schema(crimesSchema).load(sourceDataDir)
 
 // COMMAND ----------
 
@@ -115,7 +119,7 @@ import org.apache.spark.sql.types._
 import org.apache.spark.sql.functions._
 
 // 8) Create a checkpoint directory 
-val dbfsCheckpointDirPath="/mnt/data/workshop/scratchDir/checkpoints-crimes-aeh-pub/"
+val dbfsCheckpointDirPath="/mnt/workshop/scratch/checkpoints-crimes-aeh-pub/"
 dbutils.fs.rm(dbfsCheckpointDirPath, recurse=true)
 
 // COMMAND ----------
