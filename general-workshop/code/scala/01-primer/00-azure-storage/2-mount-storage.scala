@@ -21,7 +21,7 @@ val storageAccountAccessKey = dbutils.secrets.get(scope = "ws-blob-storage", key
 // COMMAND ----------
 
 // MAGIC %fs
-// MAGIC mkdirs /mnt/data/workshop
+// MAGIC mkdirs /mnt/workshop
 
 // COMMAND ----------
 
@@ -33,7 +33,7 @@ val storageAccountAccessKey = dbutils.secrets.get(scope = "ws-blob-storage", key
 /*
 dbutils.fs.mount(
   source = "wasbs://scratch@generalworkshopsa.blob.core.windows.net/",
-  mountPoint = "/mnt/data/workshop/scratchDir",
+  mountPoint = "/mnt/workshop/scratch",
   extraConfigs = Map(storageAccountName -> storageAccountAccessKey))
   */
 
@@ -65,12 +65,12 @@ def mountStorageContainer(storageAccount: String, storageAccountKey: String, sto
 
 // COMMAND ----------
 
-mountStorageContainer(storageAccountName,storageAccountAccessKey,"demo","/mnt/data/workshop/demoDir")
-mountStorageContainer(storageAccountName,storageAccountAccessKey,"scratch","/mnt/data/workshop/scratchDir")
-mountStorageContainer(storageAccountName,storageAccountAccessKey,"staging","/mnt/data/workshop/stagingDir")
-mountStorageContainer(storageAccountName,storageAccountAccessKey,"raw","/mnt/data/workshop/rawDir")
-mountStorageContainer(storageAccountName,storageAccountAccessKey,"curated","/mnt/data/workshop/curatedDir")
-mountStorageContainer(storageAccountName,storageAccountAccessKey,"consumption","/mnt/data/workshop/consumptionDir")
+mountStorageContainer(storageAccountName,storageAccountAccessKey,"demo","/mnt/workshop/demo")
+mountStorageContainer(storageAccountName,storageAccountAccessKey,"scratch","/mnt/workshop/scratch")
+mountStorageContainer(storageAccountName,storageAccountAccessKey,"staging","/mnt/workshop/staging")
+mountStorageContainer(storageAccountName,storageAccountAccessKey,"raw","/mnt/workshop/raw")
+mountStorageContainer(storageAccountName,storageAccountAccessKey,"curated","/mnt/workshop/curated")
+mountStorageContainer(storageAccountName,storageAccountAccessKey,"consumption","/mnt/workshop/consumption")
 
 // COMMAND ----------
 
@@ -94,4 +94,4 @@ display(dbutils.fs.ls("/mnt/data/workshop"))
 
 // COMMAND ----------
 
-//dbutils.fs.unmount("<yourMountPoint>")
+//dbutils.fs.unmount(<yourMountPoint>)
