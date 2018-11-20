@@ -1,4 +1,9 @@
 // Databricks notebook source
+// MAGIC %md 
+// MAGIC # Kafka setup for the workshop
+
+// COMMAND ----------
+
 // MAGIC %md
 // MAGIC ### 1.  Setup to allow Databricks and HDInsight Kafka to communicate
 
