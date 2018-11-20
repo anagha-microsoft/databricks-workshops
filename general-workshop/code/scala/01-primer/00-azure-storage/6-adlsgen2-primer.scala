@@ -39,11 +39,23 @@ spark.conf.set("fs.azure.createRemoteFileSystemDuringInitialization", "true")
 // COMMAND ----------
 
 // MAGIC %md
-// MAGIC ### 2.0. Create root file system
+// MAGIC ### 2.0. Create root file system for each information zone
 
 // COMMAND ----------
 
-dbutils.fs.mkdirs("abfss://dbfs-root@adlsgen2sa.dfs.core.windows.net/")
+dbutils.fs.mkdirs("abfss://staging@adlsgen2sa.dfs.core.windows.net/")
+dbutils.fs.mkdirs("abfss://scratch@adlsgen2sa.dfs.core.windows.net/")
+dbutils.fs.mkdirs("abfss://raw@adlsgen2sa.dfs.core.windows.net/")
+dbutils.fs.mkdirs("abfss://curated@adlsgen2sa.dfs.core.windows.net/")
+dbutils.fs.mkdirs("abfss://consumption@adlsgen2sa.dfs.core.windows.net/")
+dbutils.fs.mkdirs("abfss://distribution@adlsgen2sa.dfs.core.windows.net/")
+
+// COMMAND ----------
+
+/*dbutils.fs.mount(
+    source = "abfss://staging@adlsgen2sa.dfs.core.windows.net/",
+    mountPoint = "/mnt/data/staging",
+    extraConfigs = Map("fs.azure.account.key.adlsgen2sa.dfs.core.windows.net" -> dbutils.secrets.get(scope = "ws-adlsgen2-storage", key = "storage-acct-key")))*/
 
 // COMMAND ----------
 
@@ -52,11 +64,11 @@ dbutils.fs.mkdirs("abfss://dbfs-root@adlsgen2sa.dfs.core.windows.net/")
 
 // COMMAND ----------
 
-dbutils.fs.mkdirs("abfss://dbfs-root@adlsgen2sa.dfs.core.windows.net/raw")
+dbutils.fs.mkdirs("abfss://scratch@adlsgen2sa.dfs.core.windows.net/test")
 
 // COMMAND ----------
 
-display(dbutils.fs.ls("abfss://dbfs-root@adlsgen2sa.dfs.core.windows.net/"))
+display(dbutils.fs.ls("abfss://scratch@adlsgen2sa.dfs.core.windows.net/"))
 
 // COMMAND ----------
 
@@ -84,7 +96,7 @@ booksDF.show
 // COMMAND ----------
 
 //Destination directory for Delta table
-val deltaTableDirectory = "abfss://base-dbfs@adlsgen2sa.dfs.core.windows.net/raw/books"
+val deltaTableDirectory = "abfss://scratch@adlsgen2sa.dfs.core.windows.net/books"
 dbutils.fs.rm(deltaTableDirectory, recurse=true)
 
 //Persist dataframe to delta format without coalescing
@@ -104,7 +116,7 @@ booksDF.write.format("delta").save(deltaTableDirectory)
 // MAGIC DROP TABLE IF EXISTS books;
 // MAGIC CREATE TABLE books
 // MAGIC USING DELTA
-// MAGIC LOCATION "abfss://base-dbfs@adlsgen2sa.dfs.core.windows.net/raw/books";
+// MAGIC LOCATION "abfss://scratch@adlsgen2sa.dfs.core.windows.net/books";
 
 // COMMAND ----------
 
