@@ -8,10 +8,10 @@ Architects and Data engineers<br>
 ##  Pre-requisite knowledge:
 Prior knowledge of Spark, will be beneficial<br>
 
-**Azure pre-requisites:**<br>
+## Azure pre-requisites:
 A subscription with at least $200 credit for a continuous 10-14 hours of usage.<br>
 
-**1.  Module 01-Primer (Scala):** <br>
+## 1.  Module 01-Primer (Scala):
 This module covers integrating with Azure Data Services from Spark on Databricks.<br>
 At the end of this module, you will know how to provision and itegrate from Spark with-<br>
 (i) Azure storage - blob storage and ADLS gen2; Includes Databricks Delta as well<br>
@@ -24,7 +24,7 @@ At the end of this module, you will know how to provision and itegrate from Spar
 
 The Chicago crimes dataset is leveraged in the labs.
 
-**2.  Module 02-Data engineering workshop (Scala):** <br>
+## 2.  Module 02-Data engineering workshop (Scala):
 This is a *batch focused* module and covers-<br>
 (i) Organizing data in the file system (ADLS gen2) - best practices, directory layout, mount storage etc<br>
 (ii) Load transaction data, reference data - persist to Parquet format, create external tables for the RAW zone<br>
