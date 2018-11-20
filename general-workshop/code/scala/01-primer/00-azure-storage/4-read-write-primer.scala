@@ -68,7 +68,7 @@ display(dbutils.fs.ls(localFile))
 // COMMAND ----------
 
 //1) Create destination directory
-val dbfsDirPath="/mnt/data/workshop/stagingDir/crimes/chicago-crimes-data"
+val dbfsDirPath="/mnt/workshop/staging/crimes/chicago-crimes-data"
 dbutils.fs.rm(dbfsDirPath, recurse=true)
 dbutils.fs.mkdirs(dbfsDirPath)
 
@@ -91,10 +91,10 @@ display(dbutils.fs.ls(dbfsDirPath))
 // COMMAND ----------
 
 //1) Source directory
-val dbfsSrcDirPath="/mnt/data/workshop/stagingDir/crimes/chicago-crimes-data"
+val dbfsSrcDirPath="/mnt/workshop/staging/crimes/chicago-crimes-data"
 
 //2) Destination directory
-val dbfsDestDirPath="/mnt/data/workshop/rawDir/crimes/chicago-crimes-data"
+val dbfsDestDirPath="/mnt/workshop/raw/crimes/chicago-crimes-data"
 
 // COMMAND ----------
 
@@ -140,7 +140,7 @@ display(dbutils.fs.ls(dbfsDestDirPath))
 // MAGIC DROP TABLE IF EXISTS CHICAGO_CRIMES_RAW;
 // MAGIC CREATE TABLE IF NOT EXISTS CHICAGO_CRIMES_RAW
 // MAGIC USING parquet
-// MAGIC OPTIONS (path "/mnt/data/workshop/rawDir/crimes/chicago-crimes-data");
+// MAGIC OPTIONS (path "/mnt/workshop/raw/crimes/chicago-crimes-data");
 // MAGIC --USING org.apache.spark.sql.parquet
 // MAGIC 
 // MAGIC ANALYZE TABLE CHICAGO_CRIMES_RAW COMPUTE STATISTICS;
@@ -199,7 +199,7 @@ curatedDF.show()
 // COMMAND ----------
 
 //2) Persist as parquet to curated storage zone
-val dbfsDestDirPath="/mnt/data/workshop/curatedDir/crimes/chicago-crimes-data"
+val dbfsDestDirPath="/mnt/workshop/curated/crimes/chicago-crimes-data"
 dbutils.fs.rm(dbfsDestDirPath, recurse=true)
 curatedDF.coalesce(1).write.parquet(dbfsDestDirPath)
 
@@ -223,11 +223,22 @@ display(dbutils.fs.ls(dbfsDestDirPath))
 // MAGIC DROP TABLE IF EXISTS CHICAGO_CRIMES_CURATED;
 // MAGIC CREATE TABLE CHICAGO_CRIMES_CURATED
 // MAGIC USING parquet
-// MAGIC OPTIONS (path "/mnt/data/workshop/curatedDir/crimes/chicago-crimes-data");
+// MAGIC OPTIONS (path "/mnt/workshop/curated/crimes/chicago-crimes-data");
 // MAGIC --USING org.apache.spark.sql.parquet
 // MAGIC 
 // MAGIC REFRESH TABLE CHICAGO_CRIMES_CURATED;
 // MAGIC ANALYZE TABLE CHICAGO_CRIMES_CURATED COMPUTE STATISTICS;
+
+// COMMAND ----------
+
+// MAGIC %sql
+// MAGIC describe formatted crimes_db.CHICAGO_CRIMES_CURATED;
+
+// COMMAND ----------
+
+// MAGIC %sql
+// MAGIC --select * from crimes_db.CHICAGO_CRIMES_CURATED;
+// MAGIC select count(*) from crimes_db.CHICAGO_CRIMES_CURATED where primARY_type='THEFT';
 
 // COMMAND ----------
 
