@@ -20,8 +20,9 @@ For the workshop, we will need to provision multiple resources/services.  Many o
 Create a resource group called "gws-rg" into which we will provision all other Azure resources.<br>
 https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-portal
 
-## 2.  Provision a virtual network
-We will an Azure Vnet in #2. 
+## 2.  Provision a virtual network (Vnet)
+Create Azure Vnet in #2. <br>
+https://docs.microsoft.com/en-us/azure/virtual-network/quick-create-portal#create-a-virtual-network
 
 ## 3.  Provision Azure Databricks
 We will provision Azure Databricks in the Vnet we created in #2.  We will then peer the Dataricks service provisioned Vnet with the Vnet from #2 for access.  We will discuss Vnet injection.
@@ -36,7 +37,10 @@ We will provision an Azure Lake Store Gen 2 account.
 We will provision Azure Event Hub, and a consumer group.  We will set up SAS poliies for access, and capture the credentials required for access from Spark. 
 
 ## 7.  Provision Azure HDInsight Kafka
-We will provision a Kafka cluster in the Vnet from #2.  We will enable Kafka to advertise private IPs, and configure it to listen on all network interfaces. We will then create a Kafka topic.  Finally - we will capture the Kafka broker private IP addresses for use from Spark.
+We will provision a Kafka cluster in the Vnet from #2.  We will enable Kafka to advertise private IPs, and configure it to listen on all network interfaces. We will then create a Kafka topic.  Finally - we will capture the Kafka broker private IP addresses for use from Spark.<br>
+Provisioning: https://docs.microsoft.com/en-us/azure/hdinsight/kafka/apache-kafka-get-started#create-an-apache-kafka-cluster
+Broadcast IP addresses, configure listener: https://docs.microsoft.com/en-us/azure/hdinsight/kafka/apache-kafka-connect-vpn-gateway#configure-kafka-for-ip-advertising
+
 
 ## 8.  Provision Azure SQL Database
 We will provision a logical database server, and an Azure SQL Database within the server.  We will configure the firewall to allow our machine to access, and also enable access to the Dataricks Vnet.  We will capture credentials for access from Databricks.
