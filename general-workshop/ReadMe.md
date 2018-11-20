@@ -2,10 +2,10 @@
 
 This is a multi-part workshop in Spark on Databricks. It covers basics of working with Azure Data Services from Spark on Databricks, followed by an end-to-end data engineering workshop with the NYC Taxi dataset.<br>
 <br>
-##**Target audience:**<br>
+## Target audience:
 Architects and Data engineers<br>
 
-##**Pre-requisite knowledge:**<br>
+##  Pre-requisite knowledge:
 Prior knowledge of Spark, will be beneficial<br>
 
 **Azure pre-requisites:**<br>
