@@ -34,7 +34,7 @@ val kafkaSourceDF = spark
   .option("kafka.bootstrap.servers", kafkaBrokerAndPortCSV)
   .option("subscribe", kafkaTopic)
   .option("kafka.group.id","workshop_streaming")
-  .option("startingOffsets", "latest")
+  .option("startingOffsets", "earliest")
   .option("failOnDataLoss", "true")
   .load()
 
