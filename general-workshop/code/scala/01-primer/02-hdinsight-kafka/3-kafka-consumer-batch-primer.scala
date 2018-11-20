@@ -96,7 +96,7 @@ consumableDF.printSchema
 //Took the author 7.5 minutes
 
 //1) Destination directory for delta table
-val dbfsDestDirPath="/mnt/workshop/curated/crimes/chicago-crimes-stream-delta-kafka/"
+val dbfsDestDirPath="/mnt/workshop/curated/crimes/chicago-crimes-batch-delta-kafka/"
 
 //2) Remove output from prior execution
 dbutils.fs.rm(dbfsDestDirPath, recurse=true)
@@ -112,7 +112,6 @@ consumableDF.write.format("delta").mode("overwrite").save(dbfsDestDirPath)
 // COMMAND ----------
 
 // MAGIC %sql
-// MAGIC --Took the author 2 minutes for 1.5 GB of data/6.7 M rows
 // MAGIC CREATE DATABASE IF NOT EXISTS crimes_db;
 // MAGIC 
 // MAGIC USE crimes_db;
@@ -120,7 +119,7 @@ consumableDF.write.format("delta").mode("overwrite").save(dbfsDestDirPath)
 // MAGIC DROP TABLE IF EXISTS chicago_crimes_delta_kafka_batch;
 // MAGIC CREATE TABLE chicago_crimes_delta_kafka_batch
 // MAGIC USING DELTA
-// MAGIC LOCATION '/mnt/workshop/curated/crimes/chicago-crimes-stream-delta-kafka/';
+// MAGIC LOCATION '/mnt/workshop/curated/crimes/chicago-crimes-batch-delta-kafka/';
 
 // COMMAND ----------
 
@@ -129,7 +128,9 @@ consumableDF.write.format("delta").mode("overwrite").save(dbfsDestDirPath)
 
 // COMMAND ----------
 
-// MAGIC %sql OPTIMIZE crimes_db.chicago_crimes_delta_kafka_batch;
+// MAGIC %sql 
+// MAGIC --Took the author 2 minutes for 1.5 GB of data/6.7 M rows
+// MAGIC OPTIMIZE crimes_db.chicago_crimes_delta_kafka_batch;
 
 // COMMAND ----------
 
