@@ -28,7 +28,7 @@
 // MAGIC DROP TABLE IF EXISTS crimes_chicago_delta_stream;
 // MAGIC CREATE TABLE crimes_chicago_delta_stream
 // MAGIC USING DELTA
-// MAGIC LOCATION "/mnt/data/workshop/curatedDir/crimes/chicago-crimes-stream-delta-aeh/";
+// MAGIC LOCATION "/mnt/workshop/curated/crimes/chicago-crimes-stream-delta-aeh/";
 
 // COMMAND ----------
 
@@ -61,7 +61,7 @@
 // COMMAND ----------
 
 //The myriads of files
-display(dbutils.fs.ls("/mnt/data/workshop/curatedDir/crimes/chicago-crimes-stream-delta-aeh/"))
+display(dbutils.fs.ls("/mnt/workshop/curated/crimes/chicago-crimes-stream-delta-aeh/"))
 
 // COMMAND ----------
 
