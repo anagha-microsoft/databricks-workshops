@@ -14,8 +14,11 @@ For the workshop, we will need to provision multiple resources/services.  Many o
 10.   Azure Cosmos DB (for the primer only)<br>
 11.  Azure Key Vault (for the primer only)<br>
 
+**Note**: All resources shoud be **provisioned in the same datacenter**.<br>
+
 ## 1. Provision a resource group
-We will create a resource group into which we will provision all other Azure resources.
+Create a resource group called "gws-rg" into which we will provision all other Azure resources.<br>
+https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-portal
 
 ## 2.  Provision a virtual network
 We will an Azure Vnet in #2. 
