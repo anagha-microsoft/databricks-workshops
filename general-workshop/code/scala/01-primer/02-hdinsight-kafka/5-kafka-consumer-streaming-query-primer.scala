@@ -22,14 +22,12 @@
 
 // MAGIC %sql
 // MAGIC --Took the author 2 minutes for 1.5 GB of data/6.7 M rows
-// MAGIC CREATE DATABASE IF NOT EXISTS crimes_db;
+// MAGIC CREATE DATABASE IF NOT EXISTS crimes_delta_db;
 // MAGIC 
-// MAGIC USE crimes_db;
-// MAGIC 
-// MAGIC DROP TABLE IF EXISTS chicago_crimes_delta_kafka_streaming;
-// MAGIC CREATE TABLE chicago_crimes_delta_kafka_streaming
+// MAGIC DROP TABLE IF EXISTS crimes_delta_db.chicago_crimes_stream_kafka;
+// MAGIC CREATE TABLE crimes_delta_db.chicago_crimes_stream_kafka
 // MAGIC USING DELTA
-// MAGIC LOCATION '/mnt/data/workshop/curatedDir/chicago-crimes-data-delta-kafka-streaming';
+// MAGIC LOCATION '/mnt/workshop/curated/crimes/chicago-crimes-stream-delta-kafka/';
 
 // COMMAND ----------
 
@@ -39,12 +37,12 @@
 // COMMAND ----------
 
 // MAGIC %sql
-// MAGIC select count(*) from chicago_crimes_delta_kafka_streaming;
+// MAGIC select count(*) from crimes_delta_db.chicago_crimes_stream_kafka;
 
 // COMMAND ----------
 
 // MAGIC %sql
-// MAGIC select * from chicago_crimes_delta_kafka_streaming;
+// MAGIC select * from crimes_delta_db.chicago_crimes_stream_kafka;
 
 // COMMAND ----------
 
@@ -54,11 +52,11 @@
 // COMMAND ----------
 
 //1) Lets look at part file count
-display(dbutils.fs.ls("/mnt/data/workshop/curatedDir/chicago-crimes-data-delta-kafka-streaming"))
+display(dbutils.fs.ls("/mnt/workshop/curated/crimes/chicago-crimes-stream-delta-kafka/"))
 
 // COMMAND ----------
 
-// MAGIC %sql DESCRIBE DETAIL crimes_db.chicago_crimes_delta_kafka_streaming;
+// MAGIC %sql DESCRIBE DETAIL crimes_delta_db.chicago_crimes_stream_kafka;
 // MAGIC --Lets run DESCRIBE DETAIL 
 // MAGIC --Review numFiles 
 
@@ -66,15 +64,15 @@ display(dbutils.fs.ls("/mnt/data/workshop/curatedDir/chicago-crimes-data-delta-k
 
 // MAGIC %sql
 // MAGIC --Now, lets run optimize
-// MAGIC OPTIMIZE chicago_crimes_delta_kafka_streaming;
+// MAGIC OPTIMIZE crimes_delta_db.chicago_crimes_stream_kafka;
 
 // COMMAND ----------
 
-// MAGIC %sql DESCRIBE DETAIL chicago_crimes_delta_kafka_streaming;
+// MAGIC %sql DESCRIBE DETAIL crimes_delta_db.chicago_crimes_stream_kafka;
 // MAGIC --Notice the number of files now 
 
 // COMMAND ----------
 
 //Lets look at the part file count
 //Guess why?
-display(dbutils.fs.ls("/mnt/data/workshop/curatedDir/chicago-crimes-data-delta-kafka-streaming"))
+display(dbutils.fs.ls("/mnt/workshop/curated/crimes/chicago-crimes-stream-delta-kafka/"))
