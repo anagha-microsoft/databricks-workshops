@@ -25,8 +25,8 @@
 // MAGIC CREATE DATABASE IF NOT EXISTS crimes_db;
 // MAGIC 
 // MAGIC USE crimes_db;
-// MAGIC DROP TABLE IF EXISTS crimes_chicago_delta_stream;
-// MAGIC CREATE TABLE crimes_chicago_delta_stream
+// MAGIC DROP TABLE IF EXISTS crimes_chicago_delta_stream_aeh;
+// MAGIC CREATE TABLE crimes_chicago_delta_stream_aeh
 // MAGIC USING DELTA
 // MAGIC LOCATION "/mnt/workshop/curated/crimes/chicago-crimes-stream-delta-aeh/";
 
@@ -48,7 +48,7 @@
 // MAGIC %sql
 // MAGIC --Repeated runs will show the count incrementing
 // MAGIC USE crimes_db;
-// MAGIC SELECT count(*) from crimes_chicago_delta_stream;
+// MAGIC SELECT count(*) from crimes_chicago_delta_stream_aeh;
 
 // COMMAND ----------
 
@@ -67,16 +67,16 @@ display(dbutils.fs.ls("/mnt/workshop/curated/crimes/chicago-crimes-stream-delta-
 
 // MAGIC %sql 
 // MAGIC --Number of files at query execution time
-// MAGIC DESCRIBE DETAIL crimes_db.crimes_chicago_delta_stream;
+// MAGIC DESCRIBE DETAIL crimes_db.crimes_chicago_delta_stream_aeh;
 
 // COMMAND ----------
 
 // MAGIC %sql
 // MAGIC --Run compaction
-// MAGIC OPTIMIZE crimes_db.crimes_chicago_delta_stream;
+// MAGIC OPTIMIZE crimes_db.crimes_chicago_delta_stream_aeh;
 
 // COMMAND ----------
 
 // MAGIC %sql 
 // MAGIC --Recheck file count
-// MAGIC DESCRIBE DETAIL crimes_db.crimes_chicago_delta_stream;
+// MAGIC DESCRIBE DETAIL crimes_db.crimes_chicago_delta_stream_aeh;
