@@ -1,6 +1,6 @@
 // Databricks notebook source
 // MAGIC %md
-// MAGIC # HDInsight-Kafka: Querying a Delta table being streamed with data- primer
+// MAGIC # HDInsight-Kafka: Querying a streaming Delta table- primer
 // MAGIC 
 // MAGIC ### What's in this exercise?
 // MAGIC We will query a Delta table and review operations of importance WRT Delta in the streaming context
