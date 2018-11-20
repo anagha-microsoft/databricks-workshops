@@ -17,9 +17,9 @@ At the end of this module, you will know how to provision, configure, and integr
 1.  Azure storage - blob storage and ADLS gen2; Includes Databricks Delta as well<br>
 2.  Azure Event Hub - publish and subscribe, with structured streaming; Includes Databricks Delta<br>
 3.  HDInsight Kafka - publish and subscribe, with structured streaming<br>
-4.  Azure SQL database - read/write primer in batch and streaming<br>
-5.  Azure SQL datawarehouse - read/write primer in batch and streaming<br>
-6.  Azure Cosmos DB - read/write primer in batch and streaming; Includes streaming aggregation computation<br>
+4.  Azure SQL database - read/write primer in batch and structured streaming<br>
+5.  Azure SQL datawarehouse - read/write primer in batch and structured streaming<br>
+6.  Azure Cosmos DB - read/write primer in batch and structured streaming; Includes structured streaming aggregation computation<br>
 7.  PowerBI - basics of integration and visualization<br><br>
 
 The Chicago crimes dataset is leveraged in the labs.
