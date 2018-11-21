@@ -215,7 +215,6 @@ display(dbutils.fs.ls(dbfsDestDirPath))
 // COMMAND ----------
 
 // MAGIC %sql
-// MAGIC 
 // MAGIC CREATE DATABASE IF NOT EXISTS CRIMES_DB;
 // MAGIC 
 // MAGIC USE CRIMES_DB;
