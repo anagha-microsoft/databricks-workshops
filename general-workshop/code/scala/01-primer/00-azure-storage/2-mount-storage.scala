@@ -15,8 +15,9 @@
 
 // COMMAND ----------
 
-val storageAccountName = "generalworkshopsa"
-val storageAccountAccessKey = dbutils.secrets.get(scope = "ws-blob-storage", key = "storage-acct-key")
+//Replace with your storage account name
+val storageAccountName = "gwsblobsa"
+val storageAccountAccessKey = dbutils.secrets.get(scope = "gws-blob-storage", key = "storage-acct-key")
 
 // COMMAND ----------
 
@@ -35,7 +36,7 @@ dbutils.fs.mount(
   source = "wasbs://scratch@generalworkshopsa.blob.core.windows.net/",
   mountPoint = "/mnt/workshop/scratch",
   extraConfigs = Map(storageAccountName -> storageAccountAccessKey))
-  */
+*/
 
 // COMMAND ----------
 
