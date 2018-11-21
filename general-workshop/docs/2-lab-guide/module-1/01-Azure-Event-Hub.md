@@ -65,4 +65,24 @@ In this lab module - we will learn to publish/consume events from Azure Event Hu
 <br>
 
 ### 1.4. Attach Spark connector library hosted in Maven
+This step is performaned on the Databricks cluster.
+<br>
+The maven coordinates are-<br>
+com.microsoft.azure:azure-eventhubs-spark_2.11:2.3.6<br>
+Be sure to get the latest from here- https://docs.databricks.com/spark/latest/structured-streaming/streaming-event-hubs.html#requirements<br>
+
+![16-aeh](../../../images/2-aeh/16.png)
+<br>
+<hr>
+<br>
+
+![17-aeh](../../../images/2-aeh/17.png)
+<br>
+<hr>
+<br>
+
+![18-aeh](../../../images/2-aeh/18.png)
+<br>
+<hr>
+<br>
 
