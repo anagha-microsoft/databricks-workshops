@@ -62,4 +62,8 @@ In this unit, we will naviage to the Event Hub namespace we provisioned, create 
 
 ### 1.4. Capture connection string
 
+![15-aeh](../../../images/2-aeh/15.png)
+<br>
+<hr>
+<br>
 
