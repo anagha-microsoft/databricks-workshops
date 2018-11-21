@@ -25,10 +25,10 @@ import org.apache.spark.sql.types._
 
 // 1) AEH consumer related
 // Replace connection string with your instances'.
-val aehConsumerConnString = dbutils.secrets.get(scope = "ws-crimes-aeh", key = "conexion-string")
+val aehConsumerConnString = dbutils.secrets.get(scope = "gws-crimes-aeh", key = "conexion-string")
 val aehConsumerParams =
   EventHubsConf(aehConsumerConnString)
-  .setConsumerGroup("crimes_chicago_cg")
+  .setConsumerGroup("spark-streaming-cg")
   .setStartingPosition(EventPosition.fromEndOfStream)
   .setMaxEventsPerTrigger(1000)
 
@@ -75,15 +75,18 @@ val consumableDF = partParsedStreamDF.select(get_json_object($"json_payload", "$
                                           get_json_object($"json_payload", "$.y_coordinate").cast(IntegerType).alias("y_coordinate"),
                                           get_json_object($"json_payload", "$.case_year").cast(IntegerType).alias("case_year"),
                                           get_json_object($"json_payload", "$.updated_dt").alias("updated_dt"),
-                                          get_json_object($"json_payload", "$.latitude").cast(DoubleType).alias("latitude"),
-                                          get_json_object($"json_payload", "$.longitude").cast(DoubleType).alias("longitude"),
+                                          //get_json_object($"json_payload", "$.latitude").cast(DoubleType).alias("latitude"),
+                                          //get_json_object($"json_payload", "$.longitude").cast(DoubleType).alias("longitude"),
                                           get_json_object($"json_payload", "$.location_coords").alias("location_coords"),
                                           get_json_object($"json_payload", "$.case_timestamp").cast(TimestampType).alias("case_timestamp"),
                                           get_json_object($"json_payload", "$.case_month").cast(IntegerType).alias("case_month"),
                                           get_json_object($"json_payload", "$.case_day_of_month").cast(IntegerType).alias("case_day_of_month"),          
                                           get_json_object($"json_payload", "$.case_hour").cast(IntegerType).alias("case_hour"),
                                           get_json_object($"json_payload", "$.case_day_of_week_nbr").cast(IntegerType).alias("case_day_of_week_nbr"),
-                                          get_json_object($"json_payload", "$.case_day_of_week_name").alias("case_day_of_week_name"))
+                                          get_json_object($"json_payload", "$.case_day_of_week_name").alias("case_day_of_week_name"),
+                                          get_json_object($"json_payload", "$.latitude_dec").cast(DecimalType(10,7)).alias("latitude"),
+                                          get_json_object($"json_payload", "$.longitude_dec").cast(DecimalType(10,7)).alias("longitude") 
+                                            )
 
 consumableDF.printSchema
 
@@ -91,10 +94,6 @@ consumableDF.printSchema
 
 //Console output of parsed events
 //consumableDF.writeStream.outputMode("append").format("console").option("truncate", false).start().awaitTermination()
-
-// COMMAND ----------
-
-consumableDF.printSchema
 
 // COMMAND ----------
 
