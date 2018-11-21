@@ -3,7 +3,10 @@ In this module, we will work with Azure Blob Storage and Azure Data Lake Store G
 The notebook path is: <br>
 
 ### Unit 1: Secure storage credentils with Databricks secrets
-We will learn to capture storage credentials and secure credentials with databricks secrets
+We will learn to capture storage credentials and secure credentials with databricks secrets.
+1.  Install Databricks CLI and confgure
+2.  Create secret scope
+3.  Add secrets to the scope defined
 
 ### Unit 2: Mount storage to the cluster
 With mounting storage, you can permanently attach your Azure storage to the cluster with credentials secured one-time, and access the storage like you would - a regular file system, instead of storage URIs.
