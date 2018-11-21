@@ -1,6 +1,6 @@
 // Databricks notebook source
 // MAGIC %md
-// MAGIC # Azure Event Hub: Structured Streaming - consumer primer
+// MAGIC # Azure SQl database: Structured Streaming - consumer primer
 // MAGIC 
 // MAGIC ### What's in this exercise?
 // MAGIC We will leverage structured streaming to ingest crime data from Azure Event Hub persist to Azure SQL database.<br>
