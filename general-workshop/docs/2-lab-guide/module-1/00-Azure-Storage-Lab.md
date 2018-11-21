@@ -1,6 +1,6 @@
 # Module 1-00: Azure Storage - Lab instructions
 In this module, we will work with Azure Blob Storage and Azure Data Lake Store Gen 2.<br>
-The notebook path is: <br>
+The notebook path in your Databricks workspace is: general-workshop/01-primer/00-azure-storage<br>
 
 ### Unit 1: Secure storage credentils with Databricks secrets
 We will learn to capture storage credentials and secure credentials with databricks secrets.
