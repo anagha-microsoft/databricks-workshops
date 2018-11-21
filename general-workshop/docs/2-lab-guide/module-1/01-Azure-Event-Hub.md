@@ -90,5 +90,15 @@ Be sure to get the latest from here- https://docs.databricks.com/spark/latest/st
 ### 1.2. Secure credentials
 Refer the notebook for instructions.
 
-### 1.3. Publish messages to Azure Event Hub
+### 1.3. Readstream crime data from DBFS and publish events to Azure Event Hub with Spark Structured Streaming
 We will read the curated Chicago crimes dataset in DBFS as a stream and pubish to Azure Event Hub using Structured Streaming.
+Follow instructions in the notebook and execute step by step.
+
+### 1.4. Consume events from Azure Event Hub
+We will consume events from Azure Event Hub using Structured Streaming and sink to Databricks Delta.  Follow instructions in the notebook and execute step by step.
+
+### 1.5. Query streaming events
+We will create an external table on the streaming events and run queries on it.  Follow instructions in the notebook and execute step by step.
+
+
+
