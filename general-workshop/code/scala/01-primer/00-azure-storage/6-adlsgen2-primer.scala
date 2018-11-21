@@ -4,7 +4,7 @@
 // MAGIC Azure Data Lake Storage Gen2 combines the capabilities of two existing storage services: Azure Data Lake Storage Gen1 features, such as file system semantics, file-level security and scale are combined with low-cost, tiered storage, high availability/disaster recovery capabilities, and a large SDK/tooling ecosystem from Azure Blob Storage.<br><br>
 // MAGIC 
 // MAGIC ### What's in this exercise?
-// MAGIC In this exercise, we will complete the following in batch operations on DBFS backed by ADLS Gen2, with Hierarchical Name Space (HNS):<br>
+// MAGIC We will complete the following in batch operations on DBFS-Hierarchical Name Space enabled ADLS Gen2:<br>
 // MAGIC 1.  Set credentials for access<br>
 // MAGIC 2.  Create the root file system<br>
 // MAGIC 3.  Create a couple directories, list directories, delete a directory<br>
@@ -16,24 +16,24 @@
 // MAGIC 2.  SAS tokens 
 // MAGIC 
 // MAGIC References:<br>
-// MAGIC ADLS Gen2 product page:<br>
+// MAGIC ADLS Gen2 product page:https://docs.microsoft.com/en-us/azure/storage/data-lake-storage/using-databricks-spark<br>
 // MAGIC Databricks ADLS Gen2 integration: https://docs.azuredatabricks.net/spark/latest/data-sources/azure/azure-datalake-gen2.html
 
 // COMMAND ----------
 
 // MAGIC %md
 // MAGIC ### 1.0. Credentials setting
-// MAGIC Mount points are not supported yet.
 
 // COMMAND ----------
 
-//Replace with your ADLS Gen2 Account name
-val adlsgen2acct = "adlsgen2sa"
+//Replace gwsadlsgen2sa with your ADLS Gen2 Account name
+val adlsgen2acct = "gwsadlsgen2sa"
+val adlsgen2key = dbutils.secrets.get(scope = "gws-adlsgen2-storage", key = "storage-acct-key")
 
 // COMMAND ----------
 
-//Set the configuration
-spark.conf.set("fs.azure.account.key." + adlsgen2acct + ".dfs.core.windows.net", dbutils.secrets.get(scope = "ws-adlsgen2-storage", key = "storage-acct-key")) 
+//ADLS Gen2 configuration
+spark.conf.set("fs.azure.account.key." + adlsgen2acct + ".dfs.core.windows.net", "1dtLs4nvQ8TUPjg/M7f/Lour80jFSFWof9DwXUAmRlgFOW1DU7PcZN4WoR2tl3x/NhfgYsFhY7EeIg8aPARXfQ==") 
 spark.conf.set("fs.azure.createRemoteFileSystemDuringInitialization", "true")
 
 // COMMAND ----------
@@ -43,32 +43,33 @@ spark.conf.set("fs.azure.createRemoteFileSystemDuringInitialization", "true")
 
 // COMMAND ----------
 
-dbutils.fs.mkdirs("abfss://staging@adlsgen2sa.dfs.core.windows.net/")
-dbutils.fs.mkdirs("abfss://scratch@adlsgen2sa.dfs.core.windows.net/")
-dbutils.fs.mkdirs("abfss://raw@adlsgen2sa.dfs.core.windows.net/")
-dbutils.fs.mkdirs("abfss://curated@adlsgen2sa.dfs.core.windows.net/")
-dbutils.fs.mkdirs("abfss://consumption@adlsgen2sa.dfs.core.windows.net/")
-dbutils.fs.mkdirs("abfss://distribution@adlsgen2sa.dfs.core.windows.net/")
+dbutils.fs.ls("abfss://staging@gwsadlsgen2sa.dfs.core.windows.net/")
 
 // COMMAND ----------
 
-/*dbutils.fs.mount(
-    source = "abfss://staging@adlsgen2sa.dfs.core.windows.net/",
-    mountPoint = "/mnt/data/staging",
-    extraConfigs = Map("fs.azure.account.key.adlsgen2sa.dfs.core.windows.net" -> dbutils.secrets.get(scope = "ws-adlsgen2-storage", key = "storage-acct-key")))*/
+dbutils.fs.mkdirs("abfss://staging@gwsadlsgen2sa.dfs.core.windows.net/")
+
+
+// COMMAND ----------
+
+/*
+Put this in a function, avoid hard-codes storage account reference.
+dbutils.fs.mkdirs("abfss://staging@gwsadlsgen2sa.dfs.core.windows.net/")
+dbutils.fs.mkdirs("abfss://scratch@gwsadlsgen2sa.dfs.core.windows.net/")
+dbutils.fs.mkdirs("abfss://raw@gwsadlsgen2sa.dfs.core.windows.net/")
+dbutils.fs.mkdirs("abfss://curated@gwsadlsgen2sa.dfs.core.windows.net/")
+dbutils.fs.mkdirs("abfss://consumption@gwsadlsgen2sa.dfs.core.windows.net/")
+dbutils.fs.mkdirs("abfss://distribution@gwsadlsgen2sa.dfs.core.windows.net/")
+*/
 
 // COMMAND ----------
 
 // MAGIC %md
-// MAGIC ### 3.0. Create directory
+// MAGIC ### 3.0. Mount ADLS Gen2 as file system
 
 // COMMAND ----------
 
-dbutils.fs.mkdirs("abfss://scratch@adlsgen2sa.dfs.core.windows.net/test")
-
-// COMMAND ----------
-
-display(dbutils.fs.ls("abfss://scratch@adlsgen2sa.dfs.core.windows.net/"))
+// MAGIC %md Need to check with PG - supposedly available in DBR 5.1
 
 // COMMAND ----------
 
