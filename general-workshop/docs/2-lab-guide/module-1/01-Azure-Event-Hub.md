@@ -8,4 +8,8 @@ In this unit, we will naviage to the Event Hub namespace we provisioned, create 
 ### Provision Event Hub
 
 ![1-aeh](../../../images/2-aeh/1.png)
+<br>
+<hr>
+<br>
+![2-aeh](../../../images/2-aeh/2.png)
 
