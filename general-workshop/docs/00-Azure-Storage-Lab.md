@@ -26,7 +26,8 @@ Curate:<br>
 3.  We will create an external table on the curated dataset and explore it with Spark SQL
 
 Report and visualize:<br>
-We will learn basics of visualization within Databricks notebooks in this sub-unit.
+1.  We will write somequeries that we will run to generate some interesting visualizations
+2.  We will learn basics of visualization on top of queries, within Databricks notebooks in this sub-unit.
 
 ### Unit 5: Databricks Delta primer
 Also a foundational unit, for the rest of the workshop - we will use Databricks Delta that has a great value proposition.  We will learn about Delta and complete the notebook that ocvers the basics.
