@@ -34,7 +34,7 @@ In this unit, we will naviage to the Event Hub namespace we provisioned, create 
 <hr>
 <br>
 
-![6-aeh](../../../images/2-aeh/6.png)
+![7-aeh](../../../images/2-aeh/7.png)
 <br>
 <hr>
 <br>
