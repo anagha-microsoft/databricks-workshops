@@ -24,7 +24,7 @@ We will learn to  work with dataframes, create external tables and write spark S
 3.  We will create an external table on the raw dataset and explore it with Spark SQL
 
 #### Curate:<br>
-1.  We will read the raw data, augment it
+1.  We will read the raw data, augment it (add derived attributes), transform it (data types and such)
 2.  Persist to parquet format in the "curated" information zone in DBFS, partitioned by year and month 
 3.  We will create an external table on the curated dataset and explore it with Spark SQL
 
@@ -51,4 +51,8 @@ Also a foundational unit. For the rest of the workshop - we will use Databricks 
 
 ### Unit 6: ADLS Gen2 primer
 In unit 3, we worked with Azure Blob Storage, in this unit, we will work with ADLS Gen2 as DBFS.
+1.  We will create data
+2.  Persist to delta format
+3.  Create external table
+4.  Run queries on it
 <br>
