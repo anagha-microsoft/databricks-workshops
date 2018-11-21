@@ -87,3 +87,8 @@ Be sure to get the latest from here- https://docs.databricks.com/spark/latest/st
 <hr>
 <br>
 
+### 1.2. Secure credentials
+Refer the notebook for instructions.
+
+### 1.3. Publish messages to Azure Event Hub
+We will read the curated Chicago crimes dataset in DBFS as a stream and pubish to Azure Event Hub using Structured Streaming.
