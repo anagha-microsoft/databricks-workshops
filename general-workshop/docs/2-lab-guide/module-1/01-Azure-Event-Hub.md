@@ -1,1 +1,1 @@
-01: Azure Event Hub - Lab instructions
+# 01. Azure Event Hub - Lab instructions
