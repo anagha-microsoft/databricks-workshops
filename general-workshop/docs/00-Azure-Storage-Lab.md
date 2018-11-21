@@ -1,4 +1,4 @@
-# Azure Storage - Lab instructions
+# Module 1-00: Azure Storage - Lab instructions
 In this module, we will work with Azure Blob Storage and Azure Data Lake Store Gen 2.<br>
 The notebook path is: <br>
 
