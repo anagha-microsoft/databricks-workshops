@@ -39,7 +39,7 @@ val jdbcURL = dbutils.secrets.get(scope = "ws-sql-dw", key = "conexion-string")
 //Storage account credentials for tempDir access
 spark.conf.set(
   "fs.azure.account.key.generalworkshopsa.blob.core.windows.net",
-  dbutils.secrets.get(scope = "ws-blob-storage", key = "storage-acct-key"))
+  dbutils.secrets.get(scope = "gws-blob-storage", key = "storage-acct-key"))
 
 // COMMAND ----------
 
@@ -112,7 +112,7 @@ df.write
   .option("url", jdbcURL)
   .option("forwardSparkAzureStorageCredentials", "true")
   .option("dbTable", "chicago_crimes_curated_summary")
-  .option("tempDir", "wasbs://scratch@generalworkshopsa.blob.core.windows.net/sqldwbatch-tempdir")
+  .option("tempDir", "wasbs://scratch@gwsblobsa.blob.core.windows.net/sqldwbatch-tempdir")
   .save()
 
 // COMMAND ----------
@@ -134,7 +134,7 @@ df.write
   .option("url", jdbcURL)
   .option("forwardSparkAzureStorageCredentials", "true")
   .option("dbTable", "chicago_crimes_curated_summary_new")
-  .option("tempDir", "wasbs://scratch@generalworkshopsa.blob.core.windows.net/sqldwbatch-tempdir")
+  .option("tempDir", "wasbs://scratch@gwsblobsa.blob.core.windows.net/sqldwbatch-tempdir")
   .save()
 
 // COMMAND ----------
@@ -152,7 +152,7 @@ df.write
   .option("url", jdbcURL)
   .option("forwardSparkAzureStorageCredentials", "true")
   .option("dbTable", "chicago_crimes_curated_summary")
-  .option("tempDir", "wasbs://scratch@generalworkshopsa.blob.core.windows.net/sqldwbatch-tempdir")
+  .option("tempDir", "wasbs://scratch@gwsblobsa.blob.core.windows.net/sqldwbatch-tempdir")
   .save()
 
 // COMMAND ----------
@@ -165,7 +165,7 @@ df.write
 val df = spark.read
   .format("com.databricks.spark.sqldw")
   .option("url", jdbcURL)
-  .option("tempDir", "wasbs://scratch@generalworkshopsa.blob.core.windows.net/sqldwbatch-tempdir")
+  .option("tempDir", "wasbs://scratch@gwsblobsa.blob.core.windows.net/sqldwbatch-tempdir")
   .option("forwardSparkAzureStorageCredentials", "true")
   .option("query", "select primary_type as crime_type, count(*) as crime_count from chicago_crimes_curated_summary group by primary_type")
   .load()
