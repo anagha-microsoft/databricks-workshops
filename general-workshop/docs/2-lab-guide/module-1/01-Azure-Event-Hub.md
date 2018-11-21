@@ -39,22 +39,8 @@ In this unit, we will naviage to the Event Hub namespace we provisioned, create 
 <hr>
 <br>
 
-![8-aeh](../../../images/2-aeh/8.png)
-<br>
-<hr>
-<br>
 
-![9-aeh](../../../images/2-aeh/9.png)
-<br>
-<hr>
-<br>
-
-
-![10-aeh](../../../images/2-aeh/10.png)
-<br>
-<hr>
-<br>
-
+### 1.3. Create SAS policy for accessing from Spark
 
 ![11-aeh](../../../images/2-aeh/11.png)
 <br>
