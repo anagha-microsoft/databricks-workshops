@@ -18,7 +18,7 @@
 // COMMAND ----------
 
 // MAGIC %md
-// MAGIC ```pip install databricks-cli```
+// MAGIC Follow instructions from the Azure storage primer module.
 
 // COMMAND ----------
 
@@ -34,7 +34,7 @@
 // COMMAND ----------
 
 // MAGIC %md
-// MAGIC ```databricks secrets create-scope --scope ws-crimes-aeh```
+// MAGIC ```databricks secrets create-scope --scope gws-crimes-aeh```
 
 // COMMAND ----------
 
@@ -44,7 +44,7 @@
 // COMMAND ----------
 
 // MAGIC %md
-// MAGIC ```databricks secrets put --scope ws-crimes-aeh --key conexion-string```
+// MAGIC ```databricks secrets put --scope gws-crimes-aeh --key conexion-string```
 
 // COMMAND ----------
 
@@ -72,7 +72,7 @@
 
 // COMMAND ----------
 
-// MAGIC %md ```databricks secrets list --scope ws-crimes-aeh```
+// MAGIC %md ```databricks secrets list --scope gws-crimes-aeh```
 
 // COMMAND ----------
 
