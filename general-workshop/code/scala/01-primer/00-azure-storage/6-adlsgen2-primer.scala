@@ -33,7 +33,7 @@ val adlsgen2key = dbutils.secrets.get(scope = "gws-adlsgen2-storage", key = "sto
 // COMMAND ----------
 
 //ADLS Gen2 configuration
-spark.conf.set("fs.azure.account.key." + adlsgen2acct + ".dfs.core.windows.net", "1dtLs4nvQ8TUPjg/M7f/Lour80jFSFWof9DwXUAmRlgFOW1DU7PcZN4WoR2tl3x/NhfgYsFhY7EeIg8aPARXfQ==") 
+spark.conf.set("fs.azure.account.key." + adlsgen2acct + ".dfs.core.windows.net", "ypoWGuuw0wI53xat+82hW0CauwoZWW/PcCJQa7ytjqXAPQV8kMesG899pm/56kHNwLV1EjNDOUM/2qUIBx6u5g==") 
 spark.conf.set("fs.azure.createRemoteFileSystemDuringInitialization", "true")
 
 // COMMAND ----------
@@ -47,13 +47,8 @@ dbutils.fs.ls("abfss://staging@gwsadlsgen2sa.dfs.core.windows.net/")
 
 // COMMAND ----------
 
-dbutils.fs.mkdirs("abfss://staging@gwsadlsgen2sa.dfs.core.windows.net/")
-
-
-// COMMAND ----------
-
 /*
-Put this in a function, avoid hard-codes storage account reference.
+TODO: Put this in a function, avoid hard-coded storage account reference.
 dbutils.fs.mkdirs("abfss://staging@gwsadlsgen2sa.dfs.core.windows.net/")
 dbutils.fs.mkdirs("abfss://scratch@gwsadlsgen2sa.dfs.core.windows.net/")
 dbutils.fs.mkdirs("abfss://raw@gwsadlsgen2sa.dfs.core.windows.net/")
@@ -97,7 +92,7 @@ booksDF.show
 // COMMAND ----------
 
 //Destination directory for Delta table
-val deltaTableDirectory = "abfss://scratch@adlsgen2sa.dfs.core.windows.net/books"
+val deltaTableDirectory = "abfss://scratch@gwsadlsgen2sa.dfs.core.windows.net/books"
 dbutils.fs.rm(deltaTableDirectory, recurse=true)
 
 //Persist dataframe to delta format without coalescing
@@ -117,7 +112,7 @@ booksDF.write.format("delta").save(deltaTableDirectory)
 // MAGIC DROP TABLE IF EXISTS books;
 // MAGIC CREATE TABLE books
 // MAGIC USING DELTA
-// MAGIC LOCATION "abfss://scratch@adlsgen2sa.dfs.core.windows.net/books";
+// MAGIC LOCATION "abfss://scratch@gwsadlsgen2sa.dfs.core.windows.net/books";
 
 // COMMAND ----------
 
@@ -128,3 +123,6 @@ booksDF.write.format("delta").save(deltaTableDirectory)
 
 // MAGIC %sql
 // MAGIC select * from books_db_adlsgen2.books;
+
+// COMMAND ----------
+
