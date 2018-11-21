@@ -12,9 +12,21 @@ With mounting storage, you can permanently attach your Azure storage to the clus
 This is a foundational unit and covers working with directories and files on Databricks.
 
 ### Unit 4: Read/write primer
-This is also a foundational unit and will cover what you will most commonly do as a data engineer.  Load some raw data to DBFS, read it, parse it, cleanse it, augment it, persist it in a storage efficient, query efficient persistent format, with proper physical partitioning based on access pattern, create an external table on the structured data, so we can use Spark SQL on it.<br>
+This is also a foundational unit and will cover what you will most commonly do as a data engineer.  <br>
+We will learn to  work with dataframes, create external tables and write spark SQL queries.  For this exerise, we will use the Chicago crimes public dataset - 1.5 GB, 6.7 million crimes.<br>
 
-We will learn to  work with dataframes, create external tables and write spark SQL query.  For this exerise, we will use the Chicago crimes dataset - 1.5 GB, 6.7 million crimes.<br>
+Load raw data:<br>
+1.  Load some raw data to DBFS (in our case, we will download from the internet and then load to DBFS)
+2.  Read the dataset in CSV format and persist to parquet format in the "raw" information zone in DBFS
+3.  We will create an external table on the raw dataset and explore it with Spark SQL
+
+Curate:<br>
+1.  We will read the raw data, augment it
+2.  Persist to parquet format in the "curated" information zone in DBFS, partitioned by year and month 
+3.  We will create an external table on the curated dataset and explore it with Spark SQL
+
+Report and visualize:<br>
+We will learn basics of visualization within Databricks notebooks in this sub-unit.
 
 ### Unit 5: Databricks Delta primer
 Also a foundational unit, for the rest of the workshop - we will use Databricks Delta that has a great value proposition.  We will learn about Delta and complete the notebook that ocvers the basics.
