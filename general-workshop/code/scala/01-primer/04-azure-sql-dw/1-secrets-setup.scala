@@ -1,6 +1,6 @@
 // Databricks notebook source
 // MAGIC %md
-// MAGIC # Secure your SQL database datawarehouse credentials with Databricks secrets
+// MAGIC # Secure your SQL datawarehouse credentials with Databricks secrets
 // MAGIC 
 // MAGIC Secrets allow you to secure your credentials, and reference in your code instead of hard-code.  Databricks automatically redacts secrets from being displayed in the notebook as cleartext.<BR>
 // MAGIC In this exercise, we will secure credentials for the Azure SQL Datawarehouse in Databricks secrets.
@@ -24,7 +24,7 @@
 // COMMAND ----------
 
 // MAGIC %md
-// MAGIC ```databricks secrets create-scope --scope ws-sql-dw```
+// MAGIC ```databricks secrets create-scope --scope gws-sql-dw```
 
 // COMMAND ----------
 
@@ -39,7 +39,7 @@
 // COMMAND ----------
 
 // MAGIC %md
-// MAGIC ```databricks secrets put --scope ws-sql-dw --key conexion-string```
+// MAGIC ```databricks secrets put --scope gws-sql-dw --key conexion-string```
 
 // COMMAND ----------
 
@@ -67,7 +67,7 @@
 
 // COMMAND ----------
 
-// MAGIC %md ```databricks secrets list --scope ws-sql-dw```
+// MAGIC %md ```databricks secrets list --scope gws-sql-dw```
 
 // COMMAND ----------
 
