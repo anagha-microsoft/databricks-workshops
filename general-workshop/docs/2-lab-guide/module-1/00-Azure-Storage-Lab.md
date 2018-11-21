@@ -9,8 +9,24 @@ We will learn to capture storage credentials and secure credentials with databri
 2.  Create secret scope
 3.  Add secrets to the scope defined
 
-##### Capture storage credentials for Azure Blob Storage
-![1-storage](../../../images/1-storage/blob/1.png)
+##### 1.  Capture storage credentials for Azure Blob Storage
+![1-storage-1](../../../images/1-storage/blob/1.png)
+<br>
+<hr>
+
+![1-storage-2](../../../images/1-storage/blob/2.png)
+<br>
+<hr>
+
+##### 2.  Capture storage credentials for ADLS Gen 2
+![2-storage-1](../../../images/1-storage/adlsgen2/1.png)
+<br>
+<hr>
+
+![2-storage-2](../../../images/1-storage/adlsgen2/2.png)
+<br>
+<hr>
+
 
 ### Unit 2: Mount storage to the cluster
 With mounting storage, you can permanently attach your Azure storage to the cluster with credentials secured one-time, and access the storage like you would - a regular file system, instead of storage URIs.
