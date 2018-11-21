@@ -31,7 +31,7 @@ import org.apache.spark.sql.types._
 val aehConsumerConnString = dbutils.secrets.get(scope = "gws-crimes-aeh", key = "conexion-string")
 val aehConsumerParams =
   EventHubsConf(aehConsumerConnString)
-  .setConsumerGroup("crimes_chicago_cg")
+  .setConsumerGroup("spark-streaming-cg")
   .setStartingPosition(EventPosition.fromEndOfStream)
   .setMaxEventsPerTrigger(1000)
 
@@ -101,12 +101,12 @@ consumableDF.printSchema
 // COMMAND ----------
 
 // 4) Credentials and connection
-val jdbcUsername = dbutils.secrets.get(scope = "ws-sql-db", key = "username")
-val jdbcPassword = dbutils.secrets.get(scope = "ws-sql-db", key = "password")
+val jdbcUsername = dbutils.secrets.get(scope = "gws-sql-db", key = "username")
+val jdbcPassword = dbutils.secrets.get(scope = "gws-sql-db", key = "password")
 val driverClass = "com.microsoft.sqlserver.jdbc.SQLServerDriver"
-val jdbcHostname = "gws-db-srvr.database.windows.net"
+val jdbcHostname = "gws-server.database.windows.net"
 val jdbcPort = 1433
-val jdbcDatabase = "gws_db;"
+val jdbcDatabase = "gws_sql_db"
 
 // Create the JDBC URL without passing in the user and password parameters.
 val jdbcUrl = s"jdbc:sqlserver://${jdbcHostname}:${jdbcPort};database=${jdbcDatabase}"
