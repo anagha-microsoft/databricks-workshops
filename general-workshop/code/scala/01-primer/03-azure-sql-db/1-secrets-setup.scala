@@ -24,7 +24,7 @@
 // COMMAND ----------
 
 // MAGIC %md
-// MAGIC ```databricks secrets create-scope --scope ws-sql-db```
+// MAGIC ```databricks secrets create-scope --scope gws-sql-db```
 
 // COMMAND ----------
 
@@ -34,7 +34,7 @@
 // COMMAND ----------
 
 // MAGIC %md
-// MAGIC ```databricks secrets put --scope ws-sql-db --key username```
+// MAGIC ```databricks secrets put --scope gws-sql-db --key username```
 
 // COMMAND ----------
 
@@ -49,7 +49,7 @@
 // COMMAND ----------
 
 // MAGIC %md
-// MAGIC ```databricks secrets put --scope ws-sql-db --key password```
+// MAGIC ```databricks secrets put --scope gws-sql-db --key password```
 
 // COMMAND ----------
 
@@ -77,7 +77,7 @@
 
 // COMMAND ----------
 
-// MAGIC %md ```databricks secrets list --scope ws-sql-db```
+// MAGIC %md ```databricks secrets list --scope gws-sql-db```
 
 // COMMAND ----------
 
