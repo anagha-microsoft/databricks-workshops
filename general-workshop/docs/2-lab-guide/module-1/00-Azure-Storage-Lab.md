@@ -23,11 +23,18 @@ We will learn to capture storage credentials and secure credentials with databri
 ![2-storage-1](../../../images/1-storage/adlsgen2/1.png)
 <br>
 <hr>
+<br>
 
 ![2-storage-2](../../../images/1-storage/adlsgen2/2.png)
 <br>
 <hr>
 <br><br>
+
+#### 3.  Databricks CLI setup
+We will provision a Linux VM or use Azure Cloud Shell bash to install and configure Databricks CLI
+
+#### 4.  Secrets setup
+Refer notebook for instructions.
 
 ### Unit 2: Mount storage to the cluster
 With mounting storage, you can permanently attach your Azure storage to the cluster with credentials secured one-time, and access the storage like you would - a regular file system, instead of storage URIs.
