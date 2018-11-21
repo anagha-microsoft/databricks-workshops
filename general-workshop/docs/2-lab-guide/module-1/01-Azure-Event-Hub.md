@@ -63,6 +63,7 @@ In this lab module - we will learn to publish/consume events from Azure Event Hu
 <br>
 <hr>
 <br>
+Capture the connection string.
 
 ### 1.4. Attach Spark connector library hosted in Maven
 This step is performaned on the Databricks cluster.
