@@ -1,5 +1,4 @@
-# Module 1
-## Azure Storage - Lab instructions
+# Module 1 - Azure Storage - Lab instructions
 In this module, we will work with Azure Blob Storage and Azure Data Lake Store Gen 2.<br>
 The notebook path in your Databricks workspace is: general-workshop/01-primer/00-azure-storage<br>
 
