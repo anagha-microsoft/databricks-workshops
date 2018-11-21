@@ -6,7 +6,7 @@
 // MAGIC   
 // MAGIC **Pre-requisite**: You should have created your Azure Blob Storage account and ADLS Gen2 account.<br><br>
 // MAGIC In this notebook, we will -<br>
-// MAGIC   1.  Installl Dataricks CLI
+// MAGIC   1.  Install & configure Dataricks CLI
 // MAGIC   2.  Secure blob storage credentials
 // MAGIC   3.  Secure ADLS Gen2 storage credentials
 // MAGIC   
@@ -14,12 +14,33 @@
 // COMMAND ----------
 
 // MAGIC %md
-// MAGIC ## 1. Install Databricks CLI on your Linux terminal
+// MAGIC ## 1. Install and configure Databricks CLI on your Linux terminal
+
+// COMMAND ----------
+
+// MAGIC %md ```sudo su -```
+
+// COMMAND ----------
+
+// MAGIC %md ```apt-get update```
 
 // COMMAND ----------
 
 // MAGIC %md
 // MAGIC ```pip install databricks-cli```
+
+// COMMAND ----------
+
+// MAGIC %md On the Databricks site, navigate to the user icon on the right-hand side, top, and click on setting.  Generate a token, capture to clipboard.
+
+// COMMAND ----------
+
+// MAGIC %md ```databricks configure --token```<br>
+// MAGIC Enter the cluster URL..e.g.https://eastus2.azuredatabricks.net/<br>
+// MAGIC AND<br>
+// MAGIC Enter the token you captured<br>
+// MAGIC <br>
+// MAGIC You are now all set.
 
 // COMMAND ----------
 
@@ -35,7 +56,7 @@
 // COMMAND ----------
 
 // MAGIC %md
-// MAGIC ```databricks secrets create-scope --scope ws-blob-storage```
+// MAGIC ```databricks secrets create-scope --scope gws-blob-storage```
 
 // COMMAND ----------
 
@@ -45,7 +66,7 @@
 // COMMAND ----------
 
 // MAGIC %md
-// MAGIC ```databricks secrets put --scope ws-blob-storage --key storage-acct-key```
+// MAGIC ```databricks secrets put --scope gws-blob-storage --key storage-acct-key```
 
 // COMMAND ----------
 
@@ -73,7 +94,7 @@
 
 // COMMAND ----------
 
-// MAGIC %md ```databricks secrets list --scope ws-blob-storage```
+// MAGIC %md ```databricks secrets list --scope gws-blob-storage```
 
 // COMMAND ----------
 
@@ -93,7 +114,7 @@
 // COMMAND ----------
 
 // MAGIC %md
-// MAGIC ```databricks secrets create-scope --scope ws-adlsgen2-storage```
+// MAGIC ```databricks secrets create-scope --scope gws-adlsgen2-storage```
 
 // COMMAND ----------
 
@@ -103,7 +124,7 @@
 // COMMAND ----------
 
 // MAGIC %md
-// MAGIC ```databricks secrets put --scope ws-adlsgen2-storage --key storage-acct-key```
+// MAGIC ```databricks secrets put --scope gws-adlsgen2-storage --key storage-acct-key```
 
 // COMMAND ----------
 
@@ -122,4 +143,4 @@
 
 // COMMAND ----------
 
-// MAGIC %md ```databricks secrets list --scope ws-adlsgen2-storage```
+// MAGIC %md ```databricks secrets list --scope gws-adlsgen2-storage```
