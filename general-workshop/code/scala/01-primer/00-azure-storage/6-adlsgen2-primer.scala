@@ -123,6 +123,3 @@ booksDF.write.format("delta").save(deltaTableDirectory)
 
 // MAGIC %sql
 // MAGIC select * from books_db_adlsgen2.books;
-
-// COMMAND ----------
-
