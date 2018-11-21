@@ -201,15 +201,11 @@ curatedDF.show()
 //2) Persist as parquet to curated storage zone
 val dbfsDestDirPath="/mnt/workshop/curated/crimes/chicago-crimes"
 dbutils.fs.rm(dbfsDestDirPath, recurse=true)
-curatedDF.coalesce(2).write.parquet(dbfsDestDirPath)
-
-//3) Delete residual files from job operation (_SUCCESS, _start*, _committed*)
-import com.databricks.backend.daemon.dbutils.FileInfo
-dbutils.fs.ls(dbfsDestDirPath + "/").foreach((i: FileInfo) => if (!(i.path contains "parquet")) dbutils.fs.rm(i.path))
+curatedDF.coalesce(1).write.partitionBy("case_year","case_month").parquet(dbfsDestDirPath)
 
 // COMMAND ----------
 
-//4) List
+//3) List
 display(dbutils.fs.ls(dbfsDestDirPath))
 
 // COMMAND ----------
@@ -225,7 +221,7 @@ display(dbutils.fs.ls(dbfsDestDirPath))
 // MAGIC OPTIONS (path "/mnt/workshop/curated/crimes/chicago-crimes");
 // MAGIC --USING org.apache.spark.sql.parquet
 // MAGIC 
-// MAGIC REFRESH TABLE chicago_crimes_curated;
+// MAGIC MSCK REPAIR TABLE chicago_crimes_curated;
 // MAGIC ANALYZE TABLE chicago_crimes_curated COMPUTE STATISTICS;
 
 // COMMAND ----------
@@ -236,8 +232,8 @@ display(dbutils.fs.ls(dbfsDestDirPath))
 // COMMAND ----------
 
 // MAGIC %sql
-// MAGIC --select * from crimes_db.chicago_crimes_curated;
-// MAGIC select count(*) from crimes_db.chicago_crimes_curated where primary_type='THEFT';
+// MAGIC select * from crimes_db.chicago_crimes_curated;
+// MAGIC --select count(*) as crime_count from crimes_db.chicago_crimes_curated --where primary_type='THEFT';
 
 // COMMAND ----------
 
@@ -259,10 +255,10 @@ display(dbutils.fs.ls(dbfsDestDirPath))
 // COMMAND ----------
 
 // MAGIC %sql
-// MAGIC SELECT CAST(case_year AS DATE) AS case_year, primary_type as case_type, count(*) AS crime_count 
+// MAGIC SELECT cast(cast(case_year as string) as date) as case_year, primary_type as case_type, count(*) AS crime_count 
 // MAGIC FROM crimes_db.chicago_crimes_curated 
 // MAGIC where primary_type in ('BATTERY','ASSAULT','CRIMINAL SEXUAL ASSAULT')
-// MAGIC GROUP BY case_year,case_type ORDER BY case_year;
+// MAGIC GROUP BY case_year,primary_type ORDER BY case_year;
 
 // COMMAND ----------
 
