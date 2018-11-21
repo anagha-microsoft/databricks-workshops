@@ -33,8 +33,8 @@
 
 // COMMAND ----------
 
-val jdbcUsername = dbutils.secrets.get(scope = "ws-sql-db", key = "username")
-val jdbcPassword = dbutils.secrets.get(scope = "ws-sql-db", key = "password")
+val jdbcUsername = dbutils.secrets.get(scope = "gws-sql-db", key = "username")
+val jdbcPassword = dbutils.secrets.get(scope = "gws-sql-db", key = "password")
 
 // COMMAND ----------
 
@@ -53,9 +53,9 @@ val driverClass = "com.microsoft.sqlserver.jdbc.SQLServerDriver"
 
 // COMMAND ----------
 
-val jdbcHostname = "gws-db-srvr.database.windows.net"
+val jdbcHostname = "gws-server.database.windows.net"
 val jdbcPort = 1433
-val jdbcDatabase = "gws_db;"
+val jdbcDatabase = "gws_sql_db"
 
 // Create the JDBC URL without passing in the user and password parameters.
 val jdbcUrl = s"jdbc:sqlserver://${jdbcHostname}:${jdbcPort};database=${jdbcDatabase}"
@@ -175,7 +175,7 @@ val df = (spark.read.jdbc(url=jdbcUrl,
     table="chicago_crimes_curated",
     columnName="case_id",
     lowerBound=1L,
-    upperBound=100000L,
+    upperBound=1000,
     numPartitions=100,
     connectionProperties=connectionProperties))
 display(df)
