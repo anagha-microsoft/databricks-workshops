@@ -13,7 +13,7 @@
 // COMMAND ----------
 
 // MAGIC %md
-// MAGIC ```pip install databricks-cli```
+// MAGIC Refer CLI setup of Azure storage - secrets primer.
 
 // COMMAND ----------
 
