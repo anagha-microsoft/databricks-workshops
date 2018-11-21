@@ -30,7 +30,7 @@ We will learn to  work with dataframes, create external tables and write spark S
 2.  We will learn basics of visualization on top of queries, within Databricks notebooks in this sub-unit.
 
 ### Unit 5: Databricks Delta primer
-Also a foundational unit, for the rest of the workshop - we will use Databricks Delta that has a great value proposition.  We will learn about Delta and complete the notebook that covers the basics.
+Also a foundational unit. For the rest of the workshop - we will use Databricks Delta that has a great value proposition for all analytics workloads.  In unit 5, we will learn basics of working with Delta by example.
 
 ### Unit 6: ADLS Gen2 primer
 In unit 3, we worked with Azure Blob Storage, in this unit, we will work with ADLS Gen2 as DBFS.
