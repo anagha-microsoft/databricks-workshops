@@ -171,6 +171,7 @@ display(dbutils.fs.ls(dbfsDestDirPath))
 // Lets add some temporal attributes that can help us analyze trends over time
 
 import org.apache.spark.sql.functions.to_timestamp
+import org.apache.spark.sql.types.{StructType, StructField, StringType, IntegerType,LongType,FloatType,DoubleType, TimestampType, DecimalType}
 
 val to_timestamp_func = to_timestamp($"case_dt_tm", "MM/dd/yyyy hh:mm:ss")
 
@@ -188,6 +189,9 @@ val curatedDF = rawDF.withColumn("case_timestamp",to_timestamp_func)
                                                           .when(col("case_day_of_week_nbr") === lit(6), "Friday")
                                                           .when(col("case_day_of_week_nbr") === lit(7), "Sunday")
                                  )
+                      .withColumn("latitude_dec", col("latitude").cast(DecimalType(10,7)))
+                      .withColumn("longitude_dec", col("longitude").cast(DecimalType(10,7)))
+                      
                                                           
 curatedDF.printSchema
 curatedDF.show  
