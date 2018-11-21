@@ -28,7 +28,7 @@ import org.apache.spark.sql.types._
 
 // 1) AEH consumer related
 // Replace connection string with your instances'.
-val aehConsumerConnString = dbutils.secrets.get(scope = "ws-crimes-aeh", key = "conexion-string")
+val aehConsumerConnString = dbutils.secrets.get(scope = "gws-crimes-aeh", key = "conexion-string")
 val aehConsumerParams =
   EventHubsConf(aehConsumerConnString)
   .setConsumerGroup("crimes_chicago_cg")
