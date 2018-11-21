@@ -11,5 +11,6 @@ In this unit, we will naviage to the Event Hub namespace we provisioned, create 
 <br>
 <hr>
 <br>
+
 ![2-aeh](../../../images/2-aeh/2.png)
 
