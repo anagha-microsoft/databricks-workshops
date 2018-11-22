@@ -23,6 +23,7 @@
 
 // MAGIC %md
 // MAGIC Attach the compatible Azure Cosmos DB Spark connector to your cluster-<br>
+// MAGIC At the time of authoring, it was the uber jar at 
 // MAGIC https://search.maven.org/search?q=a:azure-cosmosdb-spark_2.3.0_2.11
 
 // COMMAND ----------
@@ -32,8 +33,8 @@
 
 // COMMAND ----------
 
-val cdbEndpoint = dbutils.secrets.get(scope = "ws-cosmos-db", key = "acct-uri")
-val cdbAccessKey = dbutils.secrets.get(scope = "ws-cosmos-db", key = "acct-key")
+val cdbEndpoint = dbutils.secrets.get(scope = "gws-cosmos-db", key = "acct-uri")
+val cdbAccessKey = dbutils.secrets.get(scope = "gws-cosmos-db", key = "acct-key")
 
 // COMMAND ----------
 
