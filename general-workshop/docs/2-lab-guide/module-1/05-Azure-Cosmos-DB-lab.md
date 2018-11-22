@@ -6,11 +6,7 @@ In this lab module - we will learn to integrate with Azure Cosmos DB from Spark 
 
 
 ## A) Provisioning and configuring
-### A1. Create database and collection in the account
-Configure firewall settings as needed; Not required if not needed or completed already in Azure SQL database lab.
-
-### A2. Capture credentials
-
+### A2. Create database and collection in the account
 ![1-cosmos-db](../../../images/6-cosmos-db/3.png)
 <br>
 <hr>
@@ -21,6 +17,7 @@ Configure firewall settings as needed; Not required if not needed or completed a
 <hr>
 <br>
 
+### A1. Capture URI and credentials
 ![3-cosmos-db](../../../images/6-cosmos-db/5.png)
 <br>
 <hr>
