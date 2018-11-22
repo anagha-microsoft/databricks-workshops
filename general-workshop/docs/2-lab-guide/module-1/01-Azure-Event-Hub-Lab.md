@@ -2,7 +2,6 @@
 
 In this lab module - we will learn to publish/consume events from Azure Event Hub with Spark Structured Streaming.  The source is the curated crimes dataset in DBFS, and the sink is DBFS in Delta format.<br>
 
-~/Desktop/2-aeh/15.png  .
 
 ### 1.1. Provision Event Hub
 
