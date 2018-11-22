@@ -9,16 +9,31 @@ We will leverage the core API - also referred to as SQL API/document API - the n
 ## A) Provisioning and configuring
 
 ### A1. Capture URI and credentials
-
-
-
-### A2. Create database and collection in the account
-![1-cosmos-db](../../../images/6-cosmos-db/3.png)
+![7-cosmos-db](../../../images/6-cosmos-db/7.png)
 <br>
 <hr>
 <br>
 
-![2-cosmos-db](../../../images/6-cosmos-db/4.png)
+![8-cosmos-db](../../../images/6-cosmos-db/8.png)
+<br>
+<hr>
+<br>
+
+![9-cosmos-db](../../../images/6-cosmos-db/9.png)
+<br>
+<hr>
+<br>
+
+
+
+
+### A2. Create database and collection in the account
+![10-cosmos-db](../../../images/6-cosmos-db/10.png)
+<br>
+<hr>
+<br>
+
+![11-cosmos-db](../../../images/6-cosmos-db/11.png)
 <br>
 <hr>
 <br>
