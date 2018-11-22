@@ -41,6 +41,6 @@ Code from Databricks refactored for our dataset to sink to Azure SQL Database fr
 ### Unit 4. Publish to Azure Event Hub
 We will re-run the event publisher from the event hub module.
 
-### Unit 5. Consume from Azure Event Hub, structured stream sink to Azure SQL database
-We will read stream from Azure Event Hub and leverage the JDBC sink and write to Azure SQL database
+### Unit 5. Consume from Azure Event Hub, sink to Azure SQL database
+We will leverage structured streaming to read stream from Azure Event Hub, leverage the JDBC sink created, and write to Azure SQL database
 
