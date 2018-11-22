@@ -112,5 +112,5 @@ val query = aggregatedDF
   .outputMode("complete")
   .format(classOf[CosmosDBSinkProvider].getName).options(cosmosDbWriteConfigMap)
   .option("checkpointLocation",dbfsCheckpointDirPath)
-  .trigger(Trigger.ProcessingTime(1000 * 5)) 
+  .trigger(Trigger.ProcessingTime(1000 * 1)) 
   .start()
