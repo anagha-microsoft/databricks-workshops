@@ -2,8 +2,8 @@
 
 In this lab module - we will learn to publish/consume events from Azure Event Hub with Spark Structured Streaming.  The source is the curated crimes dataset in DBFS, and the sink is DBFS in Delta format.<br>
 
-
-### 1.1. Provision Event Hub
+## A) Provisioning and configuring
+### A1. Provision Event Hub
 
 ![1-aeh](../../../images/2-aeh/1.png)
 <br>
@@ -20,7 +20,7 @@ In this lab module - we will learn to publish/consume events from Azure Event Hu
 <hr>
 <br>
 
-### 1.2. Create consumer group within event hub
+### A2. Create consumer group within event hub
 
 ![4-aeh](../../../images/2-aeh/4.png)
 <br>
@@ -33,7 +33,7 @@ In this lab module - we will learn to publish/consume events from Azure Event Hu
 <br>
 
 
-### 1.3. Create SAS policy for accessing from Spark
+### A3. Create SAS policy for accessing from Spark
 
 ![11-aeh](../../../images/2-aeh/11.png)
 <br>
@@ -64,7 +64,7 @@ In this lab module - we will learn to publish/consume events from Azure Event Hu
 <br>
 Capture the connection string.
 
-### 1.4. Attach Spark connector library hosted in Maven
+### A4. Attach Spark connector library hosted in Maven
 This step is performaned on the Databricks cluster.
 <br>
 The maven coordinates are-<br>
@@ -86,6 +86,7 @@ Be sure to get the latest from here- https://docs.databricks.com/spark/latest/st
 <hr>
 <br>
 
+## B) Lab 
 ### 1.2. Secure credentials
 Refer the notebook for instructions.
 
