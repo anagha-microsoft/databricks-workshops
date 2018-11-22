@@ -26,21 +26,21 @@ Configure firewall settings as needed
 <hr>
 <br>
 
-## B) Lab units
+## B) Lab
 
 ### Unit 1. Secure credentials
 Refer the notebook for instructions.
 
-### 1.3. Readstream crime data from DBFS and publish events to Azure Event Hub with Spark Structured Streaming
-We will read the curated Chicago crimes dataset in DBFS as a stream and pubish to Azure Event Hub using Structured Streaming.
-Follow instructions in the notebook and execute step by step.
+### Unit 2. Read/write in batch mode 
+In this unit, we will read data in DBFS and write to Azure SQL database over JDBC.<br>
+We will learn to write in parallel, and read in parallel, AND auto-create table and write, append and overwrite table.
 
-### 1.4. Consume events from Azure Event Hub
-We will consume events from Azure Event Hub using Structured Streaming and sink to Databricks Delta.  Follow instructions in the notebook and execute step by step.
+### Unit 3. JDBC sink
+Code from Databricks refactored for our dataset to sink to Azure SQL Database from Spark Structured Streaming.
 
-### 1.5. Query streaming events
-We will create an external table on the streaming events and run queries on it.  Follow instructions in the notebook and execute step by step.
+### Unit 4. Publish to Azure Event Hub
+We will re-run the event publisher from the event hub module.
 
-
-
+### Unit 5. Consume from Azure Event Hub, structured stream sink to Azure SQL database
+We will read stream from Azure Event Hub and leverage the JDBC sink and write to Azure SQL database
 
