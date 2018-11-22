@@ -44,12 +44,17 @@ val cdbAccessKey = dbutils.secrets.get(scope = "gws-cosmos-db", key = "acct-key"
 // COMMAND ----------
 
 // MAGIC %sql
-// MAGIC select * from crimes_db.chicago_crimes_curated;
+// MAGIC select case_id, primary_type as case_type, case_year, case_month, case_day_of_month from crimes_db.chicago_crimes_curated;
 
 // COMMAND ----------
 
 // MAGIC %md
 // MAGIC ## 4.0. Upsert
+
+// COMMAND ----------
+
+val df = spark.sql("select case_id, primary_type as case_type, case_year, case_month, case_day_of_month from crimes_db.chicago_crimes_curated where case_year=2018")
+df.show
 
 // COMMAND ----------
 
@@ -61,15 +66,10 @@ import com.microsoft.azure.cosmosdb.spark.config.Config
 val cosmosDbWriteConfigMap = Map(
   "Endpoint" -> cdbEndpoint,
   "Masterkey" -> cdbAccessKey,
-  "Database" -> "gws_db",
+  "Database" -> "gws-db",
   "Collection" -> "chicago_crimes_curated",
   "Upsert" -> "true")
 val cosmosDbWriteConfig = Config(cosmosDbWriteConfigMap)
-
-// COMMAND ----------
-
-val df = spark.sql("select * from crimes_db.chicago_crimes_curated where case_year=2018")
-df.show
 
 // COMMAND ----------
 
@@ -86,7 +86,7 @@ CosmosDBSpark.save(df, cosmosDbWriteConfig)
 val cosmosDbReadDirectConfigMap = Map(
   "Endpoint" -> cdbEndpoint,
   "Masterkey" -> cdbAccessKey,
-  "Database" -> "gws_db",
+  "Database" -> "gws-db",
   "Collection" -> "chicago_crimes_curated",
   "preferredRegions" -> "East US 2;",
   "SamplingRatio" -> "1.0",
@@ -107,4 +107,4 @@ df.show
 // COMMAND ----------
 
 // MAGIC %md
-// MAGIC Notice that there is a "_rid" field created automatically.  We will review this in the next lab module.
+// MAGIC Notice that there is a "id" field created automatically.  We will review this in the next lab module.
