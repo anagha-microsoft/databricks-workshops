@@ -28,7 +28,7 @@ import org.apache.spark.sql.types._
 val aehConsumerConnString = dbutils.secrets.get(scope = "gws-crimes-aeh", key = "conexion-string")
 val aehConsumerParams =
   EventHubsConf(aehConsumerConnString)
-  .setConsumerGroup("spark_streaming_cg")
+  .setConsumerGroup("spark-streaming-cg")
   .setStartingPosition(EventPosition.fromEndOfStream)
   .setMaxEventsPerTrigger(1000)
 
