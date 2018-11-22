@@ -25,10 +25,10 @@ import org.apache.spark.sql.types._
 
 // 1) AEH consumer related
 // Replace connection string with your instances'.
-val aehConsumerConnString = dbutils.secrets.get(scope = "ws-crimes-aeh", key = "conexion-string")
+val aehConsumerConnString = dbutils.secrets.get(scope = "gws-crimes-aeh", key = "conexion-string")
 val aehConsumerParams =
   EventHubsConf(aehConsumerConnString)
-  .setConsumerGroup("crimes_chicago_cg")
+  .setConsumerGroup("spark_streaming_cg")
   .setStartingPosition(EventPosition.fromEndOfStream)
   .setMaxEventsPerTrigger(1000)
 
@@ -89,8 +89,8 @@ import org.apache.spark.sql.streaming.Trigger
 // COMMAND ----------
 
 // 1) Credentials - Cosmos DB
-val cdbEndpoint = dbutils.secrets.get(scope = "ws-cosmos-db", key = "acct-uri")
-val cdbAccessKey = dbutils.secrets.get(scope = "ws-cosmos-db", key = "acct-key")
+val cdbEndpoint = dbutils.secrets.get(scope = "gws-cosmos-db", key = "acct-uri")
+val cdbAccessKey = dbutils.secrets.get(scope = "gws-cosmos-db", key = "acct-key")
 
 // COMMAND ----------
 
@@ -98,13 +98,13 @@ val cdbAccessKey = dbutils.secrets.get(scope = "ws-cosmos-db", key = "acct-key")
 val cosmosDbWriteConfigMap = Map(
 "Endpoint" -> cdbEndpoint,
   "Masterkey" -> cdbAccessKey,
-  "Database" -> "crimes_db",
-  "Collection" -> "crime_counter",
+  "Database" -> "gws-db",
+  "Collection" -> "chicago_crimes_curated_stream_aggr",
   "Upsert" -> "true")
 
 // 3) AEH checkpoint 
-val dbfsCheckpointDirPath="/mnt/data/workshop/scratchDir/checkpoints-crimes-aeh-cdb-aggr-sub/"
-dbutils.fs.rm(dbfsCheckpointDirPath, recurse=true)//emove if needed
+val dbfsCheckpointDirPath="/mnt/workshop/scratch/checkpoints-crimes-aeh-sub/"
+dbutils.fs.rm(dbfsCheckpointDirPath, recurse=true)//remove if needed
 
 // 4) Persist to Cosmos DB
 val query = aggregatedDF
