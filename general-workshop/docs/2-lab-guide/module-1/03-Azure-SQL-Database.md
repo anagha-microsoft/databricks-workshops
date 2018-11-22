@@ -5,15 +5,13 @@ In this lab module - we will learn to integrate with Azure SQL databse from Spar
 - In the structured streaming lab, the source is the curated crimes dataset in DBFS, published to Azure Event Hub, and the sink is Azure SQL database.<br>
 
 
-## Unit 0. Configuring the database server
-### 0.1. Configure firewall setting for the database server
+## Configuring the database server
+### Firewall settings 
+Configure firewall settings as needed
 
+### Cature credentials
 
-
-
-### 0.2. Capture RDBMS credentials
-
-![11-aeh](../../../images/2-aeh/11.png)
+![1-sql-db](../../../images/4-aeh/11.png)
 <br>
 <hr>
 <br>
