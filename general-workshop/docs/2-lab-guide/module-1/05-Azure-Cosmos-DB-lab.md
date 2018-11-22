@@ -5,27 +5,26 @@ In this lab module - we will learn to integrate with Azure Cosmos DB from Spark 
 - In the structured streaming lab, the source is Azure Event Hub, and the sink is Azure Cosmos DB.<br>
 
 
-## A) Configuring the database server
-### A1. Firewall settings 
+## A) Provisioning and configuring
+### A1. Create database and collection in the account
 Configure firewall settings as needed; Not required if not needed or completed already in Azure SQL database lab.
 
 ### A2. Capture credentials
 
-![1-sql-dw](../../../images/5-sql-dw/1.png)
+![1-cosmos-db](../../../images/6-cosmos-db/3.png)
 <br>
 <hr>
 <br>
 
-![2-sql-dw](../../../images/5-sql-dw/2.png)
+![2-cosmos-db](../../../images/6-cosmos-db/4.png)
 <br>
 <hr>
 <br>
 
-![3-sql-dw](../../../images/5-sql-dw/3.png)
+![3-cosmos-db](../../../images/6-cosmos-db/5.png)
 <br>
 <hr>
 <br>
-
 
 ## B) Lab
 
