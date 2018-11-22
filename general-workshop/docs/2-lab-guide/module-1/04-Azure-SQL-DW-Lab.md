@@ -11,11 +11,20 @@ Configure firewall settings as needed; Not required if not needed or completed a
 
 ### A2. Capture credentials
 
-![1-sql-db](../../../images/4-sql-db/1.png)
+![1-sql-dw](../../../images/5-sql-dw/1.png)
 <br>
 <hr>
 <br>
 
+![2-sql-dw](../../../images/5-sql-dw/2.png)
+<br>
+<hr>
+<br>
+
+![3-sql-dw](../../../images/5-sql-dw/3.png)
+<br>
+<hr>
+<br>
 
 
 ## B) Lab
