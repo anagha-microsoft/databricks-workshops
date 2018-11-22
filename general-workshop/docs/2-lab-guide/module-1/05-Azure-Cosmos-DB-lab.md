@@ -79,19 +79,16 @@ Click on "Keys" in the left navigation panel.
 ### Unit 1. Secure credentials
 Refer the notebook for instructions.
 
-### Unit 2. Publish to Azure Event Hub
+### Unit 2. Read/write in batch mode 
+In this unit, we will read curated crimes data in a DBFS backed external table, and learn to write to Azure Cosmos DB.<br>
+We will learn to read from Azure Cosmos DB.
+
+### Unit 3. Publish to Azure Event Hub
 We will re-run the event publisher from the event hub module.
 
-### Unit 3. Read/write in batch mode 
-In this unit, we will read data in DBFS and write to Azure SQL Cosmos DB.<br>
-We will read from Azure Cosmos DB.
-
-### Unit 4. Publish to Azure Event Hub
-We will re-run the event publisher from the event hub module.
-
-### Unit 5. Consume from Azure Event Hub, sink to Azure Cosmos DB
+### Unit 4. Consume from Azure Event Hub, sink to Azure Cosmos DB
 We will leverage structured streaming to read stream from Azure Event Hub, and sink to Azure Cosmos DB.
 
-### Unit 6. Consume from Azure Event Hub, sink to Azure Cosmos DB
+### Unit 5. Consume from Azure Event Hub, sink to Azure Cosmos DB
 We will create a new collection to store streaming aggregates called chicago_crimes_aggr in the existing database, with 10,000 RUs, partition key of "case_type".  We will leverage structured streaming to read stream from Azure Event Hub, and sink to Azure Cosmos DB, this time - we will tweak the code from unit 5, to capture count by case type, and also ensure for a case type there is exactly one record in Cosmos DB with incremental updates to counts from the streaming process.
 
