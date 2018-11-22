@@ -26,8 +26,7 @@ Configure firewall settings as needed
 <hr>
 <br>
 
-
-
+## B) Lab units
 
 ### Unit 1. Secure credentials
 Refer the notebook for instructions.
