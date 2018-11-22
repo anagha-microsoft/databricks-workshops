@@ -26,10 +26,10 @@ import org.apache.spark.sql.types._
 
 // 1) AEH consumer related
 // Replace connection string with your instances'.
-val aehConsumerConnString = dbutils.secrets.get(scope = "ws-crimes-aeh", key = "conexion-string")
+val aehConsumerConnString = dbutils.secrets.get(scope = "gws-crimes-aeh", key = "conexion-string")
 val aehConsumerParams =
   EventHubsConf(aehConsumerConnString)
-  .setConsumerGroup("crimes_chicago_cg")
+  .setConsumerGroup("spark-streaming-cg")
   .setStartingPosition(EventPosition.fromEndOfStream)
   .setMaxEventsPerTrigger(1000)
 
@@ -100,12 +100,12 @@ consumableDF.printSchema
 
 // 4) Credentials
 //JDBC URL
-val jdbcURL = dbutils.secrets.get(scope = "ws-sql-dw", key = "conexion-string")
+val jdbcURL = dbutils.secrets.get(scope = "gws-sql-dw", key = "conexion-string")
 
 //Storage account credentials for tempDir access
 spark.conf.set(
-  "fs.azure.account.key.generalworkshopsa.blob.core.windows.net",
-  dbutils.secrets.get(scope = "ws-blob-storage", key = "storage-acct-key"))
+  "fs.azure.account.key.gwsblobsa.blob.core.windows.net",
+  dbutils.secrets.get(scope = "gws-blob-storage", key = "storage-acct-key"))
 
 // COMMAND ----------
 
@@ -113,9 +113,7 @@ spark.conf.set(
 import org.apache.spark.sql.streaming.Trigger
 
 // AEH checkpoint related
-val dbfsCheckpointDirPath="/mnt/data/workshop/scratchDir/checkpoints-crimes-aeh-sub/"
-
-// Remove output from prior execution
+val dbfsCheckpointDirPath="/mnt/workshop/scratch/checkpoints-crimes-aeh-sub/"
 dbutils.fs.rm(dbfsCheckpointDirPath, recurse=true)
 
 // Start streaming to SQL DW
@@ -126,7 +124,7 @@ val query =
     .option("url", jdbcURL)
     .option("forwardSparkAzureStorageCredentials", "true")
     .option("dbTable", "chicago_crimes_curated_summary")
-    .option("tempDir", "wasbs://scratch@generalworkshopsa.blob.core.windows.net/sqldwbatch-tempdir")
+    .option("tempDir", "wasbs://scratch@gwsblobsa.blob.core.windows.net/sqldwbatch-tempdir")
     .option("checkpointLocation", dbfsCheckpointDirPath)
     .trigger(Trigger.ProcessingTime(5000))
     .start()

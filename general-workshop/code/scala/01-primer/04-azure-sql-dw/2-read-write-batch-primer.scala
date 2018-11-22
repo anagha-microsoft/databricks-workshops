@@ -34,11 +34,11 @@
 // COMMAND ----------
 
 //JDBC URL
-val jdbcURL = dbutils.secrets.get(scope = "ws-sql-dw", key = "conexion-string")
+val jdbcURL = dbutils.secrets.get(scope = "gws-sql-dw", key = "conexion-string")
 
 //Storage account credentials for tempDir access
 spark.conf.set(
-  "fs.azure.account.key.generalworkshopsa.blob.core.windows.net",
+  "fs.azure.account.key.gwsblobsa.blob.core.windows.net",
   dbutils.secrets.get(scope = "gws-blob-storage", key = "storage-acct-key"))
 
 // COMMAND ----------
@@ -176,6 +176,10 @@ df.show
 
 // MAGIC %md
 // MAGIC ### 6. Predicate and projection pushdown
+
+// COMMAND ----------
+
+// MAGIC %md https://docs.databricks.com/spark/latest/data-sources/azure/sql-data-warehouse.html#query-pushdown-into-sql-dw
 
 // COMMAND ----------
 
