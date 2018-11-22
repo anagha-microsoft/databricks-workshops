@@ -8,16 +8,18 @@ In this lab module - we will learn to integrate with Azure Cosmos DB from Spark 
 ## A) Provisioning and configuring
 
 ### A1. Capture URI and credentials
-![3-cosmos-db](../../../images/6-cosmos-db/5.png)
-<br>
-<hr>
-<br>
 
 ![1-cosmos-db](../../../images/6-cosmos-db/1.png)
 <br>
 <hr>
 <br>
 
+![3-cosmos-db](../../../images/6-cosmos-db/5.png)
+<br>
+<hr>
+<br>
+
+Click on "Keys" in the left navigation panel.
 ![2-cosmos-db](../../../images/6-cosmos-db/2.png)
 <br>
 <hr>
