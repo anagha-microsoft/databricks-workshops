@@ -20,23 +20,23 @@
 // COMMAND ----------
 
 // MAGIC %md
-// MAGIC ```pip install databricks-cli```
+// MAGIC Follow instructions from the CLI setup notebook in the Azure storage primr module.
 
 // COMMAND ----------
 
 // MAGIC %md
-// MAGIC ## 2. Secure your blob storage credentials
+// MAGIC ## 2. Secure your Cosmos DB credentials
 
 // COMMAND ----------
 
 // MAGIC %md
-// MAGIC #### 2.0.1. Create a secrets scope for your storage account
+// MAGIC #### 2.0.1. Create a secrets scope for your account
 // MAGIC You can name it per your preference.
 
 // COMMAND ----------
 
 // MAGIC %md
-// MAGIC ```databricks secrets create-scope --scope ws-cosmos-db```
+// MAGIC ```databricks secrets create-scope --scope gws-cosmos-db```
 
 // COMMAND ----------
 
@@ -46,7 +46,7 @@
 // COMMAND ----------
 
 // MAGIC %md
-// MAGIC ```databricks secrets put --scope ws-cosmos-db --key acct-key```
+// MAGIC ```databricks secrets put --scope gws-cosmos-db --key acct-key```
 
 // COMMAND ----------
 
@@ -56,7 +56,7 @@
 // COMMAND ----------
 
 // MAGIC %md
-// MAGIC ```databricks secrets put --scope ws-cosmos-db --key acct-uri```
+// MAGIC ```databricks secrets put --scope gws-cosmos-db --key acct-uri```
 
 // COMMAND ----------
 
@@ -84,7 +84,7 @@
 
 // COMMAND ----------
 
-// MAGIC %md ```databricks secrets list --scope ws-cosmos-db```
+// MAGIC %md ```databricks secrets list --scope gws-cosmos-db```
 
 // COMMAND ----------
 
