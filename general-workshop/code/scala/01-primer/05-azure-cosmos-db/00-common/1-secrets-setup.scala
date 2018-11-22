@@ -51,7 +51,7 @@
 // COMMAND ----------
 
 // MAGIC %md
-// MAGIC This will open a file for you to enter in your account key.  Save and close the file and your storage secret is saved.
+// MAGIC This will open a file for you to enter in your account key.  Save and close the file and your secret is saved.
 
 // COMMAND ----------
 
@@ -61,7 +61,7 @@
 // COMMAND ----------
 
 // MAGIC %md
-// MAGIC This will open a file for you to enter in your account uri.  Save and close the file and your storage secret is saved.
+// MAGIC This will open a file for you to enter in your account uri.  Save and close the file and your secret is saved.
 
 // COMMAND ----------
 
