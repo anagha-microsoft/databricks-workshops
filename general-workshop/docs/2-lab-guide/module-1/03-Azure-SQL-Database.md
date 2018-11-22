@@ -11,7 +11,7 @@ Configure firewall settings as needed
 
 ### Cature credentials
 
-![1-sql-db](../../../images/4-aeh/11.png)
+![1-sql-db](../../../images/4-sql-db/1.png)
 <br>
 <hr>
 <br>
