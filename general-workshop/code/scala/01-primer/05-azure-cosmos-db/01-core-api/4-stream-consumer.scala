@@ -25,10 +25,10 @@ import org.apache.spark.sql.types._
 
 // 1) AEH consumer related
 // Replace connection string with your instances'.
-val aehConsumerConnString = dbutils.secrets.get(scope = "ws-crimes-aeh", key = "conexion-string")
+val aehConsumerConnString = dbutils.secrets.get(scope = "gws-crimes-aeh", key = "conexion-string")
 val aehConsumerParams =
   EventHubsConf(aehConsumerConnString)
-  .setConsumerGroup("crimes_chicago_cg")
+  .setConsumerGroup("spark-streaming-cg")
   .setStartingPosition(EventPosition.fromEndOfStream)
   .setMaxEventsPerTrigger(1000)
 
@@ -83,7 +83,12 @@ val consumableDF = partParsedStreamDF.select(get_json_object($"json_payload", "$
                                           get_json_object($"json_payload", "$.case_day_of_month").cast(IntegerType).alias("case_day_of_month"),          
                                           get_json_object($"json_payload", "$.case_hour").cast(IntegerType).alias("case_hour"),
                                           get_json_object($"json_payload", "$.case_day_of_week_nbr").cast(IntegerType).alias("case_day_of_week_nbr"),
-                                          get_json_object($"json_payload", "$.case_day_of_week_name").alias("case_day_of_week_name"))
+                                          get_json_object($"json_payload", "$.case_day_of_week_name").alias("case_day_of_week_name"),
+                                          get_json_object($"json_payload", "$.latitude_dec").cast(StringType).alias("latitude_dec"),
+                                          get_json_object($"json_payload", "$.longitude_dec").cast(StringType).alias("longitude_dec")  
+                                            
+                                            
+                                            )
 
 consumableDF.printSchema
 
@@ -114,8 +119,8 @@ import org.apache.spark.sql.streaming.Trigger
 // COMMAND ----------
 
 // 1) Credentials - Cosmos DB
-val cdbEndpoint = dbutils.secrets.get(scope = "ws-cosmos-db", key = "acct-uri")
-val cdbAccessKey = dbutils.secrets.get(scope = "ws-cosmos-db", key = "acct-key")
+val cdbEndpoint = dbutils.secrets.get(scope = "gws-cosmos-db", key = "acct-uri")
+val cdbAccessKey = dbutils.secrets.get(scope = "gws-cosmos-db", key = "acct-key")
 
 // COMMAND ----------
 
@@ -123,13 +128,13 @@ val cdbAccessKey = dbutils.secrets.get(scope = "ws-cosmos-db", key = "acct-key")
 val cosmosDbWriteConfigMap = Map(
 "Endpoint" -> cdbEndpoint,
   "Masterkey" -> cdbAccessKey,
-  "Database" -> "crimes_db",
-  "Collection" -> "chicago_crimes_coll",
+  "Database" -> "gws-db",
+  "Collection" -> "chicago_crimes_curated_stream",
   "Upsert" -> "true")
 
 // 3) AEH checkpoint 
-val dbfsCheckpointDirPath="/mnt/data/workshop/scratchDir/checkpoints-crimes-aeh-cdb-sub/"
-dbutils.fs.rm(dbfsCheckpointDirPath, recurse=true)//emove if needed
+val dbfsCheckpointDirPath="/mnt/workshop/scratch/checkpoints-crimes-aeh-sub/"
+dbutils.fs.rm(dbfsCheckpointDirPath, recurse=true)//remove if needed
 
 // 4) Persist to Cosmos DB
 val query = consumableDF
