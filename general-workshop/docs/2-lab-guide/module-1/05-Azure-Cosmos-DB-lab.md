@@ -10,21 +10,7 @@ We will leverage the core API - also referred to as SQL API/document API - the n
 
 ### A1. Capture URI and credentials
 
-![1-cosmos-db](../../../images/6-cosmos-db/1.png)
-<br>
-<hr>
-<br>
 
-![3-cosmos-db](../../../images/6-cosmos-db/5.png)
-<br>
-<hr>
-<br>
-
-Click on "Keys" in the left navigation panel.
-![2-cosmos-db](../../../images/6-cosmos-db/2.png)
-<br>
-<hr>
-<br>
 
 ### A2. Create database and collection in the account
 ![1-cosmos-db](../../../images/6-cosmos-db/3.png)
@@ -42,22 +28,33 @@ Go to https://search.maven.org/search?q=a:azure-cosmosdb-spark_2.3.0_2.11 or the
 
 Steps for attaching to the cluster:<br>
 
+![1-cosmos-db](../../../images/6-cosmos-db/1.png)
+<br>
+<hr>
+<br>
+
+Click on "Keys" in the left navigation panel.
+![2-cosmos-db](../../../images/6-cosmos-db/2.png)
+<br>
+<hr>
+<br>
+
+![3-cosmos-db](../../../images/6-cosmos-db/3.png)
+<br>
+<hr>
+<br>
+
+![4-cosmos-db](../../../images/6-cosmos-db/4.png)
+<br>
+<hr>
+<br>
+
 ![5-cosmos-db](../../../images/6-cosmos-db/5.png)
 <br>
 <hr>
 <br>
 
 ![6-cosmos-db](../../../images/6-cosmos-db/6.png)
-<br>
-<hr>
-<br>
-
-![7-cosmos-db](../../../images/6-cosmos-db/7.png)
-<br>
-<hr>
-<br>
-
-![8-cosmos-db](../../../images/6-cosmos-db/8.png)
 <br>
 <hr>
 <br>
