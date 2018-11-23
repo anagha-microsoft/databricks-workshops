@@ -14,8 +14,8 @@ import com.databricks.backend.daemon.dbutils.FileInfo
 // COMMAND ----------
 
 //Source, destination directories
-val srcDataDirRoot = "/mnt/data/nyctaxi/stagingDir/transactional-data/" 
-val destDataDirRoot = "/mnt/data/nyctaxi/rawDir/yellow-taxi" 
+val srcDataDirRoot = "/mnt/workshop/staging/transactional-data/" 
+val destDataDirRoot = "/mnt/workshop/raw/transactions/yellow-taxi" 
 
 //Canonical ordered column list for yellow taxi across years to homogenize schema
 val canonicalTripSchemaColList = Seq("taxi_type","vendor_id","pickup_datetime","dropoff_datetime","store_and_fwd_flag","rate_code_id","pickup_location_id","dropoff_location_id","pickup_longitude","pickup_latitude","dropoff_longitude","dropoff_latitude","passenger_count","trip_distance","fare_amount","extra","mta_tax","tip_amount","tolls_amount","improvement_surcharge","total_amount","payment_type","trip_year","trip_month")
@@ -27,7 +27,7 @@ val canonicalTripSchemaColList = Seq("taxi_type","vendor_id","pickup_datetime","
 
 // COMMAND ----------
 
-// MAGIC %run "../01-General/3-CommonFunctions"
+// MAGIC %run "../01-General/2-CommonFunctions"
 
 // COMMAND ----------
 
@@ -238,46 +238,7 @@ def getSchemaHomogenizedDataframe(sourceDF: org.apache.spark.sql.DataFrame,
 // COMMAND ----------
 
 // MAGIC %md
-// MAGIC #### 4. Create Hive external table
-
-// COMMAND ----------
-
-// MAGIC %sql
-// MAGIC use taxi_db;
-// MAGIC DROP TABLE IF EXISTS yellow_taxi_trips;
-// MAGIC CREATE TABLE IF NOT EXISTS yellow_taxi_trips(
-// MAGIC taxi_type STRING,
-// MAGIC vendor_id STRING,
-// MAGIC pickup_datetime TIMESTAMP,
-// MAGIC dropoff_datetime TIMESTAMP,
-// MAGIC store_and_fwd_flag STRING,
-// MAGIC rate_code_id INT,
-// MAGIC pickup_location_id INT,
-// MAGIC dropoff_location_id INT,
-// MAGIC pickup_longitude STRING,
-// MAGIC pickup_latitude STRING,
-// MAGIC dropoff_longitude STRING,
-// MAGIC dropoff_latitude STRING,
-// MAGIC passenger_count INT,
-// MAGIC trip_distance DOUBLE,
-// MAGIC fare_amount DOUBLE,
-// MAGIC extra DOUBLE,
-// MAGIC mta_tax DOUBLE,
-// MAGIC tip_amount DOUBLE,
-// MAGIC tolls_amount DOUBLE,
-// MAGIC improvement_surcharge DOUBLE,
-// MAGIC total_amount DOUBLE,
-// MAGIC payment_type STRING,
-// MAGIC trip_year STRING,
-// MAGIC trip_month STRING)
-// MAGIC USING parquet
-// MAGIC partitioned by (trip_year,trip_month)
-// MAGIC LOCATION '/mnt/data/nyctaxi/rawDir/yellow-taxi/';
-
-// COMMAND ----------
-
-// MAGIC %md
-// MAGIC #### 5. Read CSV, homogenize schema across years, save as parquet
+// MAGIC #### 4. Read CSV, homogenize schema across years, save to DBFS in Delta format
 
 // COMMAND ----------
 
@@ -321,28 +282,26 @@ for (j <- 2017 to 2017)
       spark.sqlContext.setConf("spark.sql.parquet.writeLegacyFormat", "true")
 
       //Write parquet output, calling function to calculate number of partition files
-      taxiCanonicalDF.coalesce(calcOutputFileCountTxtToPrq(srcDataFile, 64)).write.parquet(destDataDir)
-
-      //Delete residual files from job operation (_SUCCESS, _start*, _committed*)
-      dbutils.fs.ls(destDataDir).foreach((i: FileInfo) => if (!(i.path contains "parquet")) dbutils.fs.rm(i.path))
-
-      
-      //Add partition for year and month
-      sql("ALTER TABLE taxi_db.yellow_taxi_trips ADD IF NOT EXISTS PARTITION (trip_year=" + j + ",trip_month=" + "%02d".format(i) + ") LOCATION '" + destDataDir.dropRight(1) + "'")
-    
-      //Refresh table
-      sql("REFRESH TABLE taxi_db.yellow_taxi_trips")
+      taxiCanonicalDF
+                .coalesce(calcOutputFileCountTxtToPrq(srcDataFile, 64))
+                .write
+                .format("delta")
+                .partitionBy("trip_year","trip_month")
+                .save(destDataDir)   
     }
   }
-
-//Compute statistics for table for performance
-sql("ANALYZE TABLE taxi_db.yellow_taxi_trips COMPUTE STATISTICS")
 
 
 // COMMAND ----------
 
-//2009-2012:37.93 minutes
-//2013: 11 minutes
-//2014-2015: 21 minutes
-//2016: 7.47 minutes
-//2017: 3.83 minutes
+// MAGIC %md
+// MAGIC #### 4. Create external table
+
+// COMMAND ----------
+
+// MAGIC %sql
+// MAGIC use taxi_db;
+// MAGIC DROP TABLE IF EXISTS yellow_taxi_trips;
+// MAGIC CREATE TABLE IF NOT EXISTS yellow_taxi_trips
+// MAGIC USING DELTA
+// MAGIC LOCATION '/mnt/workshop/raw/transactions/yellow-taxi/';
