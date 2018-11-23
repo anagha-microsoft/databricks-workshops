@@ -1,15 +1,16 @@
 // Databricks notebook source
 // MAGIC %md
 // MAGIC # What's in this exercise?
-// MAGIC We run the common functions notebook so we can reuse capability defined there, and then...<BR>
-// MAGIC 1) Load yellow taxi data in staging directory to raw data directory, and save as parquet<BR> 
-// MAGIC 2) Create external unmanaged Hive tables<BR>
-// MAGIC 3) Create statistics for tables                          
+// MAGIC We will run the common functions notebook so we can reuse capability defined there, and then...<BR>
+// MAGIC 1) Load yellow taxi data from the staging zone, homogenize schemas over the years, and persist to the raw information zone, in Delta format<BR> 
+// MAGIC 2) Create external table definition<BR>
+// MAGIC 3) Optimize the table                         
 
 // COMMAND ----------
 
 import org.apache.spark.sql.types.{StructType, StructField, StringType, IntegerType,LongType,FloatType,DoubleType, TimestampType}
-import com.databricks.backend.daemon.dbutils.FileInfo
+//import com.databricks.backend.daemon.dbutils.FileInfo
+import  java.util.Calendar
 
 // COMMAND ----------
 
@@ -248,18 +249,16 @@ dbutils.fs.rm(destDataDirRoot,recurse=true)
 // COMMAND ----------
 
 //Process data, save as parquet
-for (j <- 2017 to 2017)
-  {
+for (j <- 2009 to 2017)
+  { 
     val endMonth = if (j==2017) 6 else 12 
     for (i <- 1 to endMonth) 
     {
       //Source path  
       val srcDataFile= srcDataDirRoot + "year=" + j + "/month=" +  "%02d".format(i) + "/type=yellow/yellow_tripdata_" + j + "-" + "%02d".format(i) + ".csv"
-      println("Year=" + j + "; Month=" + i)
-      println(srcDataFile)
-
-      //Destination path  
-      val destDataDir = destDataDirRoot + "/trip_year=" + j + "/trip_month=" + "%02d".format(i) + "/"
+      
+      println("Processing the yellow taxi data for year=" + j + ", month=" + i + " at " + Calendar.getInstance().getTime())
+      println("...............")
       
       //Source schema
       val taxiSchema = getTaxiSchema(j,i)
@@ -269,7 +268,7 @@ for (j <- 2017 to 2017)
                       .option("header", "true")
                       .schema(taxiSchema)
                       .option("delimiter",",")
-                      .load(srcDataFile).cache()
+                      .load(srcDataFile)
       
 
       //Add additional columns to homogenize schema across years
@@ -286,22 +285,38 @@ for (j <- 2017 to 2017)
                 .coalesce(calcOutputFileCountTxtToPrq(srcDataFile, 64))
                 .write
                 .format("delta")
+                .mode("append")
                 .partitionBy("trip_year","trip_month")
-                .save(destDataDir)   
+                .save(destDataDirRoot)   
     }
   }
 
 
 // COMMAND ----------
 
+//Took 1.37 hours with running this in parallel with the yellow taxi data
+//Cluster conf: 5 workers - DS13v2 - 16 cores, 56 GB of RAM
+
+// COMMAND ----------
+
 // MAGIC %md
-// MAGIC #### 4. Create external table
+// MAGIC #### 5. Create external table
 
 // COMMAND ----------
 
 // MAGIC %sql
 // MAGIC use taxi_db;
-// MAGIC DROP TABLE IF EXISTS yellow_taxi_trips;
-// MAGIC CREATE TABLE IF NOT EXISTS yellow_taxi_trips
+// MAGIC DROP TABLE IF EXISTS yellow_taxi_trips_raw;
+// MAGIC CREATE TABLE IF NOT EXISTS yellow_taxi_trips_raw
 // MAGIC USING DELTA
 // MAGIC LOCATION '/mnt/workshop/raw/transactions/yellow-taxi/';
+
+// COMMAND ----------
+
+// MAGIC %sql
+// MAGIC select * from taxi_db.yellow_taxi_trips_raw;
+
+// COMMAND ----------
+
+// MAGIC %sql
+// MAGIC select count(*) from from taxi_db.yellow_taxi_trips_raw;
