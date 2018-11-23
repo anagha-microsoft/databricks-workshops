@@ -296,6 +296,7 @@ for (j <- 2009 to 2017)
 
 //Took 1.37 hours with running this in parallel with the yellow taxi data
 //Cluster conf: 5 workers - DS13v2 - 16 cores, 56 GB of RAM
+//13.7B trips from 2009 to 1/2 of 2017
 
 // COMMAND ----------
 
@@ -320,7 +321,3 @@ for (j <- 2009 to 2017)
 
 // MAGIC %sql
 // MAGIC select count(*) from from taxi_db.yellow_taxi_trips_raw;
-
-// COMMAND ----------
-
-//13.7B trips
