@@ -39,6 +39,3 @@ def generateBatchID(): Int =
  
   batchId
 }
-
-// COMMAND ----------
-
