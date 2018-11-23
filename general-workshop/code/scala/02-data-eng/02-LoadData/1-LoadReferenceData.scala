@@ -14,8 +14,8 @@ import com.databricks.backend.daemon.dbutils.FileInfo
 // COMMAND ----------
 
 //Define source and destination directories
-val srcDataDirRoot = "/mnt/data/nyctaxi/stagingDir/reference-data/" //Root dir for source data
-val destDataDirRoot = "/mnt/data/nyctaxi/referenceDataDir/" //Root dir for consumable data
+val srcDataDirRoot  = "/mnt/workshop/staging/reference-data/" //Root dir for source data
+val destDataDirRoot = "/mnt/workshop/curated/reference-data/" //Root dir for consumable data
 
 // COMMAND ----------
 
@@ -24,7 +24,7 @@ val destDataDirRoot = "/mnt/data/nyctaxi/referenceDataDir/" //Root dir for consu
 
 // COMMAND ----------
 
-// MAGIC %run "../01-General/3-CommonFunctions"
+// MAGIC %run "../01-General/2-CommonFunctions"
 
 // COMMAND ----------
 
@@ -136,7 +136,7 @@ loadReferenceData("vendor",srcDataDirRoot + "vendor_lookup.csv",destDataDirRoot 
 
 // COMMAND ----------
 
-display(dbutils.fs.ls("/mnt/data/nyctaxi/referenceDataDir"))
+display(dbutils.fs.ls("/mnt/workshop/curated/reference-data/"))
 
 // COMMAND ----------
 
@@ -154,7 +154,7 @@ display(dbutils.fs.ls("/mnt/data/nyctaxi/referenceDataDir"))
 // MAGIC zone STRING,
 // MAGIC service_zone STRING)
 // MAGIC USING parquet
-// MAGIC LOCATION '/mnt/data/nyctaxi/referenceDataDir/taxi-zone/';
+// MAGIC LOCATION '/mnt/workshop/curated/reference-data/taxi-zone/';
 
 // COMMAND ----------
 
@@ -166,7 +166,7 @@ display(dbutils.fs.ls("/mnt/data/nyctaxi/referenceDataDir"))
 // MAGIC month_name_short STRING,
 // MAGIC month_name_full STRING)
 // MAGIC USING parquet
-// MAGIC LOCATION '/mnt/data/nyctaxi/referenceDataDir/trip-month/';
+// MAGIC LOCATION '/mnt/workshop/curated/reference-data/trip-month/';
 
 // COMMAND ----------
 
@@ -177,7 +177,7 @@ display(dbutils.fs.ls("/mnt/data/nyctaxi/referenceDataDir"))
 // MAGIC rate_code_id INT,
 // MAGIC description STRING)
 // MAGIC USING parquet
-// MAGIC LOCATION '/mnt/data/nyctaxi/referenceDataDir/rate-code/';
+// MAGIC LOCATION '/mnt/workshop/curated/reference-data/rate-code/';
 
 // COMMAND ----------
 
@@ -189,7 +189,7 @@ display(dbutils.fs.ls("/mnt/data/nyctaxi/referenceDataDir"))
 // MAGIC abbreviation STRING,
 // MAGIC description STRING)
 // MAGIC USING parquet
-// MAGIC LOCATION '/mnt/data/nyctaxi/referenceDataDir/payment-type/';
+// MAGIC LOCATION '/mnt/workshop/curated/reference-data/payment-type/';
 
 // COMMAND ----------
 
@@ -200,7 +200,7 @@ display(dbutils.fs.ls("/mnt/data/nyctaxi/referenceDataDir"))
 // MAGIC trip_type INT,
 // MAGIC description STRING)
 // MAGIC USING parquet
-// MAGIC LOCATION '/mnt/data/nyctaxi/referenceDataDir/trip-type/';
+// MAGIC LOCATION '/mnt/workshop/curated/reference-data/trip-type/';
 
 // COMMAND ----------
 
@@ -212,7 +212,7 @@ display(dbutils.fs.ls("/mnt/data/nyctaxi/referenceDataDir"))
 // MAGIC abbreviation STRING,
 // MAGIC description STRING)
 // MAGIC USING parquet
-// MAGIC LOCATION '/mnt/data/nyctaxi/referenceDataDir/vendor/';
+// MAGIC LOCATION '/mnt/workshop/curated/reference-data/vendor/';
 
 // COMMAND ----------
 
