@@ -352,11 +352,16 @@ for (j <- 2013 to 2017)
 // MAGIC %sql
 // MAGIC use taxi_db;
 // MAGIC 
-// MAGIC DROP TABLE IF EXISTS green_taxi_trips;
+// MAGIC DROP TABLE IF EXISTS green_taxi_trips_raw;
 // MAGIC CREATE TABLE IF NOT EXISTS green_taxi_trips_raw
 // MAGIC USING DELTA
 // MAGIC LOCATION '/mnt/workshop/raw/transactions/green-taxi/';
 
 // COMMAND ----------
 
-//46 minutes ofr entire dataset
+// MAGIC %sql
+// MAGIC select count(*) from taxi_db.green_taxi_trips_raw;
+
+// COMMAND ----------
+
+//59 million trips
