@@ -27,7 +27,7 @@ Click on the "Author and monitor"
 <hr>
 <br>
 
-Click on the "Author and monitor"
+Click on "Copy data"
 ![5-ADFv2](../../images/0-data-copy/5.png)
 <br><br>
 <hr>
