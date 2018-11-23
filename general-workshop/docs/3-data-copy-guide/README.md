@@ -38,12 +38,29 @@ Click on "Copy data"
 <hr>
 <br>
 
+## Step 3: Configure source
+
 ![7-ADFv2](../../images/0-data-copy/7.png)
 <br><br>
 <hr>
 <br>
 
 ![8-ADFv2](../../images/0-data-copy/8.png)
+<br><br>
+<hr>
+<br>
+
+![8-ADFv2](../../images/0-data-copy/8.png)
+<br><br>
+<hr>
+<br>
+
+![9-ADFv2](../../images/0-data-copy/9.png)
+<br><br>
+<hr>
+<br>
+
+![10-ADFv2](../../images/0-data-copy/10.png)
 <br><br>
 <hr>
 <br>
