@@ -117,6 +117,10 @@ curatedDF
 
 // COMMAND ----------
 
+//Took 7 minutes - with yellow taxi job running to process 59M trips (inception to 2017 summer)
+
+// COMMAND ----------
+
 // MAGIC %md
 // MAGIC ### 3.  Define external table
 
