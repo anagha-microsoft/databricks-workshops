@@ -317,16 +317,13 @@ for (j <- 2013 to 2017)
                       .option("header", "true")
                       .schema(taxiSchema)
                       .option("delimiter",",")
-                      .load(srcDataFile).cache()
+                      .load(srcDataFile)
 
       //Add additional columns to homogenize schema across years
       val taxiFormattedDF = getSchemaHomogenizedDataframe(taxiDF, j, i)
 
       //Order all columns to align with the canonical schema for green taxi
       val taxiCanonicalDF = taxiFormattedDF.select(canonicalTripSchemaColList.map(c => col(c)): _*)
-
-      //To make Hive Parquet format compatible with Spark Parquet format
-      //spark.sqlContext.setConf("spark.sql.parquet.writeLegacyFormat", "true")
 
       //Write parquet output, calling function to calculate number of partition files
       taxiCanonicalDF
@@ -342,6 +339,11 @@ for (j <- 2013 to 2017)
 
 // COMMAND ----------
 
+//Took: 60 minutes with running this in parallel with the yellow taxi data
+//Cluster conf: 5 workers - DS13v2
+
+// COMMAND ----------
+
 // MAGIC %md
 // MAGIC #### 4. Create external table definition
 
@@ -353,7 +355,6 @@ for (j <- 2013 to 2017)
 // MAGIC DROP TABLE IF EXISTS green_taxi_trips;
 // MAGIC CREATE TABLE IF NOT EXISTS green_taxi_trips_raw
 // MAGIC USING DELTA
-// MAGIC partitioned by (trip_year,trip_month)
 // MAGIC LOCATION '/mnt/workshop/raw/transactions/green-taxi/';
 
 // COMMAND ----------
