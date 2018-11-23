@@ -320,3 +320,7 @@ for (j <- 2009 to 2017)
 
 // MAGIC %sql
 // MAGIC select count(*) from from taxi_db.yellow_taxi_trips_raw;
+
+// COMMAND ----------
+
+//13.7B trips
