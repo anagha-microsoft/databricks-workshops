@@ -8,7 +8,7 @@ import org.apache.spark.sql.functions._
 
 // COMMAND ----------
 
-// MAGIC %run "../01-General/3-CommonFunctions"
+// MAGIC %run "../01-General/2-CommonFunctions"
 
 // COMMAND ----------
 
@@ -104,7 +104,7 @@ yellowTaxiDFHomogenized.printSchema
 // COMMAND ----------
 
 //Destination directory
-val destDataDirRoot = "/mnt/data/nyctaxi/curatedDir/materialized-view" 
+val destDataDirRoot = "/mnt/workshop/curated/materialized-view" 
 
 //Delete any residual data from prior executions for an idempotent run
 dbutils.fs.rm(destDataDirRoot,recurse=true)
@@ -222,11 +222,17 @@ UNION ALL
 """).cache()
 
 
-//Write parquet output, calling function to calculate number of partition files
-matViewDF.coalesce(15).write.partitionBy("taxi_type","trip_year", "trip_month").parquet(destDataDirRoot)
+//Save as Delta
+matViewDF
+    .coalesce(15)
+    .write
+    .format("delta")
+    .mode("append")
+    .partitionBy("taxi_type","trip_year","trip_month")
+    .save(destDataDirRoot)   
 
 //Execution time: ~ 18 minutes for 2016/2017
-//Exeuction for all the data: 55.75 minutes
+//Execuction for all the data: 55.75 minutes
 
 // COMMAND ----------
 
@@ -234,13 +240,8 @@ matViewDF.printSchema
 
 // COMMAND ----------
 
-//Delete residual files from job operation (_SUCCESS, _start*, _committed*)
-recursivelyDeleteSparkJobFlagFiles(destDataDirRoot)
-
-// COMMAND ----------
-
 // MAGIC %md
-// MAGIC ### 4.  Create Hive external table
+// MAGIC ### 4.  Create external table
 
 // COMMAND ----------
 
@@ -248,81 +249,10 @@ recursivelyDeleteSparkJobFlagFiles(destDataDirRoot)
 // MAGIC use taxi_db;
 // MAGIC 
 // MAGIC DROP TABLE IF EXISTS taxi_trips_mat_view;
-// MAGIC CREATE TABLE taxi_trips_mat_view(
-// MAGIC taxi_type STRING,
-// MAGIC vendor_id INT,
-// MAGIC pickup_datetime TIMESTAMP,
-// MAGIC dropoff_datetime TIMESTAMP,
-// MAGIC store_and_fwd_flag STRING,
-// MAGIC rate_code_id INT,
-// MAGIC pickup_location_id INT,
-// MAGIC dropoff_location_id INT,
-// MAGIC pickup_longitude STRING,
-// MAGIC pickup_latitude STRING,
-// MAGIC dropoff_longitude STRING,
-// MAGIC dropoff_latitude STRING,
-// MAGIC passenger_count INT,
-// MAGIC trip_distance DOUBLE,
-// MAGIC fare_amount DOUBLE,
-// MAGIC extra DOUBLE,
-// MAGIC mta_tax DOUBLE,
-// MAGIC tip_amount DOUBLE,
-// MAGIC tolls_amount DOUBLE,
-// MAGIC ehail_fee DOUBLE,
-// MAGIC improvement_surcharge DOUBLE,
-// MAGIC total_amount DOUBLE,
-// MAGIC payment_type INT,
-// MAGIC trip_type INT,
-// MAGIC trip_year STRING,
-// MAGIC trip_month STRING,
-// MAGIC vendor_abbreviation STRING,
-// MAGIC vendor_description STRING,
-// MAGIC trip_type_description STRING,
-// MAGIC month_name_short STRING,
-// MAGIC month_name_full STRING,
-// MAGIC payment_type_description STRING,
-// MAGIC rate_code_description STRING,
-// MAGIC pickup_borough STRING,
-// MAGIC pickup_zone STRING,
-// MAGIC pickup_service_zone STRING,
-// MAGIC dropoff_borough STRING,
-// MAGIC dropoff_zone STRING,
-// MAGIC dropoff_service_zone STRING,
-// MAGIC pickup_year INT,
-// MAGIC pickup_month INT,
-// MAGIC pickup_day INT,
-// MAGIC pickup_hour INT,
-// MAGIC pickup_minute INT,
-// MAGIC pickup_second INT,
-// MAGIC dropoff_year INT,
-// MAGIC dropoff_month INT,
-// MAGIC dropoff_day INT,
-// MAGIC dropoff_hour INT,
-// MAGIC dropoff_minute INT,
-// MAGIC dropoff_second INT)
-// MAGIC USING parquet
+// MAGIC CREATE TABLE taxi_trips_mat_view
+// MAGIC USING DELTA
 // MAGIC partitioned by (taxi_type,trip_year,trip_month)
-// MAGIC LOCATION '/mnt/data/nyctaxi/curatedDir/materialized-view/';
-
-// COMMAND ----------
-
-// MAGIC %md
-// MAGIC ### 5.  Create Hive table partitions
-
-// COMMAND ----------
-
-//Register Hive partitions for the transformed table
-spark.sql("MSCK REPAIR TABLE taxi_db.taxi_trips_mat_view")
-
-// COMMAND ----------
-
-// MAGIC %md
-// MAGIC ### 6.  Compute table statistics
-
-// COMMAND ----------
-
-//Compute statistics
-sql("ANALYZE TABLE taxi_db.taxi_trips_mat_view COMPUTE STATISTICS")
+// MAGIC LOCATION '/mnt/workshop/curated/materialized-view';
 
 // COMMAND ----------
 
@@ -333,6 +263,3 @@ sql("ANALYZE TABLE taxi_db.taxi_trips_mat_view COMPUTE STATISTICS")
 
 // MAGIC %sql
 // MAGIC select * from taxi_db.taxi_trips_mat_view where trip_year=2013
-
-// COMMAND ----------
-
