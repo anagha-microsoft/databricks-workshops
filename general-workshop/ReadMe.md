@@ -36,5 +36,5 @@ This is a *batch focused* module and covers-<br>
 
 ## Next
 [Provisioning guide](docs/1-provisioning-guide/ProvisioningGuide.md)<br>
-[Lab data copy guide](docs/1-provisioning-guide/ProvisioningGuide.md)<br>
+[Lab data copy guide](docs/3-data-copy-guide/ReadMe.md)<br>
 [Lab guide](docs/2-lab-guide/README.md)
