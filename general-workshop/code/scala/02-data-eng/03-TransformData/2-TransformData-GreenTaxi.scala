@@ -2,9 +2,8 @@
 // MAGIC %md
 // MAGIC # What's in this exercise?
 // MAGIC 
-// MAGIC 1) Read raw data, augment with derived attributes, augment with reference data & persist<BR> 
-// MAGIC 2) Create external unmanaged Hive tables<BR>
-// MAGIC 3) Create statistics for tables                          
+// MAGIC 1) Read raw data, augment with derived attributes, augment with reference data & persist to Delta<BR> 
+// MAGIC 2) Create external tables<BR>                       
 
 // COMMAND ----------
 
@@ -15,7 +14,7 @@ import org.apache.hadoop.fs.{ FileSystem, Path }
 // COMMAND ----------
 
 //Destination directory
-val destDataDirRoot = "/mnt/data/nyctaxi/curatedDir/green-taxi" 
+val destDataDirRoot =  "/mnt/workshop/curated/transactions/green-taxi" 
 
 //Delete any residual data from prior executions for an idempotent run
 dbutils.fs.rm(destDataDirRoot,recurse=true)
@@ -27,7 +26,7 @@ dbutils.fs.rm(destDataDirRoot,recurse=true)
 
 // COMMAND ----------
 
-// MAGIC %run "../01-General/3-CommonFunctions"
+// MAGIC %run "../01-General/2-CommonFunctions"
 
 // COMMAND ----------
 
@@ -90,7 +89,7 @@ val curatedDF = spark.sql("""
       minute(t.dropoff_datetime) as dropoff_minute,
       second(t.dropoff_datetime) as dropoff_second
   from 
-    taxi_db.green_taxi_trips t
+    taxi_db.green_taxi_trips_raw t
     left outer join taxi_db.vendor_lookup v 
       on (t.vendor_id = v.vendor_id)
     left outer join taxi_db.trip_type_lookup tt 
@@ -107,18 +106,19 @@ val curatedDF = spark.sql("""
       on (t.dropoff_location_id = tzdo.location_id)
   """)
 
-//Write parquet output, calling function to calculate number of partition files
-curatedDF.coalesce(10).write.partitionBy("trip_year", "trip_month").parquet(destDataDirRoot)
-
-// COMMAND ----------
-
-//Delete residual files from job operation (_SUCCESS, _start*, _committed*)
-recursivelyDeleteSparkJobFlagFiles(destDataDirRoot)
+//Save as Delta, partition by year and month
+curatedDF
+  .coalesce(10)
+  .write
+  .format("delta")
+  .mode("append")
+  .partitionBy("trip_year","trip_month")
+  .save(destDataDirRoot)   
 
 // COMMAND ----------
 
 // MAGIC %md
-// MAGIC ### 3.  Define Hive external table
+// MAGIC ### 3.  Define external table
 
 // COMMAND ----------
 
@@ -126,81 +126,9 @@ recursivelyDeleteSparkJobFlagFiles(destDataDirRoot)
 // MAGIC use taxi_db;
 // MAGIC 
 // MAGIC DROP TABLE IF EXISTS green_taxi_trips_curated;
-// MAGIC CREATE TABLE green_taxi_trips_curated(
-// MAGIC taxi_type STRING,
-// MAGIC vendor_id INT,
-// MAGIC pickup_datetime TIMESTAMP,
-// MAGIC dropoff_datetime TIMESTAMP,
-// MAGIC store_and_fwd_flag STRING,
-// MAGIC rate_code_id INT,
-// MAGIC pickup_location_id INT,
-// MAGIC dropoff_location_id INT,
-// MAGIC pickup_longitude STRING,
-// MAGIC pickup_latitude STRING,
-// MAGIC dropoff_longitude STRING,
-// MAGIC dropoff_latitude STRING,
-// MAGIC passenger_count INT,
-// MAGIC trip_distance DOUBLE,
-// MAGIC fare_amount DOUBLE,
-// MAGIC extra DOUBLE,
-// MAGIC mta_tax DOUBLE,
-// MAGIC tip_amount DOUBLE,
-// MAGIC tolls_amount DOUBLE,
-// MAGIC ehail_fee DOUBLE,
-// MAGIC improvement_surcharge DOUBLE,
-// MAGIC total_amount DOUBLE,
-// MAGIC payment_type INT,
-// MAGIC trip_type INT,
-// MAGIC trip_year STRING,
-// MAGIC trip_month STRING,
-// MAGIC vendor_abbreviation STRING,
-// MAGIC vendor_description STRING,
-// MAGIC trip_type_description STRING,
-// MAGIC month_name_short STRING,
-// MAGIC month_name_full STRING,
-// MAGIC payment_type_description STRING,
-// MAGIC rate_code_description STRING,
-// MAGIC pickup_borough STRING,
-// MAGIC pickup_zone STRING,
-// MAGIC pickup_service_zone STRING,
-// MAGIC dropoff_borough STRING,
-// MAGIC dropoff_zone STRING,
-// MAGIC dropoff_service_zone STRING,
-// MAGIC pickup_year INT,
-// MAGIC pickup_month INT,
-// MAGIC pickup_day INT,
-// MAGIC pickup_hour INT,
-// MAGIC pickup_minute INT,
-// MAGIC pickup_second INT,
-// MAGIC dropoff_year INT,
-// MAGIC dropoff_month INT,
-// MAGIC dropoff_day INT,
-// MAGIC dropoff_hour INT,
-// MAGIC dropoff_minute INT,
-// MAGIC dropoff_second INT)
-// MAGIC USING parquet
-// MAGIC partitioned by (trip_year,trip_month)
-// MAGIC LOCATION '/mnt/data/nyctaxi/curatedDir/green-taxi/';
-
-// COMMAND ----------
-
-// MAGIC %md
-// MAGIC ### 4.  Create Hive table partitions
-
-// COMMAND ----------
-
-//Register Hive partitions for the transformed table
-spark.sql("MSCK REPAIR TABLE taxi_db.green_taxi_trips_curated")
-
-// COMMAND ----------
-
-// MAGIC %md
-// MAGIC ### 5.  Compute Hive table statistics
-
-// COMMAND ----------
-
-sql("REFRESH TABLE taxi_db.green_taxi_trips_curated")
-sql("ANALYZE TABLE taxi_db.green_taxi_trips_curated COMPUTE STATISTICS")
+// MAGIC CREATE TABLE green_taxi_trips_curated
+// MAGIC USING DELTA
+// MAGIC LOCATION '/mnt/workshop/curated/transactions/green-taxi';
 
 // COMMAND ----------
 
@@ -212,6 +140,3 @@ sql("ANALYZE TABLE taxi_db.green_taxi_trips_curated COMPUTE STATISTICS")
 
 // MAGIC %sql
 // MAGIC select count(*) from taxi_db.green_taxi_trips_curated
-
-// COMMAND ----------
-
