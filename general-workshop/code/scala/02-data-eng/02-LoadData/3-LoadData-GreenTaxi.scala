@@ -1,10 +1,10 @@
 // Databricks notebook source
 // MAGIC %md
 // MAGIC # What's in this exercise?
-// MAGIC 1) Execute common functions notebook<BR>
-// MAGIC 2) Load green taxi data in staging directory to raw data directory, and save as parquet<BR> 
-// MAGIC 3) Create external unmanaged Hive tables<BR>
-// MAGIC 4) Create statistics for tables                          
+// MAGIC We will run the common functions notebook so we can reuse capability defined there, and then...<BR>
+// MAGIC 1) Load green taxi data from the staging zone, homogenize schemas over the years, and persist to the raw information zone, in Delta format<BR> 
+// MAGIC 2) Create external table definition<BR>
+// MAGIC 3) Optimize the table                      
 
 // COMMAND ----------
 
