@@ -21,12 +21,13 @@ The NYC taxi dataset has been pre-downloaded and organized appropriately for the
 
 ## Step 2: Create a copy pipeline
 
-Click on the 
+Click on the "Author and monitor"
 ![4-ADFv2](../../images/0-data-copy/4.png)
 <br><br>
 <hr>
 <br>
 
+Click on the "Author and monitor"
 ![5-ADFv2](../../images/0-data-copy/5.png)
 <br><br>
 <hr>
