@@ -114,6 +114,8 @@ Click on "Copy data"
 <hr>
 <br>
 
+## Step 5: Start data copy
+
 ![21-ADFv2](../../images/0-data-copy/21.png)
 <br><br>
 <hr>
@@ -139,3 +141,49 @@ Click on "Copy data"
 <hr>
 <br>
 
+## Step 6: End state
+
+![26-ADFv2](../../images/0-data-copy/26.png)
+<br><br>
+<hr>
+<br>
+
+![27-ADFv2](../../images/0-data-copy/27.png)
+<br><br>
+<hr>
+<br>
+
+![28-ADFv2](../../images/0-data-copy/28.png)
+<br><br>
+<hr>
+<br>
+
+![29-ADFv2](../../images/0-data-copy/29.png)
+<br><br>
+<hr>
+<br>
+
+![30-ADFv2](../../images/0-data-copy/30.png)
+<br><br>
+<hr>
+<br>
+
+![31-ADFv2](../../images/0-data-copy/31.png)
+<br><br>
+<hr>
+<br>
+
+![32-ADFv2](../../images/0-data-copy/32.png)
+<br><br>
+<hr>
+<br>
+
+![33-ADFv2](../../images/0-data-copy/33.png)
+<br><br>
+<hr>
+<br>
+
+![34-ADFv2](../../images/0-data-copy/34.png)
+<br><br>
+<hr>
+<br>
