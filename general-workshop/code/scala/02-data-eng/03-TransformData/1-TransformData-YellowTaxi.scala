@@ -123,12 +123,16 @@ dbutils.fs.rm(destDataDirRoot,recurse=true)
 
 //Save as Delta, partition by year and month
 curatedDFConformed
-    .coalesce(40)
+    .coalesce(15)
     .write
     .format("delta")
     .mode("append")
     .partitionBy("trip_year","trip_month")
     .save(destDataDirRoot)   
+
+// COMMAND ----------
+
+//Took two hours for full dataset for coalesce(40) - job by itself
 
 // COMMAND ----------
 
