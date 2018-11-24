@@ -1,8 +1,17 @@
 # 04. Azure SQL Datawarehouse - Lab instructions
 
 In this lab module - we will learn to integrate with Azure SQL datawarehouse from Spark - batch and with Spark Structured Streaming.  
-- In the batch lab - the source is the curated crimes dataset in DBFS, and the target is Azure SQL datawarehouse<br>
-- In the structured streaming lab, the source is Azure Event Hub, and the sink is Azure SQL datawarehouse.<br>
+- **Batch mode:**<br>
+The source is the curated crimes dataset in DBFS, and the target is Azure SQL datawarehouse<br>
+
+![4-sql-dw](../../../images/5-sql-dw/4.png)
+<br>
+
+- **Streaming mode:**<br>
+In the structured streaming lab, the source is Azure Event Hub, and the sink is Azure SQL datawarehouse.<br>
+
+![5-sql-dw](../../../images/5-sql-dw/5.png)
+<br>
 
 
 ## A) Configuring the database server
