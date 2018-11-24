@@ -4,6 +4,10 @@ In this lab module - we will learn to publish/consume events from Azure Event Hu
 
 ![1-aeh-preview](../../../images/2-aeh/preview.png)
 
+<br>
+<hr>
+<br>
+
 ## Unit 1. Provisioning and configuring
 ### 1.1. Provision Event Hub
 
