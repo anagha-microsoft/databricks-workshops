@@ -3,6 +3,11 @@
 
 The NYC taxi dataset has been pre-downloaded and organized appropriately for the lab in a storage account.  The instructor will share credentials for the same.  We will use Azure Data Factory (ADF) v2 to copy data into the lab storage account - staging directory.
 
+![35-ADFv2](../../images/0-data-copy/35.png)
+<br><br>
+<hr>
+<br>
+
 ## Step 1: Provision ADF v2
 ![1-ADFv2](../../images/0-data-copy/1.png)
 <br><br>
