@@ -19,13 +19,6 @@ import org.apache.spark.sql.functions._
 
 // COMMAND ----------
 
-// MAGIC %sql
-// MAGIC use taxi_db;
-// MAGIC refresh table yellow_taxi_trips_curated;
-// MAGIC refresh table green_taxi_trips_curated;
-
-// COMMAND ----------
-
 //Read source data
 val yellowTaxiDF = sql("""
 SELECT 
@@ -232,7 +225,7 @@ matViewDF
     .save(destDataDirRoot)   
 
 //Execution time: ~ 18 minutes for 2016/2017
-//Execuction for all the data: 55.75 minutes
+//Execution for all the data: 55.75 minutes
 
 // COMMAND ----------
 
