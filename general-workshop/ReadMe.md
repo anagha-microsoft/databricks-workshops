@@ -13,6 +13,9 @@ A subscription with at least $200 credit for a continuous 10-14 hours of usage.<
 
 ## 1.  Module 01-Primer (Scala):
 This module covers integrating with Azure Data Services from Spark on Databricks.<br>
+
+![primer](images/1.png)
+
 At the end of this module, you will know how to provision, configure, and integrate from Spark with-<br>
 1.  Azure storage - blob storage and ADLS gen2; Includes Databricks Delta as well<br>
 2.  Azure Event Hub - publish and subscribe, with structured streaming; Includes Databricks Delta<br>
