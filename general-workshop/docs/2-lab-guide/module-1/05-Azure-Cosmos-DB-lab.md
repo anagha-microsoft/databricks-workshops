@@ -4,7 +4,8 @@ In this lab module - we will learn to integrate with Azure Cosmos DB from Spark 
 - **Batch:**<br>
 In the batch lab - the source is the curated crimes dataset in DBFS, and the target is Azure Cosmos DB.<br>
 
-![12-cosmos-db](../../../images/6-cosmos-db/12.png)
+<img src="../../../images/6-cosmos-db/12.png" width="600" height="600">
+![12-cosmos-db]()
 
 - **Streaming:**<br>
 (1) In the structured streaming lab, the source is Azure Event Hub, and the sink is Azure Cosmos DB.<br>
