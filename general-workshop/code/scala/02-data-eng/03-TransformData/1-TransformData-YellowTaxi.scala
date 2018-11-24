@@ -132,7 +132,8 @@ curatedDFConformed
 
 // COMMAND ----------
 
-//Took two hours for full dataset for coalesce(40) - job by itself
+//Took two hours for full dataset for coalesce(15) - job by itself
+//5 workers with 112 GB RAM, and 16 cores per worker
 
 // COMMAND ----------
 
