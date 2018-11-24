@@ -4,7 +4,7 @@ In this lab module - we will learn to integrate with Azure SQL databse from Spar
 - **Batch lab:**<br>
 In the batch lab - the source is the curated crimes dataset in DBFS, and the target is Azure SQL database<br>
 
-![1-sql-db](../../../images/4-sql-db/4.png)
+<img src="../../../images/4-sql-db/4.png" width="600" height="600">
 <br>
 
 
