@@ -25,7 +25,7 @@ At the end of this module, you will know how to provision, configure, and integr
 6.  Azure Cosmos DB - read/write primer in batch and structured streaming; Includes structured streaming aggregation computation<br>
 7.  PowerBI - basics of integration and visualization<br><br>
 
-The Chicago crimes dataset is leveraged in the labs.
+The Chicago crimes dataset is leveraged in the lab.
 
 ## 2.  Module 02-Data engineering workshop (Scala):
 This is a *batch focused* module and covers-<br>
@@ -36,6 +36,8 @@ This is a *batch focused* module and covers-<br>
 5.  Generate canned reports & visualization, and persist to Parquet to the **DISTRIBUTION** zone of storage<br>
 6.  Integrate reports generated to a reporting datamart RDBMS<br>
 7.  Create a batch job to automate report generation in Spark and and integration with reporting datamart for BI<br>
+
+The NYC taxi dataset (yellow and green taxi trips) is leveraged in the labs.
 
 ## Next
 [Provisioning guide](docs/1-provisioning-guide/ProvisioningGuide.md)<br>
