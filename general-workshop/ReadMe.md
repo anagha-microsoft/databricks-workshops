@@ -12,7 +12,7 @@ Prior knowledge of Spark, will be beneficial<br>
 A subscription with at least $200 credit for a continuous 10-14 hours of usage.<br>
 
 ## 1.  Module 01-Primer (Scala):
-This module covers integrating with Azure Data Services from Spark on Databricks.<br>
+This module covers basics of integrating with Azure Data Services from Spark on Databricks in batch mode and with structured streaming.<br>
 
 ![primer](images/1.png)
 
