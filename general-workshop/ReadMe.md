@@ -28,7 +28,7 @@ At the end of this module, you will know how to provision, configure, and integr
 The Chicago crimes dataset is leveraged in the lab.
 
 ## 2.  Module 02-Data engineering workshop (Scala):
-This is a *batch focused* module and covers building blocks of standing up a data engineering pipeline.  The NYC taxi dataset (yellow and green taxi trips) is leveraged in the labs.
+This is a *batch focused* module and covers building blocks of standing up a data engineering pipeline.  The [NYC taxi dataset](http://www.nyc.gov/html/tlc/html/about/trip_record_data.shtml) (yellow and green taxi trips) is leveraged in the labs.
 <br>
 ![primer](images/2.png)
 <br>
