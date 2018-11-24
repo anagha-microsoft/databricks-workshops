@@ -4,7 +4,7 @@ In this lab module - we will learn to integrate with Azure SQL datawarehouse fro
 - **Batch mode:**<br>
 The source is the curated crimes dataset in DBFS, and the target is Azure SQL datawarehouse<br>
 
-![4-sql-dw](../../../images/5-sql-dw/4.png)
+![4-sql-dw](../../../images/5-sql-dw/4.png | width="200" height="400")
 <br>
 
 - **Streaming mode:**<br>
