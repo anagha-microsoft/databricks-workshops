@@ -1,7 +1,7 @@
 # 03. Azure SQL Database - Lab instructions
 
 In this lab module - we will learn to integrate with Azure SQL databse from Spark - batch and with Spark Structured Streaming.  
-- Batch lab:
+- **Batch lab:**<br>
 In the batch lab - the source is the curated crimes dataset in DBFS, and the target is Azure SQL database<br>
 
 ![1-sql-db](../../../images/4-sql-db/4.png)
@@ -9,7 +9,7 @@ In the batch lab - the source is the curated crimes dataset in DBFS, and the tar
 <hr>
 
 
-- Streaming lab:
+- **Streaming lab:**<br>
 In the structured streaming lab, the source is the curated crimes dataset in DBFS, published to Azure Event Hub, and the sink is Azure SQL database.<br>
 
 
