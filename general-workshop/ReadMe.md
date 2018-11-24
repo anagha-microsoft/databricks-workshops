@@ -23,7 +23,7 @@ At the end of this module, you will know how to provision, configure, and integr
 4.  Azure SQL database - read/write primer in batch and structured streaming<br>
 5.  Azure SQL datawarehouse - read/write primer in batch and structured streaming<br>
 6.  Azure Cosmos DB - read/write primer in batch and structured streaming; Includes structured streaming aggregation computation<br>
-7.  PowerBI - basics of integration and visualization<br><br>
+7.  PowerBI - basics of integration and visualization<br>
 
 The Chicago crimes dataset is leveraged in the lab.
 
