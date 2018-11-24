@@ -6,11 +6,15 @@ In the batch lab - the source is the curated crimes dataset in DBFS, and the tar
 
 ![1-sql-db](../../../images/4-sql-db/4.png)
 <br>
-<hr>
 
 
 - **Streaming lab:**<br>
 In the structured streaming lab, the source is the curated crimes dataset in DBFS, published to Azure Event Hub, and the sink is Azure SQL database.<br>
+
+![1-sql-db](../../../images/4-sql-db/5.png)
+<br>
+
+<hr>
 
 
 ## A) Configuring the database server
