@@ -28,8 +28,15 @@ At the end of this module, you will know how to provision, configure, and integr
 The Chicago crimes dataset is leveraged in the lab.
 
 ## 2.  Module 02-Data engineering workshop (Scala):
-This is a *batch focused* module and covers-<br>
-1.  Organizing data in the file system (ADLS gen2) - best practices, directory layout, mount storage etc<br>
+This is a *batch focused* module and covers building blocks of standing up a data engineering pipeline.  The NYC taxi dataset (yellow and green taxi trips) is leveraged in the labs.
+<br>
+![primer](images/2.png)
+<br>
+<br>
+![primer](images/3.png)
+
+The following is a summary of content covered:
+1.  Organizing data in the file system  - best practices, directory layout, mount storage etc<br>
 2.  Load transaction data, reference data - persist to Parquet format, create external tables for the **RAW** zone<br>
 3.  Transform data - cleanse, de-duplicate, apply business logic and derive/transform and persist to Parquet; Map disparate schemas to a canonical data model; Create external tables in the **CURATED** zone<br>
 4.  Create denormalized, materialized views (tables) in Delta/Parquet and persist to **CONSUMPTION** zone of storage; The layer will give the best performance from a storage and query perspective.  Create external tables on the datasets<br>
@@ -37,7 +44,6 @@ This is a *batch focused* module and covers-<br>
 6.  Integrate reports generated to a reporting datamart RDBMS<br>
 7.  Create a batch job to automate report generation in Spark and and integration with reporting datamart for BI<br>
 
-The NYC taxi dataset (yellow and green taxi trips) is leveraged in the labs.
 
 ## Next
 [Provisioning guide](docs/1-provisioning-guide/ProvisioningGuide.md)<br>
