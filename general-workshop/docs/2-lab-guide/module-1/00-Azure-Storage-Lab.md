@@ -46,7 +46,7 @@ This is a foundational unit and covers working with directories and files on Dat
 This is also a foundational unit and will cover what you will most commonly do as a data engineer.  <br>
 We will learn to  work with dataframes, create external tables and write spark SQL queries.  For this exerise, we will use the Chicago crimes public dataset - 1.5 GB, 6.7 million crimes.<br>
 
-![1-storage-40](../../../images/1-storage/blob/preview.png)
+![1-storage-blob-preview](../../../images/1-storage/blob/preview.png)
 
 #### Load raw data:<br>
 1.  Load some raw data to DBFS (in our case, we will download from the internet and then load to DBFS)
