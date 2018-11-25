@@ -17,7 +17,7 @@ import  java.util.Calendar
 
 //Source, destination directories
 val srcDataDirRoot = "/mnt/workshop/staging/transactional-data/" 
-val destDataDirRoot = "/mnt/workshop/raw/transactions/green-taxi" 
+val destDataDirRoot = "/mnt/workshop/raw/nyctaxi/transactions/green-taxi" 
 
 //Canonical ordered column list for green taxi across years to homogenize schema
 val canonicalTripSchemaColList = Seq("taxi_type","vendor_id","pickup_datetime","dropoff_datetime","store_and_fwd_flag","rate_code_id","pickup_location_id","dropoff_location_id","pickup_longitude","pickup_latitude","dropoff_longitude","dropoff_latitude","passenger_count","trip_distance","fare_amount","extra","mta_tax","tip_amount","tolls_amount","ehail_fee","improvement_surcharge","total_amount","payment_type","trip_type","trip_year","trip_month")
@@ -340,7 +340,7 @@ for (j <- 2013 to 2017)
 // COMMAND ----------
 
 //Cluster conf: 3 autoscale to 6 workers - DS4v2 (woth DS13vs driver) - 8 cores, 28 GB of RAM/worker | Yellow + green together -  64 MB files | 47 minutes
-//Cluster conf: 3 autoscale to 6 workers - DS4v2 (woth DS13vs driver) - 8 cores, 28 GB of RAM/worker | Yellow + green together - 128 MB files |  minutes
+//Cluster conf: 3 autoscale to 6 workers - DS4v2 (woth DS13vs driver) - 8 cores, 28 GB of RAM/worker | Yellow + green together - 128 MB files | 43 minutes
 
 // COMMAND ----------
 
@@ -359,7 +359,7 @@ for (j <- 2013 to 2017)
 // MAGIC DROP TABLE IF EXISTS green_taxi_trips_raw;
 // MAGIC CREATE TABLE IF NOT EXISTS green_taxi_trips_raw
 // MAGIC USING DELTA
-// MAGIC LOCATION '/mnt/workshop/raw/transactions/green-taxi/';
+// MAGIC LOCATION '/mnt/workshop/raw/nyctaxi/transactions/green-taxi/';
 
 // COMMAND ----------
 
