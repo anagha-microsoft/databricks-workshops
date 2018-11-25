@@ -339,8 +339,8 @@ for (j <- 2013 to 2017)
 
 // COMMAND ----------
 
-//Cluster conf: 3 autoscale to 6 workers - DS4v2 (woth DS13vs driver) - 8 cores, 28 GB of RAM/worker | Yellow + green together -  64 MB files | 47 minutes
-//Cluster conf: 3 autoscale to 6 workers - DS4v2 (woth DS13vs driver) - 8 cores, 28 GB of RAM/worker | Yellow + green together - 128 MB files | 43 minutes
+//Cluster conf: 3 autoscale to 6 workers - DS4v2 (with DS13v2 driver) - 8 cores, 28 GB of RAM/worker | Yellow + green together -  64 MB files | 47 minutes
+//Cluster conf: 3 autoscale to 6 workers - DS4v2 (with DS13v2 driver) - 8 cores, 28 GB of RAM/worker | Yellow + green together - 128 MB files | 43 minutes
 
 // COMMAND ----------
 
