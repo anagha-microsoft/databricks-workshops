@@ -365,6 +365,3 @@ for (j <- 2013 to 2017)
 
 // MAGIC %sql
 // MAGIC select count(*) from taxi_db.green_taxi_trips_raw;
-
-// COMMAND ----------
-
