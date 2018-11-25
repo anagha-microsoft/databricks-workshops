@@ -327,7 +327,7 @@ for (j <- 2013 to 2017)
 
       //Write parquet output, calling function to calculate number of partition files
       taxiCanonicalDF
-                .coalesce(calcOutputFileCountTxtToPrq(srcDataFile,64))
+                .coalesce(calcOutputFileCountTxtToPrq(srcDataFile,128))
                 .write
                 .format("delta")
                 .mode("append")
@@ -339,8 +339,12 @@ for (j <- 2013 to 2017)
 
 // COMMAND ----------
 
-//Took: 60 minutes with running this in parallel with the yellow taxi data
-//Cluster conf: 5 workers - DS13v2
+//Cluster conf: 3 autoscale to 6 workers - DS4v2 (woth DS13vs driver) - 8 cores, 28 GB of RAM/worker | Yellow + green together -  64 MB files | 47 minutes
+//Cluster conf: 3 autoscale to 6 workers - DS4v2 (woth DS13vs driver) - 8 cores, 28 GB of RAM/worker | Yellow + green together - 128 MB files |  minutes
+
+// COMMAND ----------
+
+//59 million trips
 
 // COMMAND ----------
 
@@ -364,4 +368,3 @@ for (j <- 2013 to 2017)
 
 // COMMAND ----------
 
-//59 million trips
