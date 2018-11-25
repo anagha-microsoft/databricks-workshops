@@ -97,7 +97,7 @@ yellowTaxiDFHomogenized.printSchema
 // COMMAND ----------
 
 //Destination directory
-val destDataDirRoot = "/mnt/workshop/curated/materialized-view" 
+val destDataDirRoot = "/mnt/workshop/curated/nyctaxi/materialized-view" 
 
 //Delete any residual data from prior executions for an idempotent run
 dbutils.fs.rm(destDataDirRoot,recurse=true)
@@ -225,7 +225,7 @@ matViewDF
     .save(destDataDirRoot)   
 
 //Execution time: ~ 18 minutes for 2016/2017
-//Execution for all the data: 55.75 minutes
+//Execution for all the data: 120 minutes; 5 workers; 112 GB of RAM
 
 // COMMAND ----------
 
@@ -244,8 +244,7 @@ matViewDF.printSchema
 // MAGIC DROP TABLE IF EXISTS taxi_trips_mat_view;
 // MAGIC CREATE TABLE taxi_trips_mat_view
 // MAGIC USING DELTA
-// MAGIC partitioned by (taxi_type,trip_year,trip_month)
-// MAGIC LOCATION '/mnt/workshop/curated/materialized-view';
+// MAGIC LOCATION '/mnt/workshop/curated/nyctaxi/materialized-view';
 
 // COMMAND ----------
 
