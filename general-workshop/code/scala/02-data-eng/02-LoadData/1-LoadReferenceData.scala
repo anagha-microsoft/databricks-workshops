@@ -3,7 +3,7 @@
 // MAGIC # What's in this exercise?
 // MAGIC We run the common functions notebook so we can reuse capability defined there, and then...<BR>
 // MAGIC 1) Load reference data in staging directory to reference data directory<BR> 
-// MAGIC 2) Create external unmanaged Hive tables<BR>
+// MAGIC 2) Create external tables<BR>
 // MAGIC 3) Create statistics for tables                          
 
 // COMMAND ----------
@@ -136,7 +136,7 @@ loadReferenceData("vendor",srcDataDirRoot + "vendor_lookup.csv",destDataDirRoot 
 
 // COMMAND ----------
 
-display(dbutils.fs.ls("/mnt/workshop/curated/reference-data/"))
+display(dbutils.fs.ls("/mnt/workshop/curated/nyctaxi/reference/"))
 
 // COMMAND ----------
 
@@ -154,7 +154,7 @@ display(dbutils.fs.ls("/mnt/workshop/curated/reference-data/"))
 // MAGIC zone STRING,
 // MAGIC service_zone STRING)
 // MAGIC USING parquet
-// MAGIC LOCATION '/mnt/workshop/curated/reference-data/taxi-zone/';
+// MAGIC LOCATION '/mnt/workshop/curated/nyctaxi/reference/taxi-zone/';
 
 // COMMAND ----------
 
@@ -166,7 +166,7 @@ display(dbutils.fs.ls("/mnt/workshop/curated/reference-data/"))
 // MAGIC month_name_short STRING,
 // MAGIC month_name_full STRING)
 // MAGIC USING parquet
-// MAGIC LOCATION '/mnt/workshop/curated/reference-data/trip-month/';
+// MAGIC LOCATION '/mnt/workshop/curated/nyctaxi/reference/trip-month/';
 
 // COMMAND ----------
 
@@ -177,7 +177,7 @@ display(dbutils.fs.ls("/mnt/workshop/curated/reference-data/"))
 // MAGIC rate_code_id INT,
 // MAGIC description STRING)
 // MAGIC USING parquet
-// MAGIC LOCATION '/mnt/workshop/curated/reference-data/rate-code/';
+// MAGIC LOCATION '/mnt/workshop/curated/nyctaxi/reference/rate-code/';
 
 // COMMAND ----------
 
@@ -189,7 +189,7 @@ display(dbutils.fs.ls("/mnt/workshop/curated/reference-data/"))
 // MAGIC abbreviation STRING,
 // MAGIC description STRING)
 // MAGIC USING parquet
-// MAGIC LOCATION '/mnt/workshop/curated/reference-data/payment-type/';
+// MAGIC LOCATION '/mnt/workshop/curated/nyctaxi/reference/payment-type/';
 
 // COMMAND ----------
 
@@ -200,7 +200,7 @@ display(dbutils.fs.ls("/mnt/workshop/curated/reference-data/"))
 // MAGIC trip_type INT,
 // MAGIC description STRING)
 // MAGIC USING parquet
-// MAGIC LOCATION '/mnt/workshop/curated/reference-data/trip-type/';
+// MAGIC LOCATION '/mnt/workshop/curated/nyctaxi/reference/trip-type/';
 
 // COMMAND ----------
 
@@ -212,7 +212,7 @@ display(dbutils.fs.ls("/mnt/workshop/curated/reference-data/"))
 // MAGIC abbreviation STRING,
 // MAGIC description STRING)
 // MAGIC USING parquet
-// MAGIC LOCATION '/mnt/workshop/curated/reference-data/vendor/';
+// MAGIC LOCATION '/mnt/workshop/curated/nyctaxi/reference/vendor/';
 
 // COMMAND ----------
 
