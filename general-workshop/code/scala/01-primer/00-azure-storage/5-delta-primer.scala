@@ -53,7 +53,7 @@ booksDF.rdd.partitions.size
 // COMMAND ----------
 
 //Destination directory for Delta table
-val deltaTableDirectory = "/mnt/workshop/curated/delta/books"
+val deltaTableDirectory = "/mnt/workshop/curated/books"
 dbutils.fs.rm(deltaTableDirectory, recurse=true)
 
 //Persist dataframe to delta format without coalescing
@@ -73,7 +73,7 @@ booksDF.write.format("delta").save(deltaTableDirectory)
 // MAGIC DROP TABLE IF EXISTS books;
 // MAGIC CREATE TABLE books
 // MAGIC USING DELTA
-// MAGIC LOCATION "/mnt/workshop/curated/delta/books";
+// MAGIC LOCATION "/mnt/workshop/curated/books";
 
 // COMMAND ----------
 
@@ -90,7 +90,7 @@ booksDF.write.format("delta").save(deltaTableDirectory)
 // COMMAND ----------
 
 //1) Lets look at part file count, its 5
-display(dbutils.fs.ls("/mnt/workshop/curated/delta/books"))
+display(dbutils.fs.ls("/mnt/workshop/curated/books"))
 
 // COMMAND ----------
 
@@ -120,7 +120,7 @@ preDeltaOptimizeDF.rdd.partitions.size
 
 //6) Lets look at the part file count, its 6 now!
 //Guess why?
-display(dbutils.fs.ls("/mnt/workshop/curated/delta/books"))
+display(dbutils.fs.ls("/mnt/workshop/curated/books"))
 
 // COMMAND ----------
 
@@ -145,7 +145,7 @@ postDeltaOptimizeDF.rdd.partitions.size
 // COMMAND ----------
 
 //9) Lets look at the part file count, its 1 now!
-display(dbutils.fs.ls("/mnt/workshop/curated/delta/books"))
+display(dbutils.fs.ls("/mnt/workshop/curated/books"))
 
 // COMMAND ----------
 
@@ -260,7 +260,7 @@ booksUpsertDF.createOrReplaceTempView("books_upserts")
 // COMMAND ----------
 
 // 5) Files? How many?
-display(dbutils.fs.ls("/mnt/workshop/curated/delta/books"))
+display(dbutils.fs.ls("/mnt/workshop/curated/books"))
 
 // COMMAND ----------
 
@@ -342,7 +342,7 @@ booksOverwriteDF.show()
 // COMMAND ----------
 
 // 2) Overwrite the table
-booksOverwriteDF.write.format("delta").mode("overwrite").save("/mnt/workshop/curated/delta/books")
+booksOverwriteDF.write.format("delta").mode("overwrite").save("/mnt/workshop/curated/books")
 
 // COMMAND ----------
 
@@ -375,7 +375,7 @@ booksNewColDF.write
   .format("delta")
   .option("mergeSchema", "true")
   .mode("append")
-  .save("/mnt/workshop/curated/delta/books")
+  .save("/mnt/workshop/curated/books")
 
 // COMMAND ----------
 
@@ -409,7 +409,7 @@ booksPartitionedDF.show()
 
 // 2) Persist
 
-dbutils.fs.rm("/mnt/workshop/curated/delta/books-part", recurse=true)
+dbutils.fs.rm("/mnt/workshop/curated/books-part", recurse=true)
 
 booksPartitionedDF.write
   .format("delta")
@@ -424,7 +424,7 @@ booksPartitionedDF.write
 // MAGIC DROP TABLE IF EXISTS books_part;
 // MAGIC CREATE TABLE books_part
 // MAGIC USING DELTA
-// MAGIC LOCATION "/mnt/workshop/curated/delta/books-part";
+// MAGIC LOCATION "/mnt/workshop/curated/books-part";
 
 // COMMAND ----------
 
@@ -435,7 +435,7 @@ booksPartitionedDF.write
 // COMMAND ----------
 
 // 5) Is it really partitioned?
-display(dbutils.fs.ls("/mnt/workshop/curated/delta/books-part"))
+display(dbutils.fs.ls("/mnt/workshop/curated/books-part"))
 
 // COMMAND ----------
 
