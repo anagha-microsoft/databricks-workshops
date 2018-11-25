@@ -224,8 +224,10 @@ matViewDF
     .partitionBy("taxi_type","trip_year","trip_month")
     .save(destDataDirRoot)   
 
-//Execution time: ~ 18 minutes for 2016/2017
-//Execution for all the data: 120 minutes; 5 workers; 112 GB of RAM
+// COMMAND ----------
+
+//Execution time
+
 
 // COMMAND ----------
 
