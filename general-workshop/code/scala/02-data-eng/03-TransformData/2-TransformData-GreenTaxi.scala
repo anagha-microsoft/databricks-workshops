@@ -14,7 +14,7 @@ import org.apache.hadoop.fs.{ FileSystem, Path }
 // COMMAND ----------
 
 //Destination directory
-val destDataDirRoot =  "/mnt/workshop/curated/transactions/green-taxi" 
+val destDataDirRoot =  "/mnt/workshop/curated/nyctaxi/transactions/green-taxi" 
 
 //Delete any residual data from prior executions for an idempotent run
 dbutils.fs.rm(destDataDirRoot,recurse=true)
@@ -132,7 +132,7 @@ curatedDF
 // MAGIC DROP TABLE IF EXISTS green_taxi_trips_curated;
 // MAGIC CREATE TABLE green_taxi_trips_curated
 // MAGIC USING DELTA
-// MAGIC LOCATION '/mnt/workshop/curated/transactions/green-taxi';
+// MAGIC LOCATION '/mnt/workshop/curated/nyctaxi/transactions/green-taxi';
 
 // COMMAND ----------
 
