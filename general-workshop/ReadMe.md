@@ -1,18 +1,18 @@
 # Databricks workshop
 
-This is a multi-part workshop in Spark on Databricks. It covers basics of working with Azure Data Services from Spark on Databricks, followed by an end-to-end data engineering workshop with the NYC Taxi dataset.<br>
+This is a multi-part workshop featuring Spark on Azure Databricks. It covers basics of working with Azure Data Services from Spark on Databricks, followed by an end-to-end data engineering workshop with the NYC Taxi public dataset.<br>
 <br>
 ## Target audience:
 Architects and Data engineers<br>
 
 ##  Pre-requisite knowledge:
-Prior knowledge of Spark, will be beneficial<br>
+Prior knowledge of Spark, is beneficial<br>
 
 ## Azure pre-requisites:
 A subscription with at least $200 credit for a continuous 10-14 hours of usage.<br>
 
 ## 1.  Module 01-Primer (Scala):
-This module covers basics of integrating with Azure Data Services from Spark on Databricks in batch mode and with structured streaming.<br>
+This module covers basics of integrating with Azure Data Services from Spark on Azure Databricks in batch mode and with structured streaming.<br>
 
 ![primer](images/1.png)
 
