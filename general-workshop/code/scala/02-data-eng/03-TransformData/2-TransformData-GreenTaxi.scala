@@ -117,7 +117,7 @@ curatedDF
 
 // COMMAND ----------
 
-//Took 7 minutes - with yellow taxi job running to process 59M trips (inception to 2017 summer)
+//Cluster conf: 3 autoscale to 6 workers - DS4v2 (with DS13v2 driver) - 8 cores, 28 GB of RAM/worker | Yellow + green together with 128 MB raw delta files | 3.5 minutes
 
 // COMMAND ----------
 
@@ -144,3 +144,12 @@ curatedDF
 
 // MAGIC %sql
 // MAGIC select count(*) from taxi_db.green_taxi_trips_curated
+
+// COMMAND ----------
+
+// MAGIC %fs
+// MAGIC ls /mnt/workshop/curated
+
+// COMMAND ----------
+
+dbutils.fs.rm("/mnt/workshop/curated/transactions/", recurse=true)
