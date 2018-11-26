@@ -116,7 +116,7 @@ val curatedDFConformed = curatedDF
 // COMMAND ----------
 
 //Destination directory
-val destDataDirRoot = "/mnt/workshop/curated/transactions/yellow-taxi" 
+val destDataDirRoot = "/mnt/workshop/curated/nyctaxi/transactions/yellow-taxi" 
 
 //Delete any residual data from prior executions for an idempotent run
 dbutils.fs.rm(destDataDirRoot,recurse=true)
@@ -132,8 +132,7 @@ curatedDFConformed
 
 // COMMAND ----------
 
-//Took two hours for full dataset for coalesce(15) - job by itself
-//5 workers with 112 GB RAM, and 16 cores per worker
+//Cluster conf: 3 autoscale to 6 workers - DS4v2 (with DS13vs driver) - 8 cores, 28 GB of RAM/worker | Yellow + green running together with 128 MB raw delta files | 1 hr 45 mins
 
 // COMMAND ----------
 
@@ -147,12 +146,17 @@ curatedDFConformed
 // MAGIC DROP TABLE IF EXISTS yellow_taxi_trips_curated;
 // MAGIC CREATE TABLE yellow_taxi_trips_curated
 // MAGIC USING DELTA
-// MAGIC LOCATION '/mnt/workshop/curated/transactions/yellow-taxi';
+// MAGIC LOCATION '/mnt/workshop/curated/nyctaxi/transactions/yellow-taxi';
 
 // COMMAND ----------
 
 // MAGIC %md
 // MAGIC ### 6.  Explore
+
+// COMMAND ----------
+
+// MAGIC %sql
+// MAGIC select count(*) as trip_count from taxi_db.yellow_taxi_trips_curated 
 
 // COMMAND ----------
 
