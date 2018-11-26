@@ -13,7 +13,7 @@
 
 This module covers a simple data engineering batch pipeline in Spark Scala.
 ### 2.1. Data copy:
-We will use Azure Data Factory v2 to copy data to Azure Blob Storage - staging directory
+We will use Azure Data Factory v2 to copy data to Azure Blob Storage - staging directory. The instructions are [here.](../3-data-copy-guide/README.md)
 
 ### 2.2. Load/parse/persist raw data:
 
