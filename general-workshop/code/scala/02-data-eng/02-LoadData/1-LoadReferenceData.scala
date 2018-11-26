@@ -15,7 +15,7 @@ import com.databricks.backend.daemon.dbutils.FileInfo
 
 //Define source and destination directories
 val srcDataDirRoot  = "/mnt/workshop/staging/reference-data/" //Root dir for source data
-val destDataDirRoot = "/mnt/workshop/curated/reference-data/" //Root dir for consumable data
+val destDataDirRoot = "/mnt/workshop/curated/nyctaxi/reference/" //Root dir for consumable data
 
 // COMMAND ----------
 
