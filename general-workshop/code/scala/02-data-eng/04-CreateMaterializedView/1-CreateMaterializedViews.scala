@@ -212,12 +212,12 @@ UNION ALL
     trip_year,
     trip_month
   FROM taxi_db.green_taxi_trips_curated 
-""").cache()
+""")
 
 
 //Save as Delta
 matViewDF
-    .coalesce(15)
+    .coalesce(25)
     .write
     .format("delta")
     .mode("append")
@@ -227,7 +227,7 @@ matViewDF
 // COMMAND ----------
 
 //Execution time
-
+//Cluster conf: 3 autoscale to 6 workers - DS4v2 (with DS13v2 driver) - 8 cores, 28 GB of RAM/worker | 1.37 hours
 
 // COMMAND ----------
 
