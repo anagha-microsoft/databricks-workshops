@@ -121,9 +121,11 @@ val destDataDirRoot = "/mnt/workshop/curated/nyctaxi/transactions/yellow-taxi"
 //Delete any residual data from prior executions for an idempotent run
 dbutils.fs.rm(destDataDirRoot,recurse=true)
 
+// COMMAND ----------
+
 //Save as Delta, partition by year and month
 curatedDFConformed
-    .coalesce(15)
+    .coalesce(25)
     .write
     .format("delta")
     .mode("append")
@@ -132,7 +134,8 @@ curatedDFConformed
 
 // COMMAND ----------
 
-//Cluster conf: 3 autoscale to 6 workers - DS4v2 (with DS13vs driver) - 8 cores, 28 GB of RAM/worker | Yellow + green running together with 128 MB raw delta files | 1 hr 45 mins
+//Cluster conf: 3 autoscale to 6 workers - DS4v2 (with DS13vs driver) - 8 cores, 28 GB of RAM/worker | Yellow + green running together with 128 MB raw delta files | Coalesce 15 | 1 hr 45 mins
+//Cluster conf: 3 autoscale to 6 workers - DS4v2 (with DS13vs driver) - 8 cores, 28 GB of RAM/worker | Yellow + green running together with 128 MB raw delta files | Coalesce 25 | 1 hr 45 mins
 
 // COMMAND ----------
 
@@ -162,3 +165,6 @@ curatedDFConformed
 
 // MAGIC %sql
 // MAGIC select trip_year,trip_month, count(*) as trip_count from taxi_db.yellow_taxi_trips_curated group by trip_year,trip_month
+
+// COMMAND ----------
+
