@@ -23,7 +23,7 @@ We will read raw CSV reference datasets (6 of them) in the staging directory (bl
 We will read raw CSV data in the staging directory (blob storage) and persist to Delta format in the raw information zone.  We will dedupe the data, add some additional columns as a precursor to homogenizing schema across yellow and green taxi trips and across years. 
 #### 2.2.c. Load transactional green taxi trip data:
 We will read raw CSV data in the staging directory (blob storage) and persist to Delta format in the raw information zone.  We will dedupe the data, add some additional columns as a precursor to homogenizing schema across yellow and green taxi trips and across years. 
-<br>
+<br><br>
 2.2.a/b/c can be run in parallel.
 
 
