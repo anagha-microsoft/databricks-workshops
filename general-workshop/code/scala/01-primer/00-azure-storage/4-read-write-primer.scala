@@ -22,9 +22,7 @@
 
 // COMMAND ----------
 
-
 import org.apache.spark.{SparkConf, SparkContext}
-
 import spark.implicits._
 import org.apache.spark.sql.functions._
 import org.apache.spark.sql.Column
@@ -105,7 +103,7 @@ dbutils.fs.head(dbfsSrcDirPath + "/chicago-crimes.csv")
 
 //4)  Read raw CSV
 val sourceDF = spark.read.format("csv")
-  .option("header", "true").option("header", "true").load(dbfsSrcDirPath).toDF("case_id", "case_nbr", "case_dt_tm", "block", "iucr", "primary_type", "description", "location_description", "arrest_made", "was_domestic", "beat", "district", "ward", "community_area", "fbi_code", "x_coordinate", "y_coordinate", "case_year", "updated_dt", "latitude", "longitude", "location_coords")
+  .option("header", "true").load(dbfsSrcDirPath).toDF("case_id", "case_nbr", "case_dt_tm", "block", "iucr", "primary_type", "description", "location_description", "arrest_made", "was_domestic", "beat", "district", "ward", "community_area", "fbi_code", "x_coordinate", "y_coordinate", "case_year", "updated_dt", "latitude", "longitude", "location_coords")
 
 sourceDF.printSchema
 sourceDF.show
@@ -195,10 +193,6 @@ val curatedDF = rawDF.withColumn("case_timestamp",to_timestamp_func)
                                                           
 curatedDF.printSchema
 curatedDF.show  
-
-// COMMAND ----------
-
-curatedDF.show()
 
 // COMMAND ----------
 
