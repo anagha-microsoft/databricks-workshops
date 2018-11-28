@@ -42,3 +42,51 @@ def generateBatchID(): Int =
   }
   batchId
 }
+
+// COMMAND ----------
+
+import java.sql._
+import java.util.Calendar
+
+def insertBatchMetadata(batchID: Int, processID: Int, activityName: String, activityStatus: String): Unit = 
+{
+    var conn: Connection = null
+    var stmt: Statement = null
+  
+    val insertSql = """
+    |insert into batch_job_history (batch_id,batch_step_id,batch_step_description,batch_step_status,batch_step_time)
+    |values (?,?,?,?,?)
+""".stripMargin
+  
+    try {
+        Class.forName(driverClass)
+        conn = DriverManager.getConnection(jdbcUrl, jdbcUsername, jdbcPassword)
+
+        val preparedStmt: PreparedStatement = conn.prepareStatement(insertSql)
+        preparedStmt.setInt(1, batchID)
+        preparedStmt.setInt(2, processID)
+        preparedStmt.setString(3, activityName)
+        preparedStmt.setString(4, activityStatus)
+        preparedStmt.setString(5, Calendar.getInstance().getTime().toString)
+      
+        preparedStmt.execute
+
+        // cleanup
+        preparedStmt.close
+        conn.close
+    } catch {
+        case se: SQLException => se.printStackTrace
+        case e:  Exception => e.printStackTrace
+    } finally {
+        try {
+            if (stmt!=null) stmt.close
+        } catch {
+            case se2: SQLException => // nothing we can do
+        }
+        try {
+            if (conn!=null) conn.close
+        } catch {
+            case se: SQLException => se.printStackTrace
+        } //end finally-try
+    } //end try
+}
