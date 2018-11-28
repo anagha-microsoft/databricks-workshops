@@ -11,10 +11,10 @@ val jdbcHostname = "gws-server.database.windows.net"
 val jdbcPort = 1433
 val jdbcDatabase = "gws_sql_db"
 
-// Create the JDBC URL without passing in the user and password parameters.
+// JDBC URI
 val jdbcUrl = s"jdbc:sqlserver://${jdbcHostname}:${jdbcPort};database=${jdbcDatabase}"
 
-// Create a Properties() object to hold the parameters.
+// Properties() object to hold the parameters
 import java.util.Properties
 val connectionProperties = new Properties()
 
@@ -27,13 +27,18 @@ connectionProperties.setProperty("Driver", driverClass)
 def generateBatchID(): Int = 
 {
   var batchId: Int = 0
-  val recordCount = sql("select count(*) from taxi_reports_db.BATCH_JOB_HISTORY").first().getLong(0)
+  var pushdown_query = "(select count(*) as record_count from BATCH_JOB_HISTORY) table_record_count"
+  val df = spark.read.jdbc(url=jdbcUrl, table=pushdown_query, properties=connectionProperties)
+  val recordCount = df.first().getInt(0)
   println("Record count=" + recordCount)
-
+  
   if(recordCount == 0)
     batchId=1
   else 
-    batchId= sql("select max(batch_id) from taxi_reports_db.BATCH_JOB_HISTORY").first().getInt(0) + 1
- 
+  {
+    pushdown_query = "(select max(batch_id) as current_batch_id from BATCH_JOB_HISTORY) current_batch_id"
+    val df = spark.read.jdbc(url=jdbcUrl, table=pushdown_query, properties=connectionProperties)
+    batchId = df.first().getInt(0) + 1
+  }
   batchId
 }
