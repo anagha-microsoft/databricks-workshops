@@ -31,15 +31,6 @@ import org.apache.spark.sql.types.{StructType, StructField, StringType, IntegerT
 
 // COMMAND ----------
 
-// MAGIC %sql
-// MAGIC CACHE TABLE taxi_db.trip_month_lookup;
-// MAGIC CACHE TABLE taxi_db.vendor_lookup;
-// MAGIC CACHE TABLE taxi_db.payment_type_lookup;
-// MAGIC CACHE TABLE taxi_db.rate_code_lookup;
-// MAGIC CACHE TABLE taxi_db.taxi_zone_lookup;
-
-// COMMAND ----------
-
 val curatedDF = spark.sql("""
   select distinct t.taxi_type,
       t.vendor_id as vendor_id,
@@ -125,7 +116,7 @@ dbutils.fs.rm(destDataDirRoot,recurse=true)
 
 //Save as Delta, partition by year and month
 curatedDFConformed
-    .coalesce(25)
+    .coalesce(10)
     .write
     .format("delta")
     .mode("append")
@@ -136,6 +127,7 @@ curatedDFConformed
 
 //Cluster conf: 3 autoscale to 6 workers - DS4v2 (with DS13vs driver) - 8 cores, 28 GB of RAM/worker | Yellow + green running together with 128 MB raw delta files | Coalesce 15 | 1 hr 45 mins
 //Cluster conf: 3 autoscale to 6 workers - DS4v2 (with DS13vs driver) - 8 cores, 28 GB of RAM/worker | Yellow + green running together with 128 MB raw delta files | Coalesce 25 | 1 hr 45 mins
+//2016-2017 data, coalesce 10: 
 
 // COMMAND ----------
 
@@ -165,6 +157,3 @@ curatedDFConformed
 
 // MAGIC %sql
 // MAGIC select trip_year,trip_month, count(*) as trip_count from taxi_db.yellow_taxi_trips_curated group by trip_year,trip_month
-
-// COMMAND ----------
-
