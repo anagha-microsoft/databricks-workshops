@@ -16,7 +16,7 @@ import  java.util.Calendar
 
 //Source, destination directories
 val srcDataDirRoot = "/mnt/workshop/staging/transactional-data/" 
-val destDataDirRoot = "/mnt/workshop/raw/transactions/yellow-taxi" 
+val destDataDirRoot = "/mnt/workshop/raw/nyctaxi/transactions/yellow-taxi" 
 
 //Canonical ordered column list for yellow taxi across years to homogenize schema
 val canonicalTripSchemaColList = Seq("taxi_type","vendor_id","pickup_datetime","dropoff_datetime","store_and_fwd_flag","rate_code_id","pickup_location_id","dropoff_location_id","pickup_longitude","pickup_latitude","dropoff_longitude","dropoff_latitude","passenger_count","trip_distance","fare_amount","extra","mta_tax","tip_amount","tolls_amount","improvement_surcharge","total_amount","payment_type","trip_year","trip_month")
@@ -249,7 +249,9 @@ dbutils.fs.rm(destDataDirRoot,recurse=true)
 // COMMAND ----------
 
 //Process data, save as parquet
-for (j <- 2009 to 2017)
+
+//for (j <- 2009 to 2017)
+for (j <- 2016 to 2017)
   { 
     val endMonth = if (j==2017) 6 else 12 
     for (i <- 1 to endMonth) 
@@ -294,9 +296,12 @@ for (j <- 2009 to 2017)
 
 // COMMAND ----------
 
-//Cluster conf: 3 autoscale to 6 workers - DS4v2 (woth DS13vs driver) - 8 cores, 28 GB of RAM/worker | Yellow + green together with  64 MB files | 1.26 hours
-//Cluster conf: 3 autoscale to 6 workers - DS4v2 (woth DS13vs driver) - 8 cores, 28 GB of RAM/worker | Yellow + green together with 128 MB files |  hours
+//Cluster conf: 3 autoscale to 6 workers - DS4v2 (with DS13v2 driver) - 8 cores, 28 GB of RAM/worker | Yellow + green together with  64 MB files | 1.26 hours
+//Cluster conf: 3 autoscale to 6 workers - DS4v2 (with DS13v2 driver) - 8 cores, 28 GB of RAM/worker | Yellow + green together with 128 MB files | 1.70 hours
 //13.7B trips from 2009 to 1/2 of 2017
+
+//SUBSET: 2016, 2017
+//Cluster conf: 5 autoscale to 6 workers - DS4v2 (with DS13v2 driver) - 8 cores, 28 GB of RAM/worker | Yellow + green together with  64 MB files | 24 minutes
 
 
 // COMMAND ----------
@@ -311,7 +316,7 @@ for (j <- 2009 to 2017)
 // MAGIC DROP TABLE IF EXISTS yellow_taxi_trips_raw;
 // MAGIC CREATE TABLE IF NOT EXISTS yellow_taxi_trips_raw
 // MAGIC USING DELTA
-// MAGIC LOCATION '/mnt/workshop/raw/transactions/yellow-taxi/';
+// MAGIC LOCATION '/mnt/workshop/raw/nyctaxi/transactions/yellow-taxi/';
 
 // COMMAND ----------
 
