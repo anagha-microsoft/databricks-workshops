@@ -108,7 +108,7 @@ val curatedDF = spark.sql("""
 
 //Save as Delta, partition by year and month
 curatedDF
-  .coalesce(10)
+  .coalesce(3)
   .write
   .format("delta")
   .mode("append")
@@ -149,7 +149,3 @@ curatedDF
 
 // MAGIC %fs
 // MAGIC ls /mnt/workshop/curated
-
-// COMMAND ----------
-
-dbutils.fs.rm("/mnt/workshop/curated/transactions/", recurse=true)
