@@ -1,28 +1,26 @@
 // Databricks notebook source
-// MAGIC %sql
-// MAGIC 
-// MAGIC CREATE DATABASE IF NOT EXISTS taxi_reports_db;
-// MAGIC USE taxi_reports_db;
-// MAGIC 
-// MAGIC DROP TABLE IF EXISTS BATCH_JOB_HISTORY;
-// MAGIC CREATE TABLE BATCH_JOB_HISTORY
-// MAGIC USING org.apache.spark.sql.jdbc
-// MAGIC OPTIONS (
-// MAGIC   url 'jdbc:sqlserver://bhoomidbsrvr.database.windows.net:1433;database=bhoomidb;',
-// MAGIC   dbtable 'BATCH_JOB_HISTORY',
-// MAGIC   user 'akhanolk',
-// MAGIC   password "A1rawat#123"
-// MAGIC );
-
-// COMMAND ----------
-
 //Database credentials & details - for use with Spark scala for writing
-//1) JDBC driver class & connection properties
+
+// Secrets
+val jdbcUsername = dbutils.secrets.get(scope = "gws-sql-db", key = "username")
+val jdbcPassword = dbutils.secrets.get(scope = "gws-sql-db", key = "password")
+
+// JDBC driver class & connection properties
 val driverClass = "com.microsoft.sqlserver.jdbc.SQLServerDriver"
-val connectionProperties = new java.util.Properties()
-connectionProperties.setProperty("Driver",driverClass)
-//2) JDBC URL
-val jdbcUrl = (s"jdbc:sqlserver://bhoomidbsrvr.database.windows.net:1433;database=bhoomidb;user=akhanolk;password=A1rawat#123")
+val jdbcHostname = "gws-server.database.windows.net"
+val jdbcPort = 1433
+val jdbcDatabase = "gws_sql_db"
+
+// Create the JDBC URL without passing in the user and password parameters.
+val jdbcUrl = s"jdbc:sqlserver://${jdbcHostname}:${jdbcPort};database=${jdbcDatabase}"
+
+// Create a Properties() object to hold the parameters.
+import java.util.Properties
+val connectionProperties = new Properties()
+
+connectionProperties.put("user", s"${jdbcUsername}")
+connectionProperties.put("password", s"${jdbcPassword}")
+connectionProperties.setProperty("Driver", driverClass)
 
 // COMMAND ----------
 
