@@ -191,7 +191,7 @@
 // COMMAND ----------
 
 // MAGIC %sql
-// MAGIC select pickup_hour,count(*) 
+// MAGIC select pickup_hour,count(*) as trip_count
 // MAGIC from taxi_db.yellow_taxi_trips_curated
 // MAGIC where trip_year=2016
 // MAGIC group by pickup_hour
@@ -221,6 +221,3 @@
 // MAGIC   order by trip_count desc
 // MAGIC   ) x
 // MAGIC limit 3
-
-// COMMAND ----------
-
