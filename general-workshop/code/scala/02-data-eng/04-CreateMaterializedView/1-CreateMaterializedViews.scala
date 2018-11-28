@@ -217,7 +217,7 @@ UNION ALL
 
 //Save as Delta
 matViewDF
-    .coalesce(25)
+    .coalesce(10)
     .write
     .format("delta")
     .mode("append")
@@ -228,6 +228,8 @@ matViewDF
 
 //Execution time
 //Cluster conf: 3 autoscale to 6 workers - DS4v2 (with DS13v2 driver) - 8 cores, 28 GB of RAM/worker | 1.37 hours
+//Tune this as a separate exercise
+//With just 2016-2017 data, coalesce 10: 32 minutes
 
 // COMMAND ----------
 
@@ -256,4 +258,7 @@ matViewDF.printSchema
 // COMMAND ----------
 
 // MAGIC %sql
-// MAGIC select * from taxi_db.taxi_trips_mat_view where trip_year=2013
+// MAGIC select * from taxi_db.taxi_trips_mat_view where trip_year=2017
+
+// COMMAND ----------
+
