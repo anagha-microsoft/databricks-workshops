@@ -297,7 +297,8 @@ dbutils.fs.rm(destDataDirRoot,recurse=true)
 // COMMAND ----------
 
 //Green taxi data starts from 2013/08
-for (j <- 2013 to 2017)
+//for (j <- 2013 to 2017)
+for (j <- 2016 to 2017)
   {
     val startMonth = if(j==2013) 8 else 1
     val endMonth = if (j==2017) 6 else 12 
@@ -341,6 +342,9 @@ for (j <- 2013 to 2017)
 
 //Cluster conf: 3 autoscale to 6 workers - DS4v2 (with DS13v2 driver) - 8 cores, 28 GB of RAM/worker | Yellow + green together -  64 MB files | 47 minutes
 //Cluster conf: 3 autoscale to 6 workers - DS4v2 (with DS13v2 driver) - 8 cores, 28 GB of RAM/worker | Yellow + green together - 128 MB files | 43 minutes
+
+//SUBSET OF DATA
+// 16 minutes
 
 // COMMAND ----------
 
