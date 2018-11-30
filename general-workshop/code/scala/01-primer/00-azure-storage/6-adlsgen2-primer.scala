@@ -22,18 +22,35 @@
 // COMMAND ----------
 
 // MAGIC %md
+// MAGIC # I am trying out mounting at the moment (brand new feature) - so this notebook will not execute flawlessly
+
+// COMMAND ----------
+
+// MAGIC %md
 // MAGIC ### 1.0. Credentials setting
 
 // COMMAND ----------
 
-//Replace gwsadlsgen2sa with your ADLS Gen2 Account name
-val adlsgen2acct = "gwsadlsgen2sa"
-val adlsgen2key = dbutils.secrets.get(scope = "gws-adlsgen2-storage", key = "storage-acct-key")
+val configs = Map(
+  "fs.azure.account.auth.type" -> "OAuth",
+  "fs.azure.account.oauth.provider.type" -> "org.apache.hadoop.fs.azurebfs.oauth2.ClientCredsTokenProvider",
+  "fs.azure.account.oauth2.client.id" -> (dbutils.secrets.get(scope = "gws-adlsgen2-storage", key = "client-id")), //App ID
+  "fs.azure.account.oauth2.client.secret" -> (dbutils.secrets.get(scope = "gws-adlsgen2-storage", key = "client-secret")), //App key
+  "fs.azure.account.oauth2.client.endpoint" -> ()"https://login.microsoftonline.com/" + dbutils.secrets.get(scope = "gws-adlsgen2-storage", key = "client-secret") + "/oauth2/token") //AAD Tenant ID
+)
 
 // COMMAND ----------
 
-//ADLS Gen2 configuration
-spark.conf.set("fs.azure.account.key." + adlsgen2acct + ".dfs.core.windows.net", "ypoWGuuw0wI53xat+82hW0CauwoZWW/PcCJQa7ytjqXAPQV8kMesG899pm/56kHNwLV1EjNDOUM/2qUIBx6u5g==") 
+//No required if you are mounting
+//This is for when you want to use storage account key-based access
+//Replace gwsadlsgen2sa with your ADLS Gen2 Account name
+val adlsgen2acct = "gwsadlsgen2sa"
+val adlsgen2key = dbutils.secrets.get(scope = "gws-adlsgen2-storage", key = "storage-acct-key")
+spark.conf.set("fs.azure.account.key." + adlsgen2acct + ".dfs.core.windows.net", adlsgen2key) 
+
+// COMMAND ----------
+
+//Allow root filesystem creation
 spark.conf.set("fs.azure.createRemoteFileSystemDuringInitialization", "true")
 
 // COMMAND ----------
@@ -43,19 +60,13 @@ spark.conf.set("fs.azure.createRemoteFileSystemDuringInitialization", "true")
 
 // COMMAND ----------
 
-dbutils.fs.ls("abfss://staging@gwsadlsgen2sa.dfs.core.windows.net/")
+// MAGIC %md
+// MAGIC The command below will create a root system-<br>
+// MAGIC dbutils.fs.ls("abfss://<New_Root_Filesystem_Name>@gwsadlsgen2sa.dfs.core.windows.net/")<br>
 
 // COMMAND ----------
 
-/*
-TODO: Put this in a function, avoid hard-coded storage account reference.
-dbutils.fs.mkdirs("abfss://staging@gwsadlsgen2sa.dfs.core.windows.net/")
-dbutils.fs.mkdirs("abfss://scratch@gwsadlsgen2sa.dfs.core.windows.net/")
-dbutils.fs.mkdirs("abfss://raw@gwsadlsgen2sa.dfs.core.windows.net/")
-dbutils.fs.mkdirs("abfss://curated@gwsadlsgen2sa.dfs.core.windows.net/")
-dbutils.fs.mkdirs("abfss://consumption@gwsadlsgen2sa.dfs.core.windows.net/")
-dbutils.fs.mkdirs("abfss://distribution@gwsadlsgen2sa.dfs.core.windows.net/")
-*/
+dbutils.fs.ls("abfss://staging@gwsadlsgen2sa.dfs.core.windows.net/")
 
 // COMMAND ----------
 
@@ -64,7 +75,38 @@ dbutils.fs.mkdirs("abfss://distribution@gwsadlsgen2sa.dfs.core.windows.net/")
 
 // COMMAND ----------
 
-// MAGIC %md Need to check with PG - supposedly available in DBR 5.1
+dbutils.fs.mount(source = "abfss://staging@gwsadlsgen2sa.dfs.core.windows.net/", mountPoint = "/mnt/adlsgen2sa/staging/", extraConfigs = configs)
+
+// COMMAND ----------
+
+// MAGIC %fs
+// MAGIC ls /mnt/adlsgen2sa/staging
+
+// COMMAND ----------
+
+// MAGIC %sh
+// MAGIC mkdir /tmp
+// MAGIC wget -P /tmp "https://generalworkshopsa.blob.core.windows.net/demo/If-By-Kipling.txt"
+
+// COMMAND ----------
+
+// MAGIC %sh
+// MAGIC cat  /tmp/If-By-Kipling.txt
+
+// COMMAND ----------
+
+// MAGIC %fs
+// MAGIC cp file:/tmp/If-By-Kipling.txt /mnt/adlsgen2sa/staging/
+
+// COMMAND ----------
+
+// MAGIC %fs
+// MAGIC ls /mnt/adlsgen2sa/staging
+
+// COMMAND ----------
+
+// MAGIC %fs
+// MAGIC head /mnt/adlsgen2sa/staging/If-By-Kipling.txt
 
 // COMMAND ----------
 
@@ -92,8 +134,12 @@ booksDF.show
 // COMMAND ----------
 
 //Destination directory for Delta table
-val deltaTableDirectory = "abfss://scratch@gwsadlsgen2sa.dfs.core.windows.net/books"
+//val deltaTableDirectory = "abfss://scratch@gwsadlsgen2sa.dfs.core.windows.net/books"
+
+val deltaTableDirectory = "/mnt/adlsgen2sa/staging/books"
 dbutils.fs.rm(deltaTableDirectory, recurse=true)
+
+// COMMAND ----------
 
 //Persist dataframe to delta format without coalescing
 booksDF.write.format("delta").save(deltaTableDirectory)
@@ -112,7 +158,7 @@ booksDF.write.format("delta").save(deltaTableDirectory)
 // MAGIC DROP TABLE IF EXISTS books;
 // MAGIC CREATE TABLE books
 // MAGIC USING DELTA
-// MAGIC LOCATION "abfss://scratch@gwsadlsgen2sa.dfs.core.windows.net/books";
+// MAGIC LOCATION "/mnt/adlsgen2sa/staging/books/";
 
 // COMMAND ----------
 
@@ -123,3 +169,7 @@ booksDF.write.format("delta").save(deltaTableDirectory)
 
 // MAGIC %sql
 // MAGIC select * from books_db_adlsgen2.books;
+
+// COMMAND ----------
+
+dbutils.fs.ls("/mnt/adlsgen2sa/staging/books")
