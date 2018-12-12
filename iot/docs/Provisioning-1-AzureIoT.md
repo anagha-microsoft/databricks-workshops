@@ -10,12 +10,13 @@ We will launch an Azure IoT solution accelerator for device simulation.  With a 
 <br>2.  Deploy<br>
 ![Provision the simulator](../images/Simulator2.png)
 
-<br>3.  Name it "Telemetry-Simulator-<yourinitials>", select your Azure subscription and pick the closest Azure datacenter.<br>
+<br>3.  Name it "Telemetry-Simulator-\<unique-identifier\>" , select your Azure subscription and pick the closest Azure datacenter.<br>
 The datacenter you selected will need to be used across the board for the rest of the solution.  make a note of the same.
 ![Select your subscription](../images/Simulator3.png)
 
 <br>4.  Create the simulator<br>
-![Create the simulator](../images/Simulator4.png)
+![Create the simulator](../images/Simulator4.png)  
+You can monitor the deployment in Azure Portal under Resource Groups as well.
 
 <br>5.  You should see an entry like this<br>
 ![WorkInProgress](../images/Simulator5.png)
@@ -41,7 +42,8 @@ Note the option to delete when you are done with this workshop.
 ### 1.0.2.3. Capture the Event Hub endpoint details
 1a. Event Hub-compatible name<br>
 1b. Event Hub-compatible endpoint (starts with ```sb://```, ends with ```.servicebus.windows.net/```<br>
-1c. Partitions<br>
+1c. Partitions<br>  
+Note: Event Hub and IOT Hub are used synonymously here
 
 ![Steps1023](../images/IoTConf3a.png)
 
@@ -61,4 +63,6 @@ Launch the simulator from 1.0.1, against the provisioned Azure IoT instance, to 
 
 ![Step1032](../images/SimulatorLaunch2.png)
 
-![Step1033](../images/SimulatorLaunch3.png)
+![Step1033](../images/SimulatorLaunch3.png)  
+  
+Next: Goto Provisioning-2-ProcessorRg.md
