@@ -62,7 +62,12 @@ Provision a Cosmos DB account in #1, a database and 3 collections - one for batc
 Complete step 1, 2 and 3 from the link - https://docs.microsoft.com/en-us/azure/cosmos-db/sql-api-get-started
 
 ## 11.  Provision Azure IoT hub device simulator (this will provision Azure IoT hub automatically)
-The instructions are at - https://github.com/anagha-microsoft/databricks-workshops/blob/master/iot/docs/Provisioning-1-AzureIoT.md.  The accelerator provisions a new resource group.  Ensure you select the same Azure region.
+The instructions are at - https://github.com/anagha-microsoft/databricks-workshops/blob/master/iot/docs/Provisioning-1-AzureIoT.md.  The accelerator provisions a new resource group.  Ensure you select the same Azure region.<br>
+You will see a new resource group created and a number of resources-<br>
+![1-iot-1](../../../images/7-azure-iot/iot.png)
+<br>
+<hr>
+
 
 ## 12.  Provision Azure Data Factory v2
 Provision Azure Data Factory v2 instance in #1.<br>
