@@ -4,8 +4,8 @@ In this lab module - we will learn to automate Databricks Spark applications wit
 
 This lab is dependent on completion of the Azure IoT lab moule.
 
-<img src="../../../images/6-cosmos-db/12.png" width="600" height="600">
-![12-cosmos-db]()
+<img src="../../../images/6-ADFv2/12.png" width="600" height="600">
+![12-adf-v2]()
 
 
 
