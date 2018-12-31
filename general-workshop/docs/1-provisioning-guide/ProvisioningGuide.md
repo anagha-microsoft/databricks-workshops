@@ -12,7 +12,8 @@ For the workshop, we will need to provision multiple resources/services.  Many o
 8.   Azure SQL Database<br>
 9.   Azure SQL Datawarehouse (for the primer only)<br>
 10.   Azure Cosmos DB (for the primer only)<br>
-11.  Azure Key Vault (for the primer only)<br>
+11.   Azure Data Factory v2 (for the primer only)<br> 
+12.   Azure Key Vault (for the primer only)<br>
 
 **Note**: All resources shoud be **provisioned in the same datacenter**.<br>
 
