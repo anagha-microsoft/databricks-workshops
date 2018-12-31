@@ -14,6 +14,7 @@ For the workshop, we will need to provision multiple resources/services.  Many o
 10.   Azure Cosmos DB (for the primer only)<br>
 11.   Azure Data Factory v2 (for the primer only)<br> 
 12.   Azure Key Vault (for the primer only)<br>
+13.   Azure IoT hub and device telemetry simulator (for the primer only) <br>
 
 **Note**: All resources shoud be **provisioned in the same datacenter**.<br>
 
@@ -60,14 +61,10 @@ https://docs.microsoft.com/en-us/azure/sql-data-warehouse/create-data-warehouse-
 Provision a Cosmos DB account in #1, a database and 3 collections - one for batch load, one for stream ingest and one for streaming computations.<br>
 Complete step 1, 2 and 3 from the link - https://docs.microsoft.com/en-us/azure/cosmos-db/sql-api-get-started
 
-## 11.  Provision Azure IoT Hub
-Provision Azure IoT hub instance in #1.<br>
-Complete steps from the link - h
+## 11.  Provision Azure IoT hub device simulator (this will provision Azure IoT hub automatically)
+The instructions are at - https://github.com/anagha-microsoft/databricks-workshops/blob/master/iot/docs/Provisioning-1-AzureIoT.md.  Ensure you provision into the same resource group.
 
-## 12.  Provision Azure IoT hub device simulator
-...
-
-## 13.  Provision Azure Data Factory v2
+## 12.  Provision Azure Data Factory v2
 Provision Azure Data Factory v2 instance in #1.<br>
 Complete steps 1-9 from the link - https://docs.microsoft.com/en-us/azure/data-factory/quickstart-create-data-factory-portal#create-a-data-factory
 
