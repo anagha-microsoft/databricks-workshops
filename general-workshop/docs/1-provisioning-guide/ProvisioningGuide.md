@@ -60,3 +60,7 @@ https://docs.microsoft.com/en-us/azure/sql-data-warehouse/create-data-warehouse-
 Provision a Cosmos DB account in #1, a database and 3 collections - one for batch load, one for stream ingest and one for streaming computations.<br>
 Complete step 1, 2 and 3 from the link - https://docs.microsoft.com/en-us/azure/cosmos-db/sql-api-get-started
 
+## 11.  Provision Azure Data Factory v2
+Provision Azure Data Factory v2 instance in #1.<br>
+Complete steps 1-9 from the link - https://docs.microsoft.com/en-us/azure/data-factory/quickstart-create-data-factory-portal#create-a-data-factory
+
