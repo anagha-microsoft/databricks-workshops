@@ -25,7 +25,7 @@ batch_step_time varchar(30) );
 
 2.  Function: fetch_batch_id
 ```
-CREATE FUNCTION fetch_batch_id
+CREATE FUNCTION fetch_batch_id()
 RETURNS INT AS
   BEGIN
   
