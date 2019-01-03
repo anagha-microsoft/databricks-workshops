@@ -12,7 +12,7 @@ In this lab module - we will learn to automate Databricks Spark applications wit
 
 ## B) Database objects to be created in Azure SQL Database
 
-1.  Table: batch_job_history
+1.  Create table: batch_job_history
 ```
 DROP TABLE IF EXISTS dbo.BATCH_JOB_HISTORY; 
 CREATE TABLE BATCH_JOB_HISTORY( 
@@ -23,7 +23,7 @@ batch_step_status varchar(30),
 batch_step_time varchar(30) );
 ```
 
-2.  Function: fetch_batch_id
+2a.  Create function: fetch_batch_id
 ```
 CREATE FUNCTION fetch_batch_id()
 RETURNS INT AS
@@ -46,3 +46,10 @@ RETURNS INT AS
 GO
 ```
 
+2b. Test function: fetch_batch_id
+```
+Declare @batch_id INT = 0;
+EXEC @batch_id = generate_batch_id
+SELECT @batch_id; 
+Go
+```
