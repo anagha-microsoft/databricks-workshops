@@ -7,7 +7,7 @@
 3.  Azure HDInsight Kafka<br>
 [4.  Azure SQL Database](module-1/03-Azure-SQL-Database-Lab.md)<br> 
 [5.  Azure SQL Datawarehouse](module-1/04-Azure-SQL-DW-Lab.md)<br> 
-[6.  Azure Cosmos DB](module-1/05-Azure-Cosmos-DB-lab.md)<br> 
+[6.  Azure Cosmos DB](module-1/05-Azure-Cosmos-DB-Lab.md)<br> 
 
 ## Module 2: Data Engineering - Primer
 
