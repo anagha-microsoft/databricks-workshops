@@ -23,14 +23,13 @@ batch_step_status varchar(30),
 batch_step_time varchar(30) );
 ```
 
-2a.  Create function: fetch_batch_id
+2a.  Create stored procedure: generate_batch_id
 ```
-CREATE FUNCTION fetch_batch_id()
-RETURNS INT AS
-  BEGIN
-  
-    DECLARE @new_batch_id INT = 0;
-    DECLARE @batch_count INT;
+CREATE PROCEDURE generate_batch_id 
+   @new_batch_id varchar(20) OUTPUT  
+AS  
+BEGIN  
+   DECLARE @batch_count INT;
 
     SELECT @batch_count =  count(batch_id)
     FROM batch_job_history;
@@ -41,15 +40,18 @@ RETURNS INT AS
       SELECT @new_batch_id =  max(batch_id)+1
       FROM batch_job_history;
 
-    RETURN @new_batch_id;
-  END
-GO
+    SELECT CONVERT(varchar(20),@new_batch_id);
+END
 ```
 
-2b. Test function: fetch_batch_id
+2b. Test procedure: generate_batch_id
 ```
-Declare @batch_id INT = 0;
-EXEC @batch_id = generate_batch_id
-SELECT @batch_id; 
-Go
+DECLARE @new_batch_id varchar(20);
+EXEC dbo.generate_batch_id @new_batch_id
 ```
+
+3.  Create table:
+
+
+4.  Create table:
+
