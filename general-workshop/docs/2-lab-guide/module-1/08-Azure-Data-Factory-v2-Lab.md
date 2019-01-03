@@ -12,6 +12,7 @@ In this lab module - we will learn to automate Databricks Spark applications wit
 
 ## B) Database objects to be created in Azure SQL Database
 
+*** Batch job history table:***
 ```
 DROP TABLE IF EXISTS dbo.BATCH_JOB_HISTORY; 
 CREATE TABLE BATCH_JOB_HISTORY( 
