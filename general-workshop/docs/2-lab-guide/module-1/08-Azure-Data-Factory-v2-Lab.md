@@ -23,7 +23,24 @@ batch_step_status varchar(30),
 batch_step_time varchar(30) );
 ```
 
-2a.  Create stored procedure: generate_batch_id
+2.  Create table: chicago_crimes_count
+```
+DROP TABLE IF EXISTS dbo.CHICAGO_CRIMES_COUNT; 
+CREATE TABLE CHICAGO_CRIMES_COUNT( 
+case_type varchar(100), 
+crime_count bigint);
+```
+
+3.  Create table: chicago_crimes_count_by_year
+```
+DROP TABLE IF EXISTS dbo.CHICAGO_CRIMES_COUNT_BY_YEAR; 
+CREATE TABLE CHICAGO_CRIMES_COUNT_YEAR( 
+case_year int,
+case_type varchar(100), 
+crime_count bigint);
+```
+
+4a.  Create stored procedure: generate_batch_id
 ```
 CREATE PROCEDURE generate_batch_id 
    @new_batch_id varchar(20) OUTPUT  
@@ -44,14 +61,8 @@ BEGIN
 END
 ```
 
-2b. Test procedure: generate_batch_id
+4b. Test procedure: generate_batch_id
 ```
 DECLARE @new_batch_id varchar(20);
 EXEC dbo.generate_batch_id @new_batch_id
 ```
-
-3.  Create table:
-
-
-4.  Create table:
-
