@@ -5,8 +5,8 @@ For the workshop, we will need to provision multiple resources/services.  Many o
 1.   Azure Resource group<br>
 2.   Azure Virtual network<br>
 3.   Azure Databricks<br>
-4.   Azure Blob Storage (for the primer only)<br>
-5.   Azure Data Lake Storage Gen2<br>
+4.   Azure Blob Storage<br>
+5.   Azure Data Lake Storage Gen2 (for the primer only)<br>
 6.   Azure Event Hub (for the primer only)<br>
 7.   Azure HDInsight Kafka (for the primer only)<br>
 8.   Azure SQL Database<br>
