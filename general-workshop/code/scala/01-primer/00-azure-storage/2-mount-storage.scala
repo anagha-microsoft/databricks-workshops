@@ -80,16 +80,14 @@ def mountStorageContainer(storageAccount: String, storageAccountKey: String, sto
 
 // COMMAND ----------
 
+//Mount the various storage containers created
+
 //mountStorageContainer(storageAccountName,storageAccountAccessKey,"demo","/mnt/workshop/demo")
 mountStorageContainer(storageAccountName,storageAccountAccessKey,"scratch","/mnt/workshop/scratch")
 mountStorageContainer(storageAccountName,storageAccountAccessKey,"staging","/mnt/workshop/staging")
 mountStorageContainer(storageAccountName,storageAccountAccessKey,"raw","/mnt/workshop/raw")
 mountStorageContainer(storageAccountName,storageAccountAccessKey,"curated","/mnt/workshop/curated")
 mountStorageContainer(storageAccountName,storageAccountAccessKey,"consumption","/mnt/workshop/consumption")
-
-// COMMAND ----------
-
-dbutils.fs.ls("/mnt/workshop")
 
 // COMMAND ----------
 
