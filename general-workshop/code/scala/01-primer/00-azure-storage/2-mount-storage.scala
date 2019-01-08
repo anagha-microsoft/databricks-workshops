@@ -31,11 +31,25 @@ val storageAccountAccessKey = dbutils.secrets.get(scope = "gws-blob-storage", ke
 
 // COMMAND ----------
 
+// Check if already mounted
+display(dbutils.fs.ls("/mnt/workshop"))
+/*
+# Unmount if already mounted - as needed
+dbutils.fs.unmount("/mnt/workshop/consumption/")
+dbutils.fs.unmount("/mnt/workshop/curated/")
+dbutils.fs.unmount("/mnt/workshop/demo/")
+dbutils.fs.unmount("/mnt/workshop/raw/")
+dbutils.fs.unmount("/mnt/workshop/staging/")
+dbutils.fs.unmount("/mnt/workshop/scratch/")
+*/
+
+// COMMAND ----------
+
 /*
 dbutils.fs.mount(
-  source = "wasbs://scratch@generalworkshopsa.blob.core.windows.net/",
+  source = "wasbs://scratch@gwsblobsa.blob.core.windows.net/",
   mountPoint = "/mnt/workshop/scratch",
-  extraConfigs = Map(storageAccountName -> storageAccountAccessKey))
+  extraConfigs = Map("fs.azure.account.key." + storageAccountName + ".blob.core.windows.net" -> storageAccountAccessKey))
 */
 
 // COMMAND ----------
@@ -66,12 +80,16 @@ def mountStorageContainer(storageAccount: String, storageAccountKey: String, sto
 
 // COMMAND ----------
 
-mountStorageContainer(storageAccountName,storageAccountAccessKey,"demo","/mnt/workshop/demo")
+//mountStorageContainer(storageAccountName,storageAccountAccessKey,"demo","/mnt/workshop/demo")
 mountStorageContainer(storageAccountName,storageAccountAccessKey,"scratch","/mnt/workshop/scratch")
 mountStorageContainer(storageAccountName,storageAccountAccessKey,"staging","/mnt/workshop/staging")
 mountStorageContainer(storageAccountName,storageAccountAccessKey,"raw","/mnt/workshop/raw")
 mountStorageContainer(storageAccountName,storageAccountAccessKey,"curated","/mnt/workshop/curated")
 mountStorageContainer(storageAccountName,storageAccountAccessKey,"consumption","/mnt/workshop/consumption")
+
+// COMMAND ----------
+
+dbutils.fs.ls("/mnt/workshop")
 
 // COMMAND ----------
 
