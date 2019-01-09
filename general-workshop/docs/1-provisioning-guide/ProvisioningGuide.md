@@ -29,7 +29,7 @@ https://docs.microsoft.com/en-us/azure/virtual-network/quick-create-portal#creat
 
 ## 3.  Provision Azure Databricks
 Provision an Azure Databricks workspace in the Vnet we created in #2, the same resource group as in #1, and in the same region as #1.  Then peer the Dataricks service provisioned Vnet with the Vnet from #2 for access.  We will discuss Vnet injection in the classroom.<br>
-[Provision a workspace & cluster](https://docs.microsoft.com/en-us/azure/azure-databricks/quickstart-create-databricks-workspace-portal#create-an-azure-databricks-workspace)
+[Provision a workspace & cluster](https://docs.microsoft.com/en-us/azure/azure-databricks/quickstart-create-databricks-workspace-portal#create-an-azure-databricks-workspace)<br>
 [Peering networks](https://docs.azuredatabricks.net/administration-guide/cloud-configurations/azure/vnet-peering.html)
 
 ## 4.  Provision a blob storage account
