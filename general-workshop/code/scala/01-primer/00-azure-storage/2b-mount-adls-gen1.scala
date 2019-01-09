@@ -13,7 +13,7 @@
 // MAGIC ### 1. Define ADLS configuration
 // MAGIC The scope of this workshop is restricted to access via Service Principal and AAD based pass through authentication is out of scope.<br>
 // MAGIC To mount ADLS Gen 1 - we need a few pieces of information<br>
-// MAGIC 1.  Create a service principal, capture Application ID<br>
+// MAGIC 1.  Service principal - Application ID<br>
 // MAGIC 2.  Directory ID (AAD tenant ID)<br>
 // MAGIC 3.  Storage account key
 
@@ -115,7 +115,7 @@ mountStorage("gwsroot","/mnt/workshop-adlsgen1/gwsroot")
 // COMMAND ----------
 
 //Display directories
-display(dbutils.fs.ls("/mnt/workshop-adlsgen1"))
+display(dbutils.fs.ls("/mnt/workshop-adlsgen1/gwsroot/"))
 
 // COMMAND ----------
 
