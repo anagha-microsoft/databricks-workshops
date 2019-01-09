@@ -8,7 +8,8 @@
 // MAGIC In this notebook, we will -<br>
 // MAGIC   1.  Install & configure Dataricks CLI
 // MAGIC   2.  Secure blob storage credentials
-// MAGIC   3.  Secure ADLS Gen2 storage credentials
+// MAGIC   3.  Secure ADLS Gen1 storage credentials
+// MAGIC   4.  Secure ADLS Gen2 storage credentials
 // MAGIC   
 
 // COMMAND ----------
@@ -113,7 +114,7 @@
 // COMMAND ----------
 
 // MAGIC %md
-// MAGIC #### 3.0.1. Create a secrets scope for your ADLS gen2 storage
+// MAGIC #### 3.0.1. Create a secrets scope for your ADLSGen2 storage
 // MAGIC You can name the scope per your preference.
 
 // COMMAND ----------
@@ -212,3 +213,22 @@
 
 // MAGIC %md
 // MAGIC ```databricks secrets put --scope gws-adlsgen1-storage --key tenant-id```
+
+// COMMAND ----------
+
+// MAGIC %md
+// MAGIC #### 4.0.3. List your secret scopes
+
+// COMMAND ----------
+
+// MAGIC %md
+// MAGIC ```databricks secrets list-scopes```
+
+// COMMAND ----------
+
+// MAGIC %md
+// MAGIC #### 4.0.4. List the secrets within the scope created
+
+// COMMAND ----------
+
+// MAGIC %md ```databricks secrets list --scope gws-adlsgen1-storage```
