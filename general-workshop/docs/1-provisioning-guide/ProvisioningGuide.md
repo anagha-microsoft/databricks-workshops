@@ -37,13 +37,13 @@ Provision an Azure Blob Storage account (gen1) in #1<br>
 https://docs.microsoft.com/en-us/azure/storage/common/storage-quickstart-create-account?toc=%2fazure%2fstorage%2fblobs%2ftoc.json
 
 ## 5.  Provision Azure Data Lake Store Gen1
-1.  Provision an Azure Lake Store Gen 1 account in #1 <br>
+1. Provision an Azure Lake Store Gen 1 account in #1 <br>
 https://docs.microsoft.com/en-us/azure/data-lake-store/data-lake-store-get-started-portal#create-a-data-lake-storage-gen1-account
 <br>
-2.  Create a service principal<br>
+2. Create a service principal<br>
 https://docs.microsoft.com/en-us/azure/active-directory/develop/howto-create-service-principal-portal
-3.  Create a new directory in ADLS Gen1 called gwsroot from the portal<br>
-4.  Grant the service principal (SPN) from #2, super user access to the directory.<br>
+3. Create a new directory in ADLS Gen1 called gwsroot from the portal<br>
+4. Grant the service principal (SPN) from #2, super user access to the directory.<br>
 We will mount the ADLS Gen 1 in Databricks with this SPN's credentials.
 
 ## 6.  Provision Azure Data Lake Store Gen2
