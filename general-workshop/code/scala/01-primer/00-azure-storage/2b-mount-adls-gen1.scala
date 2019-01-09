@@ -15,7 +15,9 @@
 // MAGIC To mount ADLS Gen 1 - we need a few pieces of information<br>
 // MAGIC 1.  Service principal - Application ID<br>
 // MAGIC 2.  Directory ID (AAD tenant ID)<br>
-// MAGIC 3.  Storage account key
+// MAGIC 3.  Access tokey/key associated with the application ID<br>
+// MAGIC 
+// MAGIC We also need a root directory created, and full access to the root directory and child items to the SPN from #1
 
 // COMMAND ----------
 
