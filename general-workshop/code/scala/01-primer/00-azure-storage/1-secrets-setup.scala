@@ -27,11 +27,16 @@
 // COMMAND ----------
 
 // MAGIC %md
+// MAGIC ``` apt install python-pip```
+
+// COMMAND ----------
+
+// MAGIC %md
 // MAGIC ```pip install databricks-cli```
 
 // COMMAND ----------
 
-// MAGIC %md On the Databricks site, navigate to the user icon on the right-hand side, top, and click on setting.  Generate a token, capture to clipboard.
+// MAGIC %md On the Databricks site, navigate to the user icon on the right-hand side, top, and click on "User setting".  Generate a token, capture to clipboard.
 
 // COMMAND ----------
 
@@ -109,7 +114,7 @@
 
 // MAGIC %md
 // MAGIC #### 3.0.1. Create a secrets scope for your ADLS gen2 storage
-// MAGIC You can name it per your preference.
+// MAGIC You can name the scope per your preference.
 
 // COMMAND ----------
 
@@ -119,12 +124,27 @@
 // COMMAND ----------
 
 // MAGIC %md
-// MAGIC #### 3.0.2. Set up your ADLSGen2 key within the secret scope
+// MAGIC #### 3.0.2. Set up your ADLSGen2 credentials within the secret scope
 
 // COMMAND ----------
 
 // MAGIC %md
 // MAGIC ```databricks secrets put --scope gws-adlsgen2-storage --key storage-acct-key```
+
+// COMMAND ----------
+
+// MAGIC %md
+// MAGIC ```databricks secrets put --scope gws-adlsgen2-storage --key client-id```
+
+// COMMAND ----------
+
+// MAGIC %md
+// MAGIC ```databricks secrets put --scope gws-adlsgen2-storage --key client-secret```
+
+// COMMAND ----------
+
+// MAGIC %md
+// MAGIC ```databricks secrets put --scope gws-adlsgen2-storage --key tenant-id```
 
 // COMMAND ----------
 
@@ -144,3 +164,51 @@
 // COMMAND ----------
 
 // MAGIC %md ```databricks secrets list --scope gws-adlsgen2-storage```
+
+// COMMAND ----------
+
+// MAGIC %md
+// MAGIC ## 4. Secure your Azure Data Lake Store Gen1 (ADLSGen1) storage credentials
+
+// COMMAND ----------
+
+// MAGIC %md
+// MAGIC Follow the provisionin documentation to ensure dependencies are met:<br>
+// MAGIC 1.  Create a service principal, and an access token<br>
+// MAGIC 2.  Create a directory in ADLS Gen 1<br>
+// MAGIC 3.  Grant the service principal full access - top as well as child entities to the directory<br>
+// MAGIC 4.  Capture the following information we will need for mounting:<br>
+// MAGIC   - SPN Application ID - we will use this for client ID
+// MAGIC   - Application Access token
+// MAGIC   - AAD Tenant ID
+
+// COMMAND ----------
+
+// MAGIC %md
+// MAGIC #### 4.0.1. Create a secrets scope for your ADLSGen1 storage
+// MAGIC You can name the scope per your preference.
+
+// COMMAND ----------
+
+// MAGIC %md
+// MAGIC ```databricks secrets create-scope --scope gws-adlsgen1-storage```
+
+// COMMAND ----------
+
+// MAGIC %md
+// MAGIC #### 4.0.2. Set up your ADLSGen1 credentials within the secret scope
+
+// COMMAND ----------
+
+// MAGIC %md
+// MAGIC ```databricks secrets put --scope gws-adlsgen1-storage --key access-token```
+
+// COMMAND ----------
+
+// MAGIC %md
+// MAGIC ```databricks secrets put --scope gws-adlsgen1-storage --key client-id```
+
+// COMMAND ----------
+
+// MAGIC %md
+// MAGIC ```databricks secrets put --scope gws-adlsgen1-storage --key tenant-id```
