@@ -43,8 +43,9 @@ https://docs.microsoft.com/en-us/azure/data-lake-store/data-lake-store-get-start
 (ii) Create a service principal<br>
 https://docs.microsoft.com/en-us/azure/active-directory/develop/howto-create-service-principal-portal
 <br>
-(iii) Create a new directory in ADLS Gen1 called gwsroot from the portal<br>
-(iv) Grant the service principal (SPN) from (ii), super user access to the directory.<br>
+(iii) Go to the app registration/servic eprincipal, cick on settigs and create a key, capture the key - its exposed only temporarily<br>
+(iv) Create a new directory in ADLS Gen1 called gwsroot from the portal<br>
+(v) Grant the service principal (SPN) from (ii), super user access to the directory.<br>
 We will mount the ADLS Gen 1 in Databricks with this SPN's credentials.
 
 ## 6.  Provision Azure Data Lake Store Gen2
