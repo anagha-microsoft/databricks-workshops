@@ -16,7 +16,7 @@ Create one container called (1) raw, one called (2) curated - with access level 
 Note this down - we will use this for mounting the storage account
 
 ### 2.0.4. Provision an Azure Data Factory v2
-- Create it in East US 2 in the same region, same resource group
+- Create it in East US 2 - same region, same resource group
 
 ### 2.0.5. Provision an Azure Databricks workspace
 - Select "Standard" in the pricing tier
