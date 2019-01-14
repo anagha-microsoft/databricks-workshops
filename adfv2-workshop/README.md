@@ -18,7 +18,6 @@ We will build a simple workflow with 3 Databricks Notebook activities in a seque
 <hr>
 <br>
 
-
 **Discussion:** <br>
 - Why not just use the orchestration and scheduler in Databricks?<br>
 - Why not use Azure Data Factory for orchestration of notebook execution?<br>
