@@ -92,3 +92,6 @@ In this notebook - we will run a series of notebooks sequentially if the prior n
 
 
 # 6. ADFv2 scheduling/orchestration 
+We will create a new pipeline with a notebook activity in this final section.
+
+
