@@ -10,6 +10,12 @@ Out of the box, an Azure Data Factory v2 pipeline can automate orchestration of 
 **Orchestration of notebook execution:** Databricks notebook with %run to call the component notebooks<br>
 **Automation of orchestration of notebook execution:** Azure Data Factory v2<br><br>
 
+![1-ADFv2](../../images/workshop.png)
+<br><br>
+<hr>
+<br>
+
+
 **Discussion:** <br>
 - Why not just use the orchestration and scheduler in Databricks?<br>
 - Why not use Azure Data Factory for orchestration of notebook execution?<br>
