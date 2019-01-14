@@ -10,21 +10,29 @@ Call it adfv2ws-rg
 Give it a prefix of adfv2ws followed by any suffix for uniqueness
 
 ### 2.0.2. Create containers in your Azure blob storage account 
-Create one container called raw, one called curated - with access level of private (no anonymous access)
+Create one container called (1) raw, one called (2) curated - with access level of private (no anonymous access)
 
 ### 2.0.3. Make a note of the storage account name and key 
 Note this down - we will use this for mounting the storage account
 
-### 2.0.4. Provision an Azure Databricks workspace
-- Give it a prefix of adfv2ws followed by any suffix for uniqueness<br>
+### 2.0.4. Provision an Azure Data Factory v2
+- Create it in East US 2 in the same region, same resource group
+
+### 2.0.5. Provision an Azure Databricks workspace
 - Select "Standard" in the pricing tier
+- Give it a prefix of adfv2ws followed by any suffix for uniqueness<br>
+- Ensure you pick the right resource group and region - East US 2
 Leave all other options as defaults
 
-2.0.4. Provision an Azure Data Factory v2
+### 2.0.6. Provision a Databricks cluster in your workspace
+- Select 
 
-2.0.5. Download the Databricks DBC
+### 2.0.7. Download the Databricks DBC
+The DBC is at -
 
-2.0.6. Import the DBC into your cluster
+
+### 2.0.8. Import the DBC into your Databricks workspace
+Follow the instructor and persist to you use home directory in the Databricks workspace
 
 # 3. Databricks notebooks - reports - review
 
