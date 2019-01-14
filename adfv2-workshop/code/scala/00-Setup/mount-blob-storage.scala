@@ -17,7 +17,7 @@
 
 //Replace with your storage account name
 val storageAccountName = "adfv2wssa"
-val storageAccountAccessKey = "ni5XJFOMq6PXP1eTAbWI94KamN0njoylW5IvD5cJe+j7Qg3Sl35Y2TrT8AVxEmLYSpJSeaoExNEcH8NE/RN0Og=="
+val storageAccountAccessKey = "xxx"
 
 // COMMAND ----------
 
