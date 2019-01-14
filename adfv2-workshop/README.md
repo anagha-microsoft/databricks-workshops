@@ -41,15 +41,11 @@ The DBC is at -
 ### 2.0.8. Import the DBC into your Databricks workspace
 Follow the instructor and persist to you use home directory in the Databricks workspace
 
-# 3. Databricks notebooks - reports - review
-
+# 3. About the NYC taxi public dataset 
 
 This dataset contains detailed trip-level data on New York City Taxi trips. It was collected from both drivers inputs as well as the GPS coordinates of individual cabs. 
 
-
 **The data is in a CSV format and has the following fields:**
-
-
 * tripID: a unique identifier for each trip
 * VendorID: a code indicating the provider associated with the trip record
 * tpep_pickup_datetime: date and time when the meter was engaged
