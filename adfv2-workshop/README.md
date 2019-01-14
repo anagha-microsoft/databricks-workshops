@@ -144,3 +144,5 @@ Refer documentation to familiarize yourself with scheduling a pipeline<br><br>
 ### 7.  Discussion:
 Passing parameters to your cluster (base parameters in notebook activity settings) and between notebooks (notebook widgets)
 
+# Help improve this
+This is a community contribution, and can be improved.
