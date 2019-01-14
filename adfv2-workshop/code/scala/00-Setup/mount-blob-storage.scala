@@ -15,9 +15,9 @@
 
 // COMMAND ----------
 
-//Replace with your storage account name
+//Replace with your storage account name, and with the access key provided in the class
 val storageAccountName = "adfv2wssa"
-val storageAccountAccessKey = "xxx"
+val storageAccountAccessKey = dbutils.secrets.get(scope = "adfv2ws-blob-storage", key = "storage-acct-key") 
 
 // COMMAND ----------
 
