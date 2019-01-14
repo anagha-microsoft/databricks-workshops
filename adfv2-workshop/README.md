@@ -7,9 +7,9 @@ Out of the box, an Azure Data Factory v2 pipeline can automate orchestration of 
 We will build a simple workflow with 3 Databricks Notebook activities in a sequential fashion, with dependency on prior notebook's successful run, and trigger it with Azure Data Factory v2.<br>
 
 **1. Dataset:** NYC Taxi dataset<br>
-**2. Data engineering pipeline components:** Activites that load, transform, run a report and pipe to an RDBMS - each a Scala notebook<br>
+**2. Data engineering pipeline components (Scala notebooks):** Activites that load (notebook 1), transform (notebook 2), run a report (notebook 3) and pipe to an Azure SQL database table in batch.<br>
 **3. Orchestration of notebook execution:** Databricks notebook with %run to call the component notebooks<br>
-**4. Automation of orchestration of notebook execution:** Azure Data Factory v2<br><br>
+**4. Scheduled/On-demand automation of orchestration of notebook execution:** Azure Data Factory v2<br><br>
 
 ![ADFv2](images/workshop.png)
 <br><br>
