@@ -1,12 +1,12 @@
 // Databricks notebook source
 // MAGIC %md
 // MAGIC ## Curate NYC taxi data
-// MAGIC In this notebook - we will do some basic transformations, augmenting of the raw NYC taxi dataset.<br>
+// MAGIC In a typical data engineering pipeline, we do load followed by transformation (and more).  In this notebook - we will do some basic transformations and augmenting of the raw NYC taxi dataset.<br>
 // MAGIC This is by no way complete, its merely for the purpose of demonstrating chaining a workflow.
 
 // COMMAND ----------
 
-// MAGIC %md #### 1.  Drop records with missing timestamp
+// MAGIC %md ##### 1.  Drop records with missing timestamp
 
 // COMMAND ----------
 
@@ -94,5 +94,6 @@ dbutils.fs.ls(dbfsDestDirPath + "/").foreach((i: FileInfo) => if (!(i.path conta
 
 // COMMAND ----------
 
-// MAGIC %sql
-// MAGIC --select * from nyc_db.taxi_trips_curated
+//REVIEW
+//%sql
+//select * from nyc_db.taxi_trips_curated
