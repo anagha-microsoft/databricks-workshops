@@ -5,7 +5,7 @@
 // COMMAND ----------
 
 //Execute the load
-val executionStatusNotebook1 = dbutils.notebook.run("../01-ELT/01-load", 120)
+val executionStatusNotebook1 = dbutils.notebook.run("../../01-ELT/01-load", 120)
 
 // COMMAND ----------
 
@@ -19,7 +19,7 @@ var executionStatusNotebook2 = "-"
 //If load completes, execute the curation notebook
 if(executionStatusNotebook1 == "Pass")
 {
-  executionStatusNotebook2 = dbutils.notebook.run("../01-ELT/02-curate", 120)
+  executionStatusNotebook2 = dbutils.notebook.run("../../01-ELT/02-curate", 120)
 }
 
 // COMMAND ----------
