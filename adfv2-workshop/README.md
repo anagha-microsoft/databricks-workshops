@@ -21,7 +21,7 @@ Note this down - we will use this for mounting the storage account
 ### 2.0.5. Provision an Azure Databricks workspace
 - Select "Standard" in the pricing tier
 - Give it a prefix of adfv2ws followed by any suffix for uniqueness<br>
-- Ensure you pick the right resource group and region - East US 2
+- Ensure you pick the right resource group and region - East US 2<br>
 Leave all other options as defaults
 
 ### 2.0.6. Provision a Databricks cluster in your workspace
