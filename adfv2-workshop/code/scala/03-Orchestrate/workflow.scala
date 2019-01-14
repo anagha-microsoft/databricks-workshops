@@ -34,7 +34,7 @@ var executionStatusNotebook3 = "-"
 //If load completes, execute the curation notebook
 if(executionStatusNotebook2 == "Pass")
 {
-  executionStatusReport3 = dbutils.notebook.run("../03-Reporting/run-report", 120)
+  executionStatusNotebook3 = dbutils.notebook.run("../03-Reporting/run-report", 120)
 }
 
 // COMMAND ----------
@@ -45,4 +45,4 @@ if(executionStatusNotebook2 == "Pass")
 // COMMAND ----------
 
 //Return the status of the execution of the notebook
-dbutils.notebook.exit(executionStatusReport3)
+dbutils.notebook.exit(executionStatusNotebook3)
