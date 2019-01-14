@@ -9,22 +9,22 @@ Call it adfv2ws-rg
 ### 2.0.2. Provision a general purpose v2 Azure storage account in the resource group from 2.0.1
 Give it a prefix of adfv2ws followed by any suffix for uniqueness
 
-### 2.0.2. Create containers in your Azure blob storage account 
+### 2.0.3. Create containers in your Azure blob storage account 
 Create one container called (1) raw, one called (2) curated - with access level of private (no anonymous access)
 
-### 2.0.3. Make a note of the storage account name and key 
+### 2.0.4. Make a note of the storage account name and key 
 Note this down - we will use this for mounting the storage account
 
-### 2.0.4. Provision an Azure Data Factory v2
+### 2.0.5. Provision an Azure Data Factory v2
 - Create it in East US 2 - same region, same resource group
 
-### 2.0.5. Provision an Azure Databricks workspace
+### 2.0.6. Provision an Azure Databricks workspace
 - Select "Premium" in the pricing tier
 - Give it a prefix of adfv2ws followed by any suffix for uniqueness<br>
 - Ensure you pick the right resource group and region - East US 2<br><br>
 Leave all other options as defaults
 
-### 2.0.6. Provision a Databricks cluster in your workspace
+### 2.0.7. Provision a Databricks cluster in your workspace
 Select:
 - cluster mode - standard
 - databricks runtime - 5.1
@@ -34,11 +34,11 @@ Select:
 - worker count - 3<br><br>
 Leave all other entries with default values and click create.
 
-### 2.0.7. Download the Databricks DBC
+### 2.0.8. Download the Databricks DBC
 The DBC is at -
 
 
-### 2.0.8. Import the DBC into your Databricks workspace
+### 2.0.9. Import the DBC into your Databricks workspace
 Follow the instructor and persist to you use home directory in the Databricks workspace
 
 # 3. About the NYC taxi public dataset 
@@ -65,10 +65,11 @@ This dataset contains detailed trip-level data on New York City Taxi trips. It w
 * improvement_surcharge: $0.30 improvement surcharge assessed trips at the flag drop.
 * total_amount: The total amount charged to passengers. Does not include cash tips.
 
-# 4. Databricks notebooks - workflow - review
+# 4. Databricks notebooks - review
 
+### 1.  00-setup/mount-blob-storage.scala
+In this notebook, we will mount the blob storage account containers created in the setup rocess
 
-# 5. Databricks workflow - test run
 
 
 # 6. ADFv2 scheduling/orchestration 
