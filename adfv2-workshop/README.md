@@ -25,7 +25,14 @@ Note this down - we will use this for mounting the storage account
 Leave all other options as defaults
 
 ### 2.0.6. Provision a Databricks cluster in your workspace
-- Select 
+Select: <br> 
+- cluster mode - standard
+- databricks runtime - 5.1
+- enable auto-scaling - uncheck
+- terminate after - 30 minutes of inactivity
+- worker type - ds3v2
+- worker count - 3
+Leave all other entries with default values and click create.
 
 ### 2.0.7. Download the Databricks DBC
 The DBC is at -
