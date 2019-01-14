@@ -18,13 +18,17 @@ Note this down - we will use this for mounting the storage account
 ### 2.0.5. Provision an Azure Data Factory v2
 - Create it in East US 2 - same region, same resource group
 
-### 2.0.6. Provision an Azure Databricks workspace
+### 2.0.6. Provision an Azure SQL Database
+- Create a database in the East US 2 region - same region, same resource group
+- SKU - select Standard S1: 20 DTUs
+
+### 2.0.7. Provision an Azure Databricks workspace
 - Select "Premium" in the pricing tier
 - Give it a prefix of adfv2ws followed by any suffix for uniqueness<br>
 - Ensure you pick the right resource group and region - East US 2<br><br>
 Leave all other options as defaults
 
-### 2.0.7. Provision a Databricks cluster in your workspace
+### 2.0.8. Provision a Databricks cluster in your workspace
 Select:
 - cluster mode - standard
 - databricks runtime - 5.1
@@ -34,12 +38,12 @@ Select:
 - worker count - 3<br><br>
 Leave all other entries with default values and click create.
 
-### 2.0.8. Download the Databricks DBC
+### 2.0.9. Download the Databricks DBC
 The DBC is at -
 
 
-### 2.0.9. Import the DBC into your Databricks workspace
-Follow the instructor and persist to you use home directory in the Databricks workspace
+### 2.0.10. Import the DBC into your Databricks workspace
+Follow the instructor and persist to your user home directory in the Databricks workspace
 
 # 3. About the NYC taxi public dataset 
 
