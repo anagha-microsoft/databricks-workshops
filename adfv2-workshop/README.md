@@ -127,5 +127,6 @@ Refer documentation to familiarize yourself with scheduling a pipeline<br><br>
 ##### 5.  Monitor the pipeline<br><br>
 ##### 6.  Lets review the execution of the workflow in Databricks<br><br>
 
-
+##### 7.  Discussion:
+Passing parameters to your cluster (base parameters in notebook activity settings) and between notebooks (notebook widgets)
 
