@@ -54,8 +54,8 @@ Select:
 Leave all other entries with default values and click create.
 
 ### 2.0.9. Download the Databricks DBC
-The DBC is at -
-
+The DBC is at - <br>
+https://github.com/anagha-microsoft/databricks-workshops/blob/master/adfv2-workshop/dbc/adfv2-workshop.dbc
 
 ### 2.0.10. Import the DBC into your Databricks workspace
 Follow the instructor and persist to your user home directory in the Databricks workspace
