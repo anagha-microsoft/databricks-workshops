@@ -25,7 +25,7 @@ Note this down - we will use this for mounting the storage account
 Leave all other options as defaults
 
 ### 2.0.6. Provision a Databricks cluster in your workspace
-Select: <br> 
+Select:
 - cluster mode - standard
 - databricks runtime - 5.1
 - enable auto-scaling - uncheck
