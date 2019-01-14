@@ -47,7 +47,7 @@ val transformStep2DF=transformStep1DF.filter($"passenger_count"=!=0)
 // Using Spark SQL built in functions, augment with temporal attributes, based off of trip pick up timestamp
 import org.apache.spark.sql.functions._
 val transformStep3DF = transformStep2DF.withColumn("trip_hour", hour(col("tpep_pickup_timestamp")))
-                                 .withColumn("quarterly_time_bucket", 
+                                 .withColumn("time_bucket", 
                                              when($"trip_hour".geq(lit(0)) and $"trip_hour".lt(lit(4)),"00-TO-04")
                                              .when($"trip_hour".geq(lit(4)) and $"trip_hour".lt(lit(8)),"04-TO-08")
                                              .when($"trip_hour".geq(lit(8)) and $"trip_hour".lt(lit(12)),"08-TO-12")
@@ -58,8 +58,8 @@ val transformStep3DF = transformStep2DF.withColumn("trip_hour", hour(col("tpep_p
 // COMMAND ----------
 
 //REVIEW
-//val timeBucketTrendDF=transformStep3DF.groupBy("quarterly_time_bucket").count
-//display(timeBucketTrendDF)
+val timeBucketTrendDF=transformStep3DF.groupBy("time_bucket").count
+display(timeBucketTrendDF)
 
 // COMMAND ----------
 
@@ -94,6 +94,5 @@ dbutils.fs.ls(dbfsDestDirPath + "/").foreach((i: FileInfo) => if (!(i.path conta
 
 // COMMAND ----------
 
-//REVIEW
 //%sql
 //select * from nyc_db.taxi_trips_curated
