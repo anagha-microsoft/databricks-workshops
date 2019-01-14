@@ -5,12 +5,12 @@ Out of the box, an Azure Data Factory v2 pipeline can automate orchestration of 
 
 ##### Workshop scope
 
-Dataset: NYC Taxi dataset<br>
-Data engineering pipeline components: Activites that load, transform, run a report and pipe to an RDBMS - each a Scala notebook<br>
-Orchestration of notebook execution: Databricks notebook with %run to call the component notebooks<br>
-Automation of orchestration of notebook execution: Azure Data Factory v2<br>
+**Dataset:** NYC Taxi dataset<br>
+**Data engineering pipeline components:** Activites that load, transform, run a report and pipe to an RDBMS - each a Scala notebook<br>
+**Orchestration of notebook execution:** Databricks notebook with %run to call the component notebooks<br>
+**Automation of orchestration of notebook execution:** Azure Data Factory v2<br><br>
 
-Discussion: <br>
+**Discussion:** <br>
 Why not use Azure Data Factory for orchestration of notebook execution?<br>
 Why use Azure Data Factory v2?<br>
 Other options with ADFv2?<br>
