@@ -96,3 +96,7 @@ dbutils.fs.ls(dbfsDestDirPath + "/").foreach((i: FileInfo) => if (!(i.path conta
 
 //%sql
 //select * from nyc_db.taxi_trips_curated
+
+// COMMAND ----------
+
+dbutils.notebook.exit("Pass")
