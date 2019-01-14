@@ -11,9 +11,10 @@ Out of the box, an Azure Data Factory v2 pipeline can automate orchestration of 
 **Automation of orchestration of notebook execution:** Azure Data Factory v2<br><br>
 
 **Discussion:** <br>
-Why not use Azure Data Factory for orchestration of notebook execution?<br>
-Why use Azure Data Factory v2?<br>
-Other options with ADFv2?<br>
+- Why not just use the orchestration and scheduler in Databricks?<br>
+- Why not use Azure Data Factory for orchestration of notebook execution?<br>
+- Why use Azure Data Factory v2?<br>
+- Other options with Azure Data Factory v2 for orchestration of multiple activites?<br>
 
 # 2. Setup
 
@@ -102,8 +103,7 @@ In this notebook, we will create a report and pipe the report into the RDBMS we 
 ### 5.  Workflow (03-Orchestrate/workflow.scala)
 In this notebook - we will run a series of notebooks sequentially if the prior notebook executes successfully.
 
-
 # 6. ADFv2 scheduling/orchestration 
-We will create a new pipeline with a notebook activity in this final section.
+We will create a new pipeline with a notebook activity in this final section.<br>
 
 
