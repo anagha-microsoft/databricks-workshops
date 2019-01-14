@@ -1,7 +1,19 @@
 # 1. About the workshop
-Out of the box, an Azure Data Factory v2 pipeline can automate orchestration of one to many Spark applications in Databricks notebooks including spawning a new cluster, or leveraging an existing live cluster.<br>
 
-In this workshop - we will build a simple Databricks notebook workflow with the New York Taxi dataset, and trigger the notebook workflow from Azure Data Factory v2.
+##### ADFv2 and Databricks
+Out of the box, an Azure Data Factory v2 pipeline can automate orchestration of Spark applications in Databricks notebooks including spawning a new cluster, or leveraging an existing live cluster.<br>
+
+##### Workshop scope
+
+Dataset: NYC Taxi dataset<br>
+Data engineering pipeline components: Activites that load, transform, run a report and pipe to an RDBMS - each a Scala notebook<br>
+Orchestration of notebook execution: Databricks notebook with %run to call the component notebooks<br>
+Automation of orchestration of notebook execution: Azure Data Factory v2<br>
+
+Discussion: <br>
+Why not use Azure Data Factory for orchestration of notebook execution?<br>
+Why use Azure Data Factory v2?<br>
+Other options with ADFv2?<br>
 
 # 2. Setup
 
