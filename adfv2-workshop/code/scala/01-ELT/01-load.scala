@@ -103,3 +103,7 @@ dbutils.fs.ls(dbfsDestDirPath + "/").foreach((i: FileInfo) => if (!(i.path conta
 
 // MAGIC %sql
 // MAGIC --select * from nyc_db.taxi_trips_raw
+
+// COMMAND ----------
+
+dbutils.notebook.exit("Pass")
