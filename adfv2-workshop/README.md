@@ -72,9 +72,21 @@ This dataset contains detailed trip-level data on New York City Taxi trips. It w
 # 4. Databricks notebooks - review
 From the cluster, lets open up the notebooks, in the order below and review and run as needed.
 
-### 1.  00-setup/mount-blob-storage.scala
-In this notebook, we will mount the blob storage account containers created in the setup rocess
+### 1.  Mount blob Storage (00-setup/mount-blob-storage.scala)
+In this notebook, we will mount the two blob storage account containers created in the setup rocess
+This is a one-time setup and is not in scope for automation.
 
+### 2.  Load data (01-ELT/01-load.scala)
+In this notebook, we will read raw NYC taxi data (CSV) sitting in a staging storage account and persist to our "raw" information zone (mounted) as Parquet.  Before persisting, we will ensure that all the datatypes are exactly as required.  Th dataset is vry small and is therefore not partitioned (physically) based on access needs.  We will create a Hive table on this dataset.
+
+### 3.  Curate data (01-ELT/02-curate.scala)
+In this notebook, we will read the raw Parquet NYC taxi data in the raw information zone and we will transform the same - do some cleansing and some augmenting with temporal attributes and persist to the curated information zone as Parquet.  We will create a Hive table on this dataset.
+
+### 4.  Reporting (02-Reporting/02-curate.scala)
+In this notebook, we will create a report and pipe the report into the RDBMS we created.
+
+### 5.  Workflow (03-Orchestrate/workflow.scala)
+In this notebook - we will run a series of notebooks sequentially if the prior notebook executes successfully.
 
 
 # 6. ADFv2 scheduling/orchestration 
