@@ -52,3 +52,12 @@ spark.table("global_temp.report1")
      .write
      .mode(SaveMode.Overwrite) // <--- Overwrite the existing table
      .jdbc(jdbcUrl, "report1", connectionProperties)
+
+// COMMAND ----------
+
+// MAGIC %md
+// MAGIC ##### 4. Exit notebook
+
+// COMMAND ----------
+
+dbutils.notebook.exit("Pass")
