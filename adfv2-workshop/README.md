@@ -60,6 +60,9 @@ https://github.com/anagha-microsoft/databricks-workshops/blob/master/adfv2-works
 ### 2.0.10. Import the DBC into your Databricks workspace
 Follow the instructor and persist to your user home directory in the Databricks workspace
 
+### 2.0.11. Mount blob storage
+Run the notebook in 00-Setup/mount-blob-storage.scala
+
 # 3. About the NYC taxi public dataset 
 
 This dataset contains detailed trip-level data on New York City Taxi trips. It was collected from both drivers inputs as well as the GPS coordinates of individual cabs. 
