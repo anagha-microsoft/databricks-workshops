@@ -103,17 +103,17 @@ In this notebook, we will create a report and pipe the report into the RDBMS we 
 ### 5.  Workflow (03-Orchestrate/workflow.scala)
 In this notebook - we will run a series of notebooks sequentially if the prior notebook executes successfully.
 
-# 6. ADFv2 scheduling/orchestration 
+### 6. ADFv2 scheduling/orchestration 
 We will create an ADFv2 pipeline with a notebook activity in this final section.<br>
-1.  Create a Databricks token for use in ADFv2<br>
+##### 1.  Create a Databricks token for use in ADFv2<br>
 In the UI - go to workspace->settings->access tokens and create a token.  Capture and note down safely.<br><br>
-2.  Create a linked service for Databricks compute from the Data Factory UI<br>
+##### 2.  Create a linked service for Databricks compute from the Data Factory UI<br>
 - This has a dependency on (1) Databricks workspace - should exist already, and (2) also the Databricks token<br>
 - Select your subscription<br>
 - Enter your access token<br>
 - Select DBR 5.1<br>
 - Select DS3v2 - 3 workers, fixed<br><br>
-3.  Create a pipeline<br>
+##### 3.  Create a pipeline<br>
 - Add a Databricks notebook activity<br>
 - In the notebook activity, in the general tab, name the workflow<br>
 - In the Azure Databricks tab, select the linked service and test connection<br>
@@ -121,11 +121,11 @@ In the UI - go to workspace->settings->access tokens and create a token.  Captur
 - Validate the pipeline<br>
 - Debug the pipeline<br>
 - Publish the pipeline<br><br>
-4.  Trigger the pipeline<br>
+##### 4.  Trigger the pipeline<br>
 - Run the pipeline now<br>
 Refer documentation to familiarize yourself with scheduling a pipeline<br><br>
-5.  Monitor the pipeline<br><br>
-6.  Lets review the execution of the workflow in Databricks<br><br>
+##### 5.  Monitor the pipeline<br><br>
+##### 6.  Lets review the execution of the workflow in Databricks<br><br>
 
 
 
