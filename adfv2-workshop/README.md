@@ -19,7 +19,7 @@ Note this down - we will use this for mounting the storage account
 - Create it in East US 2 - same region, same resource group
 
 ### 2.0.5. Provision an Azure Databricks workspace
-- Select "Standard" in the pricing tier
+- Select "Premium" in the pricing tier
 - Give it a prefix of adfv2ws followed by any suffix for uniqueness<br>
 - Ensure you pick the right resource group and region - East US 2<br><br>
 Leave all other options as defaults
