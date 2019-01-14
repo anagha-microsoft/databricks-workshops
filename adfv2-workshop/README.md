@@ -1,7 +1,9 @@
 # 1. About the workshop
 
 ### ADFv2 and Databricks integration
-Out of the box, an Azure Data Factory v2 pipeline can automate orchestration of Spark applications in Databricks notebooks including spawning a new cluster, or leveraging an existing live cluster.<br>
+Out of the box, an Azure Data Factory v2 pipeline can automate orchestration of Spark applications in Databricks notebooks, with a "notebook activity", including spawning a new cluster, or leveraging an existing live cluster.  It supports passing input parameters to the notebook activity.<br>
+
+Dependencies are covered as part of the workshop.<br>
 
 ### Workshop scope
 We will build a simple workflow with 3 Databricks Notebook activities in a sequential fashion, with dependency on prior notebook's successful run, and trigger it with Azure Data Factory v2.<br>
