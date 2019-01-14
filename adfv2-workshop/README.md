@@ -66,6 +66,7 @@ This dataset contains detailed trip-level data on New York City Taxi trips. It w
 * total_amount: The total amount charged to passengers. Does not include cash tips.
 
 # 4. Databricks notebooks - review
+From the cluster, lets open up the notebooks, in the order below and review and run as needed.
 
 ### 1.  00-setup/mount-blob-storage.scala
 In this notebook, we will mount the blob storage account containers created in the setup rocess
