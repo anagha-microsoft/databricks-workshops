@@ -24,9 +24,11 @@ spark.conf.set(s"fs.azure.account.key.${storageAccountName}.blob.core.windows.ne
 
 // COMMAND ----------
 
-import java.io.FileReader
-import java.io.FileNotFoundException
+//import java.io.FileReader
+//import java.io.FileNotFoundException
+
 import java.io.IOException
+
 var rawTaxiTripsDF : org.apache.spark.sql.DataFrame = null
 try {
    //importing data from blob
@@ -84,7 +86,7 @@ dbutils.fs.ls(dbfsDestDirPath + "/").foreach((i: FileInfo) => if (!(i.path conta
 // COMMAND ----------
 
 // MAGIC %md
-// MAGIC ### 5.  Define an external hive table on the data
+// MAGIC ##### 5.  Define an external hive table on the data
 
 // COMMAND ----------
 
@@ -99,7 +101,5 @@ dbutils.fs.ls(dbfsDestDirPath + "/").foreach((i: FileInfo) => if (!(i.path conta
 
 // COMMAND ----------
 
-/*
-%sql
-select * from nyc_db.taxi_trips_raw
-*/
+// MAGIC %sql
+// MAGIC --select * from nyc_db.taxi_trips_raw
