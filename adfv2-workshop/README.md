@@ -70,6 +70,10 @@ Follow the instructor and persist to your user home directory in the Databricks 
 ### 2.0.11. Mount blob storage
 Run the notebook in 00-Setup/mount-blob-storage.scala
 
+### 2.0.12. Get the credentials for the source storage account from instructor
+
+Note: Although the notebooks reference secrets, it is out of scope for the workshop due to time constaint.<br>
+
 # 3. About the NYC taxi public dataset 
 
 This dataset contains detailed trip-level data on New York City Taxi trips. It was collected from both drivers inputs as well as the GPS coordinates of individual cabs. 
