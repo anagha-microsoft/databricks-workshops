@@ -21,7 +21,7 @@ Note this down - we will use this for mounting the storage account
 ### 2.0.5. Provision an Azure Databricks workspace
 - Select "Standard" in the pricing tier
 - Give it a prefix of adfv2ws followed by any suffix for uniqueness<br>
-- Ensure you pick the right resource group and region - East US 2<br>
+- Ensure you pick the right resource group and region - East US 2<br><br>
 Leave all other options as defaults
 
 ### 2.0.6. Provision a Databricks cluster in your workspace
@@ -31,7 +31,7 @@ Select:
 - enable auto-scaling - uncheck
 - terminate after - 30 minutes of inactivity
 - worker type - ds3v2
-- worker count - 3
+- worker count - 3<br><br>
 Leave all other entries with default values and click create.
 
 ### 2.0.7. Download the Databricks DBC
