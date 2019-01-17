@@ -147,3 +147,6 @@ Passing parameters to your cluster (base parameters in notebook activity setting
 
 # Help us improve this
 This is a community contribution, and can be improved.  We appreciate your support and feedback.
+
+# Source dataset:
+Is here - https://nyctaxiadfv2sa.blob.core.windows.net/taxidata/NYC_Cab.csv
