@@ -102,7 +102,48 @@ booksDF.show
 // COMMAND ----------
 
 // MAGIC %md
-// MAGIC ### 5.0. Persist in Delta format to ADLSGen1
+// MAGIC ### 5.0. Persist as parquet to ADLSGen1
+
+// COMMAND ----------
+
+val parquetTableDirectory = "/mnt/workshop-adlsgen1/gwsroot/books-prq/"
+dbutils.fs.rm(parquetTableDirectory, recurse=true)
+
+// COMMAND ----------
+
+// MAGIC %sql
+// MAGIC CREATE DATABASE IF NOT EXISTS books_db_adlsgen1;
+// MAGIC 
+// MAGIC USE books_db_adlsgen1;
+// MAGIC DROP TABLE IF EXISTS books_prq;
+
+// COMMAND ----------
+
+//Persist dataframe to delta format with coalescing 
+booksDF.coalesce(1).write.save(parquetTableDirectory)
+
+// COMMAND ----------
+
+//List
+display(dbutils.fs.ls(parquetTableDirectory ))
+
+// COMMAND ----------
+
+// MAGIC %sql
+// MAGIC USE books_db_adlsgen1;
+// MAGIC CREATE TABLE books_prq
+// MAGIC USING PARQUET
+// MAGIC LOCATION "adl://gwsadlsgen1sa.azuredatalakestore.net/gwsroot/books-prq/";
+
+// COMMAND ----------
+
+// MAGIC %sql
+// MAGIC SELECT * FROM books_db_adlsgen1.books_prq;
+
+// COMMAND ----------
+
+// MAGIC %md
+// MAGIC ### 6.0. Persist as Delta to ADLSGen1
 
 // COMMAND ----------
 
@@ -130,11 +171,6 @@ display(dbutils.fs.ls(deltaTableDirectory ))
 
 // COMMAND ----------
 
-// MAGIC %md
-// MAGIC ### 6.0. Create external table
-
-// COMMAND ----------
-
 // MAGIC %sql
 // MAGIC USE books_db_adlsgen1;
 // MAGIC CREATE TABLE books
@@ -145,11 +181,6 @@ display(dbutils.fs.ls(deltaTableDirectory ))
 
 // MAGIC %sql
 // MAGIC describe extended books_db_adlsgen1.books;
-
-// COMMAND ----------
-
-// MAGIC %md
-// MAGIC ### 7.0. Query your table with SQL
 
 // COMMAND ----------
 
