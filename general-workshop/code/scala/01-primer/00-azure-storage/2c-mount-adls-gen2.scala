@@ -16,7 +16,12 @@
 // COMMAND ----------
 
 // MAGIC %md
-// MAGIC ### 1. Initialize root file system in ADLSGen2
+// MAGIC ### 1. Initialize root file system in ADLSGen2 
+// MAGIC This is a one-time activity, typically performed as part of the release.  Consider externalizing this in your apps to a seperate notebook.
+
+// COMMAND ----------
+
+val sourceToBeMounted = "abfss://gwsroot@gwsadlsgen2sa.dfs.core.windows.net/"
 
 // COMMAND ----------
 
@@ -46,16 +51,6 @@ val adlsConfigs = Map("fs.azure.account.auth.type" -> "OAuth",
 
 // COMMAND ----------
 
-// MAGIC %fs
-// MAGIC mkdirs /mnt/workshop-adlsgen2
-
-// COMMAND ----------
-
-// MAGIC %md
-// MAGIC Using storage explorer, grant the service principal name full access RWX to top level and child items with access and default ACLs
-
-// COMMAND ----------
-
 // MAGIC %md
 // MAGIC ### 3. Mount ADLSGen2 file systems
 
@@ -63,6 +58,11 @@ val adlsConfigs = Map("fs.azure.account.auth.type" -> "OAuth",
 
 // MAGIC %md
 // MAGIC #### 3.0.1. Mount a single file system
+
+// COMMAND ----------
+
+// MAGIC %fs
+// MAGIC mkdirs /mnt/workshop-adlsgen2/gwsroot
 
 // COMMAND ----------
 
@@ -80,37 +80,99 @@ dbutils.fs.mount(
 
 // Check if already mounted
 display(dbutils.fs.ls("/mnt/workshop-adlsgen2/gwsroot"))
-/*
-# Unmount if already mounted - as needed
-dbutils.fs.unmount("/mnt/workshop/consumption/")
-dbutils.fs.unmount("/mnt/workshop/curated/")
-dbutils.fs.unmount("/mnt/workshop/demo/")
-dbutils.fs.unmount("/mnt/workshop/raw/")
-dbutils.fs.unmount("/mnt/workshop/staging/")
-dbutils.fs.unmount("/mnt/workshop/scratch/")
-*/
 
 // COMMAND ----------
 
-//This is a function to mount a storage container
-def mountStorageContainer(storageAccount: String, storageAccountKey: String, storageContainer: String, blobMountPoint: String)
+// MAGIC %md
+// MAGIC #### 3.0.2. Validate mount
+
+// COMMAND ----------
+
+// MAGIC %md
+// MAGIC 1) Lets try a file upload
+
+// COMMAND ----------
+
+// MAGIC %sh
+// MAGIC wget -P /tmp "https://generalworkshopsa.blob.core.windows.net/demo/If-By-Kipling.txt"
+
+// COMMAND ----------
+
+//Copy to mount point
+dbutils.fs.cp("file:/tmp/If-By-Kipling.txt","/mnt/workshop-adlsgen2/gwsroot/If-By-Kipling.txt")
+// Check if already mounted
+display(dbutils.fs.ls("/mnt/workshop-adlsgen2/gwsroot/"))
+
+// COMMAND ----------
+
+// MAGIC %md
+// MAGIC 2) Now lets try a dataframe save operation
+
+// COMMAND ----------
+
+val booksDF = Seq(
+   ("b00001", "Arthur Conan Doyle", "A study in scarlet", 1887),
+   ("b00023", "Arthur Conan Doyle", "A sign of four", 1890),
+   ("b01001", "Arthur Conan Doyle", "The adventures of Sherlock Holmes", 1892),
+   ("b00501", "Arthur Conan Doyle", "The memoirs of Sherlock Holmes", 1893),
+   ("b00300", "Arthur Conan Doyle", "The hounds of Baskerville", 1901)
+).toDF("book_id", "book_author", "book_name", "book_pub_year")
+
+booksDF.printSchema
+booksDF.show
+
+val deltaTableDirectory = "/mnt/workshop-adlsgen2/gwsroot/books/"
+dbutils.fs.rm(deltaTableDirectory, recurse=true)
+
+//Persist dataframe to delta format with coalescing 
+booksDF.coalesce(1).write.save(deltaTableDirectory)
+
+//List
+display(dbutils.fs.ls("/mnt/workshop-adlsgen2/gwsroot/books/"))
+
+//Clean-up
+dbutils.fs.rm(deltaTableDirectory, recurse=true)
+
+// COMMAND ----------
+
+// MAGIC %md
+// MAGIC #### 3.0.3. Create and use a function to mount
+
+// COMMAND ----------
+
+// MAGIC %md
+// MAGIC 1) Unmount
+
+// COMMAND ----------
+
+dbutils.fs.unmount("/mnt/workshop-adlsgen2/gwsroot/")
+
+// COMMAND ----------
+
+// MAGIC %md
+// MAGIC 2) Create a function
+
+// COMMAND ----------
+
+//This is a function to mount a directory
+def mountStorage(directoryToBeMounted: String, mountPoint: String)
 {
    try {
      
-     println(s"Mounting ${storageContainer} to ${blobMountPoint}:")
-    // Unmount the storage container if already mounted
-    dbutils.fs.unmount(blobMountPoint)
+     println(s"Mounting ${directoryToBeMounted} to ${mountPoint}:")
+    // Unmount the directory if already mounted
+    dbutils.fs.unmount(mountPoint)
 
   } catch { 
-    //If this errors, the container is not mounted
-    case e: Throwable => println(s"....Container is not mounted; Attempting mounting now..")
+    //If this errors, the directory is not mounted
+    case e: Throwable => println(s"....Directory is not mounted; Attempting mounting now..")
 
   } finally {
-    // Mount the storage container
+    // Mount the directory
     val mountStatus = dbutils.fs.mount(
-    source = "wasbs://" + storageContainer + "@" + storageAccount + ".blob.core.windows.net/",
-    mountPoint = blobMountPoint,
-    extraConfigs = Map("fs.azure.account.key." + storageAccount + ".blob.core.windows.net" -> storageAccountKey))
+    source = adlsGen1URI + directoryToBeMounted,
+    mountPoint = mountPoint,
+    extraConfigs = adlsConfigs)
   
     println("...Status of mount is: " + mountStatus)
   }
