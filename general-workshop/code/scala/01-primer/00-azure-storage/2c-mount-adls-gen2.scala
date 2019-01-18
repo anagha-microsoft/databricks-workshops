@@ -76,6 +76,7 @@ dbutils.fs.mount(
   mountPoint = "/mnt/workshop-adlsgen2/gwsroot/",
   extraConfigs = adlsConfigs)
 
+
 // COMMAND ----------
 
 // Check if already mounted
@@ -106,7 +107,7 @@ display(dbutils.fs.ls("/mnt/workshop-adlsgen2/gwsroot/"))
 // COMMAND ----------
 
 // MAGIC %md
-// MAGIC 2) Now lets try a dataframe save operation
+// MAGIC 2) Now lets try a dataframe save operation as parquet
 
 // COMMAND ----------
 
@@ -155,22 +156,22 @@ dbutils.fs.unmount("/mnt/workshop-adlsgen2/gwsroot/")
 // COMMAND ----------
 
 //This is a function to mount a directory
-def mountStorage(directoryToBeMounted: String, mountPoint: String)
+def mountStorage(fileSystemTobeMountedUri: String, mountPoint: String)
 {
    try {
      
-     println(s"Mounting ${directoryToBeMounted} to ${mountPoint}:")
+     println(s"Mounting ${fileSystemTobeMountedUri} to ${mountPoint}:")
     // Unmount the directory if already mounted
     dbutils.fs.unmount(mountPoint)
 
   } catch { 
     //If this errors, the directory is not mounted
-    case e: Throwable => println(s"....Directory is not mounted; Attempting mounting now..")
+    case e: Throwable => println(s"....Filesystem is not mounted; Attempting mounting now..")
 
   } finally {
     // Mount the directory
     val mountStatus = dbutils.fs.mount(
-    source = adlsGen1URI + directoryToBeMounted,
+    source = fileSystemTobeMountedUri,
     mountPoint = mountPoint,
     extraConfigs = adlsConfigs)
   
@@ -180,24 +181,18 @@ def mountStorage(directoryToBeMounted: String, mountPoint: String)
 
 // COMMAND ----------
 
-//Mount the various storage containers created
-
-//mountStorageContainer(storageAccountName,storageAccountAccessKey,"demo","/mnt/workshop/demo")
-mountStorageContainer(storageAccountName,storageAccountAccessKey,"scratch","/mnt/workshop/scratch")
-mountStorageContainer(storageAccountName,storageAccountAccessKey,"staging","/mnt/workshop/staging")
-mountStorageContainer(storageAccountName,storageAccountAccessKey,"raw","/mnt/workshop/raw")
-mountStorageContainer(storageAccountName,storageAccountAccessKey,"curated","/mnt/workshop/curated")
-mountStorageContainer(storageAccountName,storageAccountAccessKey,"consumption","/mnt/workshop/consumption")
+//Mount 
+mountStorage("abfss://gwsroot@gwsadlsgen2sa.dfs.core.windows.net/","/mnt/workshop-adlsgen2/gwsroot/")
 
 // COMMAND ----------
 
 //Display directories
-display(dbutils.fs.ls("/mnt/workshop"))
+display(dbutils.fs.ls("/mnt/workshop-adlsgen2"))
 
 // COMMAND ----------
 
 // MAGIC %md
-// MAGIC ### 3. Refresh mount points
+// MAGIC ### 3.0.4. Refresh mount points
 
 // COMMAND ----------
 
@@ -207,7 +202,7 @@ display(dbutils.fs.ls("/mnt/workshop"))
 // COMMAND ----------
 
 // MAGIC %md
-// MAGIC ### 4. How to unmount
+// MAGIC ### 3.0.5. How to unmount
 
 // COMMAND ----------
 
