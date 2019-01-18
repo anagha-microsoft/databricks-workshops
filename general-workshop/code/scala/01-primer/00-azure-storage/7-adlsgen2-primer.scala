@@ -4,9 +4,14 @@
 // MAGIC Azure Data Lake Storage Gen2 combines the capabilities of two existing storage services: Azure Data Lake Storage Gen1 features, such as file system semantics, file-level security and scale are combined with low-cost, tiered storage, high availability/disaster recovery capabilities, and a large SDK/tooling ecosystem from Azure Blob Storage.<br><br>
 // MAGIC 
 // MAGIC ### What's in this exercise?
+// MAGIC In the primer section, we created a file system and mounted it.  <br>
 // MAGIC We will complete the following in batch operations on DBFS-Hierarchical Name Space enabled ADLS Gen2:<br>
-// MAGIC 1.  Create a dataset and persist to ADLS Gen2, create external table and run queries<br>
-// MAGIC Ensure you on DBR 5.1 or above, and you should have created the root file system in the mount section.<br>
+// MAGIC 1.  Create a dataframe 
+// MAGIC 2.  Persist to ADLS Gen2 as parquet; create external table and run queries<br>
+// MAGIC 
+// MAGIC DELTA is not supported yet with ADLS Gen2, DBFS support is available.<br>
+// MAGIC 
+// MAGIC Ensure you on DBR 5.1 or above<br>
 // MAGIC 
 // MAGIC References:<br>
 // MAGIC ADLS Gen2 product page:https://docs.microsoft.com/en-us/azure/storage/data-lake-storage/using-databricks-spark<br>
@@ -52,7 +57,11 @@ booksDF.show
 // COMMAND ----------
 
 // MAGIC %md
-// MAGIC ### 3.0a. Persist as Parquet to ADLSGen2, create external table, run queries on the dataset
+// MAGIC ### 3.0. Persist as Parquet to ADLSGen2, create external table, run queries on the dataset
+
+// COMMAND ----------
+
+spark.conf.set("fs.azure.account.key.gwsadlsgen2sa.dfs.core.windows.net", dbutils.secrets.get(scope = "gws-adlsgen2-storage", key = "storage-acct-key"))
 
 // COMMAND ----------
 
@@ -84,57 +93,3 @@ display(dbutils.fs.ls(destDirectoryRoot))
 
 // MAGIC %sql
 // MAGIC select * from books_db_adlsgen2.books_prq;
-
-// COMMAND ----------
-
-// MAGIC %md
-// MAGIC ### 3.0b. Persist as Delta to ADLSGen2, create external table, run queries on the dataset
-
-// COMMAND ----------
-
-val deltaTableDirectory = "/mnt/workshop-adlsgen2/gwsroot/books-delta/"
-dbutils.fs.rm(deltaTableDirectory, recurse=true)
-
-// COMMAND ----------
-
-// MAGIC %sql
-// MAGIC CREATE DATABASE IF NOT EXISTS books_db_adlsgen2;
-// MAGIC USE books_db_adlsgen2;
-// MAGIC 
-// MAGIC DROP TABLE IF EXISTS books_delta;
-
-// COMMAND ----------
-
-//Persist dataframe to delta format after coalescing using mountpoint
-booksDF.coalesce(1).write.format("delta").save("/mnt/workshop-adlsgen2/gwsroot/books-delta/")
-
-// COMMAND ----------
-
-//Persist dataframe to delta format after coalescing without mountpoint
-booksDF.coalesce(1).write.format("delta").save("abfss://gwsroot@gwsadlsgen2sa.dfs.core.windows.net/books-delta/")
-
-// COMMAND ----------
-
-//List
-display(dbutils.fs.ls(deltaTableDirectory))
-
-// COMMAND ----------
-
-// MAGIC %sql
-// MAGIC USE books_db_adlsgen2;
-// MAGIC CREATE TABLE books_delta
-// MAGIC USING DELTA
-// MAGIC LOCATION "/mnt/workshop-adlsgen2/gwsroot/books-delta/";
-
-// COMMAND ----------
-
-// MAGIC %sql
-// MAGIC USE books_db_adlsgen2;
-// MAGIC CREATE TABLE books_delta
-// MAGIC USING DELTA
-// MAGIC LOCATION "abfss://gwsroot@gwsadlsgen2sa.dfs.core.windows.net/books-delta/";
-
-// COMMAND ----------
-
-// MAGIC %sql
-// MAGIC select * from books_db_adlsgen2.books_delta;
