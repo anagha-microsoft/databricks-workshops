@@ -9,7 +9,7 @@
 // MAGIC 1.  Create a dataframe 
 // MAGIC 2.  Persist to ADLS Gen2 as parquet; create external table and run queries<br>
 // MAGIC 
-// MAGIC DELTA is not supported yet with ADLS Gen2, DBFS support is available.<br>
+// MAGIC DELTA is not supported yet with ADLS Gen2 yet and therefore not covered;<br>DBFS support is available.<br>
 // MAGIC 
 // MAGIC Ensure you on DBR 5.1 or above<br>
 // MAGIC 
