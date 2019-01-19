@@ -83,10 +83,18 @@ Also a foundational unit. For the rest of the workshop - we will use Databricks 
 12. Audit history
 
 
-### Unit 6: ADLS Gen2 primer
-In unit 3, we worked with Azure Blob Storage, in this unit, we will work with ADLS Gen2 as DBFS.
+### Unit 6: ADLS Gen1 primer
+In unit 3, we worked with Azure Blob Storage, in this unit, we will work with ADLS Gen1 as DBFS.
 1.  We will create data
-2.  Persist to delta format
+2.  Persist to parquet format, and as delta separately
+3.  Create external tables for each format
+4.  Run queries on the tables
+<br>
+
+### Unit 7: ADLS Gen2 primer
+In unit 3, we worked with Azure Blob Storage, in this unit, we will work with ADLS Gen1 as DBFS.
+1.  We will create data
+2.  Persist to parquet format, and as delta separately
 3.  Create external table
 4.  Run queries on it
 <br>
