@@ -1,15 +1,10 @@
 // Databricks notebook source
-//Create widget for batch id
-dbutils.widgets.text("new_batch_id","")
+// MAGIC %run ./00-common
 
 // COMMAND ----------
 
 //Capture batch ID
-val batchID: Int = dbutils.widgets.get("new_batch_id").toInt
-
-// COMMAND ----------
-
-// MAGIC %run ./00-common
+val batchID: Int = generateBatchID()
 
 // COMMAND ----------
 
@@ -32,3 +27,7 @@ reportDF.coalesce(1).write.mode(SaveMode.Overwrite).jdbc(jdbcUrl, "CHICAGO_CRIME
 //Mark as completed
 //In your code - enhance to ensure data did get persisted
 insertBatchMetadata(batchID,1,"Execute report 1","Completed")
+
+// COMMAND ----------
+
+dbutils.notebook.exit("Pass")
