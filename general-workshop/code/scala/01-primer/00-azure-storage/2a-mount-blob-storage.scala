@@ -34,10 +34,9 @@ val storageAccountAccessKey = dbutils.secrets.get(scope = "gws-blob-storage", ke
 // Check if already mounted
 display(dbutils.fs.ls("/mnt/workshop"))
 /*
-# Unmount if already mounted - as needed
+// Unmount if already mounted - as needed
 dbutils.fs.unmount("/mnt/workshop/consumption/")
 dbutils.fs.unmount("/mnt/workshop/curated/")
-dbutils.fs.unmount("/mnt/workshop/demo/")
 dbutils.fs.unmount("/mnt/workshop/raw/")
 dbutils.fs.unmount("/mnt/workshop/staging/")
 dbutils.fs.unmount("/mnt/workshop/scratch/")
@@ -81,8 +80,6 @@ def mountStorageContainer(storageAccount: String, storageAccountKey: String, sto
 // COMMAND ----------
 
 //Mount the various storage containers created
-
-//mountStorageContainer(storageAccountName,storageAccountAccessKey,"demo","/mnt/workshop/demo")
 mountStorageContainer(storageAccountName,storageAccountAccessKey,"scratch","/mnt/workshop/scratch")
 mountStorageContainer(storageAccountName,storageAccountAccessKey,"staging","/mnt/workshop/staging")
 mountStorageContainer(storageAccountName,storageAccountAccessKey,"raw","/mnt/workshop/raw")
