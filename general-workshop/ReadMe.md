@@ -1,8 +1,8 @@
 # Databricks workshop
 
-This is a multi-part workshop featuring Azure Databricks. It covers basics of working with Azure Data Services from Spark on Databricks, followed by an end-to-end data engineering workshop with the NYC Taxi public dataset, and finally an end-to-end machine learning workshop.<br>
+This is a multi-part workshop featuring Azure Databricks. It covers basics of working with Azure Data Services from Spark on Databricks, followed by an end-to-end data engineering workshop with the NYC Taxi public dataset, and finally an end-to-end machine learning workshop.  The workshop is offered in Scala and Python.<br>
 
-The goal of this workshop is deliver a clear understanding of how our services integrate witj Azure Databricks, give you end to end experience with data engineering and data science with Databricks, and to share some boilerplate code to use in your projects.<br>  
+The goal of this workshop is deliver a clear understanding of how to provision Azure services, how our services integrate with Azure Databricks, to give you end to end experience with basic data engineering and basic data science with Databricks, and to share some boilerplate code to use in your projects.<br>  
 
 This is a community contribution, so we appreciate feedback and any contribution back from you.<br>
 Please find credits at the very end of this page.<br>
@@ -55,3 +55,12 @@ The following is a summary of content covered:
 [Provisioning guide](docs/1-provisioning-guide/ProvisioningGuide.md)<br>
 [Lab data copy guide](docs/3-data-copy-guide/README.md)<br>
 [Lab guide](docs/2-lab-guide/README.md)
+
+## Credits
+Anagha Khanolkar (Chicago) - workshop design, content, Scala code, primer in Python<br>
+Ryan Murphy (St Louis) - contribution to the data engineering workshop in Scala - schema homogenizing, transformation rules<br>
+Rajdeep Biswas (Houston) - writing the entire Python version of the data engineering lab<br>
+Steve Howard (St Louis) - contributing to the Python version of the data engineering lab<br>
+Parashar Shah (Redmond) - sharing samples with Anagha for learning Azure Machine Learning service integration<br>
+Dr. Thomas Abraham (St Louis) - guidance in the machine learning space
+Matt Stenzel - for spending many hours testing<br>
