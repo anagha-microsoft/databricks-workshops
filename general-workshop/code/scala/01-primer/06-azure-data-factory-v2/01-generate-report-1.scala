@@ -3,7 +3,7 @@
 
 // COMMAND ----------
 
-//Generate report 1
+//Generate report
 val reportDF = spark.sql("SELECT primary_type as case_type, count(*) AS crime_count FROM crimes_db.chicago_crimes_curated GROUP BY primary_type")
 
 // COMMAND ----------
