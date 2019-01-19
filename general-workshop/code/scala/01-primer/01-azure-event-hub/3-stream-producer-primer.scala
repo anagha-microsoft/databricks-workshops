@@ -32,12 +32,14 @@ val eventHubsConfWrite = EventHubsConf(connectionString)
 
 // COMMAND ----------
 
-val sourceDataDir = "/mnt/workshop/curated/crimes/chicago-crimes-data"
+val sourceDataDir = "/mnt/workshop/curated/crimes/chicago-crimes"
 
 // COMMAND ----------
 
 // 2) Define schema for the crime data
-import org.apache.spark.sql.types.{StructType, StructField, StringType, IntegerType,LongType,FloatType,DoubleType, TimestampType,BooleanType}
+import org.apache.spark.sql.types.{StructType, StructField, StringType, IntegerType,LongType,FloatType,DoubleType, TimestampType,BooleanType, DecimalType}
+
+val DecimalType = org.apache.spark.sql.types.DataTypes.createDecimalType(10, 7)
 
 val crimesSchema = StructType(Array(
     StructField("case_id", StringType, true),
@@ -67,7 +69,10 @@ val crimesSchema = StructType(Array(
     StructField("case_day_of_month", IntegerType, true),
     StructField("case_hour", IntegerType, true),
     StructField("case_day_of_week_nbr", IntegerType, true),
-    StructField("case_day_of_week_name", StringType, true)))
+    StructField("case_day_of_week_name", StringType, true),
+    StructField("latitude_dec", DecimalType, true),
+    StructField("longitude_dec", DecimalType, true)
+))
 
 // COMMAND ----------
 
@@ -99,7 +104,7 @@ import org.apache.spark.sql.functions.to_json
 import org.apache.spark.sql.functions._ 
 
 val producerDF = sourceDF.select($"case_id" as "partitionKey", (to_json(struct(
-$"case_id",$"case_nbr",$"case_dt_tm",$"block",$"iucr",$"primary_type",$"description",$"location_description",$"arrest_made",$"was_domestic",$"beat",$"district",$"ward",$"community_area",$"fbi_code",$"x_coordinate",$"y_coordinate",$"case_year",$"updated_dt",$"latitude",$"longitude",$"location_coords",$"case_timestamp",$"case_month",$"case_day_of_month",$"case_hour",$"case_day_of_week_nbr",$"case_day_of_week_name"))).cast(StringType) as "body")
+$"case_id",$"case_nbr",$"case_dt_tm",$"block",$"iucr",$"primary_type",$"description",$"location_description",$"arrest_made",$"was_domestic",$"beat",$"district",$"ward",$"community_area",$"fbi_code",$"x_coordinate",$"y_coordinate",$"case_year",$"updated_dt",$"latitude",$"longitude",$"location_coords",$"case_timestamp",$"case_month",$"case_day_of_month",$"case_hour",$"case_day_of_week_nbr",$"case_day_of_week_name",$"latitude_dec",$"longitude_dec"))).cast(StringType) as "body")
 
 // COMMAND ----------
 
