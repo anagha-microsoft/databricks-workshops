@@ -4,10 +4,10 @@
 For the workshop, we will need to provision multiple resources/services.  Many of these are for the primer only as labeled below.  The following is a step-by-step provisioning guide.<br>
 1.   Azure Resource group<br>
 2.   Azure Virtual network<br>
-3.   Azure Databricks<br>
-4.   Azure Blob Storage<br>
-5.   Azure Data Lake Storage Gen1 (for the primer only)<br>
-6.   Azure Data Lake Storage Gen2 (for the primer only)<br>
+3.   Azure Blob Storage<br>
+4.   Azure Data Lake Storage Gen1 (for the primer only)<br>
+5.   Azure Data Lake Storage Gen2 (for the primer only)<br>
+6.   Azure Databricks<br>
 7.   Azure Event Hub (for the primer only)<br>
 8.   Azure HDInsight Kafka (for the primer only)<br>
 9.   Azure SQL Database<br>
@@ -15,7 +15,6 @@ For the workshop, we will need to provision multiple resources/services.  Many o
 11.  Azure Cosmos DB (for the primer only)<br>
 12.  Azure Data Factory v2 (for the primer only)<br> 
 13.  Azure Key Vault (for the primer only)<br>
-14.  Azure IoT hub and device telemetry simulator (for the primer only) <br>
 
 **Note**: All resources shoud be **provisioned in the same datacenter**.<br>
 
@@ -27,16 +26,11 @@ https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-por
 Provision an Azure Vnet in #1. <br>
 https://docs.microsoft.com/en-us/azure/virtual-network/quick-create-portal#create-a-virtual-network
 
-## 3.  Provision Azure Databricks
-Provision an Azure Databricks workspace in the Vnet we created in #2, the same resource group as in #1, and in the same region as #1.  Then peer the Dataricks service provisioned Vnet with the Vnet from #2 for access.  We will discuss Vnet injection in the classroom.<br>
-[Provision a workspace & cluster](https://docs.microsoft.com/en-us/azure/azure-databricks/quickstart-create-databricks-workspace-portal#create-an-azure-databricks-workspace)<br>
-[Peering networks](https://docs.azuredatabricks.net/administration-guide/cloud-configurations/azure/vnet-peering.html)
-
-## 4.  Provision a blob storage account
+## 3.  Provision a blob storage account
 Provision an Azure Blob Storage account (gen1) in #1<br>
 https://docs.microsoft.com/en-us/azure/storage/common/storage-quickstart-create-account?toc=%2fazure%2fstorage%2fblobs%2ftoc.json
 
-## 5.  Provision Azure Data Lake Store Gen1
+## 4.  Provision Azure Data Lake Store Gen1
 (i) Provision an Azure Lake Store Gen 1 account in #1 <br>
 https://docs.microsoft.com/en-us/azure/data-lake-store/data-lake-store-get-started-portal#create-a-data-lake-storage-gen1-account
 <br>
@@ -46,12 +40,19 @@ Capture the Application ID, also referred to as Client ID
 <br>
 (iii) Go to the app registration/service principal, click on settings and create a key/access token, capture the value - its exposed only temporarily; We will refer to this as access token<br>
 (iv) Create a new directory in ADLS Gen1 called gwsroot from the portal<br>
-(v) Grant the service principal (SPN) from (ii), super user access to the directory.<br>
+(v) Grant the service principal (SPN) from (ii), super user access to the directory, and child items.<br>
 We will mount the ADLS Gen 1 in Databricks with this SPN's credentials.
 
-## 6.  Provision Azure Data Lake Store Gen2
+## 5.  Provision Azure Data Lake Store Gen2
 Provision an Azure Lake Store Gen 2 account in #1 - with Hierarchical Name Space (HNS) enabled.  <br>
 https://docs.microsoft.com/en-us/azure/storage/data-lake-storage/quickstart-create-account
+Lets grant the same service principal name, blob contributor role based access to ADLS Gen 2
+
+## 6.  Provision Azure Databricks
+Provision an Azure Databricks workspace in the Vnet we created in #2, the same resource group as in #1, and in the same region as #1.  Then peer the Dataricks service provisioned Vnet with the Vnet from #2 for access.  We will discuss Vnet injection in the classroom.<br>
+[Provision a workspace & cluster](https://docs.microsoft.com/en-us/azure/azure-databricks/quickstart-create-databricks-workspace-portal#create-an-azure-databricks-workspace)<br>
+[Peering networks](https://docs.azuredatabricks.net/administration-guide/cloud-configurations/azure/vnet-peering.html)<br>
+The peering aspect is specific to Kafka and assumed no Vnet injection with Databricks.
 
 ## 7.  Provision Azure Event Hub
 Provision Azure Event Hub in #1, and a consumer group.  Set up SAS poliies for access, and capture the credentials required for access from Spark.<br>
