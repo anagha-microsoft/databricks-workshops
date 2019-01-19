@@ -34,7 +34,8 @@ https://docs.microsoft.com/en-us/azure/storage/common/storage-quickstart-create-
 (i) Provision an Azure Lake Store Gen 1 account in #1 <br>
 https://docs.microsoft.com/en-us/azure/data-lake-store/data-lake-store-get-started-portal#create-a-data-lake-storage-gen1-account
 <br>
-(ii) Create a service principal<br>
+(ii) Create a service principal via app registration<br>
+This step is crucial for ADLSGen1, ADLSGen2 and Azure Key Vault<br>
 https://docs.microsoft.com/en-us/azure/active-directory/develop/howto-create-service-principal-portal<br>
 Capture the Application ID, also referred to as Client ID
 <br>
@@ -49,13 +50,13 @@ https://docs.microsoft.com/en-us/azure/storage/data-lake-storage/quickstart-crea
 Lets grant the same service principal name, blob contributor role based access to ADLS Gen 2
 
 ## 6.  Provision Azure Databricks
-Provision an Azure Databricks workspace in the Vnet we created in #2, the same resource group as in #1, and in the same region as #1.  Then peer the Dataricks service provisioned Vnet with the Vnet from #2 for access.  We will discuss Vnet injection in the classroom.<br>
+Provision an Azure Databricks premium tier workspace in the Vnet we created in #2, the same resource group as in #1, and in the same region as #1.  Then peer the Dataricks service provisioned Vnet with the Vnet from #2 for access if you are trying out Kafka - otherwise, not required.  We will discuss Vnet injection in the classroom.<br>
 [Provision a workspace & cluster](https://docs.microsoft.com/en-us/azure/azure-databricks/quickstart-create-databricks-workspace-portal#create-an-azure-databricks-workspace)<br>
 [Peering networks](https://docs.azuredatabricks.net/administration-guide/cloud-configurations/azure/vnet-peering.html)<br>
-The peering aspect is specific to Kafka and assumed no Vnet injection with Databricks.
+The peering aspect is specific to Kafka and assumed no Vnet injection with Databricks. NOT required unless working with Kafka.
 
 ## 7.  Provision Azure Event Hub
-Provision Azure Event Hub in #1, and a consumer group.  Set up SAS poliies for access, and capture the credentials required for access from Spark.<br>
+Provision Azure Event Hub (standard tier, three throughput units) in #1, and a consumer group.  Set up SAS poliies for access, and capture the credentials required for access from Spark.<br>
 https://docs.microsoft.com/en-us/azure/event-hubs/event-hubs-create
 
 ## 8.  Provision Azure HDInsight Kafka
@@ -64,16 +65,16 @@ Provisioning: https://docs.microsoft.com/en-us/azure/hdinsight/kafka/apache-kafk
 Broadcast IP addresses, configure listener: https://docs.microsoft.com/en-us/azure/hdinsight/kafka/apache-kafka-connect-vpn-gateway#configure-kafka-for-ip-advertising
 
 ## 9.  Provision Azure SQL Database
-Provision a logical database server in #1, and an Azure SQL Database within the server.  Configure the firewall to allow our machine to access, and also enable access to the Dataricks Vnet.  Capture credentials for access from Databricks.<br>
+Provision a logical database (Standard S0 - 10 DTUs) server in #1, and an Azure SQL Database within the server.  Configure the firewall to allow our machine to access, and also enable access to the Dataricks Vnet.  Capture credentials for access from Databricks.<br>
 https://docs.microsoft.com/en-us/azure/sql-database/sql-database-get-started-portal#create-a-sql-database<br>
 We will work on the firewall aspect in the classroom.
 
 ## 10.  Provision Azure SQL Datawarehouse
-Provision an Azure SQL datawarehouse in #1 in the same database server created in #8.<br>
+Provision an Azure SQL datawarehouse (gen1, 100 DWU), in #1 in the same database server created in #8.<br>
 https://docs.microsoft.com/en-us/azure/sql-data-warehouse/create-data-warehouse-portal#create-a-data-warehouse
 
 ## 11.  Provision Azure Cosmos DB
-Provision a Cosmos DB account in #1, a database and 3 collections - one for batch load, one for stream ingest and one for streaming computations.<br>
+Provision a Cosmos DB account in #1, a database and 3 collections - one for batch load, one for stream ingest and one for streaming computations. Provision bare minimum throughout for each collection.<br>
 Complete step 1, 2 and 3 from the link - https://docs.microsoft.com/en-us/azure/cosmos-db/sql-api-get-started
 
 ## 12.  Provision Azure Data Factory v2
