@@ -11,8 +11,7 @@ Please find credits at the very end of this page.<br>
 Architects and Data engineers<br>
 
 ##  Pre-requisite knowledge:
-Prior knowledge of Spark, is beneficial.<br>
-The workshop has both Scala and Python versions.<br>
+Prior knowledge of Spark, is beneficial, as is familiarity/experience with Scala/Python wuthout or without Spark in context.
 
 ## Azure pre-requisites:
 A subscription with at least $200 credit for a continuous 10-14 hours of usage.<br>
