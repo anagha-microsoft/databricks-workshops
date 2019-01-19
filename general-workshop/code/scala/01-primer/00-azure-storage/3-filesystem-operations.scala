@@ -70,7 +70,6 @@ display(dbutils.fs.ls("/mnt/workshop/scratch"))
 
 dbutils.fs.cp("file:/tmp/If-By-Kipling.txt","/mnt/workshop/scratch/test/If-By-Kipling.txt")
 
-
 // COMMAND ----------
 
 // MAGIC %md
