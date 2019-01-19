@@ -408,8 +408,7 @@ booksPartitionedDF.show()
 // COMMAND ----------
 
 // 2) Persist
-
-dbutils.fs.rm("/mnt/workshop/curated/books-part", recurse=true)
+dbutils.fs.rm("/mnt/workshop/curated/delta/books-part", recurse=true)
 
 booksPartitionedDF.write
   .format("delta")
@@ -424,7 +423,7 @@ booksPartitionedDF.write
 // MAGIC DROP TABLE IF EXISTS books_part;
 // MAGIC CREATE TABLE books_part
 // MAGIC USING DELTA
-// MAGIC LOCATION "/mnt/workshop/curated/books-part";
+// MAGIC LOCATION "/mnt/workshop/curated/delta/books-part";
 
 // COMMAND ----------
 
@@ -435,7 +434,7 @@ booksPartitionedDF.write
 // COMMAND ----------
 
 // 5) Is it really partitioned?
-display(dbutils.fs.ls("/mnt/workshop/curated/books-part"))
+display(dbutils.fs.ls("/mnt/workshop/curated/delta/books-part"))
 
 // COMMAND ----------
 
