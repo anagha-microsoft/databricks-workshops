@@ -48,7 +48,7 @@ We will leverage the core API - also referred to as SQL API/document API - the n
 <br>
 
 ### A3. Attach the Azure Cosmos DB Spark connector uber jar to the cluster
-Go to https://search.maven.org/search?q=a:azure-cosmosdb-spark_2.3.0_2.11 or the link to the latest version of the jar as detailed [here](https://docs.azuredatabricks.net/spark/latest/data-sources/azure/cosmosdb-connector.html).  Download the jar.<br>
+Go to https://search.maven.org/search?q=a:azure-cosmosdb-spark_2.3.0_2.11 or the link to the latest version of the jar as detailed [here](https://docs.azuredatabricks.net/spark/latest/data-sources/azure/cosmosdb-connector.html).  Download the "uber" jar.<br>
 
 Steps for attaching to the cluster:<br>
 
