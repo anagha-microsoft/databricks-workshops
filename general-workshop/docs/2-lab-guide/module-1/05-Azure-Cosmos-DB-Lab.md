@@ -96,8 +96,8 @@ We will learn to read from Azure Cosmos DB.
 We will re-run the event publisher from the event hub module.
 
 ### Unit 4. Consume from Azure Event Hub, sink to Azure Cosmos DB, event event
-We will create a new collection to store streaming crimes called chicago_crimes_curated_stream in the existing database, with 1,000 RUs, partition key of "/case_id".  Once provisioned, we wil scale to 10,000 RUs.  We will leverage structured streaming to read stream from Azure Event Hub, and sink to Azure Cosmos DB.
+We will create a new collection to store streaming crimes called chicago_crimes_curated_stream in the existing database, with 1,000 RUs, partition key of "/case_id".  Once provisioned, we will scale to 10,000 RUs.  We will leverage structured streaming to read stream from Azure Event Hub, and sink to Azure Cosmos DB.
 
 ### Unit 5. Consume from Azure Event Hub, sink to Azure Cosmos DB, event aggregates
-We will create a new collection to store streaming aggregates called chicago_crimes_curated_stream_aggr in the existing database, with 1,000 RUs, partition key of "/case_type".  Once provisioned, we wil scale to 10,000 RUs.  We will leverage structured streaming to read stream from Azure Event Hub, and sink to Azure Cosmos DB, this time - we will tweak the code from unit 5, to capture count by case type, and also ensure for a case type there is exactly one record in Cosmos DB with incremental updates to counts from the streaming process.
+We will create a new collection to store streaming aggregates called chicago_crimes_curated_stream_aggr in the existing database, with 1,000 RUs, partition key of "/case_type".  Once provisioned, we will scale to 10,000 RUs.  We will leverage structured streaming to read stream from Azure Event Hub, and sink to Azure Cosmos DB, this time - we will tweak the code from unit 5, to capture count by case type, and also ensure for a case type there is exactly one record in Cosmos DB with incremental updates to counts from the streaming process.
 
