@@ -18,6 +18,7 @@ We will learn to capture storage credentials and secure credentials with databri
 <hr>
 <br>
 <br>
+
 #### 2.  Capture storage credentials for ADLS Gen 1
 Similar to blob storage
 <br>
@@ -28,6 +29,7 @@ Similar to blob storage
 <br>
 <hr>
 <br><br>
+
 #### 3.  Capture storage credentials for ADLS Gen 2
 ![2-storage-1](../../../images/1-storage/adlsgen2/1.png)
 <br>
