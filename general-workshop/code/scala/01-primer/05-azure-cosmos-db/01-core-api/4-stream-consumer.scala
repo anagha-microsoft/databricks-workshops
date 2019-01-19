@@ -26,6 +26,7 @@ import org.apache.spark.sql.types._
 // 1) AEH consumer related
 // Replace connection string with your instances'.
 val aehConsumerConnString = dbutils.secrets.get(scope = "gws-crimes-aeh", key = "conexion-string")
+
 val aehConsumerParams =
   EventHubsConf(aehConsumerConnString)
   .setConsumerGroup("spark-streaming-cg")
@@ -86,8 +87,6 @@ val consumableDF = partParsedStreamDF.select(get_json_object($"json_payload", "$
                                           get_json_object($"json_payload", "$.case_day_of_week_name").alias("case_day_of_week_name"),
                                           get_json_object($"json_payload", "$.latitude_dec").cast(StringType).alias("latitude_dec"),
                                           get_json_object($"json_payload", "$.longitude_dec").cast(StringType).alias("longitude_dec")  
-                                            
-                                            
                                             )
 
 consumableDF.printSchema
@@ -134,7 +133,7 @@ val cosmosDbWriteConfigMap = Map(
 
 // 3) AEH checkpoint 
 val dbfsCheckpointDirPath="/mnt/workshop/scratch/checkpoints-crimes-aeh-sub/"
-dbutils.fs.rm(dbfsCheckpointDirPath, recurse=true)//remove if needed
+//dbutils.fs.rm(dbfsCheckpointDirPath, recurse=true)//remove if needed
 
 // 4) Persist to Cosmos DB
 val query = consumableDF
