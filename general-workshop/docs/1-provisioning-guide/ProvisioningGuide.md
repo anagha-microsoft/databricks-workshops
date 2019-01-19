@@ -46,7 +46,7 @@ We will mount the ADLS Gen 1 in Databricks with this SPN's credentials.
 
 ## 5.  Provision Azure Data Lake Store Gen2
 Provision an Azure Lake Store Gen 2 account in #1 - with Hierarchical Name Space (HNS) enabled.  <br>
-https://docs.microsoft.com/en-us/azure/storage/data-lake-storage/quickstart-create-account
+https://docs.microsoft.com/en-us/azure/storage/data-lake-storage/quickstart-create-account<br>
 Lets grant the same service principal name, blob contributor role based access to ADLS Gen 2
 
 ## 6.  Provision Azure Databricks
