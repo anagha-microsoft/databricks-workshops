@@ -43,7 +43,7 @@ val jdbcPassword = dbutils.secrets.get(scope = "gws-sql-db", key = "password")
 
 // COMMAND ----------
 
-Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver")
+//Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver")
 val driverClass = "com.microsoft.sqlserver.jdbc.SQLServerDriver"
 
 // COMMAND ----------
@@ -91,7 +91,7 @@ spark.table("crimes_db.chicago_crimes_curated")
 
 // MAGIC %md 
 // MAGIC ### (2) Append to table
-// MAGIC Awesome..but...I want to parallelize<br>
+// MAGIC Awesome..but...I want to append<br>
 
 // COMMAND ----------
 
@@ -105,7 +105,7 @@ spark.table("crimes_db.chicago_crimes_curated")
 // COMMAND ----------
 
 // MAGIC %md ### (3) Overwrite table<br>
-// MAGIC VERY COOL..but...I want to PARALLELIZE!!<br>
+// MAGIC VERY COOL..but...I want to overwrite!!<br>
 
 // COMMAND ----------
 
@@ -118,17 +118,13 @@ spark.table("crimes_db.chicago_crimes_curated")
 
 // COMMAND ----------
 
-// MAGIC %md ### (4) Parallelize writes
-
-// COMMAND ----------
-
-val df = spark.sql("select * from crimes_db.chicago_crimes_curated")
-println(df.rdd.partitions.length)
-// Given the number of partitions above, you can reduce the partition value by calling coalesce() or increase it by calling repartition() to manage the number of connections.
+// MAGIC %md ### (4) Parallelize writes<br>
+// MAGIC SOLD..but...I want to parallelize!!<br>
 
 // COMMAND ----------
 
 //Repartition & persist in append/overwrite mode per your requirement
+val df = spark.sql("select * from CRIMES_DB.CHICAGO_CRIMES_CURATED")
 df.repartition(200000).write.mode(SaveMode.Append).jdbc(jdbcUrl, "chicago_crimes_curated", connectionProperties)
 
 // COMMAND ----------
