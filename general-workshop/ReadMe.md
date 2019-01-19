@@ -58,9 +58,9 @@ The following is a summary of content covered:
 
 ## Credits
 Anagha Khanolkar (Chicago) - workshop design, content, Scala code, primer in Python<br>
-Ryan Murphy (St Louis) - contribution to the data engineering workshop in Scala - schema homogenizing, transformation rules<br>
+Ryan Murphy (St Louis) - contribution to the data engineering workshop transformation rules, schema and more<br>
 Rajdeep Biswas (Houston) - writing the entire Python version of the data engineering lab<br>
 Steve Howard (St Louis) - contributing to the Python version of the data engineering lab<br>
 Parashar Shah (Redmond) - sharing samples with Anagha for learning Azure Machine Learning service integration<br>
 Dr. Thomas Abraham (St Louis) - guidance in the machine learning space
-Matt Stenzel - for spending many hours testing<br>
+Matt Stenzel - for testing<br>
