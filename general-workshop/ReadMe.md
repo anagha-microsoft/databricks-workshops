@@ -1,10 +1,10 @@
 # Databricks workshop
 
-This is a multi-part workshop featuring Azure Databricks. It covers basics of working with Azure Data Services from Spark on Databricks, followed by an end-to-end data engineering workshop with the NYC Taxi public dataset, and finally an end-to-end machine learning workshop.  The workshop is offered in Scala and Python.<br>
+This is a multi-part (free) workshop featuring Azure Databricks. It covers basics of working with Azure Data Services from Spark on Databricks with Chicago crimes public dataset, followed by an end-to-end data engineering workshop with the NYC Taxi public dataset, and finally an end-to-end machine learning workshop.  The workshop is offered in Scala and Python.<br>
 
-The goal of this workshop is deliver a clear understanding of how to provision Azure services, how our services integrate with Azure Databricks, to give you end to end experience with basic data engineering and basic data science with Databricks, and to share some boilerplate code to use in your projects.<br>  
+The goal of this workshop is deliver a clear understanding of how to provision Azure data services, how the data services services integrate with Spark on Azure Databricks, to give you end to end experience with basic data engineering and basic data science on Azure Databricks, and to share some boilerplate code to use in your projects.<br>  
 
-This is a community contribution, so we appreciate feedback and any contribution back from you.<br>
+This is a community contribution, so we appreciate feedback and welcome any contribution back from you.<br>
 Please find credits at the very end of this page.<br>
 
 ## Target audience:
@@ -17,23 +17,24 @@ The workshop has both Scala and Python versions.<br>
 ## Azure pre-requisites:
 A subscription with at least $200 credit for a continuous 10-14 hours of usage.<br>
 
-## 1.  Module 01-Primer (Scala):
+## 1.  Module 01-Primer:
 This module covers basics of integrating with Azure Data Services from Spark on Azure Databricks in batch mode and with structured streaming.<br>
 
 ![primer](images/1.png)
 
 At the end of this module, you will know how to provision, configure, and integrate from Spark with-<br>
-1.  Azure storage - blob storage and ADLS gen2; Includes Databricks Delta as well<br>
-2.  Azure Event Hub - publish and subscribe, with structured streaming; Includes Databricks Delta<br>
-3.  HDInsight Kafka - publish and subscribe, with structured streaming<br>
+1.  Azure storage - blob storage, ADLS gen1 and ADLS gen2; Includes Databricks Delta as well<br>
+2.  Azure Event Hub - publish and subscribe in batch and with structured streaming; Includes Databricks Delta<br>
+3.  HDInsight Kafka - publish and subscribe in batch and with structured streaming; Includes Databricks Delta<br>
 4.  Azure SQL database - read/write primer in batch and structured streaming<br>
 5.  Azure SQL datawarehouse - read/write primer in batch and structured streaming<br>
-6.  Azure Cosmos DB - read/write primer in batch and structured streaming; Includes structured streaming aggregation computation<br>
-7.  PowerBI - basics of integration and visualization<br>
+6.  Azure Cosmos DB (core API - SQL API/document oriented) - read/write primer in batch and structured streaming; Includes structured streaming aggregation computation<br>
+7.  Azure Data Factory - automating Spark notebooks in Azure Databricks with Azure Data Factory version 2<br>
+8.  Azure Key Vault for secrets management<br>
 
-The Chicago crimes dataset is leveraged in the lab.
+The Chicago crimes dataset is leveraged in the lab.<br>
 
-## 2.  Module 02-Data engineering workshop (Scala):
+## 2.  Module 02-Data engineering workshop:
 This is a *batch focused* module and covers building blocks of standing up a data engineering pipeline.  The [NYC taxi dataset](http://www.nyc.gov/html/tlc/html/about/trip_record_data.shtml) (yellow and green taxi trips) is leveraged in the labs.
 <br>
 ![primer](images/2.png)
@@ -50,6 +51,7 @@ The following is a summary of content covered:
 6.  Integrate reports generated to a reporting datamart RDBMS<br>
 7.  Create a batch job to automate report generation in Spark and and integration with reporting datamart for BI<br>
 
+Performance optimization is not in scope and will be offered as a separate workshop.
 
 ## Next
 [Provisioning guide](docs/1-provisioning-guide/ProvisioningGuide.md)<br>
