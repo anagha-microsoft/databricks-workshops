@@ -74,7 +74,12 @@ Provision an Azure SQL datawarehouse (gen1, 100 DWU), in #1 in the same database
 https://docs.microsoft.com/en-us/azure/sql-data-warehouse/create-data-warehouse-portal#create-a-data-warehouse
 
 ## 11.  Provision Azure Cosmos DB
-Provision a Cosmos DB account in #1, a database and 3 collections - one for batch load, one for stream ingest and one for streaming computations. Provision bare minimum throughout for each collection.<br>
+Provision a Cosmos DB account in #1, a database and 3 collections - one for batch load, one for streaming. Provision specs are below.<br>
+Database: gws_db (dont provision throughput)<br>
+Within gws_db, the following collections:
+1.  Name: chicago_crimes_curated_batch; Partition key: /case_id; Throughput: 1000<br>
+2.
+3. 
 Complete step 1, 2 and 3 from the link - https://docs.microsoft.com/en-us/azure/cosmos-db/sql-api-get-started
 
 ## 12.  Provision Azure Data Factory v2
