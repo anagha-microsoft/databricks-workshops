@@ -71,7 +71,7 @@ val adlsConfigs = Map("fs.azure.account.auth.type" -> "OAuth",
 
 // COMMAND ----------
 
-//dbutils.fs.unmount("/mnt/workshop-adlsgen2/gwsroot/")
+dbutils.fs.unmount("/mnt/workshop-adlsgen2/gwsroot/")
 
 // COMMAND ----------
 
