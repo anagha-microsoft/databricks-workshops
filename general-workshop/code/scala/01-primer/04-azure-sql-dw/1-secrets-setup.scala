@@ -13,7 +13,7 @@
 // COMMAND ----------
 
 // MAGIC %md
-// MAGIC ```pip install databricks-cli```
+// MAGIC Follow instructions in the Azure storage primer for settung up and configuring Databricks CLI
 
 // COMMAND ----------
 
