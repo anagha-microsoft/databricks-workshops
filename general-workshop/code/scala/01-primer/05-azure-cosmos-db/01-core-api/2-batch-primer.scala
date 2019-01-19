@@ -66,8 +66,8 @@ import com.microsoft.azure.cosmosdb.spark.config.Config
 val cosmosDbWriteConfigMap = Map(
   "Endpoint" -> cdbEndpoint,
   "Masterkey" -> cdbAccessKey,
-  "Database" -> "gws-db",
-  "Collection" -> "chicago_crimes_curated",
+  "Database" -> "gws_db",
+  "Collection" -> "chicago_crimes_curated_batch",
   "Upsert" -> "true")
 val cosmosDbWriteConfig = Config(cosmosDbWriteConfigMap)
 
@@ -86,8 +86,8 @@ CosmosDBSpark.save(df, cosmosDbWriteConfig)
 val cosmosDbReadDirectConfigMap = Map(
   "Endpoint" -> cdbEndpoint,
   "Masterkey" -> cdbAccessKey,
-  "Database" -> "gws-db",
-  "Collection" -> "chicago_crimes_curated",
+  "Database" -> "gws_db",
+  "Collection" -> "chicago_crimes_curated_batch",
   "preferredRegions" -> "East US 2;",
   "SamplingRatio" -> "1.0",
   "schema_samplesize" -> "1000",
