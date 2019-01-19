@@ -13,7 +13,7 @@
 // MAGIC 2.  Directory ID (AAD tenant ID)<br>
 // MAGIC 3.  Access tokey/key associated with the application ID<br>
 // MAGIC 
-// MAGIC We also need a root directory created, and full access to the root directory and child items to the SPN from #1<br>
+// MAGIC We also need a directory created, and full access to the root directory and child items to the SPN from #1<br>
 // MAGIC The provisioning docs cover the steps - https://github.com/anagha-microsoft/databricks-workshops/blob/master/general-workshop/docs/1-provisioning-guide/ProvisioningGuide.md
 
 // COMMAND ----------
@@ -61,6 +61,11 @@ val adlsConfigs = Map("dfs.adls.oauth2.access.token.provider.type" -> "ClientCre
 
 // Check if already mounted
 display(dbutils.fs.ls("/mnt/workshop-adlsgen1"))
+
+// COMMAND ----------
+
+// Unmount in case you are running a second time
+dbutils.fs.unmount("/mnt/workshop-adlsgen1/gwsroot")
 
 // COMMAND ----------
 
