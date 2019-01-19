@@ -1,6 +1,12 @@
 # Databricks workshop
 
 This is a multi-part workshop featuring Azure Databricks. It covers basics of working with Azure Data Services from Spark on Databricks, followed by an end-to-end data engineering workshop with the NYC Taxi public dataset, and finally an end-to-end machine learning workshop.<br>
+
+The goal of this workshop is deliver a clear understanding of how our services integrate witj Azure Databricks, give you end to end experience with data engineering and data science with Databricks, and to share some boilerplate code to use in your projects.<br>  
+
+This is a community contribution, so we appreciate feedback and any contribution back from you.<br>
+Please find credits at the very end of this page.
+
 <br>
 ## Target audience:
 Architects and Data engineers<br>
