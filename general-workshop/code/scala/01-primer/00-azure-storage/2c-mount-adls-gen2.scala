@@ -7,11 +7,16 @@
 // MAGIC ### What's in this exercise?
 // MAGIC The scope of this workshop is restricted to access via Service Principal and AAD based pass through authentication is out of scope. We will mount ADLSGen2 to Databricks in this module.<BR>
 // MAGIC 
-// MAGIC To mount ADLS Gen 2 - we need a few pieces of information-<BR>
-// MAGIC 1.  Service principal - Application ID<BR>
+// MAGIC #### Create ADLS Gen2 file system 
+// MAGIC To mount an ADLSGen2 file system, the ADLS filesystem should be created first.<BR>
+// MAGIC To create the ADLS file system, we need the storage account key.<BR>
+// MAGIC 
+// MAGIC   
+// MAGIC #### Mount an ADLS Gen2 file system 
+// MAGIC To mount an ADLS Gen2 file system, we need the following completed/the following information available.-<br>
+// MAGIC 1.  Create an app registration in AAD; This creates a service principal with an App ID<BR>
 // MAGIC 2.  Directory ID (AAD tenant ID)<BR>
 // MAGIC 3.  Access tokey/key associated with the application ID<BR>
-// MAGIC 4.  ADLSGen2 storage account key<BR>
 
 // COMMAND ----------
 
