@@ -92,4 +92,5 @@ Provision Azure Key Vault instance in #1.<br>
 https://docs.microsoft.com/en-us/azure/key-vault/quick-create-portal<br>
 
 ## Installation of the Databricks CLI
-Connect to the virtual machine provisioned.
+Provision a Linux VM (Ubuntu Server 18.10) on Azure from the portal.<br>
+We will install the Databricks CLI on this VM - due to the ephemeral nature of the cloud bash shell.<br>
