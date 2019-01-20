@@ -73,7 +73,8 @@ We will create an ADFv2 pipeline with a notebook activity in this final section.
 In the UI - go to workspace->settings->access tokens and create a token.  Capture and note down safely.<br><br>
 
 ![AuthorMonitor](../../../images/7-adfv2/1-AuthorAndMonitor.png)
-
+<br>
+<hr>
 
 ### 2.  Create a linked service for Databricks compute from the Data Factory UI<br>
 - This has a dependency on (1) Databricks workspace - should exist already, and (2) also the Databricks token<br>
@@ -81,6 +82,14 @@ In the UI - go to workspace->settings->access tokens and create a token.  Captur
 - Enter your access token<br>
 - Select DBR 5.1<br>
 - Select DS3v2 - 3 workers, fixed<br><br>
+
+![LinkedService1](../../../images/7-adfv2/2-LinkedService.png)
+<br>
+<hr>
+
+![LinkedService2](../../../images/7-adfv2/3-LinkedService.png)
+<br>
+<hr>
 
 ### 3.  Create a pipeline<br>
 - Add a Databricks notebook activity<br>
