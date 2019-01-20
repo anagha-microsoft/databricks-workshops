@@ -60,3 +60,38 @@ crime_count bigint);
 ### 3. Report 2:
 1.  Generates a report of count by crime type, by year, and pipes it to the pre-existing chicago_crimes_count RDBMS table in overwrite mode
 2.  Exits with status of "pass" if completed successfully
+
+
+## D) ADFv2 scheduling/orchestration
+
+We will create an ADFv2 pipeline with a notebook activity in this final section.<br>
+### 1.  Create a Databricks token for use in ADFv2<br>
+In the UI - go to workspace->settings->access tokens and create a token.  Capture and note down safely.<br><br>
+### 2.  Create a linked service for Databricks compute from the Data Factory UI<br>
+- This has a dependency on (1) Databricks workspace - should exist already, and (2) also the Databricks token<br>
+- Select your subscription<br>
+- Enter your access token<br>
+- Select DBR 5.1<br>
+- Select DS3v2 - 3 workers, fixed<br><br>
+### 3.  Create a pipeline<br>
+- Add a Databricks notebook activity<br>
+- In the notebook activity, in the general tab, name the workflow<br>
+- In the Azure Databricks tab, select the linked service and test connection<br>
+- In the settings path, navigate and pick the notebook - adfv2-workshop/03-Orchestrate/workflow.scala<br>
+- Validate the pipeline<br>
+- Debug the pipeline<br>
+- Publish the pipeline<br><br>
+### 4.  Trigger the pipeline<br>
+- Run the pipeline now<br>
+Refer documentation to familiarize yourself with scheduling a pipeline<br><br>
+### 5.  Monitor the pipeline<br><br>
+### 6.  Lets review the execution of the workflow in Databricks<br><br>
+
+### 7.  Discussion:
+Passing parameters to your cluster (base parameters in notebook activity settings) and between notebooks (notebook widgets)
+
+# Help us improve this
+This is a community contribution, and can be improved.  We appreciate your support and feedback.
+
+# Source dataset:
+Is here - https://nyctaxiadfv2sa.blob.core.windows.net/taxidata/NYC_Cab.csv
