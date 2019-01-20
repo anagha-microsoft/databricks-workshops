@@ -4,6 +4,8 @@ In this lab module - we will learn to automate Databricks Spark applications wit
 
 We will learn to schedule the pipeline to run on a time basis, as well as run on-demand.  Finally, we will learn to monitor in Azure Data Factory v2.<br>
 
+![primer](images/7-adfv2/adfv2.png)
+
 ## A) Dependencies
 1.  Provision data factory
 2.  Completion of primer lab for Azure Storage
