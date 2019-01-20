@@ -15,6 +15,7 @@ For the workshop, we will need to provision multiple resources/services.  Many o
 11.  Azure Cosmos DB (for the primer only)<br>
 12.  Azure Data Factory v2 (for the primer only)<br> 
 13.  Azure Key Vault (for the primer only)<br>
+14.  A Linux VM to use Databricks CLI<br>
 
 **Note**: All resources shoud be **provisioned in the same datacenter**.<br>
 
