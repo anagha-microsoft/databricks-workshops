@@ -15,6 +15,7 @@ For the workshop, we will need to provision multiple resources/services.  Many o
 11.  Azure Cosmos DB (for the primer only)<br>
 12.  Azure Data Factory v2 (for the primer only)<br> 
 13.  Azure Key Vault (for the primer only)<br>
+14.  A Linux VM to use Databricks CLI<br>
 
 **Note**: All resources shoud be **provisioned in the same datacenter**.<br>
 
@@ -78,10 +79,18 @@ Provision a Cosmos DB account in #1, a database and 3 collections - one for batc
 Database: gws_db (dont provision throughput)<br>
 Within gws_db, the following collections:
 1.  Name: chicago_crimes_curated_batch; Partition key: /case_id; Throughput: 1000<br>
-2.
-3. 
+2.  Name: chicago_crimes_curated_stream; Partition key: /case_id; Throughput: 1000<br>
+3.  Name: chicago_crimes_curated_stream_aggr; Partition key: /case_type; Throughput: 1000<br>
 Complete step 1, 2 and 3 from the link - https://docs.microsoft.com/en-us/azure/cosmos-db/sql-api-get-started
 
 ## 12.  Provision Azure Data Factory v2
 Provision Azure Data Factory v2 instance in #1.<br>
 Complete steps 1-9 from the link - https://docs.microsoft.com/en-us/azure/data-factory/quickstart-create-data-factory-portal#create-a-data-factory
+
+## 13.  Provision Azure Key Vault
+Provision Azure Key Vault instance in #1.<br>
+https://docs.microsoft.com/en-us/azure/key-vault/quick-create-portal<br>
+
+## Installation of the Databricks CLI
+Provision a Linux VM (Ubuntu Server 18.10) on Azure from the portal.<br>
+We will install the Databricks CLI on this VM - due to the ephemeral nature of the cloud bash shell.<br>
