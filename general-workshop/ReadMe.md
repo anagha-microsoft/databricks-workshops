@@ -59,7 +59,7 @@ Performance optimization is not in scope and will be offered as a separate works
 ## Credits
 Anagha Khanolkar (Chicago) - workshop design, content, Scala code, primer in Python<br>
 Ryan Murphy (St Louis) - contribution to the data engineering workshop transformation rules, schema and more<br>
-Rajdeep Biswas (Houston) - writing the entire Python version of the data engineering lab<br>
+Rajdeep Biswas (Houston) - writing the entire Python version of the data engineering lab I deveoped in Scala<br>
 Steve Howard (St Louis) - contributing to the Python version of the data engineering lab<br>
 Parashar Shah (Redmond) - sharing samples with Anagha for learning Azure Machine Learning service integration<br>
 
