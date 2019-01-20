@@ -90,5 +90,3 @@ Complete steps 1-9 from the link - https://docs.microsoft.com/en-us/azure/data-f
 ## 13.  Provision Azure Key Vault
 Provision Azure Key Vault instance in #1.<br>
 https://docs.microsoft.com/en-us/azure/key-vault/quick-create-portal<br>
-Configuring secrets backed by Key Vault:<br>
-https://docs.azuredatabricks.net/user-guide/secrets/secret-scopes.html#create-an-azure-key-vault-backed-secret-scope
