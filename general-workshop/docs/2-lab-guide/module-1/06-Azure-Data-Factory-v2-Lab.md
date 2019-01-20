@@ -5,6 +5,9 @@ In this lab module - we will learn to automate Databricks Spark applications wit
 The following is a pictorial overview.<br>
 ![primer](../../../images/7-adfv2/adfv2.png)
 
+<br>
+<hr>
+
 ## A) Dependencies
 1.  Provision data factory
 2.  Completion of primer lab for Azure Storage
@@ -68,6 +71,9 @@ We will create an ADFv2 pipeline with a notebook activity in this final section.
 
 ### 1.  Create a Databricks token for use in ADFv2<br>
 In the UI - go to workspace->settings->access tokens and create a token.  Capture and note down safely.<br><br>
+
+![AuthorMonitor](../../../images/7-adfv2/1-AuthorAndMonitor.png)
+
 
 ### 2.  Create a linked service for Databricks compute from the Data Factory UI<br>
 - This has a dependency on (1) Databricks workspace - should exist already, and (2) also the Databricks token<br>
