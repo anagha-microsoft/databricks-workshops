@@ -8,7 +8,7 @@ In this lab module - we will learn to automate Databricks Spark applications wit
 3.  Completion of primer lab for Azure SQL Database
 4.  Adequate cores to provision Azure databricks cluster
 5.  Notebooks in the module, loaded into your workspace
-6.  Database objects - tables and stored procedures/functions, created ahead of time
+6.  Database objects - tables created ahead of time
 
 ## B) Database objects to be created in Azure SQL Database
 
@@ -38,31 +38,4 @@ CREATE TABLE CHICAGO_CRIMES_COUNT_YEAR(
 case_year int,
 case_type varchar(100), 
 crime_count bigint);
-```
-
-4a.  Create stored procedure: generate_batch_id
-```
-CREATE PROCEDURE generate_batch_id 
-   @new_batch_id varchar(20) OUTPUT  
-AS  
-BEGIN  
-   DECLARE @batch_count INT;
-
-    SELECT @batch_count =  count(batch_id)
-    FROM batch_job_history;
-    
-    IF(@batch_count = 0)
-      SET @new_batch_id = 1;
-    ELSE
-      SELECT @new_batch_id =  max(batch_id)+1
-      FROM batch_job_history;
-
-    SELECT CONVERT(varchar(20),@new_batch_id);
-END
-```
-
-4b. Test procedure: generate_batch_id
-```
-DECLARE @new_batch_id varchar(20);
-EXEC dbo.generate_batch_id @new_batch_id
 ```
