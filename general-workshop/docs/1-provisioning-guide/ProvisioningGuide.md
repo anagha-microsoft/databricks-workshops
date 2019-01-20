@@ -90,3 +90,6 @@ Complete steps 1-9 from the link - https://docs.microsoft.com/en-us/azure/data-f
 ## 13.  Provision Azure Key Vault
 Provision Azure Key Vault instance in #1.<br>
 https://docs.microsoft.com/en-us/azure/key-vault/quick-create-portal<br>
+
+## Installation of the Databricks CLI
+Connect to the virtual machine provisioned.
