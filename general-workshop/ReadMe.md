@@ -63,5 +63,4 @@ Ryan Murphy (St Louis) - contribution to the data engineering workshop transform
 Rajdeep Biswas (Houston) - writing the entire Python version of the data engineering lab<br>
 Steve Howard (St Louis) - contributing to the Python version of the data engineering lab<br>
 Parashar Shah (Redmond) - sharing samples with Anagha for learning Azure Machine Learning service integration<br>
-Dr. Thomas Abraham (St Louis) - guidance in the machine learning space<br>
-Matt Stenzel - for testing (invaluable)<br>
+
