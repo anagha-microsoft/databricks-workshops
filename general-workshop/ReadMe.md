@@ -5,7 +5,6 @@ This is a multi-part (free) workshop featuring Azure Databricks. It covers basic
 The goal of this workshop is deliver a clear understanding of how to provision Azure data services, how the data services services integrate with Spark on Azure Databricks, to give you end to end experience with basic data engineering and basic data science on Azure Databricks, and to share some boilerplate code to use in your projects.<br>  
 
 This is a community contribution, so we appreciate feedback and welcome any contribution back from you.<br>
-Please find credits at the very end of this page.<br>
 
 ## Target audience:
 Architects and Data engineers<br>
