@@ -78,8 +78,8 @@ Provision a Cosmos DB account in #1, a database and 3 collections - one for batc
 Database: gws_db (dont provision throughput)<br>
 Within gws_db, the following collections:
 1.  Name: chicago_crimes_curated_batch; Partition key: /case_id; Throughput: 1000<br>
-2.
-3. 
+2.  Name: chicago_crimes_curated_stream; Partition key: /case_id; Throughput: 1000<br>
+3.  Name: chicago_crimes_curated_stream_aggr; Partition key: /case_type; Throughput: 1000<br>
 Complete step 1, 2 and 3 from the link - https://docs.microsoft.com/en-us/azure/cosmos-db/sql-api-get-started
 
 ## 12.  Provision Azure Data Factory v2
