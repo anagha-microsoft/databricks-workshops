@@ -100,6 +100,23 @@ In the UI - go to workspace->settings->access tokens and create a token.  Captur
 - Debug the pipeline<br>
 - Publish the pipeline<br><br>
 
+![Notebook-1](../../../images/7-adfv2/4-CreateNotebookActivity.png)
+<br>
+<hr>
+
+![Notebook-2](../../../images/7-adfv2/5-SelectLinkedService.png)
+<br>
+<hr>
+
+![Notebook-3](../../../images/7-adfv2/7-NotebookPath.png)
+<br>
+<hr>
+
+![Notebook-4](../../../images/7-adfv2/10-cluster-spawned.png)
+<br>
+<hr>
+
+
 ### 4.  Trigger the pipeline<br>
 - Run the pipeline now<br>
 Refer documentation to familiarize yourself with scheduling a pipeline<br><br>
