@@ -42,7 +42,7 @@ case_year int,
 case_type varchar(100), 
 crime_count bigint);
 ```
-## C) Notebook review
+## C) Databricks notebooks review
 
 ### 1.  Notebook workflow:
 1.  Generates a batch ID
