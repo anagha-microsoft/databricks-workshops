@@ -86,3 +86,9 @@ Complete step 1, 2 and 3 from the link - https://docs.microsoft.com/en-us/azure/
 ## 12.  Provision Azure Data Factory v2
 Provision Azure Data Factory v2 instance in #1.<br>
 Complete steps 1-9 from the link - https://docs.microsoft.com/en-us/azure/data-factory/quickstart-create-data-factory-portal#create-a-data-factory
+
+## 13.  Provision Azure Key Vault
+Provision Azure Key Vault instance in #1.<br>
+https://docs.microsoft.com/en-us/azure/key-vault/quick-create-portal<br>
+Configuring secrets backed by Key Vault:<br>
+https://docs.azuredatabricks.net/user-guide/secrets/secret-scopes.html#create-an-azure-key-vault-backed-secret-scope
