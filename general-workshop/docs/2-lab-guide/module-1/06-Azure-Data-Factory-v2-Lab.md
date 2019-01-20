@@ -121,6 +121,7 @@ In the UI - go to workspace->settings->access tokens and create a token.  Captur
 ![Notebook-5](../../../images/7-adfv2/report1-results.png)
 <br>
 <hr>
+
 ![Notebook-6](../../../images/7-adfv2/report2-results.png)
 <br>
 <hr>
