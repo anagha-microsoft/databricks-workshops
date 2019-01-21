@@ -442,3 +442,64 @@ augmentedTripDF.coalesce(2).write.mode(SaveMode.Overwrite).save(destinationDirRo
 
 // MAGIC %sql
 // MAGIC select * from taxi_db.model_curated_trips
+
+// COMMAND ----------
+
+// MAGIC %md
+// MAGIC ### 3. Join trips and fares datasets
+// MAGIC Correlate the data in two data sets using a SQL join.
+// MAGIC 
+// MAGIC 
+// MAGIC ![SQL JOINS](http://bailiwick.io/content/images/2015/07/SQL_Join_Types-1.png)
+
+// COMMAND ----------
+
+// MAGIC %sql
+// MAGIC describe taxi_db.model_curated_fares
+
+// COMMAND ----------
+
+// MAGIC %sql
+// MAGIC describe taxi_db.model_curated_trips
+
+// COMMAND ----------
+
+// MAGIC %sql select count(*) from taxi_db.model_curated_trips
+
+// COMMAND ----------
+
+ spark.sql("select * from taxi_db.model_curated_fares").printSchema
+
+// COMMAND ----------
+
+//Execute join
+val mergedTripsAndFaresDF = spark.sql("select t.trip_id,t.vendor_id,t.pickup_timestamp,t.dropoff_timestamp,t.passenger_count, t.trip_distance, t.rate_code_id, t.store_and_fwd_flag, t.pickup_locn_id, t.dropoff_locn_id, t.payment_type, t.duration, t.pickup_hour, t.pickup_minute, t.pickup_month, t.pickup_day_of_month, t.pickup_day_of_week, t.pickup_week_of_year, f.extra, f.mta_tax, f.tip_amount, f.tolls_amount, f.improvement_surcharge, f.fare_amount, f.total_amount from taxi_db.model_curated_trips t inner join taxi_db.model_curated_fares f on t.trip_id = f.trip_id")
+
+// COMMAND ----------
+
+//Persist to consumption zone
+val destinationDirRootTripsConsumption = "/mnt/workshop/consumption/nyctaxi/model-transactions/trips/"
+mergedTripsAndFaresDF.coalesce(2).write.mode(SaveMode.Overwrite).save(destinationDirRootTripsConsumption)
+
+// COMMAND ----------
+
+//Create external table
+
+// COMMAND ----------
+
+// MAGIC %sql
+// MAGIC CREATE DATABASE IF NOT EXISTS taxi_db;
+// MAGIC USE taxi_db;
+// MAGIC 
+// MAGIC DROP TABLE IF EXISTS model_consumption_trips;
+// MAGIC CREATE TABLE IF NOT EXISTS model_consumption_trips
+// MAGIC USING parquet
+// MAGIC OPTIONS (path "/mnt/workshop/consumption/nyctaxi/model-transactions/trips/");
+// MAGIC --USING org.apache.spark.sql.parquet
+// MAGIC 
+// MAGIC ANALYZE TABLE model_consumption_trips COMPUTE STATISTICS;
+
+// COMMAND ----------
+
+// MAGIC %sql
+// MAGIC select * from taxi_db.model_consumption_trips;
