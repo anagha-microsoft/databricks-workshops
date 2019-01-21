@@ -326,7 +326,12 @@ dbutils.fs.ls(destinationDirRootFaresCurated + "/").foreach((i: FileInfo) => if 
 
 // COMMAND ----------
 
-//1.  Review
+// MAGIC %md
+// MAGIC 1.  Review
+
+// COMMAND ----------
+
+tripsCastedRenamedTripsDF.printSchema
 
 // COMMAND ----------
 
@@ -334,30 +339,27 @@ tripsCastedRenamedTripsDF.describe().show()
 
 // COMMAND ----------
 
-display(tripsCastedRenamedTripsDF)
+// MAGIC %md
+// MAGIC ##### 2.2.1. Profile and correct timestamp fields
 
 // COMMAND ----------
 
-// MAGIC %md The bar chart of the trips DataFrame indicates missing points and gaps in the pickup times and passenger counts. Performing a simple filter operation to check for null and corrupt records will help verify the cause of these irregularities. 
+//Out of 9710124, 9650 have one or both null
+tripsCastedRenamedTripsDF.filter($"pickup_timestamp".isNull or $"dropoff_timestamp".isNull).count
 
 // COMMAND ----------
 
-//Filtering for records that have pickup and drop time as null
-val nullRecordsDF=tripsCastDF.filter($"tpep_pickup_datetime".isNull or $"tpep_dropoff_datetime".isNull)
-val nullRecordsCount=nullRecordsDF.count
+//Lets drop records without time
+val filteredTripsDF = tripsCastedRenamedTripsDF.filter($"pickup_timestamp".isNotNull or $"dropoff_timestamp".isNotNull)
 
 // COMMAND ----------
 
-// MAGIC %md The commands indicate there are a signficant number of records where the pickup/dropoff time is null. Dealing with null data can vary from case to case. In this tutorial, we will consider these null values to be corrupt. The data cleaning process will consist of removing these corrupt records.
+// MAGIC %md
+// MAGIC ##### 2.2.2. Profile and correct passenger count
 
 // COMMAND ----------
 
-//Filtering out records where pickup and dropoff date is null
-val filterTripsDF=tripsCastDF.filter($"tpep_pickup_datetime".isNotNull or $"tpep_dropoff_datetime".isNotNull)
-
-// COMMAND ----------
-
-// MAGIC %md ##DIY: Perform cleaning on this dataset for records where passenger count is 0
+display(filteredTripsDF)
 
 // COMMAND ----------
 
@@ -365,7 +367,7 @@ val filterTripsDF=tripsCastDF.filter($"tpep_pickup_datetime".isNotNull or $"tpep
 
 // COMMAND ----------
 
-display(filterTripsDF)
+display(filteredTripsDF)
 
 // COMMAND ----------
 
@@ -375,8 +377,8 @@ display(filterTripsDF)
 // COMMAND ----------
 
 //Filtering for records that have passenger count as zero
-val zeroPassengersDF=filterTripsDF.filter($"passenger_count"===0)
-val zeroPassengersCount=zeroPassengersDF.count
+val beforePassengerCountFix = filteredTripsDF.count
+filteredTripsDF.filter($"passenger_count"===0).count
 
 // COMMAND ----------
 
@@ -384,125 +386,59 @@ val zeroPassengersCount=zeroPassengersDF.count
 
 // COMMAND ----------
 
-val filteredTripsDF=filterTripsDF.filter($"passenger_count"=!=0)
+val filteredFurther1TripsDF=filteredTripsDF.filter($"passenger_count"=!=0)
+filteredFurther1TripsDF.count
 
 // COMMAND ----------
 
-// MAGIC %md Validate your process by counting the number of clean and dirty records. The total records count should match the initial DataFrame count
-
-// COMMAND ----------
-
-val cleanRecordsCount=filteredTripsDF.count
-val totalRecordsCount=cleanRecordsCount+zeroPassengersCount+nullRecordsCount
-
-// COMMAND ----------
-
-// MAGIC %md Run the following cell to test your solution
-
-// COMMAND ----------
-
- if (totalRecordsCount == blobCount) "Validated!" else "No"
-
-// COMMAND ----------
-
-// MAGIC %md If you are not able to get the correct result you can go to `Cmd 84` and `85` at the end of the notebook to view the answers
-
-// COMMAND ----------
-
-//RUN THIS CELL TO LOAD THE VALIDATION RESULTS
-val resultFromBlob= spark.read.option("header","true").csv(s"wasbs://$containerName@$storageAccountName.blob.core.windows.net/nycTaxiResult.csv")
+display(filteredFurther1TripsDF)
 
 // COMMAND ----------
 
 // MAGIC %md
+// MAGIC ##### 2.2.3. Augment with temporal attributes based off of the pick up time
+
+// COMMAND ----------
+
+filteredFurther1TripsDF.printSchema
+
+// COMMAND ----------
+
+val augmentedTripDF = filteredFurther1TripsDF
+.withColumn("duration",unix_timestamp($"dropoff_timestamp")-unix_timestamp($"pickup_timestamp"))
+.withColumn("pickup_hour",hour($"pickup_timestamp"))
+.withColumn("pickup_minute",minute($"pickup_timestamp"))
+.withColumn("pickup_month",month($"pickup_timestamp"))
+.withColumn("pickup_day_of_month",dayofmonth($"pickup_timestamp"))
+.withColumn("pickup_day_of_week",dayofweek($"pickup_timestamp"))
+.withColumn("pickup_week_of_year",weekofyear($"pickup_timestamp"))
+
+
+// COMMAND ----------
+
+display(augmentedTripDF)
+
+// COMMAND ----------
+
+//Lets persist to the curated zone
+val destinationDirRootTripsCurated = "/mnt/workshop/curated/nyctaxi/model-transactions/trips/"
+augmentedTripDF.coalesce(2).write.mode(SaveMode.Overwrite).save(destinationDirRootTripsCurated)
+
+// COMMAND ----------
+
+// MAGIC %sql
+// MAGIC CREATE DATABASE IF NOT EXISTS taxi_db;
+// MAGIC USE taxi_db;
 // MAGIC 
-// MAGIC ## Performing Operations on the Data &mdash; Formatting
-
-// COMMAND ----------
-
-// MAGIC %md
+// MAGIC DROP TABLE IF EXISTS model_curated_trips;
+// MAGIC CREATE TABLE IF NOT EXISTS model_curated_trips
+// MAGIC USING parquet
+// MAGIC OPTIONS (path "/mnt/workshop/curated/nyctaxi/model-transactions/trips/");
+// MAGIC --USING org.apache.spark.sql.parquet
 // MAGIC 
-// MAGIC Once a dataset has been loaded, it's common to perform some preprocessing before proceeding to analyze it. 
-// MAGIC 
-// MAGIC Spark SQL's Dataset API comes with a standard library of functions called [standard functions](http://spark.apache.org/docs/latest/api/scala/index.html#org.apache.spark.sql.functions$) that allow for data manipulation. These, as well as  column-based operators like `select` or `withColumn` provide the tools to undertake the necessary transformations for data analysis.
+// MAGIC ANALYZE TABLE model_curated_trips COMPUTE STATISTICS;
 
 // COMMAND ----------
 
-// MAGIC %md ## Use Case: Categorize Users by *time of day* when Trip is Taken
-// MAGIC Extract the Hour of Day from the timestamp and categorize them into 
-// MAGIC - Trips taken between 0000 hours to 1200 hours.
-// MAGIC - Trips taken between 1200 hours to 2400 hours.
-// MAGIC We will use in-built Spark functions to filter the Months and Hours and then perform a groupBy operation to get a count of users across 4 quarters of the day.
-
-// COMMAND ----------
-
-// MAGIC %md
-// MAGIC ### Built-In Functions
-// MAGIC 
-// MAGIC Spark provides a number of <a href="https://spark.apache.org/docs/latest/api/scala/index.html#org.apache.spark.sql.functions$" target="_blank">built-in functions</a>, many of which can be used directly with DataFrames.  Use these functions in the `filter` expressions to filter data and in `select` expressions to create derived columns.
-// MAGIC 
-// MAGIC 
-// MAGIC #### Splitting timestamps into separate columns with date, year and month
-// MAGIC 
-// MAGIC The standard functions for working with dates:
-// MAGIC 
-// MAGIC * `dayofmonth`
-// MAGIC * `year`
-// MAGIC * `weekofyear`
-// MAGIC * `quarter`
-// MAGIC * `month`
-// MAGIC * `minute`
-
-// COMMAND ----------
-
-// Using Inbuilt functions to extract Hours from timestamp and categorizing them according to quarters
-import org.apache.spark.sql.functions._
-val timeCategoryDF=filteredTripsDF.withColumn("tripHour", hour(col("tpep_pickup_datetime")))
-                                  .withColumn("quarterlyTime", when($"tripHour".geq(lit(0)) and $"tripHour".lt(lit(4)),"0to4").when($"tripHour".geq(lit(4)) and $"tripHour".lt(lit(8)),"4to8").when($"tripHour".geq(lit(8)) and $"tripHour".lt(lit(12)),"8to12").when($"tripHour".geq(lit(12)) and $"tripHour".lt(lit(16)),"12to16").when($"tripHour".geq(lit(16)) and $"tripHour".lt(lit(20)),"16to20").when($"tripHour".geq(lit(20)) and $"tripHour".lt(lit(24)),"16to24"))
-
-// COMMAND ----------
-
-val countByTimeOfDayDF=timeCategoryDF.groupBy("quarterlyTime").count
-
-// COMMAND ----------
-
-// MAGIC %md To better understand the data, visualize the results. 
-
-// COMMAND ----------
-
-display(countByTimeOfDayDF)
-
-// COMMAND ----------
-
-// MAGIC %md ## DIY: Extract Date of Month from Timestamp and append to DataFrame as seperate column having name `DateOfTrip`
-
-// COMMAND ----------
-
-// MAGIC %md ###### Fill the commented //TO-FILL with your query and run the cell and then validate the result running by next cell 
-// MAGIC for example : val tripsWithDF= //TO-FILL  to  val tripsWithDF= trips.select("tripID")
-
-// COMMAND ----------
-
-// MAGIC %md Use the Spark `withColumn` function to add a new column to our Trips DataFrame. The values for the new column are to be extracted from the `tpep_pickup_datetime` column. Use the inbuilt Spark functions to extract the date of month from the timestamp value.
-
-// COMMAND ----------
-
-// MAGIC %md
-// MAGIC ![wc](https://i.ibb.co/wzZ7sx4/dfwithcolumn.png)
-
-// COMMAND ----------
-
-// MAGIC %md HINT: We can use in-built Spark functions to extract day of month from a column of type Timestamp. 
-
-// COMMAND ----------
-
-def extractDayDF(): org.apache.spark.sql.DataFrame ={  
-   
-val tripsWithDayOfMonthDF= filteredTripsDF.withColumn("DateOfTrip",dayofmonth($"tpep_pickup_datetime"))
-    
-   return(tripsWithDayOfMonthDF);
-}
-
-// COMMAND ----------
-
-// MAGIC %md Run the following to validate your solution
+// MAGIC %sql
+// MAGIC select * from taxi_db.model_curated_trips
