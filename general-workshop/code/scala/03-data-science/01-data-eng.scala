@@ -322,15 +322,19 @@ dbutils.fs.ls(destinationDirRootFaresCurated + "/").foreach((i: FileInfo) => if 
 
 // COMMAND ----------
 
-// MAGIC %md #### 2.2. Trips | Outlier detection and handling/replacing ##
+// MAGIC %md #### 2.2. Trips | Cleansing, outlier detection and handling/replacing ##
 
 // COMMAND ----------
 
-
+//1.  Review
 
 // COMMAND ----------
 
-display(tripsCastDF)
+tripsCastedRenamedTripsDF.describe().show()
+
+// COMMAND ----------
+
+display(tripsCastedRenamedTripsDF)
 
 // COMMAND ----------
 
