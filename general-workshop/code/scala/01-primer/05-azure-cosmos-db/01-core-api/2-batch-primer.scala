@@ -33,10 +33,8 @@
 
 // COMMAND ----------
 
-val cdbEndpoint = "https://gaianosqldb.documents.azure.com:443/"
-//dbutils.secrets.get(scope = "gws-cosmos-db", key = "acct-uri")
-val cdbAccessKey = "0b8ADchGkfGWXtzg33cfePcty7CAtb58Hd5zTJCxSSs7GmFVY7pDbLGQbJsLenfqTOHcXr5zrixLf7wjYCferw=="
-//dbutils.secrets.get(scope = "gws-cosmos-db", key = "acct-key")
+val cdbEndpoint = dbutils.secrets.get(scope = "gws-cosmos-db", key = "acct-uri")
+val cdbAccessKey = dbutils.secrets.get(scope = "gws-cosmos-db", key = "acct-key")
 
 // COMMAND ----------
 
