@@ -66,13 +66,12 @@ val formattedDF1=stagedTripsDF.select($"*",
 // COMMAND ----------
 
 val formattedDF2=formattedDF1.select($"pickup_time",
-                                     $"pickup_time".cast(LongType).alias("pickup"),
                                      $"dropoff_time",
-                                     $"dropoff_time".cast(LongType)alias("dropoff"),
+                                     $"dropoff_time".cast(LongType).alias("dropoff_time_long"),
                                      $"trip_distance".cast(DoubleType),
-                                     $"PULocationID".cast(IntegerType),
-                                     $"DOLocationID".cast(IntegerType),
-                                     $"RatecodeID".cast(IntegerType),
+                                     $"PULocationID".cast(IntegerType).alias("pickup_locn_id"),
+                                     $"DOLocationID".cast(IntegerType).alias("dropoff_locn_id"),
+                                     $"RatecodeID".cast(IntegerType).alias("rate_code_id"),
                                      $"store_and_fwd_flag",
                                      $"payment_type".cast(IntegerType),
                                      $"fare",$"extra".cast(DoubleType))
