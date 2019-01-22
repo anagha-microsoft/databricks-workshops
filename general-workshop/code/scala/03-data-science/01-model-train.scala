@@ -2,7 +2,7 @@
 // MAGIC %md 
 // MAGIC # Supervised learning | Use case: Trip duration prediction | Model training with Spark MLlib
 // MAGIC The goal of this tutorial is build on the data engineering lab and learn how to -
-// MAGIC 1.  Pre-process a dataset
+// MAGIC 1.  Pre-process the NYC taxi dataset
 // MAGIC 2.  Determine feature importance
 // MAGIC 3.  Transform features for model training using Spark MLlib built-in functions
 // MAGIC 4.  Train model in two algorithms - Logistic Regression and Random Forest Regression
@@ -11,82 +11,24 @@
 
 // COMMAND ----------
 
-// MAGIC %md ### 1.0. Pre-process the data
-// MAGIC 
-// MAGIC We added a number of temporal attributes as part of the curation process in the data engineering lab.  One thing we missed is "duration" of trip.  We will build a model to predict duration of a trip, given a date and pickup - dropoff location combination.<br>
-// MAGIC 
-// MAGIC In order to do this - we need to augment the materialized view with duration - leveraging Spark SQL's datetime functions.  We will drop outliers and bad data. Duration will be our "label" and we will perform correlation analysis to identify features of importance.
+// MAGIC %md ### 1. Base dataset review
 
 // COMMAND ----------
 
-//1.  Function to calculate duration
-import org.apache.spark.sql.functions._
-val calcDurationFunc: org.apache.spark.sql.Column = col("dropoff_datetime").cast("long") - col("pickup_datetime").cast("long")
+//1.  Base dataset
+val baseDF = spark.sql("select * from taxi_db.model_raw_trips")
 
 // COMMAND ----------
 
-// MAGIC %md
-// MAGIC 
-// MAGIC //2. Build out the SQL to filter, transform - off of the materialized view from the data engineering workshop
+baseDF.printSchema
 
 // COMMAND ----------
 
-// MAGIC %sql
-// MAGIC select 
-// MAGIC   pickup_datetime,
-// MAGIC   dropoff_datetime,
-// MAGIC   cast(dropoff_datetime as long) as dropoff_timelong, 
-// MAGIC   trip_distance,
-// MAGIC   pickup_location_id,
-// MAGIC   dropoff_location_id,
-// MAGIC   rate_code_id,
-// MAGIC   store_and_fwd_flag, 
-// MAGIC   payment_type,
-// MAGIC   fare_amount,
-// MAGIC   extra,
-// MAGIC   pickup_hour,
-// MAGIC   pickup_day,
-// MAGIC   dayofweek(pickup_datetime) as pickup_day_of_week,
-// MAGIC   dayofmonth(pickup_datetime) as pickup_day_of_month,
-// MAGIC   (case date_format(pickup_datetime,'W') when 1 then 1 else (date_format(pickup_datetime,'W')-1) end) as pickup_week_of_month,
-// MAGIC   pickup_minute,
-// MAGIC   weekofyear(pickup_datetime) as pickup_week_of_year,
-// MAGIC   pickup_month
-// MAGIC from 
-// MAGIC   taxi_db.taxi_trips_mat_view 
-// MAGIC where 
-// MAGIC   trip_distance > 0 and (fare_amount > 0 and fare_amount < 5000) and taxi_type='yellow';
+display(baseDF)
 
 // COMMAND ----------
 
-//3.  Create a dataframe, off of the SQL developed and tested in step 2
-val df = spark.sql("select pickup_datetime,dropoff_datetime,cast(dropoff_datetime as long) as dropoff_timelong,trip_distance,pickup_location_id,dropoff_location_id,rate_code_id,store_and_fwd_flag, payment_type,fare_amount,extra,pickup_hour,pickup_day,dayofweek(pickup_datetime) as pickup_day_of_week,dayofmonth(pickup_datetime) as pickup_day_of_month,(case date_format(pickup_datetime,'W') when 1 then 1 else (date_format(pickup_datetime,'W')-1) end) as pickup_week_of_month,pickup_minute,weekofyear(pickup_datetime) as pickup_week_of_year,pickup_month from taxi_db.taxi_trips_mat_view where trip_distance > 0 and (fare_amount > 0 and fare_amount < 5000) and taxi_type='yellow'")
-
-// COMMAND ----------
-
-//4.  Augment with trip duration
-//This is where the data scientist asks the data engineering team to add derived attributes of interest to the materialized view
-val df2 = df
-  .withColumn( "duration_minutes", calcDurationFunc / 60D).alias("duration_minutes")
-  .drop("pickup_datetime","dropoff_datetime")
-  .createOrReplaceTempView("filtered_trips")
-  //.withColumn("duration_seconds", calcDurationFunc).alias("duration_seconds")
-  //.withColumn( "duration_hours",  calcDurationFunc / 3600D).alias("duration_hours")
-  //.withColumn( "duration_days", calcDurationFunc / (24D * 3600D)).alias("duration_days")
-
-// COMMAND ----------
-
-// MAGIC %sql
-// MAGIC select * from filtered_trips
-
-// COMMAND ----------
-
-//5.  Drop data with 0 duration or less if at all
-val df3 = spark.sql("select * from filtered_trips where duration_minutes > 0")
-
-// COMMAND ----------
-
-display(df3)
+baseDF.describe().show()
 
 // COMMAND ----------
 
@@ -112,9 +54,9 @@ import org.apache.spark.sql.functions._
 
 val ls= new ListBuffer[(Double, String)]()
 println("\nCorrelation Analysis :")
-   	for ( field <-  df3.schema) {
+   	for ( field <-  baseDF.schema) {
 		if ( ! field.dataType.equals(StringType)) {
-          var x= df3.stat.corr("duration_minutes", field.name)
+          var x= baseDF.stat.corr("duration", field.name)
           var tuple : (Double, String) = (x,field.name)
           ls+=tuple
 		}
@@ -131,7 +73,7 @@ sortedMap.collect{
 
 // MAGIC %md 
 // MAGIC #### Conclusion
-// MAGIC From our analysis, we can observe that the `duration_minutes` column has the highest correlation with `trip_distance`, followed by `rate_code_id`, `extra` and `fare_amount` column, which makes sense as the time taken for a trip to complete is directly related to the distance travelled.
+// MAGIC From our analysis, understand the features of importance relative to `duration` column 
 
 // COMMAND ----------
 
@@ -164,36 +106,36 @@ sortedMap.collect{
 import org.apache.spark.ml.feature.StringIndexer
 
 val indexerPickup: org.apache.spark.ml.feature.StringIndexerModel = new StringIndexer()
-                   .setInputCol("pickup_location_id")
-                   .setOutputCol("pickup_location_id_indxd")
-                   .fit(df3)
+                   .setInputCol("pickup_locn_id")
+                   .setOutputCol("pickup_locn_id_indxd")
+                   .fit(baseDF)
 val indexerDropoff: org.apache.spark.ml.feature.StringIndexerModel = new StringIndexer()
-                    .setInputCol("dropoff_location_id")
-                    .setOutputCol("dropoff_location_id_indxd")
-                    .fit(df3)
+                    .setInputCol("dropoff_locn_id")
+                    .setOutputCol("dropoff_locn_id_indxd")
+                    .fit(baseDF)
 val indexerStoreFlag: org.apache.spark.ml.feature.StringIndexerModel =new StringIndexer()
                     .setInputCol("store_and_fwd_flag")
                     .setOutputCol("store_and_fwd_flag_indxd")
-                    .fit(df3)
+                    .fit(baseDF)
 val indexerRatecode: org.apache.spark.ml.feature.StringIndexerModel = new StringIndexer()
                     .setInputCol("rate_code_id")
                     .setOutputCol("rate_code_id_indxd")
-                    .fit(df3)
+                    .fit(baseDF)
 
 val indexedDF: org.apache.spark.sql.DataFrame =indexerPickup.transform(
                    indexerDropoff.transform(
                      indexerStoreFlag.transform(
-                       indexerRatecode.transform(df3))))
+                       indexerRatecode.transform(baseDF))))
 
 // COMMAND ----------
 
 //Before indexing
-display(df3.select("pickup_location_id","dropoff_location_id","store_and_fwd_flag","rate_code_id"))
+display(baseDF.select("pickup_locn_id","dropoff_locn_id","store_and_fwd_flag","rate_code_id"))
 
 // COMMAND ----------
 
 //After indexing
-display(indexedDF.select("pickup_location_id_indxd","dropoff_location_id_indxd","store_and_fwd_flag_indxd","rate_code_id_indxd"))
+display(indexedDF.select("pickup_locn_id_indxd","dropoff_locn_id_indxd","store_and_fwd_flag_indxd","rate_code_id_indxd"))
 
 // COMMAND ----------
 
@@ -206,7 +148,7 @@ display(indexedDF.select("pickup_location_id_indxd","dropoff_location_id_indxd",
 import org.apache.spark.ml.feature.OneHotEncoderEstimator
 
 val encoder: org.apache.spark.ml.feature.OneHotEncoderModel = new OneHotEncoderEstimator()
-  .setInputCols(Array("pickup_location_id_indxd", "dropoff_location_id_indxd","rate_code_id_indxd","store_and_fwd_flag_indxd"))
+  .setInputCols(Array("pickup_locn_id_indxd", "dropoff_locn_id_indxd","rate_code_id_indxd","store_and_fwd_flag_indxd"))
   .setOutputCols(Array("pickup_location_id_encd", "dropoff_location_id_encd","rate_code_id_encd","store_and_fwd_flag_encd"))
   .fit(indexedDF)
 
@@ -231,13 +173,13 @@ display(encodedDF.select("pickup_location_id_encd", "dropoff_location_id_encd","
 import org.apache.spark.ml.feature.VectorAssembler
 import org.apache.spark.ml.linalg.Vectors
 
-val featureCols=Array("pickup_location_id_encd","trip_distance","pickup_hour","pickup_day_of_week","pickup_day_of_month","pickup_week_of_month","pickup_minute","pickup_day","pickup_month","store_and_fwd_flag_encd")
+val featureCols=Array("pickup_location_id_encd","trip_distance","pickup_hour","pickup_day","pickup_day_month","pickup_minute","pickup_weekday","pickup_month","rate_code_id")
 val assembler: org.apache.spark.ml.feature.VectorAssembler= new VectorAssembler()
                 .setInputCols(featureCols)
                 .setOutputCol("features")
 
 val assembledDF = assembler.transform(encodedDF)
-val assembledFinalDF = assembledDF.select("duration_minutes","features")
+val assembledFinalDF = assembledDF.select("duration","features")
 
 // COMMAND ----------
 
@@ -264,7 +206,7 @@ val normalizedDF = new Normalizer()
 
 // COMMAND ----------
 
-display(normalizedDF.select("duration_minutes","normalizedFeatures"))
+display(normalizedDF.select("duration","normalizedFeatures"))
 
 // COMMAND ----------
 
@@ -273,7 +215,7 @@ display(normalizedDF.select("duration_minutes","normalizedFeatures"))
 // COMMAND ----------
 
 import org.apache.spark.ml.feature.StringIndexer
-val labelIndexer = new StringIndexer().setInputCol("duration_minutes").setOutputCol("actual_duration")
+val labelIndexer = new StringIndexer().setInputCol("duration").setOutputCol("duration_indxd_label")
 val transformedDF = labelIndexer.fit(normalizedDF).transform(normalizedDF)
 
 // COMMAND ----------
@@ -282,7 +224,7 @@ val transformedDF = labelIndexer.fit(normalizedDF).transform(normalizedDF)
 
 // COMMAND ----------
 
-display(transformedDF.select("actual_duration","normalizedFeatures"))
+display(transformedDF.select("duration_indxd_label","normalizedFeatures"))
 
 // COMMAND ----------
 
@@ -361,7 +303,7 @@ import org.apache.spark.ml.regression.LinearRegression
 // Create a LinearRegression instance. This instance is an Estimator.
 val lr = new LinearRegression()
 // We may set parameters using setter methods.
-            .setLabelCol("actual_duration")
+            .setLabelCol("duration_indxd_label")
             .setMaxIter(100)
 // Print out the parameters, documentation, and any default values.
 println(s"Linear Regression parameters:\n ${lr.explainParams()}\n")
@@ -380,7 +322,7 @@ val lrPredictions = lrModel.transform(testDS)
 import org.apache.spark.sql.functions._
 import org.apache.spark.sql.types._
 println("\nPredictions : " )
-	lrPredictions.select($"actual_duration".cast(IntegerType),$"prediction".cast(IntegerType)).orderBy(abs($"prediction"-$"actual_duration")).distinct.show(15)
+	lrPredictions.select($"duration_indxd_label".cast(IntegerType),$"prediction".cast(IntegerType)).orderBy(abs($"prediction"-$"duration_indxd_label")).distinct.show(15)
 
 // COMMAND ----------
 
@@ -426,9 +368,9 @@ display(lrModel, testDS, plotType="fittedVsResiduals")
 import org.apache.spark.ml.evaluation.RegressionEvaluator
 val evaluator_r2 = new RegressionEvaluator()
                 .setPredictionCol("prediction")
-                .setLabelCol("actual_duration")
-//The metric we select for evaluation is the coefficient of determination
+                .setLabelCol("duration_indxd_label")//The metric we select for evaluation is the coefficient of determination
                 .setMetricName("r2")
+
 //As the name implies, isLargerBetter returns if a larger value is better or smaller for evaluation.
 val isLargerBetter : Boolean = evaluator_r2.isLargerBetter
 println("Coefficient of determination = " + evaluator_r2.evaluate(lrPredictions))
@@ -437,7 +379,7 @@ println("Coefficient of determination = " + evaluator_r2.evaluate(lrPredictions)
 //Evaluate the results. Calculate Root Mean Square Error
 val evaluator_rmse = new RegressionEvaluator()
                 .setPredictionCol("prediction")
-                .setLabelCol("actual_duration")
+                .setLabelCol("duration_indxd_label")
 //The metric we select for evaluation is RMSE
                 .setMetricName("rmse")
 //As the name implies, isLargerBetter returns if a larger value is better for evaluation.
@@ -468,7 +410,7 @@ import org.apache.spark.ml.evaluation.RegressionEvaluator
 
 //Create the model
 val rf = new RandomForestRegressor()
-                    .setLabelCol("actual_duration")
+                    .setLabelCol("duration_indxd_label")
                     .setFeaturesCol("features")
 //Number of trees in the forest
                     .setNumTrees(100)
@@ -487,7 +429,7 @@ val rfPredictions = rfModel.transform(testDS)
 // COMMAND ----------
 
 println("\nPredictions :")
-rfPredictions.select($"actual_duration".cast(IntegerType),$"prediction".cast(IntegerType)).orderBy(abs($"actual_duration"-$"prediction")).distinct.show(15)
+rfPredictions.select($"duration_indxd_label".cast(IntegerType),$"prediction".cast(IntegerType)).orderBy(abs($"duration_indxd_label"-$"prediction")).distinct.show(15)
 
 // COMMAND ----------
 
@@ -498,13 +440,13 @@ rfPredictions.select($"actual_duration".cast(IntegerType),$"prediction".cast(Int
 import org.apache.spark.ml.evaluation.RegressionEvaluator
 val evaluator_r2 = new RegressionEvaluator()
                .setPredictionCol("prediction")
-               .setLabelCol("actual_duration")
+               .setLabelCol("duration_indxd_label")
                .setMetricName("r2")
 println("Coefficient Of determination = " + evaluator_r2.evaluate(rfPredictions))
 
 val evaluator_rmse = new RegressionEvaluator()
                .setPredictionCol("prediction")
-               .setLabelCol("actual_duration")
+               .setLabelCol("duration_indxd_label")
                .setMetricName("rmse")
 println("RMSE = " + evaluator_rmse.evaluate(rfPredictions))
 
@@ -518,7 +460,7 @@ println("RMSE = " + evaluator_rmse.evaluate(rfPredictions))
 
 // COMMAND ----------
 
-// MAGIC %md ### 8. Persist model decided on
+// MAGIC %md ### 8. Persist model chosen
 // MAGIC Since Apache Spark 2.0, we also have model persistence, i.e the ability to save and load models. Spark’s Machine Learning library MLlib include near-complete support for ML persistence in the DataFrame-based API. Key features of ML persistence include:
 // MAGIC 
 // MAGIC - Support for all language APIs in Spark: Scala, Java, Python & R
@@ -527,3 +469,15 @@ println("RMSE = " + evaluator_rmse.evaluate(rfPredictions))
 // MAGIC - Distributed storage using an exchangeable format
 // MAGIC 
 // MAGIC We can save a single model that can be shared between workspaces, notebooks and languages. To demonstrate this, we will save our trained Random Forest Algorithm to Azure Blob Storage so we can access it in the future without having to train the model again.
+
+// COMMAND ----------
+
+//Destination directory to persist model
+val modelDirectoryPath = "/mnt/workshop/consumption/nyctaxi/model/duration-pred/" 
+//Delete any residual data from prior executions for an idempotent run
+dbutils.fs.rm(destDataDirRoot,recurse=true)
+
+// COMMAND ----------
+
+//Persist model
+rfModel.save(modelDirectoryPath)
