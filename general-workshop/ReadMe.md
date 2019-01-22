@@ -61,5 +61,6 @@ Anagha Khanolkar (Chicago) - workshop design, content, Scala code, primer in Pyt
 Ryan Murphy (St Louis) - contribution to the data engineering workshop transformation rules, schema and more<br>
 Rajdeep Biswas (Houston) - writing the entire Python version of the data engineering lab I deveoped in Scala<br>
 Steve Howard (St Louis) - contributing to the Python version of the data engineering lab<br>
-Parashar Shah (Redmond) - sharing samples with Anagha for learning Azure Machine Learning service integration<br>
+Nishant Thacker (Redmond) - contributing the data science lab content in Scala<br>
+Erik Zwiefel (Minneapolis) - contributing the data science lab version in Python and the Azure Machie Learning service integration for operationalization of the model as a REST service 
 
