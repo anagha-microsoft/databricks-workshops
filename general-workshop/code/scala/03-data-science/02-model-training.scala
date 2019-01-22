@@ -173,7 +173,7 @@ display(encodedDF.select("pickup_location_id_encd", "dropoff_location_id_encd","
 import org.apache.spark.ml.feature.VectorAssembler
 import org.apache.spark.ml.linalg.Vectors
 
-val featureCols=Array("pickup_location_id_encd","trip_distance","pickup_hour","pickup_day","pickup_day_month","pickup_minute","pickup_weekday","pickup_month","rate_code_id")
+val featureCols=Array("pickup_location_id_encd","trip_distance","pickup_hour","pickup_day","pickup_day_month","pickup_minute","pickup_weekday","pickup_month","rate_code_id_encd")
 val assembler: org.apache.spark.ml.feature.VectorAssembler= new VectorAssembler()
                 .setInputCols(featureCols)
                 .setOutputCol("features")
