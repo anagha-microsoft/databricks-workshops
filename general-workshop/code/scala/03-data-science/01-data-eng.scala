@@ -38,8 +38,8 @@
 // COMMAND ----------
 
 //1.  Source, destination directories
-val srcDataAbsPathTrips = "/mnt/workshop/staging/model-related/NYC_Cab.csv" 
-val destDataDirRootTrips = "/mnt/workshop/raw/nyctaxi/model-transactions/trips/" 
+val srcDataAbsPathTrips = "/mnt/workshop/staging/model-related/yellow-trips/yellow_tripdata_2017-*.csv" 
+val destDataDirRootTrips = "/mnt/workshop/raw/nyctaxi/model-transactions/trips/"
 
 // COMMAND ----------
 
@@ -53,39 +53,53 @@ display(stagedTripsDF)
 //3.  Typecasting columns and renaming
 //All the data is of string datatype
 //Lets cast it appropriately
+
 import org.apache.spark.sql.types._
-val tripsCastedRenamedTripsDF=stagedTripsDF.select($"tripID" as "trip_id",
-                               $"VendorID" as "vendor_id",
-                               $"tpep_pickup_datetime".cast(TimestampType) as "pickup_timestamp",
-                               $"tpep_dropoff_datetime".cast(TimestampType) as "dropoff_timestamp",
-                               $"passenger_count".cast(IntegerType),
-                               $"trip_distance".cast(DoubleType),
-                               $"RatecodeID" as "rate_code_id",
-                               $"store_and_fwd_flag",
-                               $"PULocationID" as "pickup_locn_id",
-                               $"DOLocationID" as "dropoff_locn_id",
-                               $"payment_type".cast(IntegerType))
+import org.apache.spark.sql.functions._
+
+val formattedDF1=stagedTripsDF.select($"*", 
+                                  $"tpep_pickup_datetime".cast(TimestampType).alias("pickup_time"),
+                                  $"tpep_dropoff_datetime".cast(TimestampType).alias("dropoff_time"),
+                                  $"fare_amount".cast(DoubleType).alias("fare"))
+                                .drop("tpep_pickup_datetime","tpep_dropoff_datetime","","fare_amount")
+
+// COMMAND ----------
+
+val formattedDF2=formattedDF1.select($"pickup_time",
+                                     $"dropoff_time",
+                                     $"dropoff_time".cast(LongType).alias("dropoff_time_long"),
+                                     $"trip_distance".cast(DoubleType),
+                                     $"PULocationID".cast(IntegerType).alias("pickup_locn_id"),
+                                     $"DOLocationID".cast(IntegerType).alias("dropoff_locn_id"),
+                                     $"RatecodeID".cast(IntegerType).alias("rate_code_id"),
+                                     $"store_and_fwd_flag",
+                                     $"payment_type".cast(IntegerType),
+                                     $"fare",$"extra".cast(DoubleType))
+.withColumn("duration",unix_timestamp($"dropoff_time")-unix_timestamp($"pickup_time"))
+.withColumn("pickup_hour",hour($"pickup_time"))
+.withColumn("pickup_day",dayofweek($"pickup_time"))
+.withColumn("pickup_day_month",dayofmonth($"pickup_time"))
+.withColumn("pickup_minute",minute($"pickup_time"))
+.withColumn("pickup_weekday",weekofyear($"pickup_time"))
+.withColumn("pickup_month",month($"pickup_time"))
+.filter($"fare">0 || $"duration">0 || $"fare"<5000)
+.drop("pickup","dropoff_time","pickup_time")
 
 // COMMAND ----------
 
 //4.  Dataset review 1 - display
-display(tripsCastedRenamedTripsDF)
-
-// COMMAND ----------
-
-//5.  Dataset review 2 - schema recap
-tripsCastedRenamedTripsDF.printSchema
+display(formattedDF2)
 
 // COMMAND ----------
 
 //6.  Dataset review 3 - descriptive statistics
-tripsCastedRenamedTripsDF.describe().show()
+formattedDF2.describe().show()
 
 // COMMAND ----------
 
 //7.  Now that we have a decent idea, lets persist to the raw information zone as parquet - a more space and query-efficient persistence format
 import org.apache.spark.sql.SaveMode
-tripsCastedRenamedTripsDF.coalesce(2).write.mode(SaveMode.Overwrite).save(destDataDirRootTrips)
+formattedDF2.coalesce(2).write.mode(SaveMode.Overwrite).save(destDataDirRootTrips)
 
 // COMMAND ----------
 
@@ -125,384 +139,3 @@ dbutils.fs.ls(destDataDirRootTrips + "/").foreach((i: FileInfo) => if (!(i.path 
 
 // MAGIC %sql
 // MAGIC select * from taxi_db.model_raw_trips
-
-// COMMAND ----------
-
-// MAGIC %md 
-// MAGIC ### 1.2. Load trip fares dataset
-
-// COMMAND ----------
-
-//1.  Source, destination directories
-val srcDataAbsPathFares = "/mnt/workshop/staging/model-related/NYC_Fares.csv" 
-val destDataDirRootFares = "/mnt/workshop/raw/nyctaxi/model-transactions/fares/" 
-
-// COMMAND ----------
-
-//2.  Load from source into dataframe
-val stagedFaresDF = spark.read.option("header","true").csv(srcDataAbsPathFares)
-stagedFaresDF.count
-display(stagedFaresDF)
-
-// COMMAND ----------
-
-//3.  Typecasting columns and renaming
-//All the data is of string datatype
-//Lets cast it appropriately
-import org.apache.spark.sql.types._
-val tripsCastedRenamedFaresDF=stagedFaresDF.select($"tripID" as "trip_id",
-                               $"fare_amount".cast(FloatType),
-                               $"extra".cast(FloatType),
-                               $"mta_tax".cast(FloatType),
-                               $"tip_amount".cast(FloatType),
-                               $"tolls_amount".cast(FloatType),
-                               $"improvement_surcharge".cast(FloatType),
-                               $"total_amount".cast(FloatType))
-
-// COMMAND ----------
-
-//4.  Dataset review 1 - display
-display(tripsCastedRenamedFaresDF)
-
-// COMMAND ----------
-
-display(tripsCastedRenamedFaresDF)
-
-// COMMAND ----------
-
-//5.  Dataset review 2 - schema recap
-tripsCastedRenamedFaresDF.printSchema
-
-// COMMAND ----------
-
-//6.  Dataset review 3 - descriptive statistics
-tripsCastedRenamedFaresDF.describe().show()
-
-// COMMAND ----------
-
-//7.  Now that we have a decent idea, lets persist to the raw information zone as parquet - a more space and query-efficient persistence format
-import org.apache.spark.sql.SaveMode
-tripsCastedRenamedFaresDF.coalesce(1).write.mode(SaveMode.Overwrite).save(destDataDirRootFares)
-
-// COMMAND ----------
-
-//8. Display file system to check file size - ensure you have at least 128 MB files or close
-display(dbutils.fs.ls(destDataDirRootFares))
-
-// COMMAND ----------
-
-//9) Delete residual files from job operation (_SUCCESS, _start*, _committed*)
-import com.databricks.backend.daemon.dbutils.FileInfo
-dbutils.fs.ls(destDataDirRootFares + "/").foreach((i: FileInfo) => if (!(i.path contains "parquet")) dbutils.fs.rm(i.path))
-
-// COMMAND ----------
-
-// MAGIC %md
-// MAGIC //10.  Create external hive table, compute statistics
-
-// COMMAND ----------
-
-// MAGIC %sql
-// MAGIC CREATE DATABASE IF NOT EXISTS taxi_db;
-// MAGIC USE taxi_db;
-// MAGIC 
-// MAGIC DROP TABLE IF EXISTS model_raw_fares;
-// MAGIC CREATE TABLE IF NOT EXISTS model_raw_fares
-// MAGIC USING parquet
-// MAGIC OPTIONS (path "/mnt/workshop/raw/nyctaxi/model-transactions/fares/");
-// MAGIC --USING org.apache.spark.sql.parquet
-// MAGIC 
-// MAGIC ANALYZE TABLE model_raw_trips COMPUTE STATISTICS;
-
-// COMMAND ----------
-
-// MAGIC %md
-// MAGIC //11. Review table data
-
-// COMMAND ----------
-
-// MAGIC %sql
-// MAGIC select * from taxi_db.model_raw_fares
-
-// COMMAND ----------
-
-// MAGIC %md ### 2. Curate
-
-// COMMAND ----------
-
-// MAGIC %md #### 2.1. Fares | Outlier detection and handling/replacing ##
-// MAGIC 
-// MAGIC The line chart of the "fares" DataFrame shows several trips for which  `fare_amount` is $600-700, which is implausible in the real world. These data points are considered outliers; they are highly abnormal values. There are several ways to calculate what values constitute an outlier. In this scenario, consider a normal fare amount to be defined as between $0-100. Any amount above $100 will be considered an outlier. One way of managing outliers is replacing the aberrant values with the average value of the data points across the whole dataset. 
-
-// COMMAND ----------
-
-tripsCastedRenamedFaresDF.describe().show()
-
-// COMMAND ----------
-
-//1.  Replace fare outliers with mean of valid fares
-import org.apache.spark.sql.functions._
-//DF for fares - exclude fares less than 1
-val faresDF = tripsCastedRenamedFaresDF.filter($"fare_amount">0)
-//Filter the data to get rows without the outliers
-val filteredFaresDF=faresDF.filter($"fare_amount"<=100)
-//Calculate average fare for all the valid fares (only)
-val mean=filteredFaresDF.agg(avg($"fare_amount")).first.getDouble(0)
-//Insert average fare in place of outliers
-val correctFaresDF=faresDF.select($"*", when($"fare_amount">100, mean).otherwise($"fare_amount").alias("fare"))
-                          .drop($"fare_amount").withColumnRenamed("fare","fare_amount")
-
-// COMMAND ----------
-
-// MAGIC   %md  Since the `fare_amount` has been modified for several trips, all fields that are dependent on `fare_amount` need to be recalculated. In this scenario, `total_amount` is the sum of the base `fare_amount` and various other surcharges(tolls, tips etc.)
-
-// COMMAND ----------
-
-//2.  Calculate and augment dataset with a new column called total as a sum of all teh ride related monetary attributes
-val cleansedDF=correctFaresDF.withColumn("total",$"fare_amount"+$"extra"+$"mta_tax"+$"tip_amount"+$"tolls_amount"+$"tip_amount"+$"improvement_surcharge").drop("total_amount").withColumnRenamed("total","total_amount")
-
-// COMMAND ----------
-
-// MAGIC %md After removing the outliers, a visualization of the dataset should show no egregious outliers. No negative value for fare amout, or in 1000s for that matter
-
-// COMMAND ----------
-
-//3.  Lets review status now-> after removing the outliers, a visualization of the dataset should show no egregious outliers. No negative value for fare amout, or in 1000s for that matter
-cleansedDF.describe("fare_amount").show()
-
-// COMMAND ----------
-
-display(cleansedDF)
-
-// COMMAND ----------
-
-//4.  Lets persist to the curated zone
-val destinationDirRootFaresCurated = "/mnt/workshop/curated/nyctaxi/model-transactions/fares/"
-cleansedDF.coalesce(1).write.mode(SaveMode.Overwrite).save(destinationDirRootFaresCurated)
-
-// COMMAND ----------
-
-//5. Display file system to check file size - ensure you have at least 128 MB files or close
-display(dbutils.fs.ls(destinationDirRootFaresCurated))
-
-// COMMAND ----------
-
-//6. Delete residual files from job operation (_SUCCESS, _start*, _committed*)
-import com.databricks.backend.daemon.dbutils.FileInfo
-dbutils.fs.ls(destinationDirRootFaresCurated + "/").foreach((i: FileInfo) => if (!(i.path contains "parquet")) dbutils.fs.rm(i.path))
-
-// COMMAND ----------
-
-// MAGIC %md
-// MAGIC //7. Create hive table and compute statistics
-
-// COMMAND ----------
-
-// MAGIC %sql
-// MAGIC CREATE DATABASE IF NOT EXISTS taxi_db;
-// MAGIC USE taxi_db;
-// MAGIC 
-// MAGIC DROP TABLE IF EXISTS model_curated_fares;
-// MAGIC CREATE TABLE IF NOT EXISTS model_curated_fares
-// MAGIC USING parquet
-// MAGIC OPTIONS (path "/mnt/workshop/curated/nyctaxi/model-transactions/fares/");
-// MAGIC --USING org.apache.spark.sql.parquet
-// MAGIC 
-// MAGIC ANALYZE TABLE model_curated_fares COMPUTE STATISTICS;
-
-// COMMAND ----------
-
-// MAGIC %md
-// MAGIC //8. Query
-
-// COMMAND ----------
-
-// MAGIC %sql
-// MAGIC select * from taxi_db.model_curated_fares
-
-// COMMAND ----------
-
-// MAGIC %md #### 2.2. Trips | Cleansing, outlier detection and handling/replacing ##
-
-// COMMAND ----------
-
-//1.  Review
-
-// COMMAND ----------
-
-tripsCastedRenamedTripsDF.describe().show()
-
-// COMMAND ----------
-
-display(tripsCastedRenamedTripsDF)
-
-// COMMAND ----------
-
-// MAGIC %md The bar chart of the trips DataFrame indicates missing points and gaps in the pickup times and passenger counts. Performing a simple filter operation to check for null and corrupt records will help verify the cause of these irregularities. 
-
-// COMMAND ----------
-
-//Filtering for records that have pickup and drop time as null
-val nullRecordsDF=tripsCastDF.filter($"tpep_pickup_datetime".isNull or $"tpep_dropoff_datetime".isNull)
-val nullRecordsCount=nullRecordsDF.count
-
-// COMMAND ----------
-
-// MAGIC %md The commands indicate there are a signficant number of records where the pickup/dropoff time is null. Dealing with null data can vary from case to case. In this tutorial, we will consider these null values to be corrupt. The data cleaning process will consist of removing these corrupt records.
-
-// COMMAND ----------
-
-//Filtering out records where pickup and dropoff date is null
-val filterTripsDF=tripsCastDF.filter($"tpep_pickup_datetime".isNotNull or $"tpep_dropoff_datetime".isNotNull)
-
-// COMMAND ----------
-
-// MAGIC %md ##DIY: Perform cleaning on this dataset for records where passenger count is 0
-
-// COMMAND ----------
-
-// MAGIC %md Visualize the data again and display the passenger count.
-
-// COMMAND ----------
-
-display(filterTripsDF)
-
-// COMMAND ----------
-
-// MAGIC %md 
-// MAGIC Filter and count the number of corrupt records. Corrupt records are the ones where `passenger_count` is equal to 0
-
-// COMMAND ----------
-
-//Filtering for records that have passenger count as zero
-val zeroPassengersDF=filterTripsDF.filter($"passenger_count"===0)
-val zeroPassengersCount=zeroPassengersDF.count
-
-// COMMAND ----------
-
-// MAGIC %md Now, generate the DataFrame `filteredTripsDF` that does not have these corrupt records.
-
-// COMMAND ----------
-
-val filteredTripsDF=filterTripsDF.filter($"passenger_count"=!=0)
-
-// COMMAND ----------
-
-// MAGIC %md Validate your process by counting the number of clean and dirty records. The total records count should match the initial DataFrame count
-
-// COMMAND ----------
-
-val cleanRecordsCount=filteredTripsDF.count
-val totalRecordsCount=cleanRecordsCount+zeroPassengersCount+nullRecordsCount
-
-// COMMAND ----------
-
-// MAGIC %md Run the following cell to test your solution
-
-// COMMAND ----------
-
- if (totalRecordsCount == blobCount) "Validated!" else "No"
-
-// COMMAND ----------
-
-// MAGIC %md If you are not able to get the correct result you can go to `Cmd 84` and `85` at the end of the notebook to view the answers
-
-// COMMAND ----------
-
-//RUN THIS CELL TO LOAD THE VALIDATION RESULTS
-val resultFromBlob= spark.read.option("header","true").csv(s"wasbs://$containerName@$storageAccountName.blob.core.windows.net/nycTaxiResult.csv")
-
-// COMMAND ----------
-
-// MAGIC %md
-// MAGIC 
-// MAGIC ## Performing Operations on the Data &mdash; Formatting
-
-// COMMAND ----------
-
-// MAGIC %md
-// MAGIC 
-// MAGIC Once a dataset has been loaded, it's common to perform some preprocessing before proceeding to analyze it. 
-// MAGIC 
-// MAGIC Spark SQL's Dataset API comes with a standard library of functions called [standard functions](http://spark.apache.org/docs/latest/api/scala/index.html#org.apache.spark.sql.functions$) that allow for data manipulation. These, as well as  column-based operators like `select` or `withColumn` provide the tools to undertake the necessary transformations for data analysis.
-
-// COMMAND ----------
-
-// MAGIC %md ## Use Case: Categorize Users by *time of day* when Trip is Taken
-// MAGIC Extract the Hour of Day from the timestamp and categorize them into 
-// MAGIC - Trips taken between 0000 hours to 1200 hours.
-// MAGIC - Trips taken between 1200 hours to 2400 hours.
-// MAGIC We will use in-built Spark functions to filter the Months and Hours and then perform a groupBy operation to get a count of users across 4 quarters of the day.
-
-// COMMAND ----------
-
-// MAGIC %md
-// MAGIC ### Built-In Functions
-// MAGIC 
-// MAGIC Spark provides a number of <a href="https://spark.apache.org/docs/latest/api/scala/index.html#org.apache.spark.sql.functions$" target="_blank">built-in functions</a>, many of which can be used directly with DataFrames.  Use these functions in the `filter` expressions to filter data and in `select` expressions to create derived columns.
-// MAGIC 
-// MAGIC 
-// MAGIC #### Splitting timestamps into separate columns with date, year and month
-// MAGIC 
-// MAGIC The standard functions for working with dates:
-// MAGIC 
-// MAGIC * `dayofmonth`
-// MAGIC * `year`
-// MAGIC * `weekofyear`
-// MAGIC * `quarter`
-// MAGIC * `month`
-// MAGIC * `minute`
-
-// COMMAND ----------
-
-// Using Inbuilt functions to extract Hours from timestamp and categorizing them according to quarters
-import org.apache.spark.sql.functions._
-val timeCategoryDF=filteredTripsDF.withColumn("tripHour", hour(col("tpep_pickup_datetime")))
-                                  .withColumn("quarterlyTime", when($"tripHour".geq(lit(0)) and $"tripHour".lt(lit(4)),"0to4").when($"tripHour".geq(lit(4)) and $"tripHour".lt(lit(8)),"4to8").when($"tripHour".geq(lit(8)) and $"tripHour".lt(lit(12)),"8to12").when($"tripHour".geq(lit(12)) and $"tripHour".lt(lit(16)),"12to16").when($"tripHour".geq(lit(16)) and $"tripHour".lt(lit(20)),"16to20").when($"tripHour".geq(lit(20)) and $"tripHour".lt(lit(24)),"16to24"))
-
-// COMMAND ----------
-
-val countByTimeOfDayDF=timeCategoryDF.groupBy("quarterlyTime").count
-
-// COMMAND ----------
-
-// MAGIC %md To better understand the data, visualize the results. 
-
-// COMMAND ----------
-
-display(countByTimeOfDayDF)
-
-// COMMAND ----------
-
-// MAGIC %md ## DIY: Extract Date of Month from Timestamp and append to DataFrame as seperate column having name `DateOfTrip`
-
-// COMMAND ----------
-
-// MAGIC %md ###### Fill the commented //TO-FILL with your query and run the cell and then validate the result running by next cell 
-// MAGIC for example : val tripsWithDF= //TO-FILL  to  val tripsWithDF= trips.select("tripID")
-
-// COMMAND ----------
-
-// MAGIC %md Use the Spark `withColumn` function to add a new column to our Trips DataFrame. The values for the new column are to be extracted from the `tpep_pickup_datetime` column. Use the inbuilt Spark functions to extract the date of month from the timestamp value.
-
-// COMMAND ----------
-
-// MAGIC %md
-// MAGIC ![wc](https://i.ibb.co/wzZ7sx4/dfwithcolumn.png)
-
-// COMMAND ----------
-
-// MAGIC %md HINT: We can use in-built Spark functions to extract day of month from a column of type Timestamp. 
-
-// COMMAND ----------
-
-def extractDayDF(): org.apache.spark.sql.DataFrame ={  
-   
-val tripsWithDayOfMonthDF= filteredTripsDF.withColumn("DateOfTrip",dayofmonth($"tpep_pickup_datetime"))
-    
-   return(tripsWithDayOfMonthDF);
-}
-
-// COMMAND ----------
-
-// MAGIC %md Run the following to validate your solution

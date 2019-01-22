@@ -8,7 +8,8 @@
 [4.  Azure SQL Database](module-1/03-Azure-SQL-Database-Lab.md)<br> 
 [5.  Azure SQL Datawarehouse](module-1/04-Azure-SQL-DW-Lab.md)<br> 
 [6.  Azure Cosmos DB](module-1/05-Azure-Cosmos-DB-Lab.md)<br> 
-[7.  Azure Data Factory v2](module-1/06-Azure-Data-Factory-v2-Lab.md)<br> 
+[7.  Azure Data Factory v2](module-1/06-Azure-Data-Factory-v2-Lab.md)<br>
+[8.  Azure Key Vault](module-1/07-Azure-Key-Vault-Lab.md)<br> 
 
 ## Module 2: Data Engineering - Primer
 
