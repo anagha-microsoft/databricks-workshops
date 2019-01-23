@@ -1,5 +1,5 @@
 # Databricks notebook source
-# MAGIC %run "./00-Shared-Functions"
+# MAGIC %run "./00-Shared-Functions-and-Settings"
 
 # COMMAND ----------
 
