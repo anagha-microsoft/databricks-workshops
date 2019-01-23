@@ -65,19 +65,17 @@ def mountStorageContainer(storageAccount, storageAccountKey, storageContainer, b
     # If this errors, safe to assume that the container is not mounted
     print("....Container is not mounted; Attempting mounting now..")
     
-    # Mount the storage container
-    mountStatus = dbutils.fs.mount(
-    source = "wasbs://" + storageContainer + "@" + storageAccount + ".blob.core.windows.net/",
-    mount_point = blobMountPoint,
-    extra_configs = {"fs.azure.account.key." + storageAccount + ".blob.core.windows.net": storageAccountKey})
+  # Mount the storage container
+  mountStatus = dbutils.fs.mount(
+                  source = "wasbs://" + storageContainer + "@" + storageAccount + ".blob.core.windows.net/",
+                  mount_point = blobMountPoint,
+                  extra_configs = {"fs.azure.account.key." + storageAccount + ".blob.core.windows.net": storageAccountKey})
 
-    print("....Status of mount is: " + str(mountStatus))
+  print("....Status of mount is: " + str(mountStatus))
 
 # COMMAND ----------
 
 # Mount the various storage containers created
-
-# mountStorageContainer(storageAccountName,storageAccountAccessKey,"demo","/mnt/workshop/demo")
 mountStorageContainer(storageAccountName,storageAccountAccessKey,"scratch","/mnt/workshop/scratch")
 mountStorageContainer(storageAccountName,storageAccountAccessKey,"staging","/mnt/workshop/staging")
 mountStorageContainer(storageAccountName,storageAccountAccessKey,"raw","/mnt/workshop/raw")
