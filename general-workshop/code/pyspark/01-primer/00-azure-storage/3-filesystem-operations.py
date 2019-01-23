@@ -25,7 +25,7 @@
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC ### 1.0.1. Create a directory if it does not exist
+# MAGIC ### 1.0.1. List contents of the scratch directory
 
 # COMMAND ----------
 
