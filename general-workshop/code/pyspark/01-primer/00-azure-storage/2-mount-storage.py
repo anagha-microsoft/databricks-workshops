@@ -58,7 +58,7 @@ dbutils.fs.mount(
 # This is a function to mount a storage container
 def mountStorageContainer(storageAccount, storageAccountKey, storageContainer, blobMountPoint):
   try:
-    print("Mounting ",storageContainer, "to ", blobMountPoint, ":")
+    print("Mounting {0} to {1}:".format(storageContainer, blobMountPoint))
     # Unmount the storage container if already mounted
     dbutils.fs.unmount(blobMountPoint)
   except Exception as e:
@@ -67,11 +67,12 @@ def mountStorageContainer(storageAccount, storageAccountKey, storageContainer, b
     
   # Mount the storage container
   mountStatus = dbutils.fs.mount(
-                  source = "wasbs://" + storageContainer + "@" + storageAccount + ".blob.core.windows.net/",
+                  source = "wasbs://{0}@{1}.blob.core.windows.net/".format(storageContainer, storageAccount),
                   mount_point = blobMountPoint,
-                  extra_configs = {"fs.azure.account.key." + storageAccount + ".blob.core.windows.net": storageAccountKey})
+                  extra_configs = {"fs.azure.account.key.{0}.blob.core.windows.net".format(storageAccount): storageAccountKey})
 
   print("....Status of mount is: " + str(mountStatus))
+  print() # Provide a blank line between mounts
 
 # COMMAND ----------
 
