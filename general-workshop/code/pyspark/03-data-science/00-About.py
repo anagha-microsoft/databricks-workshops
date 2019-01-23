@@ -4,9 +4,9 @@
 # MAGIC ![](http://www.nyc.gov/html/tlc/images/features/fi_about_photo_trip_records.png)
 # MAGIC 
 # MAGIC # About this Tutorial #  
-# MAGIC The goal of this tutorial us to help you understand the capabilities and features of Azure Spark MLlib for machine learning (ML).  
+# MAGIC The goal of this tutorial us to help you understand the capabilities and features of Azure Databricks Spark MLlib for machine learning (ML) and how to leverage [Azure Machine Learning Service](https://docs.microsoft.com/en-us/azure/machine-learning/service/) with Azure Databricks.  
 # MAGIC 
-# MAGIC ##### We will use the publicly available [NYC Taxi Trip Record](http://www.nyc.gov/html/tlc/html/about/trip_record_data.shtml) from the data engineering workshop from yesterday. 
+# MAGIC ##### We will use the publicly available [NYC Taxi Trip Record](http://www.nyc.gov/html/tlc/html/about/trip_record_data.shtml) from the data engineering portion of the workshop. 
 # MAGIC 
 # MAGIC The end-to-end process for building and refining a machine learning model can be quite involved. The major steps inlcude the following:
 # MAGIC - Acquiring the data from a data source.
@@ -42,7 +42,7 @@
 
 # MAGIC %md
 # MAGIC # Azure Machine Learning Services
-# MAGIC In this lab, we'll be using [Azure Machine Learning Service](https://docs.microsoft.com/en-us/azure/machine-learning/service/) to track experiments and deploy our model as a Rest API via [Azure Container Instances](https://docs.microsoft.com/en-us/azure/container-instances/) for test purposes, but in production you would likely use [Azure Kubernetes Service (AKS)](https://docs.microsoft.com/en-us/azure/aks/).
+# MAGIC In this lab, we'll be using Azure Machine Learning Service to track experiments and deploy our model as a Rest API via [Azure Container Instances](https://docs.microsoft.com/en-us/azure/container-instances/) for test purposes, but in production you would likely use [Azure Kubernetes Service (AKS)](https://docs.microsoft.com/en-us/azure/aks/).
 # MAGIC 
 # MAGIC ![](https://docs.microsoft.com/en-us/azure/machine-learning/service/media/overview-what-is-azure-ml/aml.png)
 # MAGIC 
@@ -50,6 +50,13 @@
 # MAGIC 
 # MAGIC 
 # MAGIC ![](https://docs.microsoft.com/en-us/azure/machine-learning/service/media/concept-azure-machine-learning-architecture/azure-machine-learning-taxonomy.png)
+
+# COMMAND ----------
+
+# MAGIC %md
+# MAGIC # Scenario
+# MAGIC 
+# MAGIC One of the largest taxi companies in New York is looking to predict a trips duration at the time of hail or when a rider calls in to order taxi service. They've looked into other solutions - such as mapping and traffic based APIs, but since this is a Spark and Machine Learning workshop they'll be experimenting using machine learning to predict a trip's duration. 
 
 # COMMAND ----------
 
