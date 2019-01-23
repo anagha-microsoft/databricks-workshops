@@ -99,14 +99,6 @@ assert(goodRowCount == 0) # Using an assert statement to raise an error if other
 
 # COMMAND ----------
 
-
-
-# COMMAND ----------
-
-
-
-# COMMAND ----------
-
 # MAGIC %md
 # MAGIC ### 1.2. What Data is Available at the time of booking?
 # MAGIC 
@@ -226,7 +218,17 @@ display(tripData)
 
 # MAGIC %md
 # MAGIC ### 2.2 Other feature engineering?
-# MAGIC There may be other features that we could engineer here for the development 
+# MAGIC There may be other features that we could engineer here, but for this lab we'll skip other feature engineering / exploration
 
 # COMMAND ----------
 
+# MAGIC %md
+# MAGIC ## 3. Moving to another notebook
+# MAGIC Now, we'll take the dataframe we created here and "transfer" it to another notebook. We can do that through the SparkSQL API by registering a temporary view. 
+
+# COMMAND ----------
+
+# Overwrite with your own name here... 
+temp_view_name = "model_dataset_erik_zwiefel"
+
+tripData.createOrReplaceTempView(temp_view_name)
