@@ -94,12 +94,6 @@ sourceDF.coalesce(2).write.parquet(dbfsDestDirPath)
 
 # COMMAND ----------
 
-# 6) Delete residual files from job operation (_SUCCESS, _start*, _committed*)
-# import com.databricks.backend.daemon.dbutils.FileInfo
-# dbutils.fs.ls(dbfsDestDirPath + "/").foreach((i: FileInfo) => if (!(i.path contains "parquet")) dbutils.fs.rm(i.path))
-
-# COMMAND ----------
-
 display(dbutils.fs.ls(dbfsDestDirPath))
 
 # COMMAND ----------
@@ -119,7 +113,6 @@ display(dbutils.fs.ls(dbfsDestDirPath))
 # MAGIC CREATE TABLE IF NOT EXISTS chicago_crimes_raw
 # MAGIC USING parquet
 # MAGIC OPTIONS (path "/mnt/workshop/raw/crimes/chicago-crimes");
-# MAGIC --USING org.apache.spark.sql.parquet
 # MAGIC 
 # MAGIC ANALYZE TABLE chicago_crimes_raw COMPUTE STATISTICS;
 
@@ -148,36 +141,38 @@ display(dbutils.fs.ls(dbfsDestDirPath))
 # 1) Read and curate
 # Lets add some temporal attributes that can help us analyze trends over time
 
-import org.apache.spark.sql.functions.to_timestamp
-import org.apache.spark.sql.types.{StructType, StructField, StringType, IntegerType,LongType,FloatType,DoubleType, TimestampType, DecimalType}
+#from pyspark.sql.types import StructType, StructField, StringType, IntegerType,LongType,FloatType,DoubleType, TimestampType, DecimalType
+#from pyspark.sql.functions import to_timestamp, year, month, dayofmonth, udf
 
-val to_timestamp_func = to_timestamp($"case_dt_tm", "MM/dd/yyyy hh:mm:ss")
+def getDayNameFromWeekdayNbr(weekday):
+    if weekday == 0:
+        return "Monday"
+    if weekday == 1:
+        return "Tuesday"
+    if weekday == 2:
+        return "Wednesday"
+    if weekday == 3:
+        return "Thursday"
+    if weekday == 4:
+        return "Friday"
+    if weekday == 5:
+        return "Saturday"
+    if weekday == 6:
+        return "Sunday"
 
-rawDF = spark.sql("select * from crimes_db.chicago_crimes_raw")
-curatedDF = rawDF.withColumn("case_timestamp",to_timestamp_func)
-                      .withColumn("case_month", month(col("case_timestamp")))
-                      .withColumn("case_day_of_month", dayofmonth(col("case_timestamp")))
-                      .withColumn("case_hour", hour(col("case_timestamp")))
-                      .withColumn("case_day_of_week_nbr", dayofweek(col("case_timestamp")))
-                      .withColumn("case_day_of_week_name", when(col("case_day_of_week_nbr") === lit(1), "Sunday")
-                                                          .when(col("case_day_of_week_nbr") === lit(2), "Monday")
-                                                          .when(col("case_day_of_week_nbr") === lit(3), "Tuesday")
-                                                          .when(col("case_day_of_week_nbr") === lit(4), "Wednesday")
-                                                          .when(col("case_day_of_week_nbr") === lit(5), "Thursday")
-                                                          .when(col("case_day_of_week_nbr") === lit(6), "Friday")
-                                                          .when(col("case_day_of_week_nbr") === lit(7), "Sunday")
-                                 )
-                      .withColumn("latitude_dec", col("latitude").cast(DecimalType(10,7)))
-                      .withColumn("longitude_dec", col("longitude").cast(DecimalType(10,7)))
-                      
-                                                          
-curatedDF.printSchema
-display(curatedDF)  
+udf_getDayNameFromWeekdayNbr = udf(getDayNameFromWeekdayNbr, StringType())
+
+spark.sql("select * from crimes_db.chicago_crimes_raw").withColumn("case_timestamp",to_timestamp("case_dt_tm","MM/dd/yyyy hh:mm:ss")).createOrReplaceTempView("raw_crimes")
+curatedInitialDF = spark.sql("select *, month(case_timestamp) as case_month,dayofmonth(case_timestamp) as case_day_of_month, hour(case_timestamp) as case_hour, dayofweek(case_timestamp) as case_day_of_week_nbr from raw_crimes")
+curatedDF=curatedInitialDF.withColumn("case_day_of_week_name",udf_getDayNameFromWeekdayNbr("case_day_of_week_nbr"))
+
+display(curatedDF)
+
 
 # COMMAND ----------
 
 # 2) Persist as parquet to curated storage zone
-val dbfsDestDirPath="/mnt/workshop/curated/crimes/chicago-crimes"
+dbfsDestDirPath="/mnt/workshop/curated/crimes/chicago-crimes"
 dbutils.fs.rm(dbfsDestDirPath, recurse=True)
 curatedDF.coalesce(1).write.partitionBy("case_year","case_month").parquet(dbfsDestDirPath)
 
@@ -192,7 +187,6 @@ curatedDF.coalesce(1).write.partitionBy("case_year","case_month").parquet(dbfsDe
 # MAGIC CREATE TABLE chicago_crimes_curated
 # MAGIC USING parquet
 # MAGIC OPTIONS (path "/mnt/workshop/curated/crimes/chicago-crimes");
-# MAGIC --USING org.apache.spark.sql.parquet
 # MAGIC 
 # MAGIC MSCK REPAIR TABLE chicago_crimes_curated;
 # MAGIC ANALYZE TABLE chicago_crimes_curated COMPUTE STATISTICS;
@@ -213,11 +207,6 @@ curatedDF.coalesce(1).write.partitionBy("case_year","case_month").parquet(dbfsDe
 # MAGIC  %md
 # MAGIC  ### 7. Report on the dataset/visualize
 # MAGIC  In this section, we will explore data and visualize
-
-# COMMAND ----------
-
-# MAGIC %sql
-# MAGIC select * from crimes_db.chicago_crimes_curated;
 
 # COMMAND ----------
 
