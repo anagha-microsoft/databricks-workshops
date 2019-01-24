@@ -374,7 +374,7 @@ booksNewColDF.show()
 booksNewColDF.write
   .format("delta")
   .option("mergeSchema", "true")
-  .mode("append")
+  .mode("overwrite")
   .save("/mnt/workshop/curated/books")
 
 // COMMAND ----------
