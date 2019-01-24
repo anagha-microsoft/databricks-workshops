@@ -90,6 +90,10 @@ display(dbutils.fs.ls("/mnt/workshop"))
 
 # COMMAND ----------
 
+# MAGIC %fs ls /mnt/workshop/raw/nyctaxi/transactions/green-taxi/trip_year=2017/trip_month=01/
+
+# COMMAND ----------
+
 # MAGIC  %md
 # MAGIC ### 3. Refresh mount points
 
