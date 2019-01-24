@@ -52,6 +52,13 @@ display(booksDF)
 deltaTableDirectory = "/mnt/workshop/curated/books"
 dbutils.fs.rm(deltaTableDirectory, recurse=True)
 
+# COMMAND ----------
+
+# MAGIC %sql
+# MAGIC drop table if exists books_db.books;
+
+# COMMAND ----------
+
 # Persist dataframe to delta format without coalescing
 booksDF.write.format("delta").save(deltaTableDirectory)
 
@@ -215,13 +222,14 @@ booksDF.write.format("delta").mode("append").save(deltaTableDirectory)
 
 columns = ["book_id", "book_author", "book_name", "book_pub_year"]
 vals = [
-     ("b00001", "Arthur Conan Doyle", "A study in scarlet", 1887),
-     ("b00001", "Arthur Conan Doyle", "A study in scarlet", 1887),
-     ("b01001", "Arthur Conan Doyle", "The adventures of Sherlock Holmes", 1892),
-     ("b00501", "Arthur Conan Doyle", "The memoirs of Sherlock Holmes", 1893),
-     ("b00300", "Arthur Conan Doyle", "The hounds of Baskerville", 1901),
-     ("b00909", "Arthur Conan Doyle", "A scandal in Bohemia", 1891),
-     ("b00023", "Arthur Conan Doyle", "Playing with Fire", 1900)
+       ("b00001", "Sir Arthur Conan Doyle", "A study in scarlet", 1887),
+       ("b00023", "Sir Arthur Conan Doyle", "A sign of four", 1890),
+       ("b01001", "Sir Arthur Conan Doyle", "The adventures of Sherlock Holmes", 1892),
+       ("b00501", "Sir Arthur Conan Doyle", "The memoirs of Sherlock Holmes", 1893),
+       ("b00300", "Sir Arthur Conan Doyle", "The hounds of Baskerville", 1901),
+       ("b09999", "Sir Arthur Conan Doyle", "The return of Sherlock Holmes", 1905),
+       ("b00909", "Sir Arthur Conan Doyle", "A scandal in Bohemia", 1891),
+       ("b00223", "Sir Arthur Conan Doyle", "Playing with Fire", 1900)
 ]
 booksUpsertDF = spark.createDataFrame(vals, columns)
 booksUpsertDF.printSchema
