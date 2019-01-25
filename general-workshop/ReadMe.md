@@ -62,6 +62,6 @@ Ryan Murphy (St Louis) - contribution to the data engineering workshop transform
 Rajdeep Biswas (Houston) - writing the entire PySpark version of the data engineering lab Anagha deveoped in Scala<br>
 Steve Howard (St Louis) - contributing to the PySpark version of the data engineering lab<br>
 Erik Zwiefel (Minneapolis) - content design of data science lab, PySpark version, Azure Machine Learning service integration for operationalization as a REST service, AutoML<br>
-Thomas Abraham (St Louis) - Data science guidance, and some primer work in Pyspark<br>
+Thomas Abraham (St Louis) - development of ADFv2 integration primer in Pyspark<br>
 Matt Stenzel, Christopher House (Minneapolis) - testing (invaluable)
 
