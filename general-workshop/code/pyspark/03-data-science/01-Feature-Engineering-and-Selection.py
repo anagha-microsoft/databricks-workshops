@@ -153,7 +153,7 @@ tripData = tripData.select([column for column in tripData.columns if column not 
 
 # COMMAND ----------
 
-display(tripData.describe())
+# display(tripData.describe())
 
 # COMMAND ----------
 
@@ -197,13 +197,27 @@ tripData = tripData.select([column for column in tripData.columns if column not 
 
 # COMMAND ----------
 
+display(tripData)
+
+# COMMAND ----------
+
 # MAGIC %md
 # MAGIC ## 2. Feature (and Label) Engineering
 
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC ### 2.1 `duration` column
+# MAGIC ### 2.1 `is_weekend_flag` and `is_rush_hour_flag` columns
+
+# COMMAND ----------
+
+tripData = (tripData.withColumn('is_weekend_flag', date_format(col('pickup_datetime'), 'E').isin(['Sat', 'Sun']).astype('int'))
+                    .withColumn('is_rush_hour_flag', ((col('is_weekend_flag')==0) & ((col('pickup_hour').between(7, 10)) | (col('pickup_hour').between(16, 19)))).astype('int')))
+
+# COMMAND ----------
+
+# MAGIC %md
+# MAGIC ### 2.2 `duration` column
 # MAGIC 
 # MAGIC We've been asked to predict "duration", but we don't have that represented anywhere. Therefore, we'll need to "engineer" that feature (or label in this instance)
 # MAGIC 
@@ -212,12 +226,27 @@ tripData = tripData.select([column for column in tripData.columns if column not 
 # COMMAND ----------
 
 tripData = tripData.withColumn('duration_minutes', round((unix_timestamp(col('dropoff_datetime'))-unix_timestamp(col('pickup_datetime')))/60, 2))
+
+columns_to_drop = columns_to_drop.union({'pickup_datetime', 'dropoff_datetime'})
+tripData = tripData.select([column for column in tripData.columns if column not in columns_to_drop])
+
 display(tripData)
 
 # COMMAND ----------
 
+display(tripData.describe(['duration_minutes']))
+
+# COMMAND ----------
+
+# We'll filter out any negative trip or trip over 2 hours...
+
+tripData = tripData.where(col('duration_minutes').between(0, 120))
+display(tripData.describe(['duration_minutes']))
+
+# COMMAND ----------
+
 # MAGIC %md
-# MAGIC ### 2.2 Other feature engineering?
+# MAGIC ### 2.3 Other feature engineering?
 # MAGIC There may be other features that we could engineer here, but for this lab we'll skip other feature engineering / exploration
 
 # COMMAND ----------
@@ -228,7 +257,12 @@ display(tripData)
 
 # COMMAND ----------
 
-# Overwrite with your own name here... 
-temp_view_name = "model_dataset_erik_zwiefel"
+temp_view_name = 'model_dataset_' + user_name
 
-tripData.createOrReplaceTempView(temp_view_name)
+tripData.createOrReplaceGlobalTempView(temp_view_name)
+
+spark.catalog.cacheTable('global_temp.{0}'.format(temp_view_name))
+display(spark.read.table('global_temp.{0}'.format(temp_view_name)))
+
+# COMMAND ----------
+
