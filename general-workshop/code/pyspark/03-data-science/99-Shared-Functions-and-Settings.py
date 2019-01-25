@@ -1,6 +1,14 @@
 # Databricks notebook source
-# MAGIC %md
-# MAGIC # Azure Machine Learning Services Settings
+# Shared settings
+user_name = None
+
+if not user_name:
+  raise AttributeError("You must enter a unique user name for this workshop. " 
+                       "This will avoid issues when we're all interacting with the same cluster.")
+
+# COMMAND ----------
+
+# Azure Machine Learning Services Settings
 
 # COMMAND ----------
 
@@ -10,16 +18,15 @@ AZURE_ML_CONF = {'subscription_id': None, # Delete 'None' and enter your subscri
 
 # COMMAND ----------
 
-# MAGIC %md
-# MAGIC ### Finding your Azure Subscription ID
-# MAGIC 
-# MAGIC To find your Azure Subscription ID, you can navigate to [https://portal.azure.com](https://portal.azure.com), then follow the steps shown below.
-# MAGIC ![](https://github.com/anagha-microsoft/databricks-workshops/raw/master/general-workshop/images/8-machine-learning/3-find-azure-subscription.gif)
+### Finding your Azure Subscription ID
+
+# To find your Azure Subscription ID, you can navigate to [https://portal.azure.com](https://portal.azure.com), then follow the link below to see an animation on where to find it.
+
+# https://github.com/anagha-microsoft/databricks-workshops/raw/master/general-workshop/images/8-machine-learning/3-find-azure-subscription.gif
 
 # COMMAND ----------
 
-# MAGIC %md
-# MAGIC # Shared Functions
+# Shared Functions
 
 # COMMAND ----------
 
@@ -53,4 +60,27 @@ def generate_crosstab(ct,
                horizontalalignment="center",
                color="white" if dt[i, j] > thresh else "black")
              
+  return fig
+
+# COMMAND ----------
+
+def plot_residuals(scored_data, target="duration_minutes", prediction='prediction', sample_percent=0.5):
+  """
+  CAUTION: This will collect the data back to the driver - 
+  therefore, it's recommended to sample from the dataframe before doing that - that's what the sample percent argument is for.
+  
+  Plot the residual values and return a matplotlib chart.
+  """
+  from pyspark.sql.functions import col
+  import matplotlib.pyplot as plt
+  
+  df = scored_data.select([col(target), col(prediction)]).withColumn("error", col(prediction) - col(target)).sample(fraction=sample_percent, withReplacement=False).toPandas()
+  
+  fig, ax = plt.subplots()
+  
+  plt.scatter(df.duration_minutes, df.error, alpha=0.5)
+  plt.title("Residual Plot")
+  plt.xlabel('Actual Values')
+  plt.ylabel("Residual")
+  
   return fig
