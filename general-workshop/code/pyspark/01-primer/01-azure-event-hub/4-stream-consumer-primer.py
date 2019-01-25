@@ -114,6 +114,18 @@ consumableDF.printSchema
 
 # COMMAND ----------
 
+# To clean up from prior execution for repeated runs of the lab
+dbutils.fs.rm(dbfsDestDirPath, recurse=True)
+
+# COMMAND ----------
+
+# MAGIC %sql
+# MAGIC --To clean up from prior execution for repeated runs of the lab
+# MAGIC USE crimes_delta_db;
+# MAGIC DROP TABLE IF EXISTS chicago_crimes_stream_aeh;
+
+# COMMAND ----------
+
 # MAGIC %md
 # MAGIC ### 3.0. Sink to Databricks Delta
 
@@ -135,6 +147,3 @@ consumableDF.writeStream \
   .outputMode("append") \
   .option("checkpointLocation", dbfsCheckpointDirPath) \
   .start(dbfsDestDirPath)
-
-# COMMAND ----------
-
