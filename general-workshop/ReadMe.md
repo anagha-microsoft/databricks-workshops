@@ -57,11 +57,11 @@ Performance optimization is not in scope and will be offered as a separate works
 [Lab guide](docs/2-lab-guide/README.md)
 
 ## Credits
-Anagha Khanolkar (Chicago) - workshop design, content, Scala code, primer in Python<br>
+Anagha Khanolkar (Chicago) - workshop design, content design, all development in Scala, primer module in Pyspark<br>
 Ryan Murphy (St Louis) - contribution to the data engineering workshop transformation rules, schema and more<br>
-Rajdeep Biswas (Houston) - writing the entire Python version of the data engineering lab Anagha deveoped in Scala<br>
-Steve Howard (St Louis) - contributing to the Python version of the data engineering lab<br>
-Erik Zwiefel (Minneapolis) - content design of data science lab, Python version, Azure Machie Learning service integration for operationalization as a REST service<br>
-Thomas Abraham (St Louis) - Data science guidance<br>
-Matt Stenzel, Tim Sullivan, Christopher House (Minneapolis) - testing (invaluable)
+Rajdeep Biswas (Houston) - writing the entire PySpark version of the data engineering lab Anagha deveoped in Scala<br>
+Steve Howard (St Louis) - contributing to the PySpark version of the data engineering lab<br>
+Erik Zwiefel (Minneapolis) - content design of data science lab, PySpark version, Azure Machine Learning service integration for operationalization as a REST service, AutoML<br>
+Thomas Abraham (St Louis) - Data science guidance, and some primer work in Pyspark<br>
+Matt Stenzel, Christopher House (Minneapolis) - testing (invaluable)
 
