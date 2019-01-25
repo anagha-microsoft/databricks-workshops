@@ -20,6 +20,8 @@
 
 # COMMAND ----------
 
+import json
+
 #// 1) AEH consumer related
 #// Replace connection string with your instances'.
 connectionString = dbutils.secrets.get(scope = "gws-crimes-aeh", key = "conexion-string")
@@ -27,6 +29,20 @@ ehConf = {
   'eventhubs.connectionString' : connectionString,
   'eventhubs.consumerGroup' : "spark-streaming-cg",
 }
+
+# Start from end of stream
+startOffset = "@latest"
+
+# Create the positions
+startingEventPosition = {
+  "offset": startOffset,  
+  "seqNo": -1,            #not in use
+  "enqueuedTime": None,   #not in use
+  "isInclusive": True
+}
+
+# Put the positions into the Event Hub config dictionary
+ehConf["eventhubs.startingPosition"] = json.dumps(startingEventPosition)
 
 # COMMAND ----------
 
@@ -60,8 +76,6 @@ partParsedStreamDF.createOrReplaceTempView("part_parsed_stream")
 #// 3) Parse events
 from pyspark.sql.functions import *
 from pyspark.sql.types import *
-
-
 
 consumableDF = partParsedStreamDF.select(get_json_object(partParsedStreamDF['json_payload'], "$.case_id").cast(IntegerType()).alias("case_id"), \
                                          get_json_object(partParsedStreamDF["json_payload"], "$.case_nbr").alias("case_nbr"), \
@@ -113,7 +127,7 @@ dbfsCheckpointDirPath="/mnt/workshop/scratch/checkpoints-crimes-aeh-sub/"
 
 #// 6) Remove output from prior execution
 dbutils.fs.rm(dbfsDestDirPath, recurse=True)
-dbutils.fs.rm(dbfsCheckpointDirPath, recurse=True)
+#dbutils.fs.rm(dbfsCheckpointDirPath, recurse=True)
 
 #//7) Persist as delta format (Parquet) to curated zone to a delta table
 consumableDF.writeStream \
@@ -121,3 +135,6 @@ consumableDF.writeStream \
   .outputMode("append") \
   .option("checkpointLocation", dbfsCheckpointDirPath) \
   .start(dbfsDestDirPath)
+
+# COMMAND ----------
+
