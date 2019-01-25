@@ -135,6 +135,10 @@ val cosmosDbWriteConfigMap = Map(
 val dbfsCheckpointDirPath="/mnt/workshop/scratch/checkpoints-crimes-aeh-sub/"
 //dbutils.fs.rm(dbfsCheckpointDirPath, recurse=true)//remove if needed
 
+
+
+// COMMAND ----------
+
 // 4) Persist to Cosmos DB
 val query = consumableDF
   .writeStream
