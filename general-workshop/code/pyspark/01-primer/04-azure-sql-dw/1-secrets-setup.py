@@ -1,9 +1,9 @@
 # Databricks notebook source
 # MAGIC %md
-# MAGIC # Secure your SQL database credentials with Databricks secrets
+# MAGIC # Secure your SQL datawarehouse credentials with Databricks secrets
 # MAGIC 
 # MAGIC Secrets allow you to secure your credentials, and reference in your code instead of hard-code.  Databricks automatically redacts secrets from being displayed in the notebook as cleartext.<BR>
-# MAGIC In this exercise, we will secure credentials for the Azure SQL Database in Databricks secrets.
+# MAGIC In this exercise, we will secure credentials for the Azure SQL Datawarehouse in Databricks secrets.
 
 # COMMAND ----------
 
@@ -18,23 +18,13 @@
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC ### 2. Create a secrets scope for your SQL database on your Linux terminal
-# MAGIC In this example - we are calling it bhoomi-storage.  You can name it per your preference.
+# MAGIC ### 2. Create a secrets scope for your SQL DW on your Linux terminal
+# MAGIC You can name it per your preference.
 
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC ```databricks secrets create-scope --scope gws-sql-db```
-
-# COMMAND ----------
-
-# MAGIC %md
-# MAGIC ### 3. Set up your Azure SQL database username within the scope
-
-# COMMAND ----------
-
-# MAGIC %md
-# MAGIC ```databricks secrets put --scope gws-sql-db --key username```
+# MAGIC ```databricks secrets create-scope --scope gws-sql-dw```
 
 # COMMAND ----------
 
@@ -44,22 +34,22 @@
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC ### 4. Set up your Azure SQL database password within the scope
+# MAGIC ### 3. Set up your Azure SQL Datawarehouse connection string within the scope
 
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC ```databricks secrets put --scope gws-sql-db --key password```
+# MAGIC ```databricks secrets put --scope gws-sql-dw --key conexion-string```
 
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC This will open a file for you to enter in your password.  Save and close the file and your secret is saved.
+# MAGIC This will open a file for you to enter in your username.  Save and close the file and your secret is saved.
 
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC ###  5. List your secret scopes
+# MAGIC ###  4. List your secret scopes
 
 # COMMAND ----------
 
@@ -73,11 +63,11 @@
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC ###  6. List the secrets within the scope
+# MAGIC ###  5. List the secrets within the scope
 
 # COMMAND ----------
 
-# MAGIC %md ```databricks secrets list --scope gws-sql-db```
+# MAGIC %md ```databricks secrets list --scope gws-sql-dw```
 
 # COMMAND ----------
 
