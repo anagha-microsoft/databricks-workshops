@@ -127,8 +127,6 @@ df.write
 
 // COMMAND ----------
 
-import org.apache.spark.sql.SaveMode
-
 df.write
   .format("com.databricks.spark.sqldw")
   .option("url", jdbcURL)
