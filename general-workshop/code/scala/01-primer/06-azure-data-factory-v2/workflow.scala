@@ -19,7 +19,7 @@ var executionStatusReport2 = "-"
 if(executionStatusReport1 == "Pass")
 {
   insertBatchMetadata(batchID,2,"Execute report 2","Started")
-  executionStatusReport2 = dbutils.notebook.run("01-generate-report-2", 60)
+  executionStatusReport2 = dbutils.notebook.run("02-generate-report-2", 60)
   insertBatchMetadata(batchID,2,"Execute report 2","Completed")
   
 }
@@ -27,3 +27,6 @@ if(executionStatusReport1 == "Pass")
 // COMMAND ----------
 
 dbutils.notebook.exit(executionStatusReport2)
+
+// COMMAND ----------
+
