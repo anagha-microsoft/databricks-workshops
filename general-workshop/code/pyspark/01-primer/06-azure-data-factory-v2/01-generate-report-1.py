@@ -9,7 +9,14 @@ reportDF = spark.sql("SELECT primary_type as case_type, count(*) AS crime_count 
 # COMMAND ----------
 
 #Persist report dataset to destination RDBMS
-reportDF.coalesce(1).write.mode("overwrite").jdbc(jdbcUrl, "CHICAGO_CRIMES_COUNT", connectionProperties)
+reportDF.coalesce(1).write \
+    .format("jdbc") \
+    .option("url", jdbcUrl) \
+    .option("dbtable", "CHICAGO_CRIMES_COUNT") \
+    .option("user", jdbcUsername) \
+    .option("password", jdbcPassword) \
+    .mode("overwrite") \
+    .save()
 
 # COMMAND ----------
 
