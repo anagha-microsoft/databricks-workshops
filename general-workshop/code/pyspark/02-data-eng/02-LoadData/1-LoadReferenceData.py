@@ -9,7 +9,6 @@
 # COMMAND ----------
 
 from pyspark.sql.types import StructType, StructField, StringType, IntegerType,LongType,FloatType,DoubleType, TimestampType
-#from com.databricks.backend.daemon.dbutils.FileInfo
 
 # COMMAND ----------
 
@@ -154,6 +153,13 @@ display(dbutils.fs.ls("/mnt/workshop/curated/nyctaxi/reference"))
 # MAGIC service_zone STRING)
 # MAGIC USING parquet
 # MAGIC LOCATION '/mnt/workshop/curated/nyctaxi/reference/taxi-zone/';
+# MAGIC 
+# MAGIC ANALYZE TABLE taxi_zone_lookup COMPUTE STATISTICS;
+
+# COMMAND ----------
+
+# MAGIC %sql
+# MAGIC select * from taxi_db.taxi_zone_lookup;
 
 # COMMAND ----------
 
@@ -166,6 +172,13 @@ display(dbutils.fs.ls("/mnt/workshop/curated/nyctaxi/reference"))
 # MAGIC month_name_full STRING)
 # MAGIC USING parquet
 # MAGIC LOCATION '/mnt/workshop/curated/nyctaxi/reference/trip-month/';
+# MAGIC 
+# MAGIC ANALYZE TABLE trip_month_lookup COMPUTE STATISTICS;
+
+# COMMAND ----------
+
+# MAGIC %sql
+# MAGIC select * from taxi_db.trip_month_lookup;
 
 # COMMAND ----------
 
@@ -177,6 +190,13 @@ display(dbutils.fs.ls("/mnt/workshop/curated/nyctaxi/reference"))
 # MAGIC description STRING)
 # MAGIC USING parquet
 # MAGIC LOCATION '/mnt/workshop/curated/nyctaxi/reference/rate-code/';
+# MAGIC 
+# MAGIC ANALYZE TABLE rate_code_lookup COMPUTE STATISTICS;
+
+# COMMAND ----------
+
+# MAGIC %sql
+# MAGIC select * from taxi_db.rate_code_lookup;
 
 # COMMAND ----------
 
@@ -189,6 +209,13 @@ display(dbutils.fs.ls("/mnt/workshop/curated/nyctaxi/reference"))
 # MAGIC description STRING)
 # MAGIC USING parquet
 # MAGIC LOCATION '/mnt/workshop/curated/nyctaxi/reference/payment-type/';
+# MAGIC 
+# MAGIC ANALYZE TABLE payment_type_lookup COMPUTE STATISTICS;
+
+# COMMAND ----------
+
+# MAGIC %sql
+# MAGIC select * from taxi_db.payment_type_lookup;
 
 # COMMAND ----------
 
@@ -200,6 +227,13 @@ display(dbutils.fs.ls("/mnt/workshop/curated/nyctaxi/reference"))
 # MAGIC description STRING)
 # MAGIC USING parquet
 # MAGIC LOCATION '/mnt/workshop/curated/nyctaxi/reference/trip-type/';
+# MAGIC 
+# MAGIC ANALYZE TABLE trip_type_lookup COMPUTE STATISTICS;
+
+# COMMAND ----------
+
+# MAGIC %sql
+# MAGIC select * from taxi_db.trip_type_lookup;
 
 # COMMAND ----------
 
@@ -212,23 +246,8 @@ display(dbutils.fs.ls("/mnt/workshop/curated/nyctaxi/reference"))
 # MAGIC description STRING)
 # MAGIC USING parquet
 # MAGIC LOCATION '/mnt/workshop/curated/nyctaxi/reference/vendor/';
-
-# COMMAND ----------
-
-# MAGIC %md
-# MAGIC ### 6. Refresh tables and compute statistics
 # MAGIC 
-# MAGIC The function being called is defined in a separate notebook
-
-# COMMAND ----------
-
-# MAGIC %scala
-# MAGIC analyzeTables("taxi_db.vendor_lookup")
-# MAGIC analyzeTables("taxi_db.trip_type_lookup")
-# MAGIC analyzeTables("taxi_db.payment_type_lookup")
-# MAGIC analyzeTables("taxi_db.rate_code_lookup")
-# MAGIC analyzeTables("taxi_db.trip_month_lookup")
-# MAGIC analyzeTables("taxi_db.taxi_zone_lookup")
+# MAGIC ANALYZE TABLE vendor_lookup COMPUTE STATISTICS;
 
 # COMMAND ----------
 
