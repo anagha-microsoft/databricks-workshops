@@ -235,6 +235,12 @@ dbutils.fs.rm(destDataDirRoot,recurse=True)
 
 # COMMAND ----------
 
+# MAGIC %sql
+# MAGIC use taxi_db;
+# MAGIC DROP TABLE IF EXISTS yellow_taxi_trips_raw;
+
+# COMMAND ----------
+
 #Process data, save as parquet
 for j in range(2016,2018):
   endMonth = None
@@ -292,6 +298,3 @@ for j in range(2016,2018):
 
 # MAGIC %sql
 # MAGIC select count(*) from from taxi_db.yellow_taxi_trips_raw;
-
-# COMMAND ----------
-
