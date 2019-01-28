@@ -60,3 +60,9 @@
 
 # COMMAND ----------
 
+# MAGIC %md
+# MAGIC # Finding your Azure 'Subscription ID'
+# MAGIC In the 99-Shared-Functions-and-Settings notebook, you're asked to enter you Azure Subscription ID (among other things.)
+# MAGIC 
+# MAGIC You can see how to find your subscription id here:
+# MAGIC ![](https://github.com/anagha-microsoft/databricks-workshops/raw/master/general-workshop/images/8-machine-learning/3-find-azure-subscription.gif)
