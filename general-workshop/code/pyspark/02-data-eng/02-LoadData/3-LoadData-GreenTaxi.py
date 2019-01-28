@@ -286,6 +286,12 @@ dbutils.fs.rm(destDataDirRoot,recurse=True)
 
 # COMMAND ----------
 
+# MAGIC %sql
+# MAGIC use taxi_db;
+# MAGIC DROP TABLE IF EXISTS green_taxi_trips_raw;
+
+# COMMAND ----------
+
 
 #Green taxi data starts from 2013/08
 for j in range(2016,2018):
