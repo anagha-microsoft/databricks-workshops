@@ -257,12 +257,11 @@ display(tripData.describe(['duration_minutes']))
 
 # COMMAND ----------
 
-temp_view_name = 'model_dataset_' + user_name
+tripData.createOrReplaceGlobalTempView(model_dataset_name)
 
-tripData.createOrReplaceGlobalTempView(temp_view_name)
-
-spark.catalog.cacheTable('global_temp.{0}'.format(temp_view_name))
-display(spark.read.table('global_temp.{0}'.format(temp_view_name)))
+# You can cache the temporary view for increase performance - but it might not be optimal in a workshop setting
+# spark.catalog.cacheTable('global_temp.{0}'.format(model_dataset_name))
+display(spark.read.table('global_temp.{0}'.format(model_dataset_name)))
 
 # COMMAND ----------
 
