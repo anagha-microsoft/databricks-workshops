@@ -18,10 +18,6 @@
 
 # COMMAND ----------
 
-model_dataset_name = 'model_dataset_' + user_name
-
-# COMMAND ----------
-
 from azureml.core import Workspace, Experiment, Run
 from azureml.core.authentication import InteractiveLoginAuthentication
 
@@ -41,14 +37,7 @@ ws = Workspace(**AZURE_ML_CONF, auth=up)
 
 # COMMAND ----------
 
-# Set a random seed value to make the results repeatable
-randomSeed = 35092
-
-tripData = spark.read.table('global_temp.{0}'.format(model_dataset_name))
-
-# Selecting a much smaller sample of data
-# Doing an 80%, 10%, 10% split - because we have 
-trainDF, validDF, testDF, _ = tripData.randomSplit([.005, .001, .001, .993], seed=randomSeed)
+trainDF, validDF, testDF = get_train_test_valid_data()
 
 trainDFpd = trainDF.toPandas()
 validDFpd = validDF.toPandas()
@@ -64,7 +53,7 @@ import os
 import sys
 
 # Make a temporary project folder
-project_folder = os.path.join('/dbfs/tmp/automl/', user_name)
+project_folder = os.path.join('/dbfs/tmp/', user_name, 'auto_ml')
 os.makedirs(project_folder, exist_ok=True)
 
 temp_train_csv_path = os.path.join(project_folder, 'train.csv')
@@ -159,9 +148,8 @@ automl_config = AutoMLConfig(task = 'regression',
 
 # COMMAND ----------
 
-# Create AML Experiment
-experiment_name = 'taxi_automl_duration_regression'
-experiment = Experiment(ws, experiment_name)
+# Create AML Experiment - use the name from ./99-Shared-Functions-and-Settings notebook
+experiment = Experiment(ws, automl_experiment_name)
 
 # Submit AutoML Run
 run = experiment.submit(automl_config)
