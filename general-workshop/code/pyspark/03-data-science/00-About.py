@@ -1,7 +1,7 @@
 # Databricks notebook source
 # MAGIC %md 
 # MAGIC 
-# MAGIC ![](http://www.nyc.gov/html/tlc/images/features/fi_about_photo_trip_records.png)
+# MAGIC ![](https://github.com/anagha-microsoft/databricks-workshops/raw/master/general-workshop/images/4.png)
 # MAGIC 
 # MAGIC # About this Tutorial #  
 # MAGIC The goal of this tutorial us to help you understand the capabilities and features of Azure Databricks Spark MLlib for machine learning (ML) and how to leverage [Azure Machine Learning Service](https://docs.microsoft.com/en-us/azure/machine-learning/service/) with Azure Databricks.  
@@ -44,12 +44,12 @@
 # MAGIC # Azure Machine Learning Services
 # MAGIC In this lab, we'll be using Azure Machine Learning Service to track experiments and deploy our model as a Rest API via [Azure Container Instances](https://docs.microsoft.com/en-us/azure/container-instances/) for test purposes, but in production you would likely use [Azure Kubernetes Service (AKS)](https://docs.microsoft.com/en-us/azure/aks/).
 # MAGIC 
-# MAGIC ![](https://docs.microsoft.com/en-us/azure/machine-learning/service/media/overview-what-is-azure-ml/aml.png)
+# MAGIC ![](https://github.com/anagha-microsoft/databricks-workshops/raw/master/general-workshop/images/8-machine-learning/1-aml-overview.png)
 # MAGIC 
 # MAGIC Azure Machine Learning service consists of a cloud-based Workspace and can include attached compute and other resources.
 # MAGIC 
 # MAGIC 
-# MAGIC ![](https://docs.microsoft.com/en-us/azure/machine-learning/service/media/concept-azure-machine-learning-architecture/azure-machine-learning-taxonomy.png)
+# MAGIC ![](https://github.com/anagha-microsoft/databricks-workshops/raw/master/general-workshop/images/8-machine-learning/2-azure-machine-learning-taxonomy.png)
 
 # COMMAND ----------
 
