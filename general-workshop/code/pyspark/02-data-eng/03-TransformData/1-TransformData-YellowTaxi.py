@@ -140,6 +140,3 @@ curatedDFConformed.coalesce(10).write.format("delta").mode("append").partitionBy
 
 # MAGIC %sql
 # MAGIC select trip_year,trip_month, count(*) as trip_count from taxi_db.yellow_taxi_trips_curated group by trip_year,trip_month
-
-# COMMAND ----------
-
