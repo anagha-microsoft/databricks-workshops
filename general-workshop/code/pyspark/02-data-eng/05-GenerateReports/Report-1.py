@@ -73,19 +73,6 @@
 
 # COMMAND ----------
 
-# MAGIC %sql
-# MAGIC select 
-# MAGIC   taxi_type,
-# MAGIC   trip_year,
-# MAGIC   count(*) as trip_count
-# MAGIC from 
-# MAGIC   taxi_db.taxi_trips_mat_view
-# MAGIC where trip_year between 2014 and 2016
-# MAGIC group by taxi_type, trip_year
-# MAGIC order by trip_year asc
-
-# COMMAND ----------
-
 # MAGIC %md
 # MAGIC ### 5.  Trip count trend by month, by taxi type, for 2016
 
