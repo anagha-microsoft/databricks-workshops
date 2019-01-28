@@ -1,6 +1,10 @@
 # Databricks notebook source
 # Shared settings
-user_name = None
+user_name = None # Should only contain alpha-numeric and underscores
+
+model_dataset_name = 'model_dataset_{0}'.format(user_name)
+pyspark_experiment_name = 'pyspark_taxi_duration_{0}'.format(user_name)
+automl_experiment_name = 'automl_taxi_duration_{0}'.format(user_name)
 
 if not user_name:
   raise AttributeError("You must enter a unique user name for this workshop. " 
@@ -13,8 +17,10 @@ if not user_name:
 # COMMAND ----------
 
 AZURE_ML_CONF = {'subscription_id': None, # Delete 'None' and enter your subscription_id here. See animation below for details
-                 'resource_group': None, # Delete 'None' and enter your resource_group name here - if you don't have an AML Workspace, you can enter the desired resource group name here.
-                 'workspace_name': None} # Delete 'None' and enter your workspace_name name here - if you don't have an AML Workspace, you can enter the desired workspace name here.
+                 'resource_group': None,  # Delete 'None' and enter your resource_group name here - 
+                                          # if you don't have an AML Workspace, you can enter the desired resource group name here.
+                 'workspace_name': None}  # Delete 'None' and enter your workspace_name name here - 
+                                          # if you don't have an AML Workspace, you can enter the desired workspace name here.
 
 # COMMAND ----------
 
@@ -82,5 +88,19 @@ def plot_residuals(scored_data, target="duration_minutes", prediction='predictio
   plt.title("Residual Plot")
   plt.xlabel('Actual Values')
   plt.ylabel("Residual")
+  plt.close(fig) # Prevent further changes to the plot (also frees up system resources)
   
   return fig
+
+# COMMAND ----------
+
+def get_train_test_valid_data(table_name='global_temp.{0}'.format(model_dataset_name), randomSeed=35092, splits=[.005, .001, .001, .993]):
+  tripData = spark.read.table(table_name)
+
+  
+  # Selecting a much smaller sample of data
+  # Doing an 80%, 10%, 10% split - because we have 
+  df_splits = tripData.randomSplit(splits, seed=randomSeed)
+  
+  # return the first 3 dataframes
+  return df_splits[:3]
