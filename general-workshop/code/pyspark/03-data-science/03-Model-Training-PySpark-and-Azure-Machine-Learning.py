@@ -16,10 +16,6 @@
 
 # COMMAND ----------
 
-model_dataset_name = 'model_dataset_' + user_name
-
-# COMMAND ----------
-
 # MAGIC %md
 # MAGIC #### Login to Azure Machine Learning Workspace
 
@@ -40,6 +36,7 @@ from pyspark.sql.functions import *
 from pyspark.ml.feature import StringIndexer, OneHotEncoderEstimator, VectorAssembler, StandardScaler
 from pyspark.ml.regression import RandomForestRegressor, LinearRegression, GBTRegressor
 from pyspark.ml.evaluation import RegressionEvaluator
+import matplotlib.pyplot as plt
 import shutil
 import os
 
@@ -56,14 +53,7 @@ import os
 
 # COMMAND ----------
 
-# Set a random seed value to make the results repeatable
-randomSeed = 35092
-
-tripData = spark.read.table('global_temp.{0}'.format(model_dataset_name))
-
-# Selecting a much smaller sample of data
-# Doing an 80%, 10%, 10% split - because we have 
-trainDF, validDF, testDF, _ = tripData.randomSplit([.005, .001, .001, .993], seed=randomSeed)
+trainDF, validDF, testDF = get_train_test_valid_data()
 
 print("There are {:,} rows in our training dataset".format(trainDF.count()))
 
@@ -195,9 +185,8 @@ trainDF_transformed = trainDF_transformed.cache()
 
 # COMMAND ----------
 
-# Create a new or attach to an existing AML Experiment
-experiment_name = 'duration_regression_pyspark'
-experiment = Experiment(ws, experiment_name)
+# Use the experiment name from the ./99-Shared-Functions-and-Settings notebook
+experiment = Experiment(ws, pyspark_experiment_name)
 
 # Create evaluator object to assess model performance
 evaluator = RegressionEvaluator(labelCol='duration_minutes')
@@ -231,7 +220,7 @@ regParam = 0.5
 run.log("Model Name", model_name)
 run.log("Max Iterations", maxIters)
 run.log("Regularization Rate", regParam)
-run.log_list("Columns", trainDF_transformed.columns)
+run.log_list("Feature Columns", feature_cols)
 
 ###############
 # TRAIN MODEL #
@@ -239,7 +228,7 @@ run.log_list("Columns", trainDF_transformed.columns)
 
 print("  * Training {0} model".format(model_name))
 # Instantiate New LinearRegression Object
-lr = LinearRegression(featuresCol='features', labelCol='label', predictionCol='scaledPred', maxIter=maxIters, regParam=regParam, solver="normal")
+lr = LinearRegression(featuresCol='features', labelCol='duration_minutes', maxIter=maxIters, regParam=regParam, solver="auto")
 
 # Train model on transformed training data
 lr_model = lr.fit(trainDF_transformed)
@@ -307,10 +296,10 @@ print("    RESULTS     ")
 print("================")
 
 print("RMSE: \t {0:.5}".format(rmse),
-      "NRMSE: \t {0:.5}".format(nrmse),
-      '',
-      "R2: \t {0:.5}".format(r2),
-      sep='\n')
+    "NRMSE: \t {0:.5}".format(nrmse),
+    '',
+    "R2: \t {0:.5}".format(r2),
+    sep='\n')
 
 # COMMAND ----------
 
@@ -336,9 +325,10 @@ print("==============================================")
 random_seed = 25706
 
 model_name = 'RandomForestRegressor'
-maxDepth = 5
-maxBins = 32
+maxDepth = 11
+maxBins = 45
 numTrees = 20
+subsamplingRate = 0.3
 
 #######################
 # LOG HYPERPARAMETERS #
@@ -349,7 +339,8 @@ run.log("Model Name", model_name)
 run.log("Max Depth", maxDepth)
 run.log("Max Bins", maxBins)
 run.log("Number of Trees", numTrees)
-run.log_list("Columns", trainDF_transformed.columns)
+run.log('Subsampling Rate', subsamplingRate)
+run.log_list("Feature Columns", feature_cols)
 
 ###############
 # TRAIN MODEL #
@@ -357,7 +348,7 @@ run.log_list("Columns", trainDF_transformed.columns)
 
 print("  * Training {0} model".format(model_name))
 # Instantiate New RandomForestRegressor Object
-rf = RandomForestRegressor(labelCol='duration_minutes', maxDepth=5, maxBins=maxBins, impurity='variance', 
+rf = RandomForestRegressor(labelCol='duration_minutes', maxDepth=maxDepth, maxBins=maxBins, impurity='variance', 
                            subsamplingRate=1.0, seed=random_seed, numTrees=numTrees, featureSubsetStrategy='auto')
 
 # Train model on transformed training data
