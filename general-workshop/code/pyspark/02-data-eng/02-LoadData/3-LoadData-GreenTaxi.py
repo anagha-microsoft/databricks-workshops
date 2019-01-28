@@ -15,7 +15,7 @@ from pyspark.sql.functions import *
 
 #Source, destination directories
 srcDataDirRoot = "/mnt/workshop/staging/transactional-data/" #Root dir for source data
-destDataDirRoot = "/mnt/workshop/raw/nyctaxi/transactions/green-taxi" #Root dir for formatted data
+destDataDirRoot = "/mnt/workshop/raw/nyctaxi/transactions/green-taxi" #Root dir for raw data in Parquet
 
 #Canonical ordered column list for green taxi across years to homogenize schema
 canonicalTripSchemaColList = ["taxi_type","vendor_id","pickup_datetime","dropoff_datetime","store_and_fwd_flag","rate_code_id","pickup_location_id","dropoff_location_id","pickup_longitude","pickup_latitude","dropoff_longitude","dropoff_latitude","passenger_count","trip_distance","fare_amount","extra","mta_tax","tip_amount","tolls_amount","ehail_fee","improvement_surcharge","total_amount","payment_type","trip_type","trip_year","trip_month"]
@@ -356,3 +356,5 @@ for j in range(2016,2018):
 
 # COMMAND ----------
 
+# MAGIC %sql
+# MAGIC select * from taxi_db.green_taxi_trips_raw;
