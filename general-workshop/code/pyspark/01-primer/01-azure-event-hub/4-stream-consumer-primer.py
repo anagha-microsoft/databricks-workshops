@@ -114,8 +114,15 @@ consumableDF.printSchema
 
 # COMMAND ----------
 
-# To clean up from prior execution for repeated runs of the lab
+#// 4) Destination directory for delta table, and for checkpoints
+dbfsDestDirPath="/mnt/workshop/curated/crimes/chicago-crimes-stream-delta-aeh/"
+
+#// 5) AEH checkpoint related
+dbfsCheckpointDirPath="/mnt/workshop/scratch/checkpoints-crimes-aeh-sub/"
+
+#// 6) Remove output from prior execution
 dbutils.fs.rm(dbfsDestDirPath, recurse=True)
+dbutils.fs.rm(dbfsCheckpointDirPath, recurse=True)
 
 # COMMAND ----------
 
@@ -130,16 +137,6 @@ dbutils.fs.rm(dbfsDestDirPath, recurse=True)
 # MAGIC ### 3.0. Sink to Databricks Delta
 
 # COMMAND ----------
-
-#// 4) Destination directory for delta table, and for checkpoints
-dbfsDestDirPath="/mnt/workshop/curated/crimes/chicago-crimes-stream-delta-aeh/"
-
-#// 5) AEH checkpoint related
-dbfsCheckpointDirPath="/mnt/workshop/scratch/checkpoints-crimes-aeh-sub/"
-
-#// 6) Remove output from prior execution
-dbutils.fs.rm(dbfsDestDirPath, recurse=True)
-#dbutils.fs.rm(dbfsCheckpointDirPath, recurse=True)
 
 #//7) Persist as delta format (Parquet) to curated zone to a delta table
 consumableDF.writeStream \
