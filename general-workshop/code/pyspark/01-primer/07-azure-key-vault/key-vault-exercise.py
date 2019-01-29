@@ -82,3 +82,6 @@ df.write \
   .option("dbTable", "chicago_crimes_curated_summary")  \
   .option("tempDir", "wasbs://scratch@gwsblobsa.blob.core.windows.net/sqldwbatch-tempdir")  \
   .save()
+
+# COMMAND ----------
+
