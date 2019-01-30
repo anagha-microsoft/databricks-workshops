@@ -62,7 +62,9 @@ Click on "Copy data"
 <br>
 
 <br>
+
 **In the diagram below - please use disregard the storage account name.  The correct one is nyctaxidew.**
+
 <br>
 
 ![10-ADFv2](../../images/0-data-copy/10.png)
