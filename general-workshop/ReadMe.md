@@ -57,7 +57,7 @@ Performance optimization is not in scope and will be offered as a separate works
 [Lab guide](docs/2-lab-guide/README.md)
 
 ## Credits
-Anagha Khanolkar (Chicago) - workshop design, content design, all development in Scala, primer module in Pyspark<br>
+Anagha Khanolkar (Chicago) - creator of workshop, primary author of workshop, content design, all development in Scala, primer module in Pyspark<br>
 Ryan Murphy (St Louis) - contribution to the data engineering workshop transformation rules, schema and more<br>
 Rajdeep Biswas (Houston) - writing the entire PySpark version of the data engineering lab Anagha deveoped in Scala<br>
 Steve Howard (St Louis) - contributing to the PySpark version of the data engineering lab<br>
