@@ -17,7 +17,7 @@
 
 // MAGIC %md
 // MAGIC ### 1.1.  Create an Azure Event Hub instance in your Azure Event Hub namespace
-// MAGIC Name = aeh-nyc | Partitions = 3 | Retention period = 1
+// MAGIC Name = aeh-nyc | Partitions = 2 | Retention period = 1
 
 // COMMAND ----------
 
@@ -112,7 +112,8 @@
 
 // COMMAND ----------
 
-// MAGIC %md  Enter the maven coordinates of your Databricks Runtime compatible Azure Event Hub library.  Find the latest [here](https://docs.databricks.com/spark/latest/structured-streaming/streaming-event-hubs.html)
+// MAGIC %md  Enter the maven coordinates of your Databricks Runtime compatible Azure Event Hub library.  Find the latest [here](https://docs.databricks.com/spark/latest/structured-streaming/streaming-event-hubs.html).<br>
+// MAGIC At the time of authoring the lab it was com.microsoft.azure:azure-eventhubs-spark_2.11:2.3.6
 
 // COMMAND ----------
 
