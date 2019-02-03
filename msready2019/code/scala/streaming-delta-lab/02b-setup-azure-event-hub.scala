@@ -1,13 +1,15 @@
 // Databricks notebook source
 // MAGIC %md
 // MAGIC ## 1.  Azure Event Hub
-// MAGIC **Pre-requisite:**<br>
-// MAGIC An Azure Event Hub should be available in your pre-provisioned lab environment.<br>
-// MAGIC If it does not exist, we will need to create the same.
-
-// COMMAND ----------
-
-// MAGIC %md The following are additional setup tasks for the workshop
+// MAGIC 
+// MAGIC #### Pre-requisite:
+// MAGIC An Azure Event Hub should be available in your pre-provisioned lab environment.  If it does not exist, we will need to create the same.<br>
+// MAGIC 
+// MAGIC #### What's in this notebook:
+// MAGIC 1.  We will create an Azure Event Hub instance
+// MAGIC 2.  Within the Azure Event Hub instance, we will create a consumer group
+// MAGIC 3.  We will create a shared access policy for the Azure Event Hub instance
+// MAGIC 4.  We will capture the connection string for the primary key for use in Spark
 
 // COMMAND ----------
 
