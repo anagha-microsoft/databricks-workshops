@@ -3,7 +3,7 @@
 // MAGIC ## 1.  Azure Event Hub
 // MAGIC 
 // MAGIC #### Pre-requisite:
-// MAGIC An Azure Event Hub should be available in your pre-provisioned lab environment.  If it does not exist, we will need to create the same.<br>
+// MAGIC - An Azure Event Hub should be available in your pre-provisioned lab environment.  If it does not exist, we will need to create the same.<br>
 // MAGIC 
 // MAGIC #### What's in this notebook:
 // MAGIC 1.  We will create an Azure Event Hub instance
