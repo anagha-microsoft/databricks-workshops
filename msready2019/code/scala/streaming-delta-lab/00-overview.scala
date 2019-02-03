@@ -1,7 +1,7 @@
 // Databricks notebook source
 // MAGIC %md 
 // MAGIC 
-// MAGIC ## About this Tutorial #  
+// MAGIC # About this Tutorial #  
 // MAGIC The goal of this tutorial us to help you understand basics of - "**Apache Spark Structured Stream Processing**" with Azure Event Hub as the streaming source.<br>
 // MAGIC 
 // MAGIC ## Public dataset:
