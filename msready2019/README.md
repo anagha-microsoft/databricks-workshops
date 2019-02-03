@@ -1,9 +1,2 @@
 # About
-
-
-# Setup
-
-
-
-# Lab guide
-
+Work in progress
