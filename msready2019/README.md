@@ -4,7 +4,7 @@ This Databricks Spark workshop covers basics of Spark structured streaming on Az
 ## Public dataset:
 [NYC Taxi public dataset](http://www.nyc.gov/html/tlc/html/about/trip_record_data.shtml)<br>
 Transactional data = 18,878,949 taxi trips from 2017<br>
-Reference data of taxi zone = 65 <br>
+Reference data = 65 taxi zones<br>
 
 ## Lab tasks at a high level:
 You will learn to:<br>
