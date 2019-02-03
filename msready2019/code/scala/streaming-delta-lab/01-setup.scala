@@ -33,6 +33,7 @@
 // COMMAND ----------
 
 // 0. Storage account credentials
+// Replace with your storage account details - hardcoded (secrets out of scope for the lab)
 val storageAccountName = dbutils.secrets.get(scope = "ready2019lab", key = "storage-acct-nm")
 val storageAccountAccessKey = dbutils.secrets.get(scope = "ready2019lab", key = "storage-acct-key")
 
@@ -40,6 +41,13 @@ val storageAccountAccessKey = dbutils.secrets.get(scope = "ready2019lab", key = 
 
 // 1. Create root directory 
 dbutils.fs.mkdirs("/mnt/workshop/")
+
+// COMMAND ----------
+
+// Incase already mounted, unmount
+dbutils.fs.unmount("/mnt/workshop/staging")
+dbutils.fs.unmount("/mnt/workshop/raw")
+dbutils.fs.unmount("/mnt/workshop/curated")
 
 // COMMAND ----------
 
@@ -75,12 +83,44 @@ dbutils.fs.ls("/mnt/workshop/")
 
 // COMMAND ----------
 
-// 6.  Should you need to unmount for an idempotent run, uncomment below
-/*
-dbutils.fs.unmount("/mnt/workshop/staging")
-dbutils.fs.unmount("/mnt/workshop/raw")
-dbutils.fs.unmount("/mnt/workshop/curated")
-*/
+// MAGIC %md 
+// MAGIC // 6. Download data **only if you dont have it already** in your staging bob container
+
+// COMMAND ----------
+
+// 6.1. Download data to driver local
+
+// COMMAND ----------
+
+// MAGIC %sh
+// MAGIC cd /tmp
+// MAGIC rm -rf nyclab-files
+// MAGIC mkdir nyclab-files
+// MAGIC cd nyclab-files
+// MAGIC wget "https://ready2018adbsa.blob.core.windows.net/staging/taxi_zone_lookup.csv"
+// MAGIC wget "https://ready2018adbsa.blob.core.windows.net/staging/yellow_tripdata_2017-01.csv"
+// MAGIC wget "https://ready2018adbsa.blob.core.windows.net/staging/yellow_tripdata_2017-02.csv"
+
+// COMMAND ----------
+
+display(dbutils.fs.ls("file:/tmp/nyclab-files/"))
+
+// COMMAND ----------
+
+// 6.2.  Upload reference data to DBFS backed by Azure Blob Storage
+dbutils.fs.rm("/mnt/workshop/staging/reference-data/",recurse=true)
+dbutils.fs.mkdirs("/mnt/workshop/staging/reference-data/")
+dbutils.fs.cp("file:/tmp/nyclab-files/taxi_zone_lookup.csv","/mnt/workshop/staging/reference-data/")
+display(dbutils.fs.ls("/mnt/workshop/staging/reference-data/"))
+
+// COMMAND ----------
+
+// 6.3.  Upload reference data to DBFS backed by Azure Blob Storage
+dbutils.fs.rm("/mnt/workshop/staging/transactions/",recurse=true)
+dbutils.fs.mkdirs("/mnt/workshop/staging/transactions/")
+dbutils.fs.cp("file:/tmp/nyclab-files/yellow_tripdata_2017-01.csv","/mnt/workshop/staging/transactions/")
+dbutils.fs.cp("file:/tmp/nyclab-files/yellow_tripdata_2017-02.csv","/mnt/workshop/staging/transactions/")
+display(dbutils.fs.ls("/mnt/workshop/staging/transactions/"))
 
 // COMMAND ----------
 
