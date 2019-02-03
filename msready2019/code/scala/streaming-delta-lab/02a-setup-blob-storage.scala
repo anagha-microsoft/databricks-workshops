@@ -1,10 +1,15 @@
 // Databricks notebook source
 // MAGIC %md
 // MAGIC ## 1.  Mount blob storage
-// MAGIC **Pre-requisite:**<br>
-// MAGIC A storage account (gen1) should be available in your pre-provisioned lab environment.<br>
-// MAGIC The storage account should have 3 containers - staging, raw and curated, with "private, no anonymous access" configuration.<br>
-// MAGIC If they dont exist, go ahead and create them.
+// MAGIC 
+// MAGIC #### Pre-requisite:
+// MAGIC - A storage account (gen1) should be available in your pre-provisioned lab environment.<br>
+// MAGIC - The storage account should have 3 containers - staging, raw and curated, with "private, no anonymous access" configuration.  If they dont exist, go ahead and create them.
+// MAGIC 
+// MAGIC #### What's in this notebook:
+// MAGIC 1.  We will capture the credentials for the storage account for use in Spark
+// MAGIC 2.  We will mount blob storage containers - staging, raw, curated
+// MAGIC 3.  We will download data from the internet if not available already and persist it to the staging directory in DBFS
 
 // COMMAND ----------
 
@@ -41,7 +46,7 @@ dbutils.fs.mkdirs("/mnt/workshop/")
 
 // COMMAND ----------
 
-// Incase already mounted, unmount
+// In case already mounted, unmount
 dbutils.fs.unmount("/mnt/workshop/staging")
 dbutils.fs.unmount("/mnt/workshop/raw")
 dbutils.fs.unmount("/mnt/workshop/curated")
@@ -81,7 +86,7 @@ dbutils.fs.ls("/mnt/workshop/")
 // COMMAND ----------
 
 // MAGIC %md 
-// MAGIC // 6. Download data **only if you dont have it already** in your staging bob container
+// MAGIC // 6. Download data **only if you dont have it already** in your staging blob container
 
 // COMMAND ----------
 
