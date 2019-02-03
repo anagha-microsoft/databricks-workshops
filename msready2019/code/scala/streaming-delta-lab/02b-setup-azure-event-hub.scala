@@ -11,6 +11,7 @@
 // MAGIC 3.  We will create a shared access policy for the Azure Event Hub instance
 // MAGIC 4.  We will capture the connection string for the primary key for use in Spark
 // MAGIC 5.  We will attach the Spark event hub connector to the cluster
+// MAGIC 6.  We will update the common notebook with credentials for the event hub
 
 // COMMAND ----------
 
@@ -131,3 +132,12 @@
 
 // MAGIC %md
 // MAGIC ![](https://github.com/anagha-microsoft/databricks-workshops/raw/master/msready2019/images/1-aeh-library-attach-4.png)
+
+// COMMAND ----------
+
+// MAGIC %md
+// MAGIC ### 1.6.  Update the common notebook with the Azure Event Hub credentials
+
+// COMMAND ----------
+
+// MAGIC %md Enter the credentials in the notebook so it can be imported into any notebook that requires the credentials.
