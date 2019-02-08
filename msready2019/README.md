@@ -26,15 +26,15 @@ You will learn to:<br>
 # 2.0. Provisioning
 If you are Ready Winter 2019 lab attendee, you can skip this session as the environment will be pre-provisioned for you.<br>
 For everyone else, here is provisioning guidance:<br>
-1.  Create a resource group
-2a. Create a storage account (gen1) in your resource group, same Azure region
-2b. Create containers (staging, raw, curated) - this is detailed in the notebooks.
-3a. Create an Azure Event Hub namespace in your resource group - standard tier with 4 throughput units, same Azure region
-3b. Create an Azure Event Hub within the namespace called nyc-aeh-topic, with 2 partitions
-3c. Create a consumer group called nyc-aeh-topic-streaming-cg
-4a. Create a Databricks workspace in your resource group, same Azure region
-4b. Create a Databricks cluster with 5 workers of SKU standard DS3v2
-The rest of the steps are detailed in the Databricks notebooks.
+1.  Create a resource group<br>
+2a. Create a storage account (gen1) in your resource group, same Azure region<br>
+2b. Create containers (staging, raw, curated) - this is reiterated in the notebooks<br>
+3a. Create an Azure Event Hub namespace in your resource group - standard tier with 4 throughput units, same Azure region<br>
+3b. Create an Azure Event Hub within the namespace called nyc-aeh-topic, with 2 partitions<br>
+3c. Create a consumer group called nyc-aeh-topic-streaming-cg<br>
+4a. Create a Databricks workspace in your resource group, same Azure region<br>
+4b. Create a Databricks cluster with 5 workers of SKU standard DS3v2<br>
+The rest of the steps are detailed in the Databricks notebooks.<br>
 
 # 3.0. What next?
 Import the DBC at https://github.com/anagha-microsoft/databricks-workshops/blob/master/msready2019/dbc/streaming-delta-lab.dbc into your workspace.  The notebooks are numbered, start from the very first notebook and run through all the notebooks.
