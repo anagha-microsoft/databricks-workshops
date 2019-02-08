@@ -19,9 +19,9 @@ You will learn to:<br>
 ## Structured Streaming functionality covered:
 You will learn to:<br>
 1.  Parse and transform events in-flight in a stream from Azure Event Hub
-2.  Joining stream consumed with a static data source in blob storage<br>
-3.  Compute a few aggregation operations like count, average and sum<br>
-4.  Compute windowed aggregations<br>
+2.  Joining stream consumed data with a static data source in blob storage<br>
+3.  Compute a few aggregates like count, average and sum<br>
+4.  Compute windowed aggregates<br>
 5.  Sink to Databricks Delta<br>
 
 # 2.0. Provisioning
