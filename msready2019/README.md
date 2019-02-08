@@ -1,10 +1,11 @@
 # 1.0. About
-This Databricks Spark workshop covers basics of Spark structured streaming on Azure Databricks, with Azure Blob Storage for persistence, with Azure Event Hub as the streaming source, and with Delta as the persistence format. 
+This Databricks Spark workshop covers basics of Spark structured streaming on Azure Databricks, with Azure Blob Storage for persistence, with Azure Event Hub as the streaming source, and with Delta as the persistence format. This is a one hour technical lab with a pre-provisioned emvironment for Microsoft Ready attendees.
 
 ## Public dataset:
 [NYC Taxi public dataset](http://www.nyc.gov/html/tlc/html/about/trip_record_data.shtml)<br>
 Transactional data = 18,878,949 taxi trips from 2017<br>
 Reference data = 65 taxi zones<br>
+We will import this data in the lab from an Azure Blob Storage container<br>
 
 ## Lab tasks at a high level:
 You will learn to:<br>
@@ -39,4 +40,3 @@ The rest of the steps are detailed in the Databricks notebooks.<br>
 # 3.0. What next?
 Import the DBC at https://github.com/anagha-microsoft/databricks-workshops/blob/master/msready2019/dbc/streaming-delta-lab.dbc into your workspace.  The notebooks are numbered, start from the very first notebook and run through all the notebooks.
 
-<br>The Delta lab is a work in progress.
