@@ -9,12 +9,12 @@ We will import this data in the lab from an Azure Blob Storage container<br>
 
 ## Lab tasks at a high level:
 You will learn to:<br>
-1.  Create an event hub instance and consumer group
-2.  Attach the Spark Structured Streaming connector for Azure Event Hub to your cluster<br>
-3.  Stream publish to Azure Event Hub<br>
+1.  Configure storage account credentials, and mount blob storage<br>
+2.  Attach the Spark Structured Streaming connector for Azure Event Hub to your cluster ()<br>
+3.  Stream publish NYC taxi trip transactions to Azure Event Hub<br>
 4.  Stream consume from Azure Event Hub<br>
 5.  Run near-real-time (NRT) analytics on the stream<br>
-6.  Sink to Databricks Delta and understand capabilities of Delta<br>
+6.  Stream sink to Databricks Delta<br>
 
 ## Structured Streaming functionality covered:
 You will learn to:<br>
@@ -34,7 +34,7 @@ For everyone else, here is provisioning guidance:
 2b. Create blob storage containers - staging, raw, curated <br>
 <br>
 3a. Create an Azure Event Hub namespace in your resource group - "standard" tier with 4 throughput units, same Azure region<br>
-3b. Create an Azure Event Hub instance within the namespace called nyc-aeh-topic, with 2 partitions<br>
+3b. Create an Azure Event Hub instance within the namespace called nyc-aeh-topic, with 2 partitions, 1 day retention period<br>
 3c. Create an Azure Event Hub  consumer group called nyc-aeh-topic-streaming-cg within nyc-aeh-topic<br>
 <br>
 4a. Create a Databricks workspace in your resource group, same Azure region<br>
