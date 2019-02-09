@@ -25,7 +25,7 @@ You will learn to:<br>
 5.  Sink to Databricks Delta<br>
 
 # 2.0. Provisioning
-**If you are Ready Winter 2019 lab attendee, you can skip this session as the environment will be pre-provisioned for you**.<br>
+**If you are Ready Winter 2019 lab attendee, you can skip this session as the environment will be pre-provisioned for you**.<br><br>
 For everyone else, here is provisioning guidance:
 <br>
 1a. Create a resource group<br>
