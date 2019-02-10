@@ -73,8 +73,8 @@ val tripSchema = StructType(Array(
 // 2. Read raw
 val yellowTaxiTripsStreamingDF = spark.readStream
                       .schema(tripSchema)
-                      .option("delimiter",",")
-                      .csv("/mnt/workshop/raw/transactional-data/trips/")
+                      .schema(tripSchema)
+                      .load("/mnt/workshop/raw/transactional-data/trips/")
 
 // COMMAND ----------
 
@@ -106,7 +106,7 @@ import org.apache.spark.sql.functions._
 
 // Create a checkpoint directory 
 val dbfsCheckpointDirPath="/mnt/workshop/scratch/checkpoints-producer/"
-dbutils.fs.rm(dbfsCheckpointDirPath, recurse=true)
+#dbutils.fs.rm(dbfsCheckpointDirPath, recurse=true)
 
 // COMMAND ----------
 
@@ -128,3 +128,9 @@ val query = producerDF
     .options(eventHubsConf.toMap)
     .trigger(ProcessingTime("2 seconds"))
     .start()
+
+
+// COMMAND ----------
+
+// MAGIC %md
+// MAGIC **Keep this notebook running for the rest of the lab.**  Proceed to the next notebook.
