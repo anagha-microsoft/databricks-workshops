@@ -133,4 +133,4 @@ val query = producerDF
 // COMMAND ----------
 
 // MAGIC %md
-// MAGIC **Keep this notebook running for the rest of the lab.**  Proceed to the next notebook.
+// MAGIC **Keep this notebook running for the rest of the lab.**  Proceed to the next notebook in a separate browser window.
