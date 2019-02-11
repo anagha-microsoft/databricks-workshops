@@ -1,5 +1,5 @@
 # 1.0. About
-This Databricks Spark workshop covers basics of Spark structured streaming on Azure Databricks, with Azure Blob Storage for persistence, with Azure Event Hub as the streaming source, and with Delta as the persistence format. This is a one hour technical lab with a pre-provisioned emvironment for Microsoft Ready attendees.
+This Databricks Spark workshop covers basics of Spark structured streaming on Azure Databricks, with Azure Blob Storage for persistence, with Azure Event Hub as the streaming source, and with Delta as the persistence format. This is a one hour technical lab with a pre-provisioned environment for Microsoft Ready attendees.
 
 ## Public dataset:
 [NYC Taxi public dataset](http://www.nyc.gov/html/tlc/html/about/trip_record_data.shtml)<br>
@@ -12,7 +12,7 @@ You will learn to:<br>
 1.  Configure storage account credentials, and mount blob storage<br>
 2.  Attach the Spark Structured Streaming connector for Azure Event Hub to your cluster ()<br>
 3.  Stream publish NYC taxi trip transactions to Azure Event Hub<br>
-4.  Stream consume from Azure Event Hub<br>
+4.  Stream consume from an Azure Event Hub consumer group<br>
 5.  Run near-real-time (NRT) analytics on the stream<br>
 6.  Stream sink to Databricks Delta<br>
 
@@ -23,6 +23,7 @@ You will learn to:<br>
 3.  Compute a few aggregates like count, average and sum<br>
 4.  Compute windowed aggregates<br>
 5.  Sink to Databricks Delta<br>
+6.  Query Databricks Delta<br>
 
 # 2.0. Provisioning
 **If you are Ready Winter 2019 lab attendee, you can skip this session as the environment will be pre-provisioned for you**.<br><br>
