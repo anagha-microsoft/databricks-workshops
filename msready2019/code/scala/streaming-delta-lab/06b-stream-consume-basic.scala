@@ -5,6 +5,11 @@
 
 // COMMAND ----------
 
+// MAGIC %md
+// MAGIC **Create table - this will fail unless data exists already in the "location"**  
+
+// COMMAND ----------
+
 // MAGIC %sql
 // MAGIC CREATE DATABASE IF NOT EXISTS taxi_db;
 // MAGIC 
