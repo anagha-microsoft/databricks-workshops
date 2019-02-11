@@ -106,7 +106,7 @@ import org.apache.spark.sql.functions._
 
 // Create a checkpoint directory 
 val dbfsCheckpointDirPath="/mnt/workshop/scratch/checkpoints-producer/"
-#dbutils.fs.rm(dbfsCheckpointDirPath, recurse=true)
+//  dbutils.fs.rm(dbfsCheckpointDirPath, recurse=true)
 
 // COMMAND ----------
 
