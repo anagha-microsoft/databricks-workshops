@@ -100,4 +100,4 @@ consumableStreamingDF.writeStream
 // COMMAND ----------
 
 // MAGIC %md
-// MAGIC **Let this run for 5 minutes:** Proceed to the next notebook to learn to query the Delta table
+// MAGIC **Let this run for 5 minutes:** Proceed to the next notebook to learn to query the Delta table in a separate browser window.
