@@ -73,7 +73,6 @@ val tripSchema = StructType(Array(
 // 2. Read raw
 val yellowTaxiTripsStreamingDF = spark.readStream
                       .schema(tripSchema)
-                      .schema(tripSchema)
                       .load("/mnt/workshop/raw/transactional-data/trips/")
 
 // COMMAND ----------
