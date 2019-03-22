@@ -93,3 +93,7 @@ display(dbutils.fs.ls(destDirectoryRoot))
 
 // MAGIC %sql
 // MAGIC select * from books_db_adlsgen2.books_prq;
+
+// COMMAND ----------
+
+//This is a test
