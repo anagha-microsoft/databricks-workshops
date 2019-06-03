@@ -1,7 +1,6 @@
 # Databricks workshop
 
-For the latest version of the Data Engineering and Machine Learning workshops on the New York Taxi dataset - go to -
-For the latest version of the workshop, go to: https://github.com/Microsoft/Azure-Databricks-NYC-Taxi-Workshop <br>
+For the latest version of the Machine Learning workshops on the New York Taxi dataset - go to -https://github.com/Microsoft/Azure-Databricks-NYC-Taxi-Workshop <br>.  The latest data engineering workshop is available in this repository alone.
 
 This is a multi-part (free) workshop featuring Azure Databricks. It covers basics of working with Azure Data Services from Spark on Databricks with Chicago crimes public dataset, followed by an end-to-end data engineering workshop with the NYC Taxi public dataset, and finally an end-to-end machine learning workshop.  The workshop is offered in Scala and Python.<br>
 
