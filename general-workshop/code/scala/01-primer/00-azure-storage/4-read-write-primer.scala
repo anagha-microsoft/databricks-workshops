@@ -145,6 +145,11 @@ display(dbutils.fs.ls(dbfsDestDirPath))
 
 // COMMAND ----------
 
+val df = spark.sql("select * from crimes_db.chicago_crimes_raw")
+df.printSchema
+
+// COMMAND ----------
+
 // MAGIC %md
 // MAGIC ### 5. Explore the raw dataset
 
@@ -217,7 +222,6 @@ display(dbutils.fs.ls(dbfsDestDirPath))
 // MAGIC CREATE TABLE chicago_crimes_curated
 // MAGIC USING parquet
 // MAGIC OPTIONS (path "/mnt/workshop/curated/crimes/chicago-crimes");
-// MAGIC --USING org.apache.spark.sql.parquet
 // MAGIC 
 // MAGIC MSCK REPAIR TABLE chicago_crimes_curated;
 // MAGIC ANALYZE TABLE chicago_crimes_curated COMPUTE STATISTICS;
