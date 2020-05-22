@@ -6,7 +6,6 @@ The goal of this workshop is deliver a clear understanding of how to provision A
 
 This is a community contribution, so we appreciate feedback and contribution.<br>
 
-For the latest version of the Machine Learning workshops on the New York Taxi dataset - go to -https://github.com/Microsoft/Azure-Databricks-NYC-Taxi-Workshop. <br>  The latest data engineering workshop is available in this repository alone.
 
 ## Target audience:
 Architects and Data engineers<br>
